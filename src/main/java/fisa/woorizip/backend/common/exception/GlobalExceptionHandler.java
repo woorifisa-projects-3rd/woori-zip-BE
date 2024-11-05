@@ -1,13 +1,14 @@
 package fisa.woorizip.backend.common.exception;
 
-
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.INVALID_INPUT;
+
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
 import fisa.woorizip.backend.common.exception.response.ErrorResponse;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -25,8 +26,7 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(WooriZipException.class)
-    public ResponseEntity<ErrorResponse> handleWoohaengshiException(
-            WooriZipException exception) {
+    public ResponseEntity<ErrorResponse> handleWoohaengshiException(WooriZipException exception) {
         ErrorCode errorCode = exception.getErrorCode();
         return ResponseEntity.status(errorCode.getStatus()).body(ErrorResponse.from(errorCode));
     }
@@ -50,16 +50,11 @@ public class GlobalExceptionHandler {
         String requiredType = getRequiredType(exception);
         String propertyName = exception.getPropertyName();
         Object value = exception.getValue();
-        String message = String.format(
-                TYPE_MISMATCH_MESSAGE,
-                propertyName,
-                value,
-                propertyName,
-                requiredType);
+        String message =
+                String.format(
+                        TYPE_MISMATCH_MESSAGE, propertyName, value, propertyName, requiredType);
         return ResponseEntity.status(UNPROCESSABLE_ENTITY)
-                .body(
-                        new ErrorResponse(BAD_REQUEST.value(), message, UNPROCESSABLE_ENTITY.name())
-                );
+                .body(new ErrorResponse(BAD_REQUEST.value(), message, UNPROCESSABLE_ENTITY.name()));
     }
 
     private String getRequiredType(MethodArgumentTypeMismatchException exception) {
@@ -79,10 +74,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleNotSupportedHttpMethodException(
             HttpRequestMethodNotSupportedException exception) {
         String supportedMethods = String.join(", ", exception.getSupportedMethods());
-        String message = String.format(
-                METHOD_NOT_SUPPORTED_FORMAT,
-                exception.getMethod(),
-                supportedMethods);
+        String message =
+                String.format(METHOD_NOT_SUPPORTED_FORMAT, exception.getMethod(), supportedMethods);
         return ResponseEntity.status(METHOD_NOT_ALLOWED)
                 .body(
                         new ErrorResponse(
@@ -96,8 +89,7 @@ public class GlobalExceptionHandler {
                 .body(
                         new ErrorResponse(
                                 INVALID_INPUT.getStatus().value(),
-                                String.format(
-                                        "잘못된 입력 형식입니다. 에러 메세지 => %s", exception.getMessage()),
+                                String.format("잘못된 입력 형식입니다. 에러 메세지 => %s", exception.getMessage()),
                                 INVALID_INPUT.name()));
     }
 }

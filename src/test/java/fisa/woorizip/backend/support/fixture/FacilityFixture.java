@@ -65,5 +65,4 @@ public class FacilityFixture {
                 .longitude(longitude)
                 .build();
     }
-
 }
