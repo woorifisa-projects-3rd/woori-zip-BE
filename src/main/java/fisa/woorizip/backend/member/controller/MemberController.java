@@ -1,7 +1,9 @@
 package fisa.woorizip.backend.member.controller;
 
 import fisa.woorizip.backend.member.service.MemberService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,5 +13,4 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
     private final MemberService memberService;
-
 }

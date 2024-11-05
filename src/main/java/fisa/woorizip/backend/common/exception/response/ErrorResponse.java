@@ -1,9 +1,12 @@
 package fisa.woorizip.backend.common.exception.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
+
 import lombok.Builder;
 import lombok.Getter;
+
 import org.springframework.validation.FieldError;
 
 import java.util.List;
@@ -19,7 +22,8 @@ public class ErrorResponse {
     private List<ValidErrorResponse> errors;
 
     @Builder
-    private ErrorResponse(int status, String message, String name, List<ValidErrorResponse> errors) {
+    private ErrorResponse(
+            int status, String message, String name, List<ValidErrorResponse> errors) {
         this.status = status;
         this.message = message;
         this.name = name;

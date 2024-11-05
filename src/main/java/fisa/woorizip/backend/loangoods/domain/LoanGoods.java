@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,5 +40,4 @@ public class LoanGoods {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "loan_goods_type", nullable = false)
     private LoanGoodsType loanGoodsType;
-
 }

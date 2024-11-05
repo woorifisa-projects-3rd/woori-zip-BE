@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.common.exception.response;
 
 import lombok.Getter;
+
 import org.springframework.validation.FieldError;
 
 @Getter

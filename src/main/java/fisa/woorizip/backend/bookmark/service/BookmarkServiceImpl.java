@@ -1,7 +1,9 @@
 package fisa.woorizip.backend.bookmark.service;
 
 import fisa.woorizip.backend.bookmark.repository.BookmarkRepository;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

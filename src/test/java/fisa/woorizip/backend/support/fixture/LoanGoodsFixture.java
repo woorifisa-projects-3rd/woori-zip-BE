@@ -56,5 +56,4 @@ public class LoanGoodsFixture {
                 .loanGoodsType(loanGoodsType)
                 .build();
     }
-
 }

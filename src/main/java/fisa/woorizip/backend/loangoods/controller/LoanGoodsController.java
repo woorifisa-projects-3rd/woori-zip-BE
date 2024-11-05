@@ -1,7 +1,9 @@
 package fisa.woorizip.backend.loangoods.controller;
 
 import fisa.woorizip.backend.loangoods.service.LoanGoodsService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,5 +13,4 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoanGoodsController {
 
     private final LoanGoodsService loanGoodsService;
-
 }

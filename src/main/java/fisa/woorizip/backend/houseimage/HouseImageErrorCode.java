@@ -1,7 +1,9 @@
 package fisa.woorizip.backend.houseimage;
 
 import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
+
 import lombok.Getter;
+
 import org.springframework.http.HttpStatus;
 
 @Getter

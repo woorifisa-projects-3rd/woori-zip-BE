@@ -4,7 +4,6 @@ import lombok.Getter;
 
 @Getter
 public enum Category {
-
     FOOD("요식업");
 
     private final String name;
