@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     }
 
     List<String> ENUM_CLASSES =
-            List.of("Category", "Course", "State", "StatisticsType", "DefaultSubject");
+            List.of("Category", "HouseType", "HousingExpenses", "LoanGoodsType");
     String TYPE_MISMATCH_MESSAGE = "%s의 입력 값으로 %s는 type이 맞지 않습니다. %s의 type은 %s여야 합니다.";
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
