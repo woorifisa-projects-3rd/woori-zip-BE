@@ -1,16 +1,14 @@
 package fisa.woorizip.backend.member.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -31,4 +29,20 @@ public class Member {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "birthday")
+    private LocalDate birthday;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "earnings_type")
+    private EarningsType earningsType;
+
+    @Column(name = "earnings_fee")
+    private Long earningsFee;
+
+    @Column(name = "credit_score")
+    private Integer creditScore;
+
+    @Column(name = "debt", nullable = false)
+    private long debt;
 }

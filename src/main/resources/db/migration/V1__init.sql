@@ -89,10 +89,15 @@ CREATE TABLE IF NOT EXISTS `house_image`
 
 CREATE TABLE IF NOT EXISTS `member`
 (
-    `id`       BIGINT       NOT NULL auto_increment,
-    `username` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `name`     VARCHAR(255) NOT NULL,
+    `id`            BIGINT       NOT NULL auto_increment,
+    `username`      VARCHAR(255) NOT NULL,
+    `password`      VARCHAR(255) NOT NULL,
+    `name`          VARCHAR(255) NOT NULL,
+    `birthday`      DATE,
+    `earnings_type` VARCHAR(255),
+    `earnings_fee`  BIGINT,
+    `credit_score`  MEDIUMINT,
+    `debt`          BIGINT       NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
