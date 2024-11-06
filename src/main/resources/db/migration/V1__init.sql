@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `member`
     `earnings_type` VARCHAR(255),
     `earnings_fee`  BIGINT,
     `credit_score`  MEDIUMINT,
-    `debt`          BIGINT       NOT NULL,
+    `debt`          BIGINT       NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 )
     engine = innodb
