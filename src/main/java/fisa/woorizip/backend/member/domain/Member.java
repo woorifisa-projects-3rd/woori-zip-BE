@@ -43,6 +43,6 @@ public class Member {
     @Column(name = "credit_score")
     private Integer creditScore;
 
-    @Column(name = "debt", nullable = false)
+    @Column(name = "debt", nullable = false, columnDefinition = "BIGINT DEFAULT 0")
     private long debt;
 }
