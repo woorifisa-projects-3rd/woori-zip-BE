@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `loan_goods`
 (
     `id`              BIGINT       NOT NULL auto_increment,
     `name`            VARCHAR(255) NOT NULL,
-    `image_url`       VARCHAR(255) NOT NULL,
+    `image_url`       VARCHAR(255),
     `description`     TEXT         NOT NULL,
     `content`         TEXT         NOT NULL,
     `loan_goods_type` VARCHAR(255) NOT NULL,
