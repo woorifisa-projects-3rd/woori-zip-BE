@@ -116,20 +116,3 @@ CREATE TABLE IF NOT EXISTS `bookmark`
     auto_increment = 1
     DEFAULT charset = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
-
-DELIMITER //
-
-CREATE TRIGGER set_order_index
-BEFORE INSERT ON house_image
-FOR EACH ROW
-BEGIN
-    DECLARE max_order MEDIUMINT;
-
-    SELECT COALESCE(MAX(order_index), 0) + 1 INTO max_order
-    FROM house_image
-    WHERE house_id = NEW.house_id;
-
-    SET NEW.order_index = max_order;
-END//
-
-DELIMITER ;
