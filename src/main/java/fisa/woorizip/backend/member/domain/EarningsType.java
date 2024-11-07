@@ -11,5 +11,7 @@ public enum EarningsType {
 
     private final String name;
 
-    EarningsType(String name) { this.name = name; }
+    EarningsType(String name) {
+        this.name = name;
+    }
 }
