@@ -116,3 +116,41 @@ CREATE TABLE IF NOT EXISTS `bookmark`
     auto_increment = 1
     DEFAULT charset = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `recently_loan_goods`
+(
+    `id`             BIGINT    NOT NULL auto_increment,
+    `member_id`      BIGINT    NOT NULL,
+    `loan_goods_id`  BIGINT    NOT NULL,
+    `looked_at`      TIMESTAMP NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `loan_check_list`
+(
+    `id`          BIGINT       NOT NULL auto_increment,
+    `order_index` MEDIUMINT    NOT NULL,
+    `content`     VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `log`
+(
+    `id`         BIGINT    NOT NULL auto_increment,
+    `member_id`  BIGINT    NOT NULL,
+    `action`     TEXT      NOT NULL,
+    `created_at` TIMESTAMP NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
