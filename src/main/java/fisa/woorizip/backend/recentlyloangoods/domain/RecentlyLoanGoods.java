@@ -2,7 +2,9 @@ package fisa.woorizip.backend.recentlyloangoods.domain;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.member.domain.Member;
+
 import jakarta.persistence.*;
+
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -26,6 +28,9 @@ public class RecentlyLoanGoods {
     @JoinColumn(name = "loan_goods_id", nullable = false)
     private LoanGoods loanGoods;
 
-    @Column(name = "looked_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(
+            name = "looked_at",
+            nullable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime lookedAt;
 }

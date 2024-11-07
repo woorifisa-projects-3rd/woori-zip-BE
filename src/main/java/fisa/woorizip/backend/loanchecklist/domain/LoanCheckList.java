@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.loanchecklist.domain;
 
 import jakarta.persistence.*;
+
 import lombok.*;
 
 @Entity
