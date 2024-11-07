@@ -45,4 +45,8 @@ public class Member {
 
     @Column(name = "debt", nullable = false, columnDefinition = "BIGINT DEFAULT 0")
     private long debt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
 }
