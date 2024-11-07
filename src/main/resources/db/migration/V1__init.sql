@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `recently_loan_goods`
     `id`             BIGINT    NOT NULL auto_increment,
     `member_id`      BIGINT    NOT NULL,
     `loan_goods_id`  BIGINT    NOT NULL,
-    `looked_at`      TIMESTAMP NOT NULL,
+    `looked_at`      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 )
     engine = innodb
