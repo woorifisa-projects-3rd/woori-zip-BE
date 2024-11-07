@@ -45,4 +45,7 @@ public class Facility {
 
     @Column(name = "longitude", nullable = false)
     private BigDecimal longitude;
+
+    @Column(name = "address", nullable = false)
+    private String address;
 }

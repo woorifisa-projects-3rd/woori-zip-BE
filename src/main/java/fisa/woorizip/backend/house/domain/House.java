@@ -1,12 +1,8 @@
 package fisa.woorizip.backend.house.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import fisa.woorizip.backend.member.domain.Member;
+
+import jakarta.persistence.*;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,8 +24,15 @@ public class House {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
+
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "address", nullable = false)
+    private String address;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "housing_expenses", nullable = false)
