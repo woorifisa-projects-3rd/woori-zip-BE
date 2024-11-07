@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `facility`
     `longitude`   DECIMAL(9,6) NOT NULL,
     `gu`          VARCHAR(255) NOT NULL,
     `dong`        VARCHAR(255) NOT NULL,
+    `address`     VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
@@ -32,7 +33,9 @@ CREATE TABLE IF NOT EXISTS `facility`
 CREATE TABLE IF NOT EXISTS `house`
 (
     `id`                       BIGINT       NOT NULL auto_increment,
+    `member_id`                BIGINT       NOT NULL,
     `name`                     VARCHAR(255) NOT NULL,
+    `address`                  VARCHAR(255) NOT NULL,
     `house_type`               VARCHAR(255) NOT NULL,
     `housing_expenses`         VARCHAR(255) NOT NULL,
     `latitude`                 DECIMAL(9,6) NOT NULL,
@@ -98,6 +101,7 @@ CREATE TABLE IF NOT EXISTS `member`
     `earnings_fee`  BIGINT,
     `credit_score`  MEDIUMINT,
     `debt`          BIGINT       NOT NULL DEFAULT 0,
+    `role`          VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
@@ -146,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `log`
 (
     `id`         BIGINT    NOT NULL auto_increment,
     `member_id`  BIGINT    NOT NULL,
-    `action`     TEXT      NOT NULL,
+    `content`    TEXT      NOT NULL,
     `created_at` TIMESTAMP NOT NULL,
     PRIMARY KEY (`id`)
 )
