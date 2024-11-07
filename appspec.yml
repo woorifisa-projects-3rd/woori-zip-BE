@@ -2,8 +2,8 @@ version: 0.0
 os: linux
 
 files:
-  - source:  /
-    destination: /home/ubuntu/app
+  - source: /
+    destination: /home/ubuntu/woori-zip-BE
     overwrite: yes
 
 permissions:
