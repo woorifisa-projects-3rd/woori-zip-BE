@@ -25,7 +25,7 @@ public class MemberController {
     private static final String DEFAULT_ROLE = "MEMBER";
 
     @PostMapping("/sign-up")
-    public ResponseEntity<Void> signUp(@RequestBody @Valid SignUpRequest signUpRequest, @RequestParam(defaultValue = DEFAULT_ROLE) Role role) {
+    public ResponseEntity<Void> signUp(@RequestBody @Valid SignUpRequest signUpRequest, @RequestParam(name = "role", defaultValue = DEFAULT_ROLE) Role role) {
         memberService.signUp(signUpRequest, role);
         return ResponseEntity.created(URI.create("/api/v1/sign-in")).build();
     }
