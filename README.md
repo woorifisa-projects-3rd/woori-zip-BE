@@ -16,20 +16,17 @@
 
 ## application.yml
 ```yaml
-pring:
+spring:
   server:
-    port: 8080
     servlet:
       encoding:
         charset: utf-8
         force: true
-
-  spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABAE_PASSWORD}
+    url: jdbc:mysql://localhost:3306/woori_zip
+    username: fisa_fire
+    password: 1234
   jpa:
     hibernate:
       ddl-auto: validate
