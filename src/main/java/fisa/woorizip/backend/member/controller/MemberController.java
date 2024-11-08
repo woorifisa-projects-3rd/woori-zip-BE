@@ -5,6 +5,7 @@ import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.service.MemberService;
 
 import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -25,10 +26,10 @@ public class MemberController {
     private static final String DEFAULT_ROLE = "MEMBER";
 
     @PostMapping("/sign-up")
-    public ResponseEntity<Void> signUp(@RequestBody @Valid SignUpRequest signUpRequest, @RequestParam(defaultValue = DEFAULT_ROLE) Role role) {
+    public ResponseEntity<Void> signUp(
+            @RequestBody @Valid SignUpRequest signUpRequest,
+            @RequestParam(defaultValue = DEFAULT_ROLE) Role role) {
         memberService.signUp(signUpRequest, role);
         return ResponseEntity.created(URI.create("/api/v1/sign-in")).build();
     }
-
-
 }
