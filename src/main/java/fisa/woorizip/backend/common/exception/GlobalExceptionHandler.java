@@ -2,8 +2,8 @@ package fisa.woorizip.backend.common.exception;
 
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.HTTP_METHOD_NOT_ALLOWED;
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.INVALID_INPUT;
-
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.RESOURCE_NOT_FOUND;
+
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
@@ -12,6 +12,7 @@ import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
 import fisa.woorizip.backend.common.exception.response.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -76,10 +77,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ErrorResponse> handleNotSupportedHttpMethodException(
             HttpRequestMethodNotSupportedException exception) {
-        String supportedMethods = Arrays.stream(exception.getSupportedMethods()).collect(Collectors.joining(", "));
+        String supportedMethods =
+                Arrays.stream(exception.getSupportedMethods()).collect(Collectors.joining(", "));
         String message =
-                String.format(HTTP_METHOD_NOT_ALLOWED.getMessage(), exception.getMethod(), supportedMethods);
-        return ResponseEntity.status(HTTP_METHOD_NOT_ALLOWED.getStatus()).body(ErrorResponse.of(HTTP_METHOD_NOT_ALLOWED, message));
+                String.format(
+                        HTTP_METHOD_NOT_ALLOWED.getMessage(),
+                        exception.getMethod(),
+                        supportedMethods);
+        return ResponseEntity.status(HTTP_METHOD_NOT_ALLOWED.getStatus())
+                .body(ErrorResponse.of(HTTP_METHOD_NOT_ALLOWED, message));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -94,18 +100,24 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNoResourceFoundException(NoResourceFoundException exception) {
+    public ResponseEntity<ErrorResponse> handleNoResourceFoundException(
+            NoResourceFoundException exception) {
         String resourcePath = exception.getResourcePath();
         HttpMethod httpMethod = exception.getHttpMethod();
-        String message = String.format(RESOURCE_NOT_FOUND.getMessage(), httpMethod.name(), resourcePath);
-        return ResponseEntity.status(RESOURCE_NOT_FOUND.getStatus()).body(ErrorResponse.of(RESOURCE_NOT_FOUND, message));
-
+        String message =
+                String.format(RESOURCE_NOT_FOUND.getMessage(), httpMethod.name(), resourcePath);
+        return ResponseEntity.status(RESOURCE_NOT_FOUND.getStatus())
+                .body(ErrorResponse.of(RESOURCE_NOT_FOUND, message));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception exception) {
         log.error(exception.getMessage(), exception);
         return ResponseEntity.status(INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse(INTERNAL_SERVER_ERROR.value(), exception.getMessage(), INTERNAL_SERVER_ERROR.name()));
+                .body(
+                        new ErrorResponse(
+                                INTERNAL_SERVER_ERROR.value(),
+                                exception.getMessage(),
+                                INTERNAL_SERVER_ERROR.name()));
     }
 }
