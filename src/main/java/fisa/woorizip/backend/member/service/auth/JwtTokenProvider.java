@@ -83,14 +83,14 @@ public class JwtTokenProvider {
         }
     }
 
-    public Jws<Claims> getClaimsJwt(String token) {
+    private Jws<Claims> getClaimsJwt(String token) {
         return Jwts.parser().verifyWith(key).requireIssuer(ISSUER).build().parseClaimsJws(token);
     }
 
     public MemberIdentity getMemberIdentity(String token) {
         try {
             Claims payload = getClaimsJwt(token).getPayload();
-            return new MemberIdentity(payload.get(MEMBER_ID, Long.class), payload.get(MEMBER_ROLE, Role.class));
+            return new MemberIdentity(payload.get(MEMBER_ID, Long.class), payload.get(MEMBER_ROLE, String.class));
         } catch (RequiredTypeException e) {
             throw new WooriZipException(INVALID_CLAIM_TYPE);
         }
