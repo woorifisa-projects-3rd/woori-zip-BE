@@ -13,3 +13,33 @@
 | 김혜빈  | 지도 API |
 | 이성희  | 인프라 구축 |
 | 정석진  | 소비 패턴 분석 API, 집 상세 조회 API |
+
+## application.yml
+```yaml
+pring:
+  server:
+    port: 8080
+    servlet:
+      encoding:
+        charset: utf-8
+        force: true
+
+  spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABAE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  aop:
+    proxy-target-class: false
+```
