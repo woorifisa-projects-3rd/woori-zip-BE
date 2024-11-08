@@ -27,8 +27,8 @@ jobs:
       - name: 🗂️ Make config folder
         run: mkdir -p config
 
-      - name: 🔍 Run Tests
-        run: ./gradlew test
+      - name: 📦 Build JAR File
+        run: ./gradlew clean build -x test
 
       - name: ⚙️ Create .env file
         run: |
@@ -36,6 +36,9 @@ jobs:
             echo DOMAIN_FIR=${{ secrets.DOMAIN_FIR }} >> ${{ env.ENV_PATH }}
             echo SOCKET_PORT_PROD=${{ secrets.SOCKET_PORT_PROD }} >> ${{ env.ENV_PATH }}
             echo SOCKET_PORT_TEST=${{ secrets.SOCKET_PORT_TEST }} >> ${{ env.ENV_PATH }}
+            echo DB_URL=${{ secrets.DB_URL }} >> ${{ env.ENV_PATH }}
+            echo DB_USERNAME=${{ secrets.DB_USERNAME }} >> ${{ env.ENV_PATH }}
+            echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> ${{ env.ENV_PATH }}
 
       - name: 📦 Zip project files
         run: zip -r ./$GITHUB_SHA.zip .

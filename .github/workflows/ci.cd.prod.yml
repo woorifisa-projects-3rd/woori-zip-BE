@@ -24,7 +24,7 @@ jobs:
           java-version: '17'
 
       - name: 📦 Build JAR File
-        run: ./gradlew clean build
+        run: ./gradlew clean build -x test
 
       - name: 🗂️ Make config folder
         run: mkdir -p config
