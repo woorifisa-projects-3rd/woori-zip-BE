@@ -1,5 +1,6 @@
 package fisa.woorizip.backend.member.controller.auth;
 
+import fisa.woorizip.backend.member.dto.result.RefreshTokenResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.server.Cookie;
@@ -15,8 +16,8 @@ public class CookieProvider {
     @Value("${security.refresh.expiration}")
     private Long expirationSeconds;
 
-    public ResponseCookie createRefreshTokenCookie(String refreshToken) {
-        return createBaseRefreshTokenCookie(refreshToken).maxAge(expirationSeconds).build();
+    public ResponseCookie createRefreshTokenCookie(RefreshTokenResult refreshToken) {
+        return createBaseRefreshTokenCookie(refreshToken.getValue()).maxAge(refreshToken.getExpirationSeconds()).build();
     }
 
     private ResponseCookie.ResponseCookieBuilder createBaseRefreshTokenCookie(String cookieValue) {
