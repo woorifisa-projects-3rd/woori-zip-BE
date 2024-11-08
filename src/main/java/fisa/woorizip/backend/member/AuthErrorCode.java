@@ -19,7 +19,8 @@ public enum AuthErrorCode implements ErrorCode {
     INVALID_CLAIM_TYPE(UNAUTHORIZED, "토큰의 claim값은 Long 타입이어야 합니다"),
     NOT_EXIST_ACCESS_TOKEN(UNAUTHORIZED, "액세스 토큰이 존재하지 않습니다."),
     INCORRECT_CONSTRUCT_HEADER(UNAUTHORIZED, "잘못된 형식의 인증 헤더입니다."),
-    INSUFFICIENT_PERMISSIONS(FORBIDDEN, "접근 권한이 잘못되었습니다.");
+    INSUFFICIENT_PERMISSIONS(FORBIDDEN, "접근 권한이 잘못되었습니다."),
+    FAIL_TO_SIGN_IN(UNAUTHORIZED, "로그인에 실패했습니다.");
 
     private final HttpStatus status;
     private final String message;
