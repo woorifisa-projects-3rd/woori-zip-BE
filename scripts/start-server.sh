@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 포트 번호 설정
-export SOCKET_PORT_PROD=8081
+export SOCKET_PORT_PROD=8080
 export SOCKET_PORT_TEST=8081
 
 # JAR 파일 위치로 이동
