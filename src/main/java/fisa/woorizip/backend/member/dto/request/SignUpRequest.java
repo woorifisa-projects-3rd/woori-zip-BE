@@ -4,6 +4,7 @@ import fisa.woorizip.backend.member.domain.EarningsType;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Role;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import lombok.Getter;
 
@@ -22,9 +23,9 @@ public class SignUpRequest {
     private LocalDate birthday;
     @NotBlank
     private String earningsType;
-    @NotBlank
+    @NotNull
     private Long earningsFee;
-    @NotBlank
+    @NotNull
     private Integer creditScore;
 
     private long debt;
