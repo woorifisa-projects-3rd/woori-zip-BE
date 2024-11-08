@@ -9,8 +9,8 @@ public class MemberIdentity {
     private final Long id;
     private final Role role;
 
-    public MemberIdentity(Long id, Role role) {
+    public MemberIdentity(Long id, String role) {
         this.id = id;
-        this.role = role;
+        this.role = Role.from(role);
     }
 }
