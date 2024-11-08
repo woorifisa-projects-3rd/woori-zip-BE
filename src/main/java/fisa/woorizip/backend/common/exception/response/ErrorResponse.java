@@ -36,6 +36,14 @@ public class ErrorResponse {
         this.name = name;
     }
 
+    public static ErrorResponse of(ErrorCode errorCode, String message) {
+        return ErrorResponse.builder()
+                .status(errorCode.getStatus().value())
+                .message(message)
+                .name(errorCode.name())
+                .build();
+    }
+
     public static ErrorResponse from(ErrorCode errorCode) {
         return ErrorResponse.builder()
                 .status(errorCode.getStatus().value())
@@ -44,7 +52,7 @@ public class ErrorResponse {
                 .build();
     }
 
-    public static ErrorResponse of(List<FieldError> errors, ErrorCode errorCode) {
+    public static ErrorResponse of(ErrorCode errorCode, List<FieldError> errors) {
         return ErrorResponse.builder()
                 .status(errorCode.getStatus().value())
                 .message(errorCode.getMessage())
