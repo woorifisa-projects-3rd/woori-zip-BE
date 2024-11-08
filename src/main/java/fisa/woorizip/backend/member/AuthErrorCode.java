@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @Getter
@@ -20,7 +21,8 @@ public enum AuthErrorCode implements ErrorCode {
     NOT_EXIST_ACCESS_TOKEN(UNAUTHORIZED, "액세스 토큰이 존재하지 않습니다."),
     INCORRECT_CONSTRUCT_HEADER(UNAUTHORIZED, "잘못된 형식의 인증 헤더입니다."),
     INSUFFICIENT_PERMISSIONS(FORBIDDEN, "접근 권한이 잘못되었습니다."),
-    FAIL_TO_SIGN_IN(UNAUTHORIZED, "로그인에 실패했습니다.");
+    FAIL_TO_SIGN_IN(UNAUTHORIZED, "로그인에 실패했습니다."),
+    REFRESH_TOKEN_NOT_FOUND(NOT_FOUND, "Refresh Token을 찾을 수 없습니다.");
 
     private final HttpStatus status;
     private final String message;

@@ -6,4 +6,6 @@ import fisa.woorizip.backend.member.dto.result.SignInResult;
 public interface AuthService {
 
     SignInResult signIn(final SignInRequest signInRequest);
+
+    void signOut(String refreshToken);
 }

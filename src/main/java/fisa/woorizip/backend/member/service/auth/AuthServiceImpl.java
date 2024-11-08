@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static fisa.woorizip.backend.member.AuthErrorCode.FAIL_TO_SIGN_IN;
+import static fisa.woorizip.backend.member.AuthErrorCode.REFRESH_TOKEN_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
+import static java.util.Objects.isNull;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +37,20 @@ public class AuthServiceImpl implements AuthService {
         refreshTokenRepository.deleteAllByMemberId(member.getId());
         final RefreshToken refreshToken = refreshTokenRepository.save(createRefreshToken(member));
         return SignInResult.of(refreshToken, accessToken, member, expirationSeconds);
+    }
+
+    @Override
+    @Transactional
+    public void signOut(String refreshToken) {
+        if (!isNull(refreshToken)) {
+            refreshTokenRepository.delete(findRefreshToken(refreshToken));
+        }
+    }
+
+    private RefreshToken findRefreshToken(String refreshToken) {
+        return refreshTokenRepository
+                .findByValue(refreshToken)
+                .orElseThrow(() -> new WooriZipException(REFRESH_TOKEN_NOT_FOUND));
     }
 
     private RefreshToken createRefreshToken(final Member member) {
