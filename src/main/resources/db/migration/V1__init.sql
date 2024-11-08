@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `house`
     `id`                       BIGINT       NOT NULL auto_increment,
     `member_id`                BIGINT       NOT NULL,
     `name`                     VARCHAR(255) NOT NULL,
+    `comment`                  VARCHAR(255) NOT NULL,
     `address`                  VARCHAR(255) NOT NULL,
     `house_type`               VARCHAR(255) NOT NULL,
     `housing_expenses`         VARCHAR(255) NOT NULL,

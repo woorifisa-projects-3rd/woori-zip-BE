@@ -31,6 +31,9 @@ public class House {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "comment", nullable = false)
+    private String comment;
+
     @Column(name = "address", nullable = false)
     private String address;
 
