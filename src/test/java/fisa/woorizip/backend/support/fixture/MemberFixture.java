@@ -6,7 +6,7 @@ import fisa.woorizip.backend.member.domain.Role;
 public class MemberFixture {
 
     private Long id;
-    private String username = "rlfrkdms1@naver.com";
+    private String username = "rlfrkdms1";
     private String password = "password12!@";
     private String name = "길가은";
     private Role role = Role.MEMBER;
