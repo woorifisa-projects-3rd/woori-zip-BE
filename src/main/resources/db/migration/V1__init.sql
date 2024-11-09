@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `loan_goods`
 (
     `id`              BIGINT       NOT NULL auto_increment,
     `name`            VARCHAR(255) NOT NULL,
-    `image_url`       VARCHAR(255) NOT NULL,
+    `image_url`       VARCHAR(255),
     `description`     TEXT         NOT NULL,
     `content`         TEXT         NOT NULL,
     `loan_goods_type` VARCHAR(255) NOT NULL,
@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `facility`
     `longitude`   DECIMAL(9,6) NOT NULL,
     `gu`          VARCHAR(255) NOT NULL,
     `dong`        VARCHAR(255) NOT NULL,
+    `address`     VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
@@ -32,7 +33,9 @@ CREATE TABLE IF NOT EXISTS `facility`
 CREATE TABLE IF NOT EXISTS `house`
 (
     `id`                       BIGINT       NOT NULL auto_increment,
+    `member_id`                BIGINT       NOT NULL,
     `name`                     VARCHAR(255) NOT NULL,
+    `address`                  VARCHAR(255) NOT NULL,
     `house_type`               VARCHAR(255) NOT NULL,
     `housing_expenses`         VARCHAR(255) NOT NULL,
     `latitude`                 DECIMAL(9,6) NOT NULL,
@@ -89,10 +92,16 @@ CREATE TABLE IF NOT EXISTS `house_image`
 
 CREATE TABLE IF NOT EXISTS `member`
 (
-    `id`       BIGINT       NOT NULL auto_increment,
-    `username` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `name`     VARCHAR(255) NOT NULL,
+    `id`            BIGINT       NOT NULL auto_increment,
+    `username`      VARCHAR(255) NOT NULL,
+    `password`      VARCHAR(255) NOT NULL,
+    `name`          VARCHAR(255) NOT NULL,
+    `birthday`      DATE,
+    `earnings_type` VARCHAR(255),
+    `earnings_fee`  BIGINT,
+    `credit_score`  MEDIUMINT,
+    `debt`          BIGINT       NOT NULL DEFAULT 0,
+    `role`          VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
@@ -105,6 +114,44 @@ CREATE TABLE IF NOT EXISTS `bookmark`
     `id`        BIGINT NOT NULL auto_increment,
     `member_id` BIGINT NOT NULL,
     `house_id`  BIGINT NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `recently_loan_goods`
+(
+    `id`             BIGINT    NOT NULL auto_increment,
+    `member_id`      BIGINT    NOT NULL,
+    `loan_goods_id`  BIGINT    NOT NULL,
+    `looked_at`      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `loan_check_list`
+(
+    `id`          BIGINT       NOT NULL auto_increment,
+    `order_index` MEDIUMINT    NOT NULL,
+    `content`     VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `log`
+(
+    `id`         BIGINT    NOT NULL auto_increment,
+    `member_id`  BIGINT    NOT NULL,
+    `content`    TEXT      NOT NULL,
+    `created_at` TIMESTAMP NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb

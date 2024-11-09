@@ -34,7 +34,7 @@ public class LoanGoods {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "image_url")
     private String imageUrl;
 
     @Enumerated(value = EnumType.STRING)
