@@ -40,3 +40,19 @@ spring:
   aop:
     proxy-target-class: false
 ```
+
+## Drop Table Query
+```SQL
+DROP TABLE bookmark;
+DROP TABLE facility;
+DROP TABLE house;
+DROP TABLE house_facility_relation;
+DROP TABLE house_image;
+DROP TABLE loan_goods;
+DROP TABLE member;
+DROP TABLE flyway_schema_history;
+DROP TABLE loan_check_list;
+DROP TABLE log;
+DROP TABLE recently_loan_goods;
+show tables;
+```
