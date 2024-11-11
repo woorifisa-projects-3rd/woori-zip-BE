@@ -1,6 +1,7 @@
-package fisa.woorizip.backend.house.dto;
+package fisa.woorizip.backend.house.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import fisa.woorizip.backend.house.dto.response.FacilityResponse;
 import lombok.Getter;
 
 import java.math.BigDecimal;

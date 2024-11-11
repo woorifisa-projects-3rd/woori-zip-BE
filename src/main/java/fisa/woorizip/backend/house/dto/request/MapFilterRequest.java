@@ -1,8 +1,9 @@
-package fisa.woorizip.backend.house.dto;
+package fisa.woorizip.backend.house.dto.request;
 
 import fisa.woorizip.backend.facility.domain.Category;
 import fisa.woorizip.backend.house.domain.HouseType;
 import fisa.woorizip.backend.house.domain.HousingExpenses;
+import fisa.woorizip.backend.house.dto.MapLevel;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;

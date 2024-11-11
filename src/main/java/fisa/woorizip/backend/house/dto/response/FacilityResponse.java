@@ -1,4 +1,4 @@
-package fisa.woorizip.backend.house.dto;
+package fisa.woorizip.backend.house.dto.response;
 
 import fisa.woorizip.backend.facility.domain.Facility;
 import lombok.Getter;
