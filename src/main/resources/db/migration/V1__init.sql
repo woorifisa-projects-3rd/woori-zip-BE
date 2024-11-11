@@ -158,3 +158,16 @@ CREATE TABLE IF NOT EXISTS `log`
     auto_increment = 1
     DEFAULT charset = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `refresh_token`
+(
+    `id`         BIGINT       NOT NULL auto_increment,
+    `member_id`  BIGINT       NOT NULL,
+    `value`      VARCHAR(255) NOT NULL,
+    `expired_at` TIMESTAMP    NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
