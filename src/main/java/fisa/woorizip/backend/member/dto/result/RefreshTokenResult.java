@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.member.dto.result;
 
 import fisa.woorizip.backend.member.domain.RefreshToken;
+
 import lombok.Builder;
 import lombok.Getter;
 

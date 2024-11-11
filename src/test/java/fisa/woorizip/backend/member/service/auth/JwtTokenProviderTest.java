@@ -1,14 +1,15 @@
 package fisa.woorizip.backend.member.service.auth;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
-import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class JwtTokenProviderTest {
 
@@ -16,7 +17,6 @@ class JwtTokenProviderTest {
             "55e32f10a70c4362a393055896bb17c955e32f10a70c4362a393055896bb17c9";
     private static final Long accessExpiration = 100000L;
     private Member member = MemberFixture.builder().id(1L).build();
-
 
     @Test
     void 유효기간이_지난_토큰은_예외를_던진다() {
@@ -40,7 +40,6 @@ class JwtTokenProviderTest {
         MemberIdentity memberIdentity = jwtTokenProvider.getMemberIdentity(accessToken);
         assertAll(
                 () -> assertThat(memberIdentity.getId()).isEqualTo(member.getId()),
-                () -> assertThat(memberIdentity.getRole()).isEqualTo(member.getRole())
-        );
+                () -> assertThat(memberIdentity.getRole()).isEqualTo(member.getRole()));
     }
 }

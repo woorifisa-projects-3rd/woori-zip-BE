@@ -2,6 +2,7 @@ package fisa.woorizip.backend.common.config;
 
 import fisa.woorizip.backend.member.controller.auth.AuthArgumentResolver;
 import fisa.woorizip.backend.member.controller.auth.AuthInterceptor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

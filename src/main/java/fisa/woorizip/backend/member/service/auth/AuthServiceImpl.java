@@ -1,5 +1,11 @@
 package fisa.woorizip.backend.member.service.auth;
 
+import static fisa.woorizip.backend.member.AuthErrorCode.FAIL_TO_SIGN_IN;
+import static fisa.woorizip.backend.member.AuthErrorCode.REFRESH_TOKEN_NOT_FOUND;
+import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
+
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.RefreshToken;
@@ -7,16 +13,13 @@ import fisa.woorizip.backend.member.dto.request.SignInRequest;
 import fisa.woorizip.backend.member.dto.result.SignInResult;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.member.repository.RefreshTokenRepository;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static fisa.woorizip.backend.member.AuthErrorCode.FAIL_TO_SIGN_IN;
-import static fisa.woorizip.backend.member.AuthErrorCode.REFRESH_TOKEN_NOT_FOUND;
-import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
-import static java.util.Objects.isNull;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +27,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Value("${security.refresh.expiration}")
     private Long expirationSeconds;
+
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenRepository refreshTokenRepository;
@@ -70,7 +74,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private Member findMemberByUsername(final String username) {
-        return memberRepository.findByUsername(username).orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
+        return memberRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
     }
-
 }

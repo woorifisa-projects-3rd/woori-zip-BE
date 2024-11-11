@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.member.controller.auth;
 
 import fisa.woorizip.backend.member.domain.Role;
+
 import lombok.Getter;
 
 @Getter

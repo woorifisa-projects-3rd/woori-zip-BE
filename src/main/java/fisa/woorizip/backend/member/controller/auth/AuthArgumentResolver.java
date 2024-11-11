@@ -1,18 +1,22 @@
 package fisa.woorizip.backend.member.controller.auth;
 
+import static fisa.woorizip.backend.member.AuthErrorCode.NOT_EXIST_ACCESS_TOKEN;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.member.service.auth.JwtTokenProvider;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-
-import static fisa.woorizip.backend.member.AuthErrorCode.NOT_EXIST_ACCESS_TOKEN;
-import static java.util.Objects.isNull;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Component
 @RequiredArgsConstructor

@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.member.dto.response;
 
 import fisa.woorizip.backend.member.domain.Member;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -17,9 +18,6 @@ public class SignInResponse {
     }
 
     public static SignInResponse of(String accessToken, Member member) {
-        return SignInResponse.builder()
-                .accessToken(accessToken)
-                .name(member.getName())
-                .build();
+        return SignInResponse.builder().accessToken(accessToken).name(member.getName()).build();
     }
 }

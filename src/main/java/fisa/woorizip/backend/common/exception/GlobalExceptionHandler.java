@@ -4,7 +4,6 @@ import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.H
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.INVALID_INPUT;
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.RESOURCE_NOT_FOUND;
 
-import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.RESOURCE_NOT_FOUND;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
@@ -13,6 +12,7 @@ import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
 import fisa.woorizip.backend.common.exception.response.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

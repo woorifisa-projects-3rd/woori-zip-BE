@@ -5,6 +5,7 @@ import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.service.MemberService;
 
 import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -38,5 +39,4 @@ public class MemberController {
         memberService.validateAlreadyExistUsername(username);
         return ResponseEntity.ok().build();
     }
-
 }

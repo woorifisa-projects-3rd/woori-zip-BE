@@ -1,12 +1,13 @@
 package fisa.woorizip.backend.member.domain;
 
+import static fisa.woorizip.backend.member.MemberErrorCode.ROLE_NOT_FOUND;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
+
 import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Set;
-
-import static fisa.woorizip.backend.member.MemberErrorCode.ROLE_NOT_FOUND;
 
 @Getter
 public enum Role {
@@ -24,7 +25,8 @@ public enum Role {
 
     public static Role from(String name) {
         return Arrays.stream(Role.values())
-                .filter(role -> role.name().equals(name)).findAny()
+                .filter(role -> role.name().equals(name))
+                .findAny()
                 .orElseThrow(() -> new WooriZipException(ROLE_NOT_FOUND));
     }
 

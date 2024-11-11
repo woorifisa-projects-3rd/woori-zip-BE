@@ -1,19 +1,24 @@
 package fisa.woorizip.backend.member.controller.auth;
 
+import static fisa.woorizip.backend.member.AuthErrorCode.INSUFFICIENT_PERMISSIONS;
+import static fisa.woorizip.backend.member.AuthErrorCode.NOT_EXIST_ACCESS_TOKEN;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.service.auth.JwtTokenProvider;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import static fisa.woorizip.backend.member.AuthErrorCode.INSUFFICIENT_PERMISSIONS;
-import static fisa.woorizip.backend.member.AuthErrorCode.NOT_EXIST_ACCESS_TOKEN;
-import static java.util.Objects.isNull;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Component
 @RequiredArgsConstructor
@@ -46,7 +51,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     }
 
     private void validateInfufficientRole(Role memberRole, Role requiredRole) {
-        if(!memberRole.canAccess(requiredRole)) {
+        if (!memberRole.canAccess(requiredRole)) {
             throw new WooriZipException(INSUFFICIENT_PERMISSIONS);
         }
     }

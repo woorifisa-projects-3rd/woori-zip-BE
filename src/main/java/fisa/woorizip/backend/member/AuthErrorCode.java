@@ -1,16 +1,17 @@
 package fisa.woorizip.backend.member;
 
-import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
-import lombok.Getter;
-import org.springframework.http.HttpStatus;
-
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
+import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
+
+import lombok.Getter;
+
+import org.springframework.http.HttpStatus;
+
 @Getter
 public enum AuthErrorCode implements ErrorCode {
-
     MISSING_ISSUER_TOKEN(UNAUTHORIZED, "issuer가 존재하지 않는 토큰입니다"),
     NOT_WOOHAENGSHI_TOKEN(UNAUTHORIZED, "발급자가 잘못된 토큰입니다"),
     EXPIRED_TOKEN(UNAUTHORIZED, "토큰이 만료되었습니다"),

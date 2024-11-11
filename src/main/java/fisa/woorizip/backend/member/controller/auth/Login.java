@@ -12,5 +12,4 @@ import java.lang.annotation.Target;
 public @interface Login {
 
     Role role() default Role.MEMBER;
-
 }

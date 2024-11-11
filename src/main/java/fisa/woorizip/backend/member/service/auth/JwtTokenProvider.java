@@ -1,9 +1,19 @@
 package fisa.woorizip.backend.member.service.auth;
 
+import static fisa.woorizip.backend.member.AuthErrorCode.EXPIRED_TOKEN;
+import static fisa.woorizip.backend.member.AuthErrorCode.FAILED_SIGNATURE_TOKEN;
+import static fisa.woorizip.backend.member.AuthErrorCode.INCORRECTLY_CONSTRUCTED_TOKEN;
+import static fisa.woorizip.backend.member.AuthErrorCode.INCORRECT_CONSTRUCT_HEADER;
+import static fisa.woorizip.backend.member.AuthErrorCode.INVALID_CLAIM_TYPE;
+import static fisa.woorizip.backend.member.AuthErrorCode.MISSING_ISSUER_TOKEN;
+import static fisa.woorizip.backend.member.AuthErrorCode.NOT_WOOHAENGSHI_TOKEN;
+import static fisa.woorizip.backend.member.AuthErrorCode.UNSUPPORTED_TOKEN;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Role;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.IncorrectClaimException;
@@ -16,21 +26,14 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.SecretKey;
 import java.util.Date;
 
-import static fisa.woorizip.backend.member.AuthErrorCode.EXPIRED_TOKEN;
-import static fisa.woorizip.backend.member.AuthErrorCode.FAILED_SIGNATURE_TOKEN;
-import static fisa.woorizip.backend.member.AuthErrorCode.INCORRECTLY_CONSTRUCTED_TOKEN;
-import static fisa.woorizip.backend.member.AuthErrorCode.INCORRECT_CONSTRUCT_HEADER;
-import static fisa.woorizip.backend.member.AuthErrorCode.INVALID_CLAIM_TYPE;
-import static fisa.woorizip.backend.member.AuthErrorCode.MISSING_ISSUER_TOKEN;
-import static fisa.woorizip.backend.member.AuthErrorCode.NOT_WOOHAENGSHI_TOKEN;
-import static fisa.woorizip.backend.member.AuthErrorCode.UNSUPPORTED_TOKEN;
+import javax.crypto.SecretKey;
 
 @Component
 public class JwtTokenProvider {
@@ -53,7 +56,10 @@ public class JwtTokenProvider {
 
     private String createToken(Long memberId, Long expiration, Role role) {
         return Jwts.builder()
-                .claims().add(MEMBER_ID, memberId).add(MEMBER_ROLE, role.name()).and()
+                .claims()
+                .add(MEMBER_ID, memberId)
+                .add(MEMBER_ROLE, role.name())
+                .and()
                 .signWith(key)
                 .issuer(ISSUER)
                 .issuedAt(new Date())
@@ -90,7 +96,8 @@ public class JwtTokenProvider {
     public MemberIdentity getMemberIdentity(String token) {
         try {
             Claims payload = getClaimsJwt(token).getPayload();
-            return new MemberIdentity(payload.get(MEMBER_ID, Long.class), payload.get(MEMBER_ROLE, String.class));
+            return new MemberIdentity(
+                    payload.get(MEMBER_ID, Long.class), payload.get(MEMBER_ROLE, String.class));
         } catch (RequiredTypeException e) {
             throw new WooriZipException(INVALID_CLAIM_TYPE);
         }

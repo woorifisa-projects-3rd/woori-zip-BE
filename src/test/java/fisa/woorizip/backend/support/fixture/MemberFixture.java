@@ -41,6 +41,12 @@ public class MemberFixture {
     }
 
     public Member build() {
-        return Member.builder().id(id).username(username).name(name).password(password).role(role).build();
+        return Member.builder()
+                .id(id)
+                .username(username)
+                .name(name)
+                .password(password)
+                .role(role)
+                .build();
     }
 }
