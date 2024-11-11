@@ -1,13 +1,15 @@
 package fisa.woorizip.backend.support.fixture;
 
 import fisa.woorizip.backend.member.domain.Member;
+import fisa.woorizip.backend.member.domain.Role;
 
 public class MemberFixture {
 
     private Long id;
-    private String username = "rlfrkdms1@naver.com";
+    private String username = "rlfrkdms1";
     private String password = "password12!@";
     private String name = "길가은";
+    private Role role = Role.MEMBER;
 
     public static MemberFixture builder() {
         return new MemberFixture();
@@ -33,7 +35,18 @@ public class MemberFixture {
         return this;
     }
 
+    public MemberFixture role(Role role) {
+        this.role = role;
+        return this;
+    }
+
     public Member build() {
-        return Member.builder().id(id).username(username).name(name).password(password).build();
+        return Member.builder()
+                .id(id)
+                .username(username)
+                .name(name)
+                .password(password)
+                .role(role)
+                .build();
     }
 }
