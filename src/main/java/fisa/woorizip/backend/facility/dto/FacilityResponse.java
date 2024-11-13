@@ -1,17 +1,15 @@
-package fisa.woorizip.backend.house.dto.response;
+package fisa.woorizip.backend.facility.dto;
 
 import fisa.woorizip.backend.facility.domain.Facility;
 import lombok.Getter;
 
-import java.math.BigDecimal;
-
 @Getter
 public class FacilityResponse {
     private Long facilityId;
-    private BigDecimal latitude;
-    private BigDecimal longitude;
+    private double latitude;
+    private double longitude;
 
-    private FacilityResponse(Long facilityId, BigDecimal latitude, BigDecimal longitude) {
+    private FacilityResponse(Long facilityId, double latitude, double longitude) {
         this.facilityId = facilityId;
         this.latitude = latitude;
         this.longitude = longitude;
