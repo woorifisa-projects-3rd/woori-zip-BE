@@ -11,7 +11,7 @@ import static fisa.woorizip.backend.house.HouseErrorCode.HOUSING_EXPENSES_NOT_FO
 public enum HousingExpenses {
     MONTHLY_RENT("월세"),
     JEONSE("전세"),
-    ALL("전체");
+    ANY("모두");
 
     private final String name;
 
