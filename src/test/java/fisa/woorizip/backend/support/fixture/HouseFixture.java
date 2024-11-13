@@ -18,8 +18,8 @@ public class HouseFixture {
     private String comment = "10층 중 3층.\n신축 풀옵션";
     private String address = "서울 마포구 월드컵북로 434 피사아파트";
     private HousingExpenses housingExpenses = JEONSE;
-    private BigDecimal latitude = new BigDecimal(37.5815199);
-    private BigDecimal longitude = new BigDecimal(126.8860032);
+    private double latitude = 37.5815199;
+    private double longitude = 126.8860032;
     private HouseType houseType = APARTMENT;
     private String gu = "마포구";
     private String dong = "상암동";
@@ -70,12 +70,12 @@ public class HouseFixture {
         return this;
     }
 
-    public HouseFixture latitude(BigDecimal latitude) {
+    public HouseFixture latitude(double latitude) {
         this.latitude = latitude;
         return this;
     }
 
-    public HouseFixture longitude(BigDecimal longitude) {
+    public HouseFixture longitude(double longitude) {
         this.longitude = longitude;
         return this;
     }
