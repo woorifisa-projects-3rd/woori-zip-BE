@@ -41,10 +41,10 @@ public class Facility {
     private String dong;
 
     @Column(name = "latitude", nullable = false)
-    private BigDecimal latitude;
+    private double latitude;
 
     @Column(name = "longitude", nullable = false)
-    private BigDecimal longitude;
+    private double longitude;
 
     @Column(name = "address", nullable = false)
     private String address;

@@ -42,10 +42,10 @@ public class House {
     private HousingExpenses housingExpenses;
 
     @Column(name = "latitude", nullable = false)
-    private BigDecimal latitude;
+    private double latitude;
 
     @Column(name = "longitude", nullable = false)
-    private BigDecimal longitude;
+    private double longitude;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "house_type", nullable = false)
