@@ -4,43 +4,44 @@ import fisa.woorizip.backend.facility.domain.Category;
 import fisa.woorizip.backend.house.domain.HouseType;
 import fisa.woorizip.backend.house.domain.HousingExpenses;
 import fisa.woorizip.backend.house.dto.MapLevel;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 
 import java.beans.ConstructorProperties;
-import java.math.BigDecimal;
+
+import static fisa.woorizip.backend.house.domain.HouseType.ALL;
+import static fisa.woorizip.backend.house.domain.HousingExpenses.ANY;
+import static fisa.woorizip.backend.facility.domain.Category.NONE;
 
 @Getter
 public class MapFilterRequest {
     private MapLevel level;
 
-    @Digits(integer = 3, fraction = 6)
-    private BigDecimal southWestLatitude;
+    @NotNull
+    private double southWestLatitude;
 
-    @Digits(integer = 3, fraction = 6)
-    private BigDecimal southWestLongitude;
+    @NotNull
+    private double southWestLongitude;
 
-    @Digits(integer = 3, fraction = 6)
-    private BigDecimal northEastLatitude;
+    @NotNull
+    private double northEastLatitude;
 
-    @Digits(integer = 3, fraction = 6)
-    private BigDecimal northEastLongitude;
+    @NotNull
+    private double northEastLongitude;
 
     private HouseType houseType;
     private HousingExpenses housingExpenses;
     @PositiveOrZero private long minDeposit;
     @Positive private long maxDeposit;
     @PositiveOrZero private long minMonthlyRentFee;
-    @Positive
-    private long maxMonthlyRentFee;
-    @PositiveOrZero
-    private long minMaintenanceFee;
+    @Positive private long maxMonthlyRentFee;
+    @PositiveOrZero private long minMaintenanceFee;
     @Positive private long maxMaintenanceFee;
     private Category category;
-    private int walking;
-    private int facilityCount;
+    private Integer walking;
+    private Integer facilityCount;
     private String gu;
     private String dong;
 
@@ -66,18 +67,18 @@ public class MapFilterRequest {
     })
     private MapFilterRequest(
             int level,
-            BigDecimal southWestLatitude,
-            BigDecimal southWestLongitude,
-            BigDecimal northEastLatitude,
-            BigDecimal northEastLongitude,
+            double southWestLatitude,
+            double southWestLongitude,
+            double northEastLatitude,
+            double northEastLongitude,
             String houseType,
             String housingExpenses,
-            long minDeposit,
-            long maxDeposit,
-            long minMonthlyRentFee,
-            long maxMonthlyRentFee,
-            long minMaintenanceFee,
-            long maxMaintenanceFee,
+            Long minDeposit,
+            Long maxDeposit,
+            Long minMonthlyRentFee,
+            Long maxMonthlyRentFee,
+            Long minMaintenanceFee,
+            Long maxMaintenanceFee,
             String category,
             Integer walking,
             Integer facilityCount,
@@ -88,18 +89,46 @@ public class MapFilterRequest {
         this.southWestLongitude = southWestLongitude;
         this.northEastLatitude = northEastLatitude;
         this.northEastLongitude = northEastLongitude;
-        this.houseType = HouseType.from(houseType);
-        this.housingExpenses = HousingExpenses.from(housingExpenses);
-        this.minDeposit = minDeposit;
-        this.maxDeposit = maxDeposit;
-        this.minMonthlyRentFee = minMonthlyRentFee;
-        this.maxMonthlyRentFee = maxMonthlyRentFee;
-        this.minMaintenanceFee = minMaintenanceFee;
-        this.maxMaintenanceFee = maxMaintenanceFee;
-        this.category = Category.from(category);
-        this.walking = walking == null ? 0 : walking;
-        this.facilityCount = facilityCount == null ? 0 : facilityCount;
-        this.gu = gu == null ? "" : gu;
-        this.dong = dong == null ? "" : dong;
+        this.houseType = houseType == null ? ALL : HouseType.from(houseType);
+        this.housingExpenses =
+                housingExpenses == null ? ANY : HousingExpenses.from(housingExpenses);
+        this.minDeposit = minDeposit == null ? 0 : minDeposit;
+        this.maxDeposit = maxDeposit == null ? Long.MAX_VALUE : maxDeposit;
+        this.minMonthlyRentFee = minMonthlyRentFee == null ? 0 : minMonthlyRentFee;
+        this.maxMonthlyRentFee = maxMonthlyRentFee == null ? Long.MAX_VALUE : maxMonthlyRentFee;
+        this.minMaintenanceFee = minMaintenanceFee == null ? 0 : minMaintenanceFee;
+        this.maxMaintenanceFee = maxMaintenanceFee == null ? Long.MAX_VALUE : maxMaintenanceFee;
+        this.category = category == null ? NONE : Category.from(category);
+        this.walking = walking;
+        this.facilityCount = facilityCount;
+        this.gu = gu;
+        this.dong = dong;
+    }
+
+    public static MapFilterRequest of(
+            int level,
+            double southWestLatitude,
+            double southWestLongitude,
+            double northEastLatitude,
+            double northEastLongitude) {
+        return new MapFilterRequest(
+                level,
+                southWestLatitude,
+                southWestLongitude,
+                northEastLatitude,
+                northEastLongitude,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
     }
 }
