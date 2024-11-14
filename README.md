@@ -54,5 +54,6 @@ DROP TABLE flyway_schema_history;
 DROP TABLE loan_check_list;
 DROP TABLE log;
 DROP TABLE recently_loan_goods;
+DROP TABLE refresh_token;
 show tables;
 ```
