@@ -1,12 +1,13 @@
 package fisa.woorizip.backend.member.controller.auth;
 
+import static fisa.woorizip.backend.member.AuthErrorCode.AUTHORIZATION_HEADER_NOT_FOUND;
 import static fisa.woorizip.backend.member.AuthErrorCode.INSUFFICIENT_PERMISSIONS;
-import static fisa.woorizip.backend.member.AuthErrorCode.NOT_EXIST_ACCESS_TOKEN;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 import static java.util.Objects.isNull;
 
+import fisa.woorizip.backend.common.exception.WoohaengshiException;
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.service.auth.JwtTokenProvider;
@@ -27,13 +28,8 @@ public class AuthInterceptor implements HandlerInterceptor {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public boolean preHandle(
-            HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
-
-        if (!(handler instanceof HandlerMethod)) {
-            return true;
-        }
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        if (!(handler instanceof HandlerMethod)) return true;
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
 
@@ -41,24 +37,24 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (isNull(login)) return true;
 
         String authorization = request.getHeader(AUTHORIZATION);
-        validateExistAccessToken(authorization);
+        validateExistAuthHeader(authorization);
 
         String accessToken = jwtTokenProvider.extractAccessToken(authorization);
         jwtTokenProvider.validToken(accessToken);
-        validateInfufficientRole(jwtTokenProvider.getMemberRole(accessToken), login.role());
+        validateInsufficientRole(jwtTokenProvider.getMemberRole(accessToken), login.role());
 
         return true;
     }
 
-    private void validateInfufficientRole(Role memberRole, Role requiredRole) {
+    private void validateInsufficientRole(Role memberRole, Role requiredRole) {
         if (!memberRole.canAccess(requiredRole)) {
             throw new WooriZipException(INSUFFICIENT_PERMISSIONS);
         }
     }
 
-    private void validateExistAccessToken(String authorization) {
+    private void validateExistAuthHeader(String authorization) {
         if (isNull(authorization)) {
-            throw new WooriZipException(NOT_EXIST_ACCESS_TOKEN);
+            throw new WooriZipException(AUTHORIZATION_HEADER_NOT_FOUND);
         }
     }
 }
