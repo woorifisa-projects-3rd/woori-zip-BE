@@ -22,7 +22,6 @@ public class SignUpRequest {
     @NotBlank private String earningsType;
     @NotNull private Long earningsFee;
     @NotNull private Integer creditScore;
-
     private long debt;
 
     protected SignUpRequest() {}
