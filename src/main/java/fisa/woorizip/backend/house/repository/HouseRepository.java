@@ -4,4 +4,10 @@ import fisa.woorizip.backend.house.domain.House;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface HouseRepository extends JpaRepository<House, Long> {}
+import java.util.Optional;
+
+public interface HouseRepository extends JpaRepository<House, Long> {
+
+    Optional<House> findById(Long id);
+
+}
