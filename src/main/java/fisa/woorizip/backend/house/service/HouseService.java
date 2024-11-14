@@ -1,3 +1,7 @@
 package fisa.woorizip.backend.house.service;
 
-public interface HouseService {}
+import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
+
+public interface HouseService {
+    HouseDetailResponse getHouseDetail(Long houseId);
+}
