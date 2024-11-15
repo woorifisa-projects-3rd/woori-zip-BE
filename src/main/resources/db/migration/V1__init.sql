@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS `facility`
     `id`          BIGINT       NOT NULL auto_increment,
     `category`    VARCHAR(255) NOT NULL,
     `name`        VARCHAR(255) NOT NULL,
-    `latitude`    DECIMAL(9,6) NOT NULL,
-    `longitude`   DECIMAL(9,6) NOT NULL,
+    `latitude`    DOUBLE       NOT NULL,
+    `longitude`   DOUBLE       NOT NULL,
     `gu`          VARCHAR(255) NOT NULL,
     `dong`        VARCHAR(255) NOT NULL,
     `address`     VARCHAR(255) NOT NULL,
@@ -35,11 +35,12 @@ CREATE TABLE IF NOT EXISTS `house`
     `id`                       BIGINT       NOT NULL auto_increment,
     `member_id`                BIGINT       NOT NULL,
     `name`                     VARCHAR(255) NOT NULL,
+    `comment`                  VARCHAR(255) NOT NULL,
     `address`                  VARCHAR(255) NOT NULL,
     `house_type`               VARCHAR(255) NOT NULL,
     `housing_expenses`         VARCHAR(255) NOT NULL,
-    `latitude`                 DECIMAL(9,6) NOT NULL,
-    `longitude`                DECIMAL(9,6) NOT NULL,
+    `latitude`                 DOUBLE       NOT NULL,
+    `longitude`                DOUBLE       NOT NULL,
     `gu`                       VARCHAR(255) NOT NULL,
     `dong`                     VARCHAR(255) NOT NULL,
     `deposit`                  BIGINT       NOT NULL,
@@ -152,6 +153,19 @@ CREATE TABLE IF NOT EXISTS `log`
     `member_id`  BIGINT    NOT NULL,
     `content`    TEXT      NOT NULL,
     `created_at` TIMESTAMP NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `refresh_token`
+(
+    `id`         BIGINT       NOT NULL auto_increment,
+    `member_id`  BIGINT       NOT NULL,
+    `value`      VARCHAR(255) NOT NULL,
+    `expired_at` TIMESTAMP    NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
