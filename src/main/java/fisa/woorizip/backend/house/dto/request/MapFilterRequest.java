@@ -19,17 +19,13 @@ import static fisa.woorizip.backend.facility.domain.Category.NONE;
 public class MapFilterRequest {
     private MapLevel level;
 
-    @NotNull
-    private double southWestLatitude;
+    @NotNull private double southWestLatitude;
 
-    @NotNull
-    private double southWestLongitude;
+    @NotNull private double southWestLongitude;
 
-    @NotNull
-    private double northEastLatitude;
+    @NotNull private double northEastLatitude;
 
-    @NotNull
-    private double northEastLongitude;
+    @NotNull private double northEastLongitude;
 
     private HouseType houseType;
     private HousingExpenses housingExpenses;
