@@ -14,12 +14,14 @@ import lombok.RequiredArgsConstructor;
 
 import static fisa.woorizip.backend.house.domain.HouseType.ALL;
 import static fisa.woorizip.backend.house.domain.QHouse.house;
+import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
 
 @RequiredArgsConstructor
 public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
+    private final int HOUSE_LIST_COUNT = 15;
 
     @Override
     public ShowMapResponse findHouseHighLevel(MapFilterRequest mapFilterRequest) {
@@ -72,7 +74,67 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
                                 house.maintenanceFee.between(
                                         mapFilterRequest.getMinMaintenanceFee(),
                                         mapFilterRequest.getMaxMaintenanceFee()))
-                        .limit(15)
+                        .limit(HOUSE_LIST_COUNT)
+                        .fetch()
+                        .stream()
+                        .map(HouseContentResult::init)
+                        .toList());
+    }
+
+    @Override
+    public ShowMapResponse findHouseMidLevel(MapFilterRequest mapFilterRequest) {
+        return ShowMapResponse.of(
+                DONG,
+                jpaQueryFactory
+                        .select(
+                                Projections.constructor(
+                                        HouseCountResult.class,
+                                        house.dong,
+                                        house.count().intValue()))
+                        .from(house)
+                        .where(
+                                house.latitude.between(
+                                        mapFilterRequest.getSouthWestLatitude(),
+                                        mapFilterRequest.getNorthEastLatitude()),
+                                house.longitude.between(
+                                        mapFilterRequest.getSouthWestLongitude(),
+                                        mapFilterRequest.getNorthEastLongitude()),
+                                houseTypeEq(mapFilterRequest.getHouseType()),
+                                housingExpensesEq(mapFilterRequest.getHousingExpenses()),
+                                house.deposit.between(
+                                        mapFilterRequest.getMinDeposit(),
+                                        mapFilterRequest.getMaxDeposit()),
+                                house.monthlyRentFee.between(
+                                        mapFilterRequest.getMinMonthlyRentFee(),
+                                        mapFilterRequest.getMaxMonthlyRentFee()),
+                                house.maintenanceFee.between(
+                                        mapFilterRequest.getMinMaintenanceFee(),
+                                        mapFilterRequest.getMaxMaintenanceFee()))
+                        .groupBy(house.dong)
+                        .orderBy(house.dong.asc())
+                        .fetch(),
+                jpaQueryFactory
+                        .select(house)
+                        .from(house)
+                        .where(
+                                house.latitude.between(
+                                        mapFilterRequest.getSouthWestLatitude(),
+                                        mapFilterRequest.getNorthEastLatitude()),
+                                house.longitude.between(
+                                        mapFilterRequest.getSouthWestLongitude(),
+                                        mapFilterRequest.getNorthEastLongitude()),
+                                houseTypeEq(mapFilterRequest.getHouseType()),
+                                housingExpensesEq(mapFilterRequest.getHousingExpenses()),
+                                house.deposit.between(
+                                        mapFilterRequest.getMinDeposit(),
+                                        mapFilterRequest.getMaxDeposit()),
+                                house.monthlyRentFee.between(
+                                        mapFilterRequest.getMinMonthlyRentFee(),
+                                        mapFilterRequest.getMaxMonthlyRentFee()),
+                                house.maintenanceFee.between(
+                                        mapFilterRequest.getMinMaintenanceFee(),
+                                        mapFilterRequest.getMaxMaintenanceFee()))
+                        .limit(HOUSE_LIST_COUNT)
                         .fetch()
                         .stream()
                         .map(HouseContentResult::init)

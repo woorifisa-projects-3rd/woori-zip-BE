@@ -12,6 +12,8 @@ import fisa.woorizip.backend.support.fixture.MemberFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
 import static fisa.woorizip.backend.member.domain.Role.MEMBER;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -60,6 +62,39 @@ public class HouseRepositoryTest {
                 () -> assertThat(result.getCounts().get(0).getAddressName().equals("강동구")),
                 () -> assertThat(result.getCounts().get(1).getCount() == 10),
                 () -> assertThat(result.getCounts().get(0).getAddressName().equals("마포구")),
+                () -> assertThat(result.getHouseContents().size() == 15));
+    }
+
+    @Test
+    @DisplayName("지도 줌이 6 레벨부터 8 레벨 사이일 때, 동 별 집 개수와 15개의 집 목록을 조회할 수 있다.")
+    public void findHouseMidLevel() {
+        Member member =
+                save(
+                        Member.builder()
+                                .id(1L)
+                                .name("길가은")
+                                .password("123")
+                                .username("1234")
+                                .debt(1L)
+                                .role(MEMBER)
+                                .build());
+
+        for (long i = 1; i <= 10; i++) save(HouseFixture.builder().id(i).member(member).build());
+        for (long i = 11; i <= 20; i++)
+            save(HouseFixture.builder().id(i).member(member).dong("아현동").build());
+        MapFilterRequest mapFilterRequest = MapFilterRequest.of(6, 37.452655162589174,
+                126.79611509567208, 37.654612635772615,
+                127.09945286237564);
+        ShowMapResponse result = houseRepository.findHouseMidLevel(mapFilterRequest);
+
+        assertAll(
+                "response",
+                () -> assertThat(result.getHouseAddressType().equals(DONG)),
+                () -> assertThat(result.getCounts().size() == 2),
+                () -> assertThat(result.getCounts().get(0).getCount() == 10),
+                () -> assertThat(result.getCounts().get(0).getAddressName().equals("상암동")),
+                () -> assertThat(result.getCounts().get(1).getCount() == 10),
+                () -> assertThat(result.getCounts().get(0).getAddressName().equals("아현동")),
                 () -> assertThat(result.getHouseContents().size() == 15));
     }
 }

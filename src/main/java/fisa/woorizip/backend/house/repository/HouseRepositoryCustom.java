@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface HouseRepositoryCustom {
     ShowMapResponse findHouseHighLevel(MapFilterRequest mapFilterRequest);
+    ShowMapResponse findHouseMidLevel(MapFilterRequest mapFilterRequest);
 }
