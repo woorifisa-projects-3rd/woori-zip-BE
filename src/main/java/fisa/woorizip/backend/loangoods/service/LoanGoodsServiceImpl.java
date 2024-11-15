@@ -19,6 +19,5 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     public LoanGoods showLoanGoodsDetailsById(Long id) {
 
         return loanGoodsRepository.findById(id).orElse(null);
-
     }
 }
