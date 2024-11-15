@@ -1,15 +1,16 @@
 package fisa.woorizip.backend.loangoods.controller;
 
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.AfterEach;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class LoanGoodsControllerTest {
 
@@ -23,23 +24,25 @@ class LoanGoodsControllerTest {
     @Test
     void 대출상품의_상세정보_조회() {
 
-        //given
+        // given
         Long loanGoodsId = 1L;
 
-        //when
+        // when
         RestAssured.given()
-                .log().all()
+                .log()
+                .all()
                 .contentType(ContentType.JSON)
                 .when()
                 .get("/api/v1/loans/{loansId}", loanGoodsId)
                 .then()
-                .log().all()
+                .log()
+                .all()
                 .statusCode(200)
-                .body("id",equalTo(loanGoodsId.intValue()))
-                .body("name",not(emptyOrNullString()))
-                .body("description",not(emptyOrNullString()))
-                .body("content",not(emptyOrNullString()))
-                .body("imageUrl",not(emptyOrNullString()))
-                .body("loanGoodsType",equalTo("JEONSE"));
-      }
+                .body("id", equalTo(loanGoodsId.intValue()))
+                .body("name", not(emptyOrNullString()))
+                .body("description", not(emptyOrNullString()))
+                .body("content", not(emptyOrNullString()))
+                .body("imageUrl", not(emptyOrNullString()))
+                .body("loanGoodsType", equalTo("JEONSE"));
+    }
 }

@@ -18,13 +18,12 @@ public class LoanGoodsController {
 
     private final LoanGoodsService loanGoodsService;
 
-
     @GetMapping("/{loansId}")
-    public ResponseEntity<LoanGoods> getLoanGoodsDetailsById(@PathVariable("loansId") Long loansId) {
+    public ResponseEntity<LoanGoods> getLoanGoodsDetailsById(
+            @PathVariable("loansId") Long loansId) {
         LoanGoods loanGoods = loanGoodsService.showLoanGoodsDetailsById(loansId);
 
-        if(loanGoods == null)
-            return ResponseEntity.notFound().build();
+        if (loanGoods == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(loanGoods);
     }
