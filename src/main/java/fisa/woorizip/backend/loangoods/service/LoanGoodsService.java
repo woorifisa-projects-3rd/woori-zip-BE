@@ -1,3 +1,8 @@
 package fisa.woorizip.backend.loangoods.service;
 
-public interface LoanGoodsService {}
+import fisa.woorizip.backend.loangoods.domain.LoanGoods;
+
+public interface LoanGoodsService {
+
+    LoanGoods showLoanGoodsDetailsById(Long id);
+}
