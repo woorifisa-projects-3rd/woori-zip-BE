@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -100,7 +99,6 @@ public class House {
     @Column(name = "direction", nullable = false)
     private String direction;
 
-    // equals 및 hashCode 메서드 추가
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
