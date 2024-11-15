@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import fisa.woorizip.backend.house.dto.HouseAddressType;
 import fisa.woorizip.backend.house.dto.result.HouseContentResult;
 import fisa.woorizip.backend.house.dto.result.HouseCountResult;
+import fisa.woorizip.backend.house.dto.result.HouseResult;
 import lombok.Getter;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ShowMapResponse {
     private List<HouseCountResult> counts;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<HouseResponse> houses;
+    private List<HouseResult> houses;
 
     private List<HouseContentResult> houseContents;
 
@@ -30,7 +31,7 @@ public class ShowMapResponse {
         this.houseContents = houseContents;
     }
 
-    private ShowMapResponse(List<HouseResponse> houses, List<HouseContentResult> houseContents) {
+    private ShowMapResponse(List<HouseResult> houses, List<HouseContentResult> houseContents) {
         this.houses = houses;
         this.houseContents = houseContents;
     }
@@ -40,5 +41,10 @@ public class ShowMapResponse {
             List<HouseCountResult> counts,
             List<HouseContentResult> houseContents) {
         return new ShowMapResponse(houseAddressType.getName(), counts, houseContents);
+    }
+
+    public static ShowMapResponse of(
+            List<HouseResult> houses, List<HouseContentResult> houseContents) {
+        return new ShowMapResponse(houses, houseContents);
     }
 }
