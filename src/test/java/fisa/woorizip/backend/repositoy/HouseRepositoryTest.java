@@ -49,9 +49,13 @@ public class HouseRepositoryTest {
         for (long i = 1; i <= 10; i++) save(HouseFixture.builder().id(i).member(member).build());
         for (long i = 11; i <= 20; i++)
             save(HouseFixture.builder().id(i).member(member).gu("강동구").dong("성내동").build());
-        MapFilterRequest mapFilterRequest = MapFilterRequest.of(9, 37.452655162589174,
-                126.79611509567208, 37.654612635772615,
-                127.09945286237564);
+        MapFilterRequest mapFilterRequest =
+                MapFilterRequest.of(
+                        9,
+                        37.452655162589174,
+                        126.79611509567208,
+                        37.654612635772615,
+                        127.09945286237564);
         ShowMapResponse result = houseRepository.findHouseHighLevel(mapFilterRequest);
 
         assertAll(
@@ -82,9 +86,13 @@ public class HouseRepositoryTest {
         for (long i = 1; i <= 10; i++) save(HouseFixture.builder().id(i).member(member).build());
         for (long i = 11; i <= 20; i++)
             save(HouseFixture.builder().id(i).member(member).dong("아현동").build());
-        MapFilterRequest mapFilterRequest = MapFilterRequest.of(6, 37.452655162589174,
-                126.79611509567208, 37.654612635772615,
-                127.09945286237564);
+        MapFilterRequest mapFilterRequest =
+                MapFilterRequest.of(
+                        6,
+                        37.452655162589174,
+                        126.79611509567208,
+                        37.654612635772615,
+                        127.09945286237564);
         ShowMapResponse result = houseRepository.findHouseMidLevel(mapFilterRequest);
 
         assertAll(
@@ -95,6 +103,65 @@ public class HouseRepositoryTest {
                 () -> assertThat(result.getCounts().get(0).getAddressName().equals("상암동")),
                 () -> assertThat(result.getCounts().get(1).getCount() == 10),
                 () -> assertThat(result.getCounts().get(0).getAddressName().equals("아현동")),
+                () -> assertThat(result.getHouseContents().size() == 15));
+    }
+
+    @Test
+    @DisplayName("지도 줌이 5 레벨 이하일 때, 지도 범위 내에 있는 모든 집 위도 경도 목록과 15개의 집 목록을 조회할 수 있다.")
+    public void findHouseLowLevel() {
+        Member member =
+                save(
+                        Member.builder()
+                                .id(1L)
+                                .name("길가은")
+                                .password("123")
+                                .username("1234")
+                                .debt(1L)
+                                .role(MEMBER)
+                                .build());
+
+        House house1 =
+                save(
+                        HouseFixture.builder()
+                                .id(1L)
+                                .latitude(37.452655162589175)
+                                .longitude(126.79611509567209)
+                                .member(member)
+                                .build());
+        House house2 =
+                save(
+                        HouseFixture.builder()
+                                .id(2L)
+                                .latitude(37.654612635772614)
+                                .longitude(127.09945286237563)
+                                .member(member)
+                                .build());
+
+        MapFilterRequest mapFilterRequest =
+                MapFilterRequest.of(
+                        5,
+                        37.452655162589174,
+                        126.79611509567208,
+                        37.654612635772615,
+                        127.09945286237564);
+        ShowMapResponse result = houseRepository.findHouseLowLevel(mapFilterRequest);
+
+        assertAll(
+                "response",
+                () -> assertThat(result.getHouses().get(0).getHouseId().equals(house1.getId())),
+                () ->
+                        assertThat(result.getHouses().get(0).getLatitude())
+                                .isEqualTo(house1.getLatitude()),
+                () ->
+                        assertThat(result.getHouses().get(0).getLongitude())
+                                .isEqualTo(house1.getLongitude()),
+                () -> assertThat(result.getHouses().get(1).getHouseId().equals(house2.getId())),
+                () ->
+                        assertThat(result.getHouses().get(1).getLatitude())
+                                .isEqualTo(house2.getLatitude()),
+                () ->
+                        assertThat(result.getHouses().get(1).getLongitude())
+                                .isEqualTo(house2.getLongitude()),
                 () -> assertThat(result.getHouseContents().size() == 15));
     }
 }
