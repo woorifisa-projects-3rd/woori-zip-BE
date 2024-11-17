@@ -24,10 +24,6 @@ public class HouseImageFixture {
     }
 
     public HouseImage build(House house) {
-        return HouseImage.builder()
-                .house(house)
-                .url(url)
-                .orderIndex(orderIndex)
-                .build();
+        return HouseImage.builder().house(house).url(url).orderIndex(orderIndex).build();
     }
 }

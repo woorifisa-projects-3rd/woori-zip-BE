@@ -1,8 +1,12 @@
 package fisa.woorizip.backend.houseimage.repository;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.houseimage.domain.HouseImage;
 import fisa.woorizip.backend.support.RepositoryTest;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -14,25 +18,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
-
 @RepositoryTest
 @Transactional
 class HouseImageRepositoryTest {
 
-    @Autowired
-    private HouseImageRepository houseImageRepository;
+    @Autowired private HouseImageRepository houseImageRepository;
 
     @ParameterizedTest
     @MethodSource("provideImagesTestCases")
     @DisplayName("매물 ID와 정렬 순서대로 이미지 URL을 조회한다")
-    void findImageUrlsByHouseId(String testCase, List<HouseImage> images, List<String> expectedUrls) {
-        List<String> imageUrls = houseImageRepository.findImageUrlsByHouseId(1L); // DB에 있는 실제 house_id
+    void findImageUrlsByHouseId(
+            String testCase, List<HouseImage> images, List<String> expectedUrls) {
+        List<String> imageUrls =
+                houseImageRepository.findImageUrlsByHouseId(1L); // DB에 있는 실제 house_id
 
-        assertThat(imageUrls)
-                .hasSize(expectedUrls.size())
-                .containsExactlyElementsOf(expectedUrls);
+        assertThat(imageUrls).hasSize(expectedUrls.size()).containsExactlyElementsOf(expectedUrls);
     }
 
     @ParameterizedTest
@@ -58,10 +58,8 @@ class HouseImageRepositoryTest {
                                         .url("test2.jpg")
                                         .orderIndex(1)
                                         .house(House.builder().id(1L).build())
-                                        .build()
-                        ),
-                        List.of("test1.jpg", "test2.jpg")
-                ),
+                                        .build()),
+                        List.of("test1.jpg", "test2.jpg")),
                 arguments(
                         "순서가 섞인 이미지",
                         List.of(
@@ -79,10 +77,8 @@ class HouseImageRepositoryTest {
                                         .url("test3.jpg")
                                         .orderIndex(2)
                                         .house(House.builder().id(1L).build())
-                                        .build()
-                        ),
-                        List.of("test1.jpg", "test2.jpg", "test3.jpg")
-                ),
+                                        .build()),
+                        List.of("test1.jpg", "test2.jpg", "test3.jpg")),
                 arguments(
                         "orderIndex가 불연속적인 경우",
                         List.of(
@@ -100,10 +96,7 @@ class HouseImageRepositoryTest {
                                         .url("test3.jpg")
                                         .orderIndex(10)
                                         .house(House.builder().id(1L).build())
-                                        .build()
-                        ),
-                        List.of("test1.jpg", "test2.jpg", "test3.jpg")
-                )
-        );
+                                        .build()),
+                        List.of("test1.jpg", "test2.jpg", "test3.jpg")));
     }
 }

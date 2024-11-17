@@ -1,21 +1,21 @@
 package fisa.woorizip.backend.house.controller;
 
 import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
+
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
 import fisa.woorizip.backend.common.exception.WooriZipException;
-import fisa.woorizip.backend.house.HouseErrorCode;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import fisa.woorizip.backend.house.service.HouseService;
 import fisa.woorizip.backend.member.service.auth.JwtTokenProvider;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,31 +26,24 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-
 @WebMvcTest(HouseController.class)
 class HouseControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc;
 
-    @MockBean
-    private HouseService houseService;
+    @MockBean private HouseService houseService;
 
-    @MockBean
-    private JwtTokenProvider jwtTokenProvider;
+    @MockBean private JwtTokenProvider jwtTokenProvider;
 
     @Test
     @DisplayName("매물 상세 정보를 조회할 수 있다")
     void getHouseDetail() throws Exception {
-        House house = HouseFixture.builder()
-                .member(MemberFixture.builder().build())
-                .build();
+        House house = HouseFixture.builder().member(MemberFixture.builder().build()).build();
         List<String> imageUrls = List.of("test1.jpg", "test2.jpg");
         HouseDetailResponse response = HouseDetailResponse.of(house, imageUrls);
 
         given(houseService.getHouseDetail(anyLong())).willReturn(response);
 
-        mockMvc.perform(get("/api/v1/houses/{houseId}", 1L)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/v1/houses/{houseId}", 1L).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("피사아파트"))
@@ -65,8 +58,9 @@ class HouseControllerTest {
         given(houseService.getHouseDetail(anyLong()))
                 .willThrow(new WooriZipException(HOUSE_NOT_FOUND));
 
-        mockMvc.perform(get("/api/v1/houses/{houseId}", 999L)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(
+                        get("/api/v1/houses/{houseId}", 999L)
+                                .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value(HOUSE_NOT_FOUND.getMessage()));

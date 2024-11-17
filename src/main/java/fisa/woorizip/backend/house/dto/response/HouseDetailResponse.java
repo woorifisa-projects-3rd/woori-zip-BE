@@ -3,6 +3,7 @@ package fisa.woorizip.backend.house.dto.response;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.domain.HouseType;
 import fisa.woorizip.backend.house.domain.HousingExpenses;
+
 import lombok.Builder;
 import lombok.Getter;
 
