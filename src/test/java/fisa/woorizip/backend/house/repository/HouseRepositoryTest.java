@@ -9,8 +9,9 @@ import fisa.woorizip.backend.support.fixture.MemberFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,38 +25,32 @@ class HouseRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
 
-
     @Test
     @DisplayName("매물 ID로 매물을 조회할 수 있다")
     void findById() {
-        // given
-        Member member = memberRepository.save(MemberFixture.builder().build());
-        House house = HouseFixture.builder()
-                .member(member)
+        Member savedMember = memberRepository.save(MemberFixture.builder().build());
+        House newHouse = HouseFixture.builder()
+                .member(savedMember)
                 .build();
-        House savedHouse = houseRepository.save(house);
+        House savedHouse = houseRepository.save(newHouse);
 
-        // when
-        var foundHouse = houseRepository.findById(savedHouse.getId());
+        Optional<House> actualHouse = houseRepository.findById(savedHouse.getId());
 
-        // then
-        assertThat(foundHouse)
+        assertThat(actualHouse)
                 .isPresent()
-                .hasValueSatisfying(h -> {
-                    assertThat(h.getName()).isEqualTo(house.getName());
-                    assertThat(h.getAddress()).isEqualTo(house.getAddress());
-                    assertThat(h.getHouseType()).isEqualTo(house.getHouseType());
-                    assertThat(h.getHousingExpenses()).isEqualTo(house.getHousingExpenses());
+                .hasValueSatisfying(foundHouse -> {
+                    assertThat(foundHouse.getName()).isEqualTo(newHouse.getName());
+                    assertThat(foundHouse.getAddress()).isEqualTo(newHouse.getAddress());
+                    assertThat(foundHouse.getHouseType()).isEqualTo(newHouse.getHouseType());
+                    assertThat(foundHouse.getHousingExpenses()).isEqualTo(newHouse.getHousingExpenses());
                 });
     }
 
     @Test
     @DisplayName("존재하지 않는 매물 ID로 조회하면 빈 Optional을 반환한다")
     void findById_NotFound() {
-        // when
-        var result = houseRepository.findById(999L);
+        Optional<House> houseLookupResult = houseRepository.findById(999L);
 
-        // then
-        assertThat(result).isEmpty();
+        assertThat(houseLookupResult).isEmpty();
     }
 }
