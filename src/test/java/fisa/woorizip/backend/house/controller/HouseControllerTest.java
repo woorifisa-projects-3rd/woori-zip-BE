@@ -10,8 +10,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.house.HouseErrorCode;
+import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import fisa.woorizip.backend.house.service.HouseService;
+import fisa.woorizip.backend.member.service.auth.JwtTokenProvider;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
 import org.junit.jupiter.api.DisplayName;
@@ -33,20 +35,20 @@ class HouseControllerTest {
     @MockBean
     private HouseService houseService;
 
+    @MockBean
+    private JwtTokenProvider jwtTokenProvider;
 
     @Test
     @DisplayName("매물 상세 정보를 조회할 수 있다")
     void getHouseDetail() throws Exception {
-        // given
-        var house = HouseFixture.builder()
+        House house = HouseFixture.builder()
                 .member(MemberFixture.builder().build())
                 .build();
-        var imageUrls = List.of("test1.jpg", "test2.jpg");
-        var response = HouseDetailResponse.of(house, imageUrls);
+        List<String> imageUrls = List.of("test1.jpg", "test2.jpg");
+        HouseDetailResponse response = HouseDetailResponse.of(house, imageUrls);
 
         given(houseService.getHouseDetail(anyLong())).willReturn(response);
 
-        // when & then
         mockMvc.perform(get("/api/v1/houses/{houseId}", 1L)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -60,11 +62,9 @@ class HouseControllerTest {
     @Test
     @DisplayName("존재하지 않는 매물 ID로 조회하면 404 응답을 반환한다")
     void getHouseDetail_NotFound() throws Exception {
-        // given
         given(houseService.getHouseDetail(anyLong()))
                 .willThrow(new WooriZipException(HOUSE_NOT_FOUND));
 
-        // when & then
         mockMvc.perform(get("/api/v1/houses/{houseId}", 999L)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
