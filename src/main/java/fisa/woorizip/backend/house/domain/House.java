@@ -98,16 +98,4 @@ public class House {
 
     @Column(name = "direction", nullable = false)
     private String direction;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof House house)) return false;
-        return Objects.equals(id, house.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
