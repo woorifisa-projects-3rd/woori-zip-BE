@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.houseimage.repository;
 
 import fisa.woorizip.backend.houseimage.domain.HouseImage;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
