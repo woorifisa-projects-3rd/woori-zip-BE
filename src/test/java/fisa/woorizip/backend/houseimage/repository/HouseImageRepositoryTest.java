@@ -54,14 +54,6 @@ class HouseImageRepositoryTest {
                 .containsExactlyElementsOf(expectedUrls);
     }
 
-    @ParameterizedTest
-    @ValueSource(longs = {999L, -1L, 0L})
-    @DisplayName("존재하지 않는 매물 ID 조회시 빈 리스트를 반환한다")
-    void findImageUrlsByHouseId_NotFound(Long invalidHouseId) {
-        List<String> imageUrls = houseImageRepository.findImageUrlsByHouseId(invalidHouseId);
-        assertThat(imageUrls).isEmpty();
-    }
-
     static Stream<Arguments> provideOrderIndices() {
         return Stream.of(
                 arguments("정상적인 순서의 이미지", List.of(0, 1)),
@@ -72,4 +64,13 @@ class HouseImageRepositoryTest {
                 arguments("큰 간격의 orderIndex", List.of(0, 100, 200))
         );
     }
+
+    @ParameterizedTest
+    @ValueSource(longs = {999L, -1L, 0L})
+    @DisplayName("존재하지 않는 매물 ID 조회시 빈 리스트를 반환한다")
+    void findImageUrlsByHouseId_NotFound(Long invalidHouseId) {
+        List<String> imageUrls = houseImageRepository.findImageUrlsByHouseId(invalidHouseId);
+        assertThat(imageUrls).isEmpty();
+    }
+
 }
