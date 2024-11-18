@@ -15,4 +15,6 @@ public interface HouseRepositoryCustom {
     ShowMapResponse findHouseMidLevelInCategory(MapFilterRequest mapFilterRequest);
 
     ShowMapResponse findHouseLowLevelInCategory(MapFilterRequest mapFilterRequest);
+
+    ShowMapResponse findHouseByGuAndDongInCategory(MapFilterRequest mapFilterRequest);
 }
