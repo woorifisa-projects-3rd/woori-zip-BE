@@ -12,6 +12,7 @@ public class FacilityFixture {
     private String dong = "상암동";
     private double latitude = 37.5813506;
     private double longitude = 126.886193;
+    private String address = "서울 마포구 월드컵북로 434 112호";
 
     public static FacilityFixture builder() {
         return new FacilityFixture();
@@ -52,6 +53,11 @@ public class FacilityFixture {
         return this;
     }
 
+    public FacilityFixture address(String address) {
+        this.address = address;
+        return this;
+    }
+
     public Facility build() {
         return Facility.builder()
                 .id(id)
@@ -61,6 +67,7 @@ public class FacilityFixture {
                 .dong(dong)
                 .latitude(latitude)
                 .longitude(longitude)
+                .address(address)
                 .build();
     }
 }

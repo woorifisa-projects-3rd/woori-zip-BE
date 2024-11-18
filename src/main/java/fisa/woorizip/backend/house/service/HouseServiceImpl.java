@@ -5,6 +5,12 @@ import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
+import static fisa.woorizip.backend.facility.domain.Category.NONE;
+import static fisa.woorizip.backend.house.dto.MapLevel.HIGH;
+import static fisa.woorizip.backend.house.dto.MapLevel.MID;
+
+import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
+import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
 import fisa.woorizip.backend.house.repository.HouseRepository;
 import fisa.woorizip.backend.houseimage.repository.HouseImageRepository;
 
@@ -34,6 +40,33 @@ public class HouseServiceImpl implements HouseService {
     private House findHouseById(Long houseId) {
         return houseRepository
                 .findById(houseId)
-                .orElseThrow(() -> new WooriZipException(HOUSE_NOT_FOUND));
+                .orElseThrow(() -> new WooriZipException(HOUSE_NOT_FOUND))};
+
+    @Override
+    @Transactional(readOnly = true)
+    public ShowMapResponse showMap(MapFilterRequest mapFilterRequest) {
+        return mapFilterRequest.getLevel().equals(HIGH)
+                ? showMapHighLevel(mapFilterRequest)
+                : mapFilterRequest.getLevel().equals(MID)
+                        ? showMapMidLevel(mapFilterRequest)
+                        : showMapLowLevel(mapFilterRequest);
+    }
+
+    private ShowMapResponse showMapHighLevel(MapFilterRequest mapFilterRequest) {
+        return mapFilterRequest.getCategory().equals(NONE)
+                ? houseRepository.findHouseHighLevel(mapFilterRequest)
+                : houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
+    }
+
+    private ShowMapResponse showMapMidLevel(MapFilterRequest mapFilterRequest) {
+        return mapFilterRequest.getCategory().equals(NONE)
+                ? houseRepository.findHouseMidLevel(mapFilterRequest)
+                : houseRepository.findHouseMidLevelInCategory(mapFilterRequest);
+    }
+
+    private ShowMapResponse showMapLowLevel(MapFilterRequest mapFilterRequest) {
+        return mapFilterRequest.getCategory().equals(NONE)
+                ? houseRepository.findHouseLowLevel(mapFilterRequest)
+                : houseRepository.findHouseLowLevelInCategory(mapFilterRequest);
     }
 }

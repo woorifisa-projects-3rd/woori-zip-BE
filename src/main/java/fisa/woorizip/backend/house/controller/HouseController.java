@@ -1,7 +1,11 @@
 package fisa.woorizip.backend.house.controller;
 
 import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
+import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
+import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
 import fisa.woorizip.backend.house.service.HouseService;
+
+import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,5 +23,10 @@ public class HouseController {
     public HouseDetailResponse getHouseDetail(@PathVariable("houseId") Long houseId) {
         log.info("houseId {}", houseId);
         return houseService.getHouseDetail(houseId);
+    }
+  
+    @GetMapping("/houses")
+    public ShowMapResponse ShowMap(@ModelAttribute @Valid MapFilterRequest mapFilterRequest) {
+        return houseService.showMap(mapFilterRequest);
     }
 }

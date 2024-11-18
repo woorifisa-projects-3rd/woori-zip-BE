@@ -4,4 +4,9 @@ import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LoanGoodsRepository extends JpaRepository<LoanGoods, Long> {}
+import java.util.Optional;
+
+public interface LoanGoodsRepository extends JpaRepository<LoanGoods, Long> {
+
+    Optional<LoanGoods> findLoanGoodsById(Long longGoodsId);
+}
