@@ -14,7 +14,7 @@ public class LoanCheckListFixture {
         return new LoanCheckListFixture();
     }
 
-    public LoanCheckListFixture id (Long id) {
+    public LoanCheckListFixture id(Long id) {
         this.id = id;
         return this;
     }
@@ -38,7 +38,7 @@ public class LoanCheckListFixture {
         return LoanCheckList.builder()
                 .id(id)
                 .orderIndex(orderIndex)
-                .content (content)
+                .content(content)
                 .loanGoodsType(loanGoodsType)
                 .build();
     }

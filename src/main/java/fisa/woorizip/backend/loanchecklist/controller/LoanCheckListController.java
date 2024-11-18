@@ -2,8 +2,8 @@ package fisa.woorizip.backend.loanchecklist.controller;
 
 import fisa.woorizip.backend.loanchecklist.dto.response.ShowLoanCheckListsResponse;
 import fisa.woorizip.backend.loanchecklist.service.LoanCheckListService;
-
 import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
