@@ -105,7 +105,7 @@ public class JwtTokenProvider {
 
     public Role getMemberRole(String token) {
         try {
-            return getClaimsJwt(token).getPayload().get(MEMBER_ROLE, Role.class);
+            return Role.from(getClaimsJwt(token).getPayload().get(MEMBER_ROLE, String.class));
         } catch (RequiredTypeException e) {
             throw new WooriZipException(INVALID_CLAIM_TYPE);
         }
