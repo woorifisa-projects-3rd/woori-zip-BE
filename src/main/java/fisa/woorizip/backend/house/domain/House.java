@@ -35,7 +35,7 @@ public class House {
     private String address;
 
     @Column(nullable = false)
-    private String comment; // 추가된 필드
+    private String comment;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "housing_expenses", nullable = false)
