@@ -1,5 +1,11 @@
 package fisa.woorizip.backend.house.repository;
 
+import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
+import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+
 import fisa.woorizip.backend.facility.domain.Facility;
 import fisa.woorizip.backend.facility.repository.FacilityRepository;
 import fisa.woorizip.backend.house.domain.House;
@@ -18,11 +24,6 @@ import fisa.woorizip.backend.support.fixture.MemberFixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
-import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
 public class HouseRepositoryTest {

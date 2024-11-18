@@ -1,11 +1,13 @@
 package fisa.woorizip.backend.house.controller;
 
-import fisa.woorizip.backend.support.ControllerTest;
-import org.junit.jupiter.api.Test;
-
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.INVALID_INPUT;
+
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.OK;
+
+import fisa.woorizip.backend.support.ControllerTest;
+
+import org.junit.jupiter.api.Test;
 
 public class HouseControllerTest extends ControllerTest {
     static final double SOUTH_WEST_LATITUDE = 37.452655162589174;
