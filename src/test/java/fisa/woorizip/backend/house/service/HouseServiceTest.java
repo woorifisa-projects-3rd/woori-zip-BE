@@ -9,6 +9,7 @@ import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import fisa.woorizip.backend.house.repository.HouseRepository;
 import fisa.woorizip.backend.houseimage.repository.HouseImageRepository;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,14 +21,11 @@ import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 class HouseServiceTest {
-    @Mock
-    private HouseRepository houseRepository;
+    @Mock private HouseRepository houseRepository;
 
-    @Mock
-    private HouseImageRepository houseImageRepository;
+    @Mock private HouseImageRepository houseImageRepository;
 
-    @InjectMocks
-    private HouseServiceImpl houseService;
+    @InjectMocks private HouseServiceImpl houseService;
 
     @Test
     void 매물_상세정보와_이미지URL_조회_성공() {
@@ -40,10 +38,12 @@ class HouseServiceTest {
         HouseDetailResponse houseDetailResponse = houseService.getHouseDetail(1L);
 
         assertThat(houseDetailResponse)
-                .satisfies(response -> {
-                    assertThat(response.getName()).isEqualTo(testHouse.getName());
-                    assertThat(response.getImageUrls()).containsExactlyElementsOf(testImageUrls);
-                });
+                .satisfies(
+                        response -> {
+                            assertThat(response.getName()).isEqualTo(testHouse.getName());
+                            assertThat(response.getImageUrls())
+                                    .containsExactlyElementsOf(testImageUrls);
+                        });
     }
 
     @Test
