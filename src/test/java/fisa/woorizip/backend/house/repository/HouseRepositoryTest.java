@@ -63,17 +63,17 @@ public class HouseRepositoryTest {
                         126.79611509567208,
                         37.654612635772615,
                         127.09945286237564);
-        ShowMapResponse result = houseRepository.findHouseHighLevel(mapFilterRequest);
+        ShowMapResponse response = houseRepository.findHouseHighLevel(mapFilterRequest);
 
         assertAll(
                 "response",
-                () -> assertThat(result.getHouseAddressType().equals(GU)),
-                () -> assertThat(result.getCounts().size() == 2),
-                () -> assertThat(result.getCounts().get(0).getCount() == 10),
-                () -> assertThat(result.getCounts().get(0).getAddressName().equals("강동구")),
-                () -> assertThat(result.getCounts().get(1).getCount() == 10),
-                () -> assertThat(result.getCounts().get(0).getAddressName().equals("마포구")),
-                () -> assertThat(result.getHouseContents().size() == 15));
+                () -> assertThat(response.getHouseAddressType().equals(GU)),
+                () -> assertThat(response.getCounts().size() == 2),
+                () -> assertThat(response.getCounts().get(0).getCount() == 10),
+                () -> assertThat(response.getCounts().get(0).getAddressName().equals("강동구")),
+                () -> assertThat(response.getCounts().get(1).getCount() == 10),
+                () -> assertThat(response.getCounts().get(0).getAddressName().equals("마포구")),
+                () -> assertThat(response.getHouseContents().size() == 15));
     }
 
     @Test
@@ -91,17 +91,17 @@ public class HouseRepositoryTest {
                         126.79611509567208,
                         37.654612635772615,
                         127.09945286237564);
-        ShowMapResponse result = houseRepository.findHouseMidLevel(mapFilterRequest);
+        ShowMapResponse response = houseRepository.findHouseMidLevel(mapFilterRequest);
 
         assertAll(
                 "response",
-                () -> assertThat(result.getHouseAddressType().equals(DONG)),
-                () -> assertThat(result.getCounts().size() == 2),
-                () -> assertThat(result.getCounts().get(0).getCount() == 10),
-                () -> assertThat(result.getCounts().get(0).getAddressName().equals("상암동")),
-                () -> assertThat(result.getCounts().get(1).getCount() == 10),
-                () -> assertThat(result.getCounts().get(0).getAddressName().equals("아현동")),
-                () -> assertThat(result.getHouseContents().size() == 15));
+                () -> assertThat(response.getHouseAddressType().equals(DONG)),
+                () -> assertThat(response.getCounts().size() == 2),
+                () -> assertThat(response.getCounts().get(0).getCount() == 10),
+                () -> assertThat(response.getCounts().get(0).getAddressName().equals("상암동")),
+                () -> assertThat(response.getCounts().get(1).getCount() == 10),
+                () -> assertThat(response.getCounts().get(0).getAddressName().equals("아현동")),
+                () -> assertThat(response.getHouseContents().size() == 15));
     }
 
     @Test
@@ -131,25 +131,25 @@ public class HouseRepositoryTest {
                         126.79611509567208,
                         37.654612635772615,
                         127.09945286237564);
-        ShowMapResponse result = houseRepository.findHouseLowLevel(mapFilterRequest);
+        ShowMapResponse response = houseRepository.findHouseLowLevel(mapFilterRequest);
 
         assertAll(
                 "response",
-                () -> assertThat(result.getHouses().get(0).getHouseId().equals(house1.getId())),
+                () -> assertThat(response.getHouses().get(0).getHouseId().equals(house1.getId())),
                 () ->
-                        assertThat(result.getHouses().get(0).getLatitude())
+                        assertThat(response.getHouses().get(0).getLatitude())
                                 .isEqualTo(house1.getLatitude()),
                 () ->
-                        assertThat(result.getHouses().get(0).getLongitude())
+                        assertThat(response.getHouses().get(0).getLongitude())
                                 .isEqualTo(house1.getLongitude()),
-                () -> assertThat(result.getHouses().get(1).getHouseId().equals(house2.getId())),
+                () -> assertThat(response.getHouses().get(1).getHouseId().equals(house2.getId())),
                 () ->
-                        assertThat(result.getHouses().get(1).getLatitude())
+                        assertThat(response.getHouses().get(1).getLatitude())
                                 .isEqualTo(house2.getLatitude()),
                 () ->
-                        assertThat(result.getHouses().get(1).getLongitude())
+                        assertThat(response.getHouses().get(1).getLongitude())
                                 .isEqualTo(house2.getLongitude()),
-                () -> assertThat(result.getHouseContents().size() == 15));
+                () -> assertThat(response.getHouseContents().size() == 15));
     }
 
     @Test
@@ -204,14 +204,19 @@ public class HouseRepositoryTest {
                         "요식업",
                         10,
                         2);
-        ShowMapResponse result = houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
+        ShowMapResponse response = houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
 
         assertAll(
                 "response",
-                () -> assertThat(result.getHouseAddressType().equals(GU)),
-                () -> assertThat(result.getCounts().size() == 1),
-                () -> assertThat(result.getCounts().get(0).getAddressName().equals(house1.getGu())),
-                () -> assertThat(result.getCounts().get(0).getCount() == 1));
+                () -> assertThat(response.getHouseAddressType().equals(GU)),
+                () -> assertThat(response.getCounts().size() == 1),
+                () ->
+                        assertThat(
+                                response.getCounts()
+                                        .get(0)
+                                        .getAddressName()
+                                        .equals(house1.getGu())),
+                () -> assertThat(response.getCounts().get(0).getCount() == 1));
     }
 
     @Test
@@ -266,19 +271,19 @@ public class HouseRepositoryTest {
                         "요식업",
                         10,
                         2);
-        ShowMapResponse result = houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
+        ShowMapResponse response = houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
 
         assertAll(
                 "response",
-                () -> assertThat(result.getHouseAddressType().equals(DONG)),
-                () -> assertThat(result.getCounts().size() == 1),
+                () -> assertThat(response.getHouseAddressType().equals(DONG)),
+                () -> assertThat(response.getCounts().size() == 1),
                 () ->
                         assertThat(
-                                result.getCounts()
+                                response.getCounts()
                                         .get(0)
                                         .getAddressName()
                                         .equals(house1.getDong())),
-                () -> assertThat(result.getCounts().get(0).getCount() == 1));
+                () -> assertThat(response.getCounts().get(0).getCount() == 1));
     }
 
     @Test
@@ -333,25 +338,60 @@ public class HouseRepositoryTest {
                         "요식업",
                         10,
                         2);
-        ShowMapResponse result = houseRepository.findHouseLowLevelInCategory(mapFilterRequest);
+        ShowMapResponse response = houseRepository.findHouseLowLevelInCategory(mapFilterRequest);
 
         assertAll(
                 "response",
-                () -> assertThat(result.getHouses().size() == 1),
-                () -> assertThat(result.getHouses().get(0).getHouseId().equals(house1.getId())),
+                () -> assertThat(response.getHouses().size() == 1),
+                () -> assertThat(response.getHouses().get(0).getHouseId().equals(house1.getId())),
                 () ->
-                        assertThat(result.getHouses().get(0).getLatitude())
+                        assertThat(response.getHouses().get(0).getLatitude())
                                 .isEqualTo(house1.getLatitude()),
                 () ->
-                        assertThat(result.getHouses().get(0).getLongitude())
+                        assertThat(response.getHouses().get(0).getLongitude())
                                 .isEqualTo(house1.getLongitude()),
-                () -> assertThat(result.getHouses().get(0).getFacilities().size() == 2),
+                () -> assertThat(response.getHouses().get(0).getFacilities().size() == 2),
                 () ->
-                        assertThat(result.getHouses().get(0).getFacilities().get(0).getLatitude())
+                        assertThat(response.getHouses().get(0).getFacilities().get(0).getLatitude())
                                 .isEqualTo(facility1.getLatitude()),
                 () ->
-                        assertThat(result.getHouses().get(0).getFacilities().get(1).getLongitude())
+                        assertThat(
+                                        response.getHouses()
+                                                .get(0)
+                                                .getFacilities()
+                                                .get(1)
+                                                .getLongitude())
                                 .isEqualTo(facility1.getLongitude()),
-                () -> assertThat(result.getHouseContents().size() == 15));
+                () -> assertThat(response.getHouseContents().size() == 15));
+    }
+
+    @Test
+    @DisplayName("지도를 조회할 때, 집 목록의 정보에서 집의 대표 이미지를 조회할 수 있다.")
+    public void findHouseRepresentativeImage() {
+        Member member = save(MemberFixture.builder().build());
+        House house =
+                save(
+                        HouseFixture.builder()
+                                .member(member)
+                                .representativeImage("representativeImageUrl")
+                                .build());
+
+        MapFilterRequest mapFilterRequest =
+                MapFilterRequest.of(
+                        5,
+                        37.452655162589174,
+                        126.79611509567208,
+                        37.654612635772615,
+                        127.09945286237564);
+
+        ShowMapResponse response = houseRepository.findHouseLowLevel(mapFilterRequest);
+
+        assertAll(
+                "response",
+                () ->
+                        response.getHouseContents()
+                                .get(0)
+                                .getRepresentativeImage()
+                                .equals(house.getRepresentativeImage()));
     }
 }
