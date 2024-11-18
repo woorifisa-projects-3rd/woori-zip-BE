@@ -19,6 +19,7 @@ public class HouseContentResult {
     private String dong;
     private long maintenanceFee;
     private String comment;
+    private String representativeImage;
 
     public static HouseContentResult init(House house) {
         return new HouseContentResult(
@@ -30,6 +31,7 @@ public class HouseContentResult {
                 house.getGu(),
                 house.getDong(),
                 house.getMaintenanceFee(),
-                house.getComment());
+                house.getComment(),
+                house.getRepresentativeImage());
     }
 }
