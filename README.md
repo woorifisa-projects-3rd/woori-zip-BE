@@ -13,3 +13,47 @@
 | 김혜빈  | 지도 API |
 | 이성희  | 인프라 구축 |
 | 정석진  | 소비 패턴 분석 API, 집 상세 조회 API |
+
+## application.yml
+```yaml
+spring:
+  server:
+    servlet:
+      encoding:
+        charset: utf-8
+        force: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/woori_zip
+    username: fisa_fire
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  aop:
+    proxy-target-class: false
+```
+
+## Drop Table Query
+```SQL
+DROP TABLE bookmark;
+DROP TABLE facility;
+DROP TABLE house;
+DROP TABLE house_facility_relation;
+DROP TABLE house_image;
+DROP TABLE loan_goods;
+DROP TABLE member;
+DROP TABLE flyway_schema_history;
+DROP TABLE loan_check_list;
+DROP TABLE log;
+DROP TABLE recently_loan_goods;
+DROP TABLE refresh_token;
+show tables;
+```
