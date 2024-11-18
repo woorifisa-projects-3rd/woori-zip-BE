@@ -9,7 +9,7 @@ import static fisa.woorizip.backend.house.HouseErrorCode.MAP_LEVEL_NOT_FOUND;
 
 @Getter
 public enum MapLevel {
-    HIGH(9, 10),
+    HIGH(9, 14),
     MID(6, 8),
     LOW(1, 5);
 
