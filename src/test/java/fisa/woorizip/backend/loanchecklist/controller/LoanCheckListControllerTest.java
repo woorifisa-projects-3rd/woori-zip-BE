@@ -2,7 +2,6 @@ package fisa.woorizip.backend.loanchecklist.controller;
 
 import static fisa.woorizip.backend.loangoods.domain.LoanGoodsType.JEONSE;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.HttpStatus.*;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;

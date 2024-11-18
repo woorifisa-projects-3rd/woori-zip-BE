@@ -3,8 +3,6 @@ package fisa.woorizip.backend.loanchecklist.service;
 import fisa.woorizip.backend.loanchecklist.domain.LoanCheckList;
 import fisa.woorizip.backend.loanchecklist.dto.response.ShowLoanCheckListsResponse;
 import fisa.woorizip.backend.loanchecklist.repository.LoanCheckListRepository;
-import fisa.woorizip.backend.loangoods.repository.LoanGoodsRepository;
-import fisa.woorizip.backend.loangoods.service.LoanGoodsServiceImpl;
 import fisa.woorizip.backend.support.fixture.LoanCheckListFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
