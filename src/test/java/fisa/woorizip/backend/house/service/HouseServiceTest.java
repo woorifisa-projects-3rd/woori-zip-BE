@@ -1,32 +1,28 @@
 package fisa.woorizip.backend.house.service;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
-
-import fisa.woorizip.backend.common.exception.WooriZipException;
-import fisa.woorizip.backend.house.domain.House;
-import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
-import fisa.woorizip.backend.house.repository.HouseRepository;
-import fisa.woorizip.backend.houseimage.repository.HouseImageRepository;
-
 import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.facility.domain.Facility;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
+import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
 import fisa.woorizip.backend.house.dto.result.HouseContentResult;
 import fisa.woorizip.backend.house.dto.result.HouseCountResult;
 import fisa.woorizip.backend.house.dto.result.HouseResult;
 import fisa.woorizip.backend.house.repository.HouseRepository;
+import fisa.woorizip.backend.houseimage.repository.HouseImageRepository;
 import fisa.woorizip.backend.support.fixture.FacilityFixture;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
 

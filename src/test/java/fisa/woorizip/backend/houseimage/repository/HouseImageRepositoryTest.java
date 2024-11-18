@@ -21,8 +21,7 @@ import java.util.stream.Stream;
 @RepositoryTest
 class HouseImageRepositoryTest {
 
-    @Autowired
-    private HouseImageRepository houseImageRepository;
+    @Autowired private HouseImageRepository houseImageRepository;
 
     @BeforeEach
     void setUp() {
@@ -33,25 +32,24 @@ class HouseImageRepositoryTest {
     @MethodSource("provideOrderIndices")
     @DisplayName("매물 ID와 정렬 순서대로 이미지 URL을 조회한다")
     void findImageUrlsByHouseId(String testCase, List<Integer> orderIndices) {
-        List<HouseImage> images = orderIndices.stream()
-                .map(index -> HouseImage.builder()
-                        .url("test" + (index + 1) + ".jpg")
-                        .orderIndex(index)
-                        .house(House.builder().id(1L).build())
-                        .build())
-                .toList();
+        List<HouseImage> images =
+                orderIndices.stream()
+                        .map(
+                                index ->
+                                        HouseImage.builder()
+                                                .url("test" + (index + 1) + ".jpg")
+                                                .orderIndex(index)
+                                                .house(House.builder().id(1L).build())
+                                                .build())
+                        .toList();
         houseImageRepository.saveAll(images);
 
         List<String> imageUrls = houseImageRepository.findImageUrlsByHouseId(1L);
 
-        List<String> expectedUrls = orderIndices.stream()
-                .sorted()
-                .map(index -> "test" + (index + 1) + ".jpg")
-                .toList();
+        List<String> expectedUrls =
+                orderIndices.stream().sorted().map(index -> "test" + (index + 1) + ".jpg").toList();
 
-        assertThat(imageUrls)
-                .hasSize(expectedUrls.size())
-                .containsExactlyElementsOf(expectedUrls);
+        assertThat(imageUrls).hasSize(expectedUrls.size()).containsExactlyElementsOf(expectedUrls);
     }
 
     static Stream<Arguments> provideOrderIndices() {
@@ -61,8 +59,7 @@ class HouseImageRepositoryTest {
                 arguments("불연속적인 순서의 이미지", List.of(0, 5, 10)),
                 arguments("역순으로 정렬된 이미지", List.of(2, 1, 0)),
                 arguments("동일한 orderIndex를 가진 이미지", List.of(1, 1, 1)),
-                arguments("큰 간격의 orderIndex", List.of(0, 100, 200))
-        );
+                arguments("큰 간격의 orderIndex", List.of(0, 100, 200)));
     }
 
     @ParameterizedTest
@@ -72,5 +69,4 @@ class HouseImageRepositoryTest {
         List<String> imageUrls = houseImageRepository.findImageUrlsByHouseId(invalidHouseId);
         assertThat(imageUrls).isEmpty();
     }
-
 }

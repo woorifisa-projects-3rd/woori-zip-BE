@@ -1,11 +1,5 @@
 package fisa.woorizip.backend.house.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import fisa.woorizip.backend.house.domain.House;
-import fisa.woorizip.backend.member.domain.Member;
-import fisa.woorizip.backend.member.repository.MemberRepository;
-import fisa.woorizip.backend.support.RepositoryTest;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
 
@@ -39,7 +33,7 @@ class HouseRepositoryTest {
     @Autowired private HouseRepository houseRepository;
 
     @Autowired private MemberRepository memberRepository;
-  
+
     @Autowired private FacilityRepository facilityRepository;
     @Autowired private HouseFacilityRelationRepository houseFacilityRelationRepository;
 
@@ -72,7 +66,7 @@ class HouseRepositoryTest {
 
         assertThat(houseLookupResult).isEmpty();
     }
-  
+
     private House save(House house) {
         return houseRepository.save(house);
     }

@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public enum HouseErrorCode implements ErrorCode {
-  
     HOUSE_NOT_FOUND(NOT_FOUND, "집이 존재하지 않습니다."),
     HOUSE_ADDRESS_TYPE_NOT_FOUND(NOT_FOUND, "집 주소 형식이 존재하지 않습니다."),
     MAP_LEVEL_NOT_FOUND(NOT_FOUND, "줌 레벨이 존재하지 않습니다."),

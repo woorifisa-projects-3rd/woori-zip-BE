@@ -1,15 +1,14 @@
 package fisa.woorizip.backend.house.service;
 
-import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
-
-import fisa.woorizip.backend.common.exception.WooriZipException;
-import fisa.woorizip.backend.house.domain.House;
-import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import static fisa.woorizip.backend.facility.domain.Category.NONE;
+import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
 import static fisa.woorizip.backend.house.dto.MapLevel.HIGH;
 import static fisa.woorizip.backend.house.dto.MapLevel.MID;
 
+import fisa.woorizip.backend.common.exception.WooriZipException;
+import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
+import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
 import fisa.woorizip.backend.house.repository.HouseRepository;
 import fisa.woorizip.backend.houseimage.repository.HouseImageRepository;
