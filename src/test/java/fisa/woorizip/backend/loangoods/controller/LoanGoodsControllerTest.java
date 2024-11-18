@@ -3,6 +3,7 @@ package fisa.woorizip.backend.loangoods.controller;
 import static org.springframework.http.HttpStatus.*;
 
 import fisa.woorizip.backend.support.ControllerTest;
+
 import org.junit.jupiter.api.Test;
 
 class LoanGoodsControllerTest extends ControllerTest {

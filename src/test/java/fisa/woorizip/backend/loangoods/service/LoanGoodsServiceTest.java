@@ -32,7 +32,8 @@ class LoanGoodsServiceTest {
 
         given(loanGoodsRepository.findById(loanGoods.getId())).willReturn(Optional.of(loanGoods));
 
-        ShowLoanGoodsDetailsResponse response = loanGoodsService.getLoanGoodsDetailsById(loanGoods.getId());
+        ShowLoanGoodsDetailsResponse response =
+                loanGoodsService.getLoanGoodsDetailsById(loanGoods.getId());
 
         assertAll(
                 () -> assertThat(response).isNotNull(),
@@ -41,7 +42,9 @@ class LoanGoodsServiceTest {
                 () -> assertThat(response.getDescription()).isEqualTo(loanGoods.getDescription()),
                 () -> assertThat(response.getContent()).isEqualTo(loanGoods.getContent()),
                 () -> assertThat(response.getImageUrl()).isEqualTo(loanGoods.getImageUrl()),
-                () -> assertThat(response.getLoanGoodsType()).isEqualTo(loanGoods.getLoanGoodsType()),
+                () ->
+                        assertThat(response.getLoanGoodsType())
+                                .isEqualTo(loanGoods.getLoanGoodsType()),
                 () -> verify(loanGoodsRepository, times(1)).findById(loanGoods.getId()));
     }
 }
