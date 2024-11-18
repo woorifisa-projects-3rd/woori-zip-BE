@@ -131,12 +131,74 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
 
     @Override
     public ShowMapResponse findHouseHighLevelInCategory(MapFilterRequest mapFilterRequest) {
-        return null;
+        List<Long> houseIdList = findHouseIdListInCategory(mapFilterRequest);
+        return ShowMapResponse.of(
+                GU,
+                jpaQueryFactory
+                        .select(
+                                Projections.constructor(
+                                        HouseCountResult.class, house.gu, house.count().intValue()))
+                        .from(house)
+                        .where(
+                                house.id.in(houseIdList),
+                                house.latitude.between(
+                                        mapFilterRequest.getSouthWestLatitude(),
+                                        mapFilterRequest.getNorthEastLatitude()),
+                                house.longitude.between(
+                                        mapFilterRequest.getSouthWestLongitude(),
+                                        mapFilterRequest.getNorthEastLongitude()),
+                                houseTypeEq(mapFilterRequest.getHouseType()),
+                                housingExpensesEq(mapFilterRequest.getHousingExpenses()),
+                                house.deposit.between(
+                                        mapFilterRequest.getMinDeposit(),
+                                        mapFilterRequest.getMaxDeposit()),
+                                house.monthlyRentFee.between(
+                                        mapFilterRequest.getMinMonthlyRentFee(),
+                                        mapFilterRequest.getMaxMonthlyRentFee()),
+                                house.maintenanceFee.between(
+                                        mapFilterRequest.getMinMaintenanceFee(),
+                                        mapFilterRequest.getMaxMaintenanceFee()))
+                        .groupBy(house.gu)
+                        .orderBy(house.gu.asc())
+                        .fetch(),
+                createHouseContents(mapFilterRequest));
     }
 
     @Override
     public ShowMapResponse findHouseMidLevelInCategory(MapFilterRequest mapFilterRequest) {
-        return null;
+        List<Long> houseIdList = findHouseIdListInCategory(mapFilterRequest);
+        return ShowMapResponse.of(
+                DONG,
+                jpaQueryFactory
+                        .select(
+                                Projections.constructor(
+                                        HouseCountResult.class,
+                                        house.dong,
+                                        house.count().intValue()))
+                        .from(house)
+                        .where(
+                                house.id.in(houseIdList),
+                                house.latitude.between(
+                                        mapFilterRequest.getSouthWestLatitude(),
+                                        mapFilterRequest.getNorthEastLatitude()),
+                                house.longitude.between(
+                                        mapFilterRequest.getSouthWestLongitude(),
+                                        mapFilterRequest.getNorthEastLongitude()),
+                                houseTypeEq(mapFilterRequest.getHouseType()),
+                                housingExpensesEq(mapFilterRequest.getHousingExpenses()),
+                                house.deposit.between(
+                                        mapFilterRequest.getMinDeposit(),
+                                        mapFilterRequest.getMaxDeposit()),
+                                house.monthlyRentFee.between(
+                                        mapFilterRequest.getMinMonthlyRentFee(),
+                                        mapFilterRequest.getMaxMonthlyRentFee()),
+                                house.maintenanceFee.between(
+                                        mapFilterRequest.getMinMaintenanceFee(),
+                                        mapFilterRequest.getMaxMaintenanceFee()))
+                        .groupBy(house.dong)
+                        .orderBy(house.dong.asc())
+                        .fetch(),
+                createHouseContents(mapFilterRequest));
     }
 
     @Override

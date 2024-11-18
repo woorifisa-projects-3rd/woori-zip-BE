@@ -175,7 +175,119 @@ public class HouseRepositoryTest {
     }
 
     @Test
-    @DisplayName("지도 줌이 5 레벨 이하일 때, 지도 범위 내에 있는 모든 집 위도 경도 목록과 15개의 집 목록을 조회할 수 있다.")
+    @DisplayName("지도 줌이 9 레벨 이상이고 카테고리가 존재할 때, 구 별 집 개수와 15개의 집 목록을 조회할 수 있다.")
+    public void findHouseHighLevelInCategory() {
+        Member member =
+                save(
+                        Member.builder()
+                                .name("길가은")
+                                .password("123")
+                                .username("1234")
+                                .debt(1L)
+                                .role(MEMBER)
+                                .build());
+
+        House house1 =
+                save(
+                        HouseFixture.builder()
+                                .latitude(37.452655162589175)
+                                .longitude(126.79611509567209)
+                                .member(member)
+                                .build());
+        House house2 =
+                save(
+                        HouseFixture.builder()
+                                .latitude(37.654612635772614)
+                                .longitude(127.09945286237563)
+                                .member(member)
+                                .build());
+
+        Facility facility1 = save(FacilityFixture.builder().build());
+        Facility facility2 = save(FacilityFixture.builder().build());
+
+        HouseFacilityRelation relation1 = save(HouseFacilityRelationFixture.builder().house(house1).facility(facility1).build());
+        HouseFacilityRelation relation2 = save(HouseFacilityRelationFixture.builder().house(house1).facility(facility2).build());
+        HouseFacilityRelation relation3 = save(HouseFacilityRelationFixture.builder().house(house2).facility(facility1).build());
+
+        MapFilterRequest mapFilterRequest =
+                MapFilterRequest.of(
+                        9,
+                        37.452655162589174,
+                        126.79611509567208,
+                        37.654612635772615,
+                        127.09945286237564,
+                        "요식업",
+                        10,
+                        2
+                );
+        ShowMapResponse result = houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
+
+        assertAll(
+                "response",
+                () -> assertThat(result.getHouseAddressType().equals(GU)),
+                () -> assertThat(result.getCounts().size() == 1),
+                () -> assertThat(result.getCounts().get(0).getAddressName().equals(house1.getGu())),
+                () -> assertThat(result.getCounts().get(0).getCount() == 1));
+    }
+
+    @Test
+    @DisplayName("지도 줌이 6 레벨부터 8 레벨 사이이고 카테고리가 존재할 때, 동 별 집 개수와 15개의 집 목록을 조회할 수 있다.")
+    public void findHouseMidLevelInCategory() {
+        Member member =
+                save(
+                        Member.builder()
+                                .name("길가은")
+                                .password("123")
+                                .username("1234")
+                                .debt(1L)
+                                .role(MEMBER)
+                                .build());
+
+        House house1 =
+                save(
+                        HouseFixture.builder()
+                                .latitude(37.452655162589175)
+                                .longitude(126.79611509567209)
+                                .member(member)
+                                .build());
+        House house2 =
+                save(
+                        HouseFixture.builder()
+                                .latitude(37.654612635772614)
+                                .longitude(127.09945286237563)
+                                .member(member)
+                                .build());
+
+        Facility facility1 = save(FacilityFixture.builder().build());
+        Facility facility2 = save(FacilityFixture.builder().build());
+
+        HouseFacilityRelation relation1 = save(HouseFacilityRelationFixture.builder().house(house1).facility(facility1).build());
+        HouseFacilityRelation relation2 = save(HouseFacilityRelationFixture.builder().house(house1).facility(facility2).build());
+        HouseFacilityRelation relation3 = save(HouseFacilityRelationFixture.builder().house(house2).facility(facility1).build());
+
+        MapFilterRequest mapFilterRequest =
+                MapFilterRequest.of(
+                        7,
+                        37.452655162589174,
+                        126.79611509567208,
+                        37.654612635772615,
+                        127.09945286237564,
+                        "요식업",
+                        10,
+                        2
+                );
+        ShowMapResponse result = houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
+
+        assertAll(
+                "response",
+                () -> assertThat(result.getHouseAddressType().equals(DONG)),
+                () -> assertThat(result.getCounts().size() == 1),
+                () -> assertThat(result.getCounts().get(0).getAddressName().equals(house1.getDong())),
+                () -> assertThat(result.getCounts().get(0).getCount() == 1));
+    }
+
+    @Test
+    @DisplayName("지도 줌이 5 레벨 이하이고 카테고리가 존재할 때, 지도 범위 내에 있는 모든 집 위도 경도 목록과 15개의 집 목록을 조회할 수 있다.")
     public void findHouseLowLevelInCategory() {
         Member member =
                 save(
