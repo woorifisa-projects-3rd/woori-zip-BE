@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.support.RepositoryTest;
-
 import fisa.woorizip.backend.support.fixture.LoanGoodsFixture;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,7 +26,8 @@ class LoanGoodsRepositoryTest {
 
         LoanGoods loanGoods = 저장(LoanGoodsFixture.builder().build());
 
-        Optional<LoanGoods> findLoanGoods = loanGoodsRepository.findById(loanGoods.getId());
+        Optional<LoanGoods> findLoanGoods =
+                loanGoodsRepository.findLoanGoodsById(loanGoods.getId());
 
         assertAll(
                 () -> {
@@ -46,7 +47,7 @@ class LoanGoodsRepositoryTest {
     void findById_존재하지_않는_대출상품을_조회할_수_없다() {
         Long nonExistId = 100000L;
 
-        Optional<LoanGoods> findLoanGoods = loanGoodsRepository.findById(nonExistId);
+        Optional<LoanGoods> findLoanGoods = loanGoodsRepository.findLoanGoodsById(nonExistId);
 
         assertThat(findLoanGoods).isNotPresent();
     }
