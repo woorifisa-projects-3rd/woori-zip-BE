@@ -10,6 +10,7 @@ import static fisa.woorizip.backend.facility.FacilityErrorCode.CATEGORY_NOT_FOUN
 @Getter
 public enum Category {
     FOOD("요식업"),
+    TEST("테스트용 카테고리"),
     NONE("없음");
 
     private final String name;
