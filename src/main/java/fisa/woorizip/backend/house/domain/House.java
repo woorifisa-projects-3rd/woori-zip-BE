@@ -97,4 +97,7 @@ public class House {
 
     @Column(name = "direction", nullable = false)
     private String direction;
+
+    @Column(name = "representative_image")
+    private String representativeImage;
 }

@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `house`
     `move_in_date`             DATE         NOT NULL,
     `approval_date`            DATE         NOT NULL,
     `direction`                VARCHAR(255) NOT NULL,
+    `representative_image`     VARCHAR(255),
     PRIMARY KEY (`id`)
 )
     engine = innodb
