@@ -1,8 +1,7 @@
 package fisa.woorizip.backend.house.dto.result;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import fisa.woorizip.backend.facility.domain.Facility;
-import fisa.woorizip.backend.facility.dto.FacilityResponse;
+import fisa.woorizip.backend.facility.dto.FacilityResult;
 import fisa.woorizip.backend.house.domain.House;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +18,7 @@ public class HouseResult {
     private double longitude;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<FacilityResponse> facilities;
+    private List<FacilityResult> facilities;
 
     public static HouseResult init(House house) {
         return new HouseResult(house.getId(), house.getLatitude(), house.getLongitude(), null);
