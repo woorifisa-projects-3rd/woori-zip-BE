@@ -127,4 +127,34 @@ public class MapFilterRequest {
                 null,
                 null);
     }
+
+    public static MapFilterRequest of(
+            int level,
+            double southWestLatitude,
+            double southWestLongitude,
+            double northEastLatitude,
+            double northEastLongitude,
+            String category,
+            Integer walking,
+            Integer facilityCount) {
+        return new MapFilterRequest(
+                level,
+                southWestLatitude,
+                southWestLongitude,
+                northEastLatitude,
+                northEastLongitude,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                category,
+                walking,
+                facilityCount,
+                null,
+                null);
+    }
 }
