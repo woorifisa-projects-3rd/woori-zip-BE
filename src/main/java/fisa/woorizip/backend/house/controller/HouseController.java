@@ -19,7 +19,7 @@ public class HouseController {
     private final HouseService houseService;
 
     @GetMapping("/houses")
-    public List<ShowMapResponse> ShowMap(@ModelAttribute @Valid MapFilterRequest mapFilterRequest) {
-        return null;
+    public ShowMapResponse ShowMap(@ModelAttribute @Valid MapFilterRequest mapFilterRequest) {
+        return houseService.showMap(mapFilterRequest);
     }
 }
