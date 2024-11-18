@@ -1,9 +1,11 @@
 package fisa.woorizip.backend.house.dto.result;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import fisa.woorizip.backend.facility.domain.Facility;
 import fisa.woorizip.backend.facility.dto.FacilityResult;
 import fisa.woorizip.backend.house.domain.House;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

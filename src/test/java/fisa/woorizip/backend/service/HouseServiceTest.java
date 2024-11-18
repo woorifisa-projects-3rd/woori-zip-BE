@@ -1,5 +1,15 @@
 package fisa.woorizip.backend.service;
 
+import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
+import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import fisa.woorizip.backend.facility.domain.Facility;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
@@ -11,6 +21,7 @@ import fisa.woorizip.backend.house.repository.HouseRepository;
 import fisa.woorizip.backend.house.service.HouseServiceImpl;
 import fisa.woorizip.backend.support.fixture.FacilityFixture;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,15 +29,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-
-import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
-import static org.assertj.core.api.Assertions.assertThat;
-import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class HouseServiceTest {

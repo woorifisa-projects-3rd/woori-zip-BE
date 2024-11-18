@@ -1,5 +1,11 @@
 package fisa.woorizip.backend.repositoy;
 
+import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
+import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+
 import fisa.woorizip.backend.facility.domain.Facility;
 import fisa.woorizip.backend.facility.repository.FacilityRepository;
 import fisa.woorizip.backend.house.domain.House;
@@ -15,17 +21,10 @@ import fisa.woorizip.backend.support.fixture.FacilityFixture;
 import fisa.woorizip.backend.support.fixture.HouseFacilityRelationFixture;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static fisa.woorizip.backend.facility.domain.Category.FOOD;
-import static fisa.woorizip.backend.facility.domain.Category.TEST;
-import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
-import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
-import static fisa.woorizip.backend.member.domain.Role.MEMBER;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
 public class HouseRepositoryTest {
@@ -42,9 +41,13 @@ public class HouseRepositoryTest {
         return memberRepository.save(member);
     }
 
-    private Facility save(Facility facility) { return facilityRepository.save(facility); }
+    private Facility save(Facility facility) {
+        return facilityRepository.save(facility);
+    }
 
-    private HouseFacilityRelation save(HouseFacilityRelation houseFacilityRelation) { return houseFacilityRelationRepository.save(houseFacilityRelation); }
+    private HouseFacilityRelation save(HouseFacilityRelation houseFacilityRelation) {
+        return houseFacilityRelationRepository.save(houseFacilityRelation);
+    }
 
     @Test
     @DisplayName("지도 줌이 9 레벨 이상일 때, 구 별 집 개수와 15개의 집 목록을 조회할 수 있다.")
@@ -173,9 +176,24 @@ public class HouseRepositoryTest {
         Facility facility1 = save(FacilityFixture.builder().build());
         Facility facility2 = save(FacilityFixture.builder().build());
 
-        HouseFacilityRelation relation1 = save(HouseFacilityRelationFixture.builder().house(house1).facility(facility1).build());
-        HouseFacilityRelation relation2 = save(HouseFacilityRelationFixture.builder().house(house1).facility(facility2).build());
-        HouseFacilityRelation relation3 = save(HouseFacilityRelationFixture.builder().house(house2).facility(facility1).build());
+        HouseFacilityRelation relation1 =
+                save(
+                        HouseFacilityRelationFixture.builder()
+                                .house(house1)
+                                .facility(facility1)
+                                .build());
+        HouseFacilityRelation relation2 =
+                save(
+                        HouseFacilityRelationFixture.builder()
+                                .house(house1)
+                                .facility(facility2)
+                                .build());
+        HouseFacilityRelation relation3 =
+                save(
+                        HouseFacilityRelationFixture.builder()
+                                .house(house2)
+                                .facility(facility1)
+                                .build());
 
         MapFilterRequest mapFilterRequest =
                 MapFilterRequest.of(
@@ -186,8 +204,7 @@ public class HouseRepositoryTest {
                         127.09945286237564,
                         "요식업",
                         10,
-                        2
-                );
+                        2);
         ShowMapResponse result = houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
 
         assertAll(
@@ -221,9 +238,24 @@ public class HouseRepositoryTest {
         Facility facility1 = save(FacilityFixture.builder().build());
         Facility facility2 = save(FacilityFixture.builder().build());
 
-        HouseFacilityRelation relation1 = save(HouseFacilityRelationFixture.builder().house(house1).facility(facility1).build());
-        HouseFacilityRelation relation2 = save(HouseFacilityRelationFixture.builder().house(house1).facility(facility2).build());
-        HouseFacilityRelation relation3 = save(HouseFacilityRelationFixture.builder().house(house2).facility(facility1).build());
+        HouseFacilityRelation relation1 =
+                save(
+                        HouseFacilityRelationFixture.builder()
+                                .house(house1)
+                                .facility(facility1)
+                                .build());
+        HouseFacilityRelation relation2 =
+                save(
+                        HouseFacilityRelationFixture.builder()
+                                .house(house1)
+                                .facility(facility2)
+                                .build());
+        HouseFacilityRelation relation3 =
+                save(
+                        HouseFacilityRelationFixture.builder()
+                                .house(house2)
+                                .facility(facility1)
+                                .build());
 
         MapFilterRequest mapFilterRequest =
                 MapFilterRequest.of(
@@ -234,15 +266,19 @@ public class HouseRepositoryTest {
                         127.09945286237564,
                         "요식업",
                         10,
-                        2
-                );
+                        2);
         ShowMapResponse result = houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
 
         assertAll(
                 "response",
                 () -> assertThat(result.getHouseAddressType().equals(DONG)),
                 () -> assertThat(result.getCounts().size() == 1),
-                () -> assertThat(result.getCounts().get(0).getAddressName().equals(house1.getDong())),
+                () ->
+                        assertThat(
+                                result.getCounts()
+                                        .get(0)
+                                        .getAddressName()
+                                        .equals(house1.getDong())),
                 () -> assertThat(result.getCounts().get(0).getCount() == 1));
     }
 
@@ -269,9 +305,24 @@ public class HouseRepositoryTest {
         Facility facility1 = save(FacilityFixture.builder().build());
         Facility facility2 = save(FacilityFixture.builder().build());
 
-        HouseFacilityRelation relation1 = save(HouseFacilityRelationFixture.builder().house(house1).facility(facility1).build());
-        HouseFacilityRelation relation2 = save(HouseFacilityRelationFixture.builder().house(house1).facility(facility2).build());
-        HouseFacilityRelation relation3 = save(HouseFacilityRelationFixture.builder().house(house2).facility(facility1).build());
+        HouseFacilityRelation relation1 =
+                save(
+                        HouseFacilityRelationFixture.builder()
+                                .house(house1)
+                                .facility(facility1)
+                                .build());
+        HouseFacilityRelation relation2 =
+                save(
+                        HouseFacilityRelationFixture.builder()
+                                .house(house1)
+                                .facility(facility2)
+                                .build());
+        HouseFacilityRelation relation3 =
+                save(
+                        HouseFacilityRelationFixture.builder()
+                                .house(house2)
+                                .facility(facility1)
+                                .build());
 
         MapFilterRequest mapFilterRequest =
                 MapFilterRequest.of(
@@ -282,8 +333,7 @@ public class HouseRepositoryTest {
                         127.09945286237564,
                         "요식업",
                         10,
-                        2
-                        );
+                        2);
         ShowMapResponse result = houseRepository.findHouseLowLevelInCategory(mapFilterRequest);
 
         assertAll(
@@ -297,8 +347,12 @@ public class HouseRepositoryTest {
                         assertThat(result.getHouses().get(0).getLongitude())
                                 .isEqualTo(house1.getLongitude()),
                 () -> assertThat(result.getHouses().get(0).getFacilities().size() == 2),
-                () -> assertThat(result.getHouses().get(0).getFacilities().get(0).getLatitude()).isEqualTo(facility1.getLatitude()),
-                () -> assertThat(result.getHouses().get(0).getFacilities().get(1).getLongitude()).isEqualTo(facility1.getLongitude()),
+                () ->
+                        assertThat(result.getHouses().get(0).getFacilities().get(0).getLatitude())
+                                .isEqualTo(facility1.getLatitude()),
+                () ->
+                        assertThat(result.getHouses().get(0).getFacilities().get(1).getLongitude())
+                                .isEqualTo(facility1.getLongitude()),
                 () -> assertThat(result.getHouseContents().size() == 15));
     }
 }

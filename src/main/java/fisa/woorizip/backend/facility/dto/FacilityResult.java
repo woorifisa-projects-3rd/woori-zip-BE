@@ -1,10 +1,10 @@
 package fisa.woorizip.backend.facility.dto;
 
 import fisa.woorizip.backend.facility.domain.Facility;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor

@@ -1,12 +1,10 @@
 package fisa.woorizip.backend.house.dto.result;
 
 import fisa.woorizip.backend.house.domain.House;
-import fisa.woorizip.backend.house.domain.HouseType;
-import fisa.woorizip.backend.house.domain.HousingExpenses;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor

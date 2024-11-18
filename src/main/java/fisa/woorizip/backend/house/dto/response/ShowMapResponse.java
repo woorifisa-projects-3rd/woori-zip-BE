@@ -1,10 +1,12 @@
 package fisa.woorizip.backend.house.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import fisa.woorizip.backend.house.dto.HouseAddressType;
 import fisa.woorizip.backend.house.dto.result.HouseContentResult;
 import fisa.woorizip.backend.house.dto.result.HouseCountResult;
 import fisa.woorizip.backend.house.dto.result.HouseResult;
+
 import lombok.Getter;
 
 import java.util.List;
