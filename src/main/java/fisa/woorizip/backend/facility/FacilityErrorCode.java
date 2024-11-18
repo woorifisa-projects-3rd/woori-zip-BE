@@ -1,5 +1,7 @@
 package fisa.woorizip.backend.facility;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
 
 import lombok.Getter;
@@ -8,7 +10,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public enum FacilityErrorCode implements ErrorCode {
-    ;
+    CATEGORY_NOT_FOUND(NOT_FOUND, "카테고리가 존재하지 않습니다.");
 
     private final HttpStatus status;
     private final String message;
