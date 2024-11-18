@@ -24,9 +24,9 @@ spring:
         force: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/woori_zip
-    username: fisa_fire
-    password: 1234
+    url: jdbc:mysql://${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABAE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
@@ -39,6 +39,14 @@ spring:
     locations: classpath:db/migration
   aop:
     proxy-target-class: false
+
+security:
+  refresh:
+    expiration: ${JWT_REFRESH_EXPIRATION}
+  jwt:
+    key: ${JWT_KEY}
+    expiration:
+      access: ${JWT_ACCESS_EXPIRATION}
 ```
 
 ## Drop Table Query
