@@ -3,8 +3,6 @@ package fisa.woorizip.backend.support.fixture;
 import fisa.woorizip.backend.facility.domain.Category;
 import fisa.woorizip.backend.facility.domain.Facility;
 
-import java.math.BigDecimal;
-
 public class FacilityFixture {
 
     private Long id;

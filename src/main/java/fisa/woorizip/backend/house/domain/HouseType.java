@@ -1,11 +1,12 @@
 package fisa.woorizip.backend.house.domain;
 
+import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_TYPE_NOT_FOUND;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
+
 import lombok.Getter;
 
 import java.util.Arrays;
-
-import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_TYPE_NOT_FOUND;
 
 @Getter
 public enum HouseType {
@@ -22,7 +23,9 @@ public enum HouseType {
     }
 
     public static HouseType from(String name) {
-        return Arrays.stream(HouseType.values()).filter(houseType -> houseType.getName().equals(name))
-                .findAny().orElseThrow(() -> new WooriZipException(HOUSE_TYPE_NOT_FOUND));
+        return Arrays.stream(HouseType.values())
+                .filter(houseType -> houseType.getName().equals(name))
+                .findAny()
+                .orElseThrow(() -> new WooriZipException(HOUSE_TYPE_NOT_FOUND));
     }
 }

@@ -1,11 +1,12 @@
 package fisa.woorizip.backend.house.domain;
 
+import static fisa.woorizip.backend.house.HouseErrorCode.HOUSING_EXPENSES_NOT_FOUND;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
+
 import lombok.Getter;
 
 import java.util.Arrays;
-
-import static fisa.woorizip.backend.house.HouseErrorCode.HOUSING_EXPENSES_NOT_FOUND;
 
 @Getter
 public enum HousingExpenses {

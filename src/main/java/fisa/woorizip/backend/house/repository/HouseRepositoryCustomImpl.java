@@ -1,28 +1,31 @@
 package fisa.woorizip.backend.house.repository;
 
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import fisa.woorizip.backend.facility.dto.FacilityResult;
-import fisa.woorizip.backend.house.domain.HouseType;
-import fisa.woorizip.backend.house.domain.HousingExpenses;
-import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
-import fisa.woorizip.backend.house.dto.result.HouseContentResult;
-import fisa.woorizip.backend.house.dto.result.HouseCountResult;
-import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
-import fisa.woorizip.backend.house.dto.result.HouseResult;
-import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
+
 import static fisa.woorizip.backend.facility.domain.QFacility.facility;
 import static fisa.woorizip.backend.house.domain.HouseType.ALL;
 import static fisa.woorizip.backend.house.domain.QHouse.house;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
 import static fisa.woorizip.backend.housefacilityrelation.domain.QHouseFacilityRelation.houseFacilityRelation;
+
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+
+import fisa.woorizip.backend.facility.dto.FacilityResult;
+import fisa.woorizip.backend.house.domain.HouseType;
+import fisa.woorizip.backend.house.domain.HousingExpenses;
+import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
+import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
+import fisa.woorizip.backend.house.dto.result.HouseContentResult;
+import fisa.woorizip.backend.house.dto.result.HouseCountResult;
+import fisa.woorizip.backend.house.dto.result.HouseResult;
+
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {

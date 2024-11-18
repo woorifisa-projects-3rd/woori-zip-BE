@@ -1,19 +1,21 @@
 package fisa.woorizip.backend.house.dto.request;
 
+import static fisa.woorizip.backend.facility.domain.Category.NONE;
+import static fisa.woorizip.backend.house.domain.HouseType.ALL;
+import static fisa.woorizip.backend.house.domain.HousingExpenses.ANY;
+
 import fisa.woorizip.backend.facility.domain.Category;
 import fisa.woorizip.backend.house.domain.HouseType;
 import fisa.woorizip.backend.house.domain.HousingExpenses;
 import fisa.woorizip.backend.house.dto.MapLevel;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
+
 import lombok.Getter;
 
 import java.beans.ConstructorProperties;
-
-import static fisa.woorizip.backend.house.domain.HouseType.ALL;
-import static fisa.woorizip.backend.house.domain.HousingExpenses.ANY;
-import static fisa.woorizip.backend.facility.domain.Category.NONE;
 
 @Getter
 public class MapFilterRequest {
