@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface HouseService {
 
-    List<ShowMapResponse> showMap(MapFilterRequest mapFilterRequest);
+    ShowMapResponse showMap(MapFilterRequest mapFilterRequest);
 }

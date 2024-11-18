@@ -11,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static fisa.woorizip.backend.facility.domain.Category.NONE;
+import static fisa.woorizip.backend.house.dto.MapLevel.HIGH;
+import static fisa.woorizip.backend.house.dto.MapLevel.MID;
+
 @Service
 @RequiredArgsConstructor
 public class HouseServiceImpl implements HouseService {
@@ -19,8 +23,29 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ShowMapResponse> showMap(MapFilterRequest mapFilterRequest) {
+    public ShowMapResponse showMap(MapFilterRequest mapFilterRequest) {
+        return mapFilterRequest.getLevel().equals(HIGH)
+                ? showMapHighLevel(mapFilterRequest)
+                : mapFilterRequest.getLevel().equals(MID)
+                        ? showMapMidLevel(mapFilterRequest)
+                        : showMapLowLevel(mapFilterRequest);
+    }
 
-        return null;
+    private ShowMapResponse showMapHighLevel(MapFilterRequest mapFilterRequest) {
+        return mapFilterRequest.getCategory().equals(NONE)
+                ? houseRepository.findHouseHighLevel(mapFilterRequest)
+                : houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
+    }
+
+    private ShowMapResponse showMapMidLevel(MapFilterRequest mapFilterRequest) {
+        return mapFilterRequest.getCategory().equals(NONE)
+                ? houseRepository.findHouseMidLevel(mapFilterRequest)
+                : houseRepository.findHouseMidLevelInCategory(mapFilterRequest);
+    }
+
+    private ShowMapResponse showMapLowLevel(MapFilterRequest mapFilterRequest) {
+        return mapFilterRequest.getCategory().equals(NONE)
+                ? houseRepository.findHouseLowLevel(mapFilterRequest)
+                : houseRepository.findHouseLowLevelInCategory(mapFilterRequest);
     }
 }
