@@ -8,7 +8,6 @@ import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;
 import fisa.woorizip.backend.support.ControllerTest;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
 
 class LoanCheckListControllerTest extends ControllerTest {
 

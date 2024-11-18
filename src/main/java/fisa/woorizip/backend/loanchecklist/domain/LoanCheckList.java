@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.loanchecklist.domain;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;
+
 import jakarta.persistence.*;
 
 import lombok.*;
