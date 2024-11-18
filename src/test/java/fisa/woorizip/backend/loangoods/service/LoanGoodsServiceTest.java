@@ -32,16 +32,16 @@ class LoanGoodsServiceTest {
 
         given(loanGoodsRepository.findById(loanGoods.getId())).willReturn(Optional.of(loanGoods));
 
-        ShowLoanGoodsDetailsResponse result = loanGoodsService.getLoanGoodsDetailsById(loanGoods.getId());
+        ShowLoanGoodsDetailsResponse response = loanGoodsService.getLoanGoodsDetailsById(loanGoods.getId());
 
         assertAll(
-                () -> assertThat(result).isNotNull(),
-                () -> assertThat(result.getId()).isEqualTo(loanGoods.getId()),
-                () -> assertThat(result.getName()).isEqualTo(loanGoods.getName()),
-                () -> assertThat(result.getDescription()).isEqualTo(loanGoods.getDescription()),
-                () -> assertThat(result.getContent()).isEqualTo(loanGoods.getContent()),
-                () -> assertThat(result.getImageUrl()).isEqualTo(loanGoods.getImageUrl()),
-                () -> assertThat(result.getLoanGoodsType()).isEqualTo(loanGoods.getLoanGoodsType()),
+                () -> assertThat(response).isNotNull(),
+                () -> assertThat(response.getId()).isEqualTo(loanGoods.getId()),
+                () -> assertThat(response.getName()).isEqualTo(loanGoods.getName()),
+                () -> assertThat(response.getDescription()).isEqualTo(loanGoods.getDescription()),
+                () -> assertThat(response.getContent()).isEqualTo(loanGoods.getContent()),
+                () -> assertThat(response.getImageUrl()).isEqualTo(loanGoods.getImageUrl()),
+                () -> assertThat(response.getLoanGoodsType()).isEqualTo(loanGoods.getLoanGoodsType()),
                 () -> verify(loanGoodsRepository, times(1)).findById(loanGoods.getId()));
     }
 }
