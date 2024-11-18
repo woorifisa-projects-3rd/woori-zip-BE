@@ -1,7 +1,6 @@
 package fisa.woorizip.backend.loangoods.service;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
-import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailsResponse;
 import fisa.woorizip.backend.loangoods.repository.LoanGoodsRepository;
@@ -22,7 +21,7 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
 
     @Override
     @Transactional(readOnly = true)
-    public ShowLoanGoodsDetailsResponse showLoanGoodsDetailsById(Long loanGoodsId) {
+    public ShowLoanGoodsDetailsResponse getLoanGoodsDetailsById(Long loanGoodsId) {
 
         LoanGoods loanGoods = loanGoodsRepository
                      .findById(loanGoodsId)

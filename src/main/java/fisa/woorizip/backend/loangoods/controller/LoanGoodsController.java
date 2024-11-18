@@ -18,9 +18,9 @@ public class LoanGoodsController {
     private final LoanGoodsService loanGoodsService;
 
     @GetMapping("/{loanGoodsId}")
-    public ShowLoanGoodsDetailsResponse getLoanGoodsDetailsById(
+    public ShowLoanGoodsDetailsResponse showLoanGoodsDetails(
             @PathVariable("loanGoodsId") Long loanGoodsId) {
 
-        return loanGoodsService.showLoanGoodsDetailsById(loanGoodsId);
+        return loanGoodsService.getLoanGoodsDetailsById(loanGoodsId);
     }
 }

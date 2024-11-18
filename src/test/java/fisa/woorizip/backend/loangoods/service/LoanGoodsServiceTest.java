@@ -7,6 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
+import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailsResponse;
 import fisa.woorizip.backend.loangoods.repository.LoanGoodsRepository;
 import fisa.woorizip.backend.support.fixture.LoanGoodsFixture;
 
@@ -19,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-class LoanGoodsServiceImplTest {
+class LoanGoodsServiceTest {
 
     @Mock private LoanGoodsRepository loanGoodsRepository;
 
@@ -27,15 +28,12 @@ class LoanGoodsServiceImplTest {
 
     @Test
     void 대출상품_상세정보를_반환한다() {
-        // given
         LoanGoods loanGoods = LoanGoodsFixture.builder().build();
 
         given(loanGoodsRepository.findById(loanGoods.getId())).willReturn(Optional.of(loanGoods));
 
-        // when
-        LoanGoods result = loanGoodsService.showLoanGoodsDetailsById(loanGoods.getId());
+        ShowLoanGoodsDetailsResponse result = loanGoodsService.getLoanGoodsDetailsById(loanGoods.getId());
 
-        // then
         assertAll(
                 () -> assertThat(result).isNotNull(),
                 () -> assertThat(result.getId()).isEqualTo(loanGoods.getId()),
