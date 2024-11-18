@@ -36,9 +36,6 @@ public class House {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(nullable = false)
-    private String comment;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "housing_expenses", nullable = false)
     private HousingExpenses housingExpenses;

@@ -25,7 +25,7 @@ public class HouseController {
         return houseService.getHouseDetail(houseId);
     }
   
-    @GetMapping("/houses")
+    @GetMapping
     public ShowMapResponse ShowMap(@ModelAttribute @Valid MapFilterRequest mapFilterRequest) {
         return houseService.showMap(mapFilterRequest);
     }

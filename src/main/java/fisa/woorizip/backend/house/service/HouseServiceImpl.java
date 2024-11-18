@@ -40,7 +40,8 @@ public class HouseServiceImpl implements HouseService {
     private House findHouseById(Long houseId) {
         return houseRepository
                 .findById(houseId)
-                .orElseThrow(() -> new WooriZipException(HOUSE_NOT_FOUND))};
+                .orElseThrow(() -> new WooriZipException(HOUSE_NOT_FOUND));
+    }
 
     @Override
     @Transactional(readOnly = true)
