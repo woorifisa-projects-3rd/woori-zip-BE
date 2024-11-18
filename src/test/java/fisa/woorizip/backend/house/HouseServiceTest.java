@@ -1,4 +1,4 @@
-package fisa.woorizip.backend.service;
+package fisa.woorizip.backend.house;
 
 import fisa.woorizip.backend.facility.domain.Facility;
 import fisa.woorizip.backend.house.domain.House;

@@ -1,4 +1,4 @@
-package fisa.woorizip.backend.repositoy;
+package fisa.woorizip.backend.house;
 
 import fisa.woorizip.backend.facility.domain.Facility;
 import fisa.woorizip.backend.facility.repository.FacilityRepository;
@@ -19,11 +19,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static fisa.woorizip.backend.facility.domain.Category.FOOD;
-import static fisa.woorizip.backend.facility.domain.Category.TEST;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
-import static fisa.woorizip.backend.member.domain.Role.MEMBER;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.assertj.core.api.Assertions.assertThat;
 
