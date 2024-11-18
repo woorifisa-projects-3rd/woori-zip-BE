@@ -9,5 +9,4 @@ import java.util.Optional;
 public interface LoanGoodsRepository extends JpaRepository<LoanGoods, Long> {
 
     Optional<LoanGoods> findLoanGoodsById(Long longGoodsId);
-
 }

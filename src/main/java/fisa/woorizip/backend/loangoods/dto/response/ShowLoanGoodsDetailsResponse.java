@@ -17,9 +17,7 @@ public class ShowLoanGoodsDetailsResponse {
     private String imageUrl;
     private LoanGoodsType loanGoodsType;
 
-
-
-    public static ShowLoanGoodsDetailsResponse from (LoanGoods loanGoods) {
+    public static ShowLoanGoodsDetailsResponse from(LoanGoods loanGoods) {
         return ShowLoanGoodsDetailsResponse.builder()
                 .id(loanGoods.getId())
                 .name(loanGoods.getName())
@@ -29,5 +27,4 @@ public class ShowLoanGoodsDetailsResponse {
                 .loanGoodsType(loanGoods.getLoanGoodsType())
                 .build();
     }
-
 }

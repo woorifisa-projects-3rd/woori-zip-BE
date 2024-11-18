@@ -26,7 +26,8 @@ class LoanGoodsRepositoryTest {
 
         LoanGoods loanGoods = 저장(LoanGoodsFixture.builder().build());
 
-        Optional<LoanGoods> findLoanGoods = loanGoodsRepository.findLoanGoodsById(loanGoods.getId());
+        Optional<LoanGoods> findLoanGoods =
+                loanGoodsRepository.findLoanGoodsById(loanGoods.getId());
 
         assertAll(
                 () -> {
