@@ -1,14 +1,14 @@
 package fisa.woorizip.backend.support.fixture;
 
+import static fisa.woorizip.backend.house.domain.HouseType.APARTMENT;
+import static fisa.woorizip.backend.house.domain.HousingExpenses.JEONSE;
+
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.domain.HouseType;
 import fisa.woorizip.backend.house.domain.HousingExpenses;
 import fisa.woorizip.backend.member.domain.Member;
 
 import java.time.LocalDate;
-
-import static fisa.woorizip.backend.house.domain.HouseType.APARTMENT;
-import static fisa.woorizip.backend.house.domain.HousingExpenses.JEONSE;
 
 public class HouseFixture {
     private Long id;
@@ -37,7 +37,9 @@ public class HouseFixture {
     private LocalDate approvalDate = LocalDate.of(2024, 11, 22);
     private String direction = "남향";
 
-    public static HouseFixture builder() { return new HouseFixture(); }
+    public static HouseFixture builder() {
+        return new HouseFixture();
+    }
 
     public HouseFixture id(Long id) {
         this.id = id;
