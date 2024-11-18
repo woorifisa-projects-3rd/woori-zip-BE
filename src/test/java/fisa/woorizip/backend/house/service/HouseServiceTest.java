@@ -1,4 +1,4 @@
-package fisa.woorizip.backend.house;
+package fisa.woorizip.backend.house.service;
 
 import fisa.woorizip.backend.facility.domain.Facility;
 import fisa.woorizip.backend.house.domain.House;
@@ -8,7 +8,6 @@ import fisa.woorizip.backend.house.dto.result.HouseContentResult;
 import fisa.woorizip.backend.house.dto.result.HouseCountResult;
 import fisa.woorizip.backend.house.dto.result.HouseResult;
 import fisa.woorizip.backend.house.repository.HouseRepository;
-import fisa.woorizip.backend.house.service.HouseServiceImpl;
 import fisa.woorizip.backend.support.fixture.FacilityFixture;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
 import org.junit.jupiter.api.Test;

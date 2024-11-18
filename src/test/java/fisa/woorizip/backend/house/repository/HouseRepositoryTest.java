@@ -1,11 +1,10 @@
-package fisa.woorizip.backend.house;
+package fisa.woorizip.backend.house.repository;
 
 import fisa.woorizip.backend.facility.domain.Facility;
 import fisa.woorizip.backend.facility.repository.FacilityRepository;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
 import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
-import fisa.woorizip.backend.house.repository.HouseRepository;
 import fisa.woorizip.backend.housefacilityrelation.domain.HouseFacilityRelation;
 import fisa.woorizip.backend.housefacilityrelation.repository.HouseFacilityRelationRepository;
 import fisa.woorizip.backend.member.domain.Member;
