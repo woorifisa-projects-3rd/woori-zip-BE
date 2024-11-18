@@ -49,15 +49,7 @@ public class HouseRepositoryTest {
     @Test
     @DisplayName("지도 줌이 9 레벨 이상일 때, 구 별 집 개수와 15개의 집 목록을 조회할 수 있다.")
     public void findHouseHighLevel() {
-        Member member =
-                save(
-                        Member.builder()
-                                .name("길가은")
-                                .password("123")
-                                .username("1234")
-                                .debt(1L)
-                                .role(MEMBER)
-                                .build());
+        Member member = save(MemberFixture.builder().build());
 
         for (long i = 1; i <= 10; i++) save(HouseFixture.builder().member(member).build());
         for (long i = 11; i <= 20; i++)
@@ -85,15 +77,7 @@ public class HouseRepositoryTest {
     @Test
     @DisplayName("지도 줌이 6 레벨부터 8 레벨 사이일 때, 동 별 집 개수와 15개의 집 목록을 조회할 수 있다.")
     public void findHouseMidLevel() {
-        Member member =
-                save(
-                        Member.builder()
-                                .name("길가은")
-                                .password("123")
-                                .username("1234")
-                                .debt(1L)
-                                .role(MEMBER)
-                                .build());
+        Member member = save(MemberFixture.builder().build());
 
         for (long i = 1; i <= 10; i++) save(HouseFixture.builder().member(member).build());
         for (long i = 11; i <= 20; i++)
@@ -121,15 +105,7 @@ public class HouseRepositoryTest {
     @Test
     @DisplayName("지도 줌이 5 레벨 이하일 때, 지도 범위 내에 있는 모든 집 위도 경도 목록과 15개의 집 목록을 조회할 수 있다.")
     public void findHouseLowLevel() {
-        Member member =
-                save(
-                        Member.builder()
-                                .name("길가은")
-                                .password("123")
-                                .username("1234")
-                                .debt(1L)
-                                .role(MEMBER)
-                                .build());
+        Member member = save(MemberFixture.builder().build());
 
         House house1 =
                 save(
@@ -177,15 +153,7 @@ public class HouseRepositoryTest {
     @Test
     @DisplayName("지도 줌이 9 레벨 이상이고 카테고리가 존재할 때, 구 별 집 개수와 15개의 집 목록을 조회할 수 있다.")
     public void findHouseHighLevelInCategory() {
-        Member member =
-                save(
-                        Member.builder()
-                                .name("길가은")
-                                .password("123")
-                                .username("1234")
-                                .debt(1L)
-                                .role(MEMBER)
-                                .build());
+        Member member = save(MemberFixture.builder().build());
 
         House house1 =
                 save(
@@ -233,15 +201,7 @@ public class HouseRepositoryTest {
     @Test
     @DisplayName("지도 줌이 6 레벨부터 8 레벨 사이이고 카테고리가 존재할 때, 동 별 집 개수와 15개의 집 목록을 조회할 수 있다.")
     public void findHouseMidLevelInCategory() {
-        Member member =
-                save(
-                        Member.builder()
-                                .name("길가은")
-                                .password("123")
-                                .username("1234")
-                                .debt(1L)
-                                .role(MEMBER)
-                                .build());
+        Member member = save(MemberFixture.builder().build());
 
         House house1 =
                 save(
@@ -289,15 +249,7 @@ public class HouseRepositoryTest {
     @Test
     @DisplayName("지도 줌이 5 레벨 이하이고 카테고리가 존재할 때, 지도 범위 내에 있는 모든 집 위도 경도 목록과 15개의 집 목록을 조회할 수 있다.")
     public void findHouseLowLevelInCategory() {
-        Member member =
-                save(
-                        Member.builder()
-                                .name("길가은")
-                                .password("123")
-                                .username("1234")
-                                .debt(1L)
-                                .role(MEMBER)
-                                .build());
+        Member member = save(MemberFixture.builder().build());
 
         House house1 =
                 save(
