@@ -5,7 +5,6 @@ import fisa.woorizip.backend.house.domain.HouseType;
 import fisa.woorizip.backend.house.domain.HousingExpenses;
 import fisa.woorizip.backend.member.domain.Member;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static fisa.woorizip.backend.house.domain.HouseType.APARTMENT;
