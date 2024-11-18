@@ -27,7 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 @WebMvcTest(HouseController.class)
-class HouseControllerTest {
+class HouseControllerMockMvcTest {
     @Autowired private MockMvc mockMvc;
 
     @MockBean private HouseService houseService;
