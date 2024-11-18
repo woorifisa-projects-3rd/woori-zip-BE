@@ -24,7 +24,7 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     public ShowLoanGoodsDetailsResponse getLoanGoodsDetailsById(Long loanGoodsId) {
 
         LoanGoods loanGoods = loanGoodsRepository
-                     .findById(loanGoodsId)
+                     .findLoanGoodsById(loanGoodsId)
                      .orElseThrow(() -> new WooriZipException(LOAN_GOODS_NOT_FOUND));
 
         return ShowLoanGoodsDetailsResponse.from(loanGoods);

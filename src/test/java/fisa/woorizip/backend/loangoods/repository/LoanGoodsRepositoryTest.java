@@ -26,7 +26,7 @@ class LoanGoodsRepositoryTest {
 
         LoanGoods loanGoods = 저장(LoanGoodsFixture.builder().build());
 
-        Optional<LoanGoods> findLoanGoods = loanGoodsRepository.findById(loanGoods.getId());
+        Optional<LoanGoods> findLoanGoods = loanGoodsRepository.findLoanGoodsById(loanGoods.getId());
 
         assertAll(
                 () -> {
@@ -46,7 +46,7 @@ class LoanGoodsRepositoryTest {
     void findById_존재하지_않는_대출상품을_조회할_수_없다() {
         Long nonExistId = 100000L;
 
-        Optional<LoanGoods> findLoanGoods = loanGoodsRepository.findById(nonExistId);
+        Optional<LoanGoods> findLoanGoods = loanGoodsRepository.findLoanGoodsById(nonExistId);
 
         assertThat(findLoanGoods).isNotPresent();
     }

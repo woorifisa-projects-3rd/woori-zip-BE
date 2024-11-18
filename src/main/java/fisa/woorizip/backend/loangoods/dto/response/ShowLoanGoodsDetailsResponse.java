@@ -3,9 +3,11 @@ package fisa.woorizip.backend.loangoods.dto.response;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class ShowLoanGoodsDetailsResponse {
 
     private Long id;
@@ -15,24 +17,17 @@ public class ShowLoanGoodsDetailsResponse {
     private String imageUrl;
     private LoanGoodsType loanGoodsType;
 
-    private ShowLoanGoodsDetailsResponse(Long id, String name, String description, String content, String imageUrl, LoanGoodsType loanGoodsType) {
-                this.id = id;
-                this.name = name;
-                this.description = description;
-                this.content = content;
-                this.imageUrl = imageUrl;
-                this.loanGoodsType = loanGoodsType;
-    }
+
 
     public static ShowLoanGoodsDetailsResponse from (LoanGoods loanGoods) {
-        return new ShowLoanGoodsDetailsResponse(
-                loanGoods.getId(),
-                loanGoods.getName(),
-                loanGoods.getDescription(),
-                loanGoods.getContent(),
-                loanGoods.getImageUrl(),
-                loanGoods.getLoanGoodsType()
-        );
+        return ShowLoanGoodsDetailsResponse.builder()
+                .id(loanGoods.getId())
+                .name(loanGoods.getName())
+                .description(loanGoods.getDescription())
+                .content(loanGoods.getContent())
+                .imageUrl(loanGoods.getImageUrl())
+                .loanGoodsType(loanGoods.getLoanGoodsType())
+                .build();
     }
 
 }

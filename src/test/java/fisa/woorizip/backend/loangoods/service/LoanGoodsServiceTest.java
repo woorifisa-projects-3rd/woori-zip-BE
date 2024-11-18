@@ -30,7 +30,7 @@ class LoanGoodsServiceTest {
     void 대출상품_상세정보를_반환한다() {
         LoanGoods loanGoods = LoanGoodsFixture.builder().build();
 
-        given(loanGoodsRepository.findById(loanGoods.getId())).willReturn(Optional.of(loanGoods));
+        given(loanGoodsRepository.findLoanGoodsById(loanGoods.getId())).willReturn(Optional.of(loanGoods));
 
         ShowLoanGoodsDetailsResponse response = loanGoodsService.getLoanGoodsDetailsById(loanGoods.getId());
 
@@ -41,7 +41,8 @@ class LoanGoodsServiceTest {
                 () -> assertThat(response.getDescription()).isEqualTo(loanGoods.getDescription()),
                 () -> assertThat(response.getContent()).isEqualTo(loanGoods.getContent()),
                 () -> assertThat(response.getImageUrl()).isEqualTo(loanGoods.getImageUrl()),
-                () -> assertThat(response.getLoanGoodsType()).isEqualTo(loanGoods.getLoanGoodsType()),
-                () -> verify(loanGoodsRepository, times(1)).findById(loanGoods.getId()));
+                () -> assertThat(response.getLoanGoodsType()).isEqualTo(loanGoods.getLoanGoodsType()));
+
+    verify(loanGoodsRepository, times(1)).findLoanGoodsById(loanGoods.getId());
     }
 }
