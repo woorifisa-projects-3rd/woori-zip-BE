@@ -12,9 +12,11 @@ import static fisa.woorizip.backend.housefacilityrelation.domain.QHouseFacilityR
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import fisa.woorizip.backend.facility.dto.FacilityResult;
+import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.domain.HouseType;
 import fisa.woorizip.backend.house.domain.HousingExpenses;
 import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
@@ -104,27 +106,7 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
     @Override
     public ShowMapResponse findHouseLowLevel(MapFilterRequest mapFilterRequest) {
         return ShowMapResponse.of(
-                jpaQueryFactory
-                        .select(house)
-                        .from(house)
-                        .where(
-                                house.latitude.between(
-                                        mapFilterRequest.getSouthWestLatitude(),
-                                        mapFilterRequest.getNorthEastLatitude()),
-                                house.longitude.between(
-                                        mapFilterRequest.getSouthWestLongitude(),
-                                        mapFilterRequest.getNorthEastLongitude()),
-                                houseTypeEq(mapFilterRequest.getHouseType()),
-                                housingExpensesEq(mapFilterRequest.getHousingExpenses()),
-                                house.deposit.between(
-                                        mapFilterRequest.getMinDeposit(),
-                                        mapFilterRequest.getMaxDeposit()),
-                                house.monthlyRentFee.between(
-                                        mapFilterRequest.getMinMonthlyRentFee(),
-                                        mapFilterRequest.getMaxMonthlyRentFee()),
-                                house.maintenanceFee.between(
-                                        mapFilterRequest.getMinMaintenanceFee(),
-                                        mapFilterRequest.getMaxMaintenanceFee()))
+                createConditionJPAQuery(mapFilterRequest)
                         .fetch()
                         .stream()
                         .map(HouseResult::init)
@@ -208,51 +190,63 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
     public ShowMapResponse findHouseLowLevelInCategory(MapFilterRequest mapFilterRequest) {
         List<Long> houseIdList = findHouseIdListInCategory(mapFilterRequest);
         return ShowMapResponse.of(
-                jpaQueryFactory
-                        .selectFrom(house)
-                        .leftJoin(houseFacilityRelation)
-                        .on(houseFacilityRelation.house.id.eq(house.id))
-                        .leftJoin(facility)
-                        .on(facility.id.eq(houseFacilityRelation.facility.id))
-                        .where(
-                                house.id.in(houseIdList),
-                                facility.category.eq(mapFilterRequest.getCategory()),
-                                houseFacilityRelation.walking.loe(mapFilterRequest.getWalking()),
-                                house.latitude.between(
-                                        mapFilterRequest.getSouthWestLatitude(),
-                                        mapFilterRequest.getNorthEastLatitude()),
-                                house.longitude.between(
-                                        mapFilterRequest.getSouthWestLongitude(),
-                                        mapFilterRequest.getNorthEastLongitude()),
-                                houseTypeEq(mapFilterRequest.getHouseType()),
-                                housingExpensesEq(mapFilterRequest.getHousingExpenses()),
-                                house.deposit.between(
-                                        mapFilterRequest.getMinDeposit(),
-                                        mapFilterRequest.getMaxDeposit()),
-                                house.monthlyRentFee.between(
-                                        mapFilterRequest.getMinMonthlyRentFee(),
-                                        mapFilterRequest.getMaxMonthlyRentFee()),
-                                house.maintenanceFee.between(
-                                        mapFilterRequest.getMinMaintenanceFee(),
-                                        mapFilterRequest.getMaxMaintenanceFee()))
-                        .transform(
-                                groupBy(house.id)
-                                        .list(
-                                                Projections.constructor(
-                                                        HouseResult.class,
-                                                        house.id,
-                                                        house.latitude,
-                                                        house.longitude,
-                                                        list(
-                                                                Projections.constructor(
-                                                                        FacilityResult.class,
-                                                                        facility.id,
-                                                                        facility.latitude,
-                                                                        facility.longitude))))),
+                findHouseAndFacilityInHouseIdList(mapFilterRequest, houseIdList),
                 createHouseContents(mapFilterRequest));
     }
 
-    private List<HouseContentResult> createHouseContents(MapFilterRequest mapFilterRequest) {
+    @Override
+    public ShowMapResponse findHouseByGuAndDongInCategory(MapFilterRequest mapFilterRequest) {
+        List<Long> houseIdList = findHouseIdListByGuAndDongInCategory(mapFilterRequest);
+        return ShowMapResponse.of(
+                findHouseAndFacilityInHouseIdList(mapFilterRequest, houseIdList),
+                createHouseContents(mapFilterRequest));
+    }
+
+    private List<HouseResult> findHouseAndFacilityInHouseIdList(
+            MapFilterRequest mapFilterRequest, List<Long> houseIdList) {
+        return jpaQueryFactory
+                .selectFrom(house)
+                .leftJoin(houseFacilityRelation)
+                .on(houseFacilityRelation.house.id.eq(house.id))
+                .leftJoin(facility)
+                .on(facility.id.eq(houseFacilityRelation.facility.id))
+                .where(
+                        house.id.in(houseIdList),
+                        facility.category.eq(mapFilterRequest.getCategory()),
+                        houseFacilityRelation.walking.loe(mapFilterRequest.getWalking()),
+                        house.latitude.between(
+                                mapFilterRequest.getSouthWestLatitude(),
+                                mapFilterRequest.getNorthEastLatitude()),
+                        house.longitude.between(
+                                mapFilterRequest.getSouthWestLongitude(),
+                                mapFilterRequest.getNorthEastLongitude()),
+                        houseTypeEq(mapFilterRequest.getHouseType()),
+                        housingExpensesEq(mapFilterRequest.getHousingExpenses()),
+                        house.deposit.between(
+                                mapFilterRequest.getMinDeposit(), mapFilterRequest.getMaxDeposit()),
+                        house.monthlyRentFee.between(
+                                mapFilterRequest.getMinMonthlyRentFee(),
+                                mapFilterRequest.getMaxMonthlyRentFee()),
+                        house.maintenanceFee.between(
+                                mapFilterRequest.getMinMaintenanceFee(),
+                                mapFilterRequest.getMaxMaintenanceFee()))
+                .transform(
+                        groupBy(house.id)
+                                .list(
+                                        Projections.constructor(
+                                                HouseResult.class,
+                                                house.id,
+                                                house.latitude,
+                                                house.longitude,
+                                                list(
+                                                        Projections.constructor(
+                                                                FacilityResult.class,
+                                                                facility.id,
+                                                                facility.latitude,
+                                                                facility.longitude)))));
+    }
+
+    private JPAQuery<House> createConditionJPAQuery(MapFilterRequest mapFilterRequest) {
         return jpaQueryFactory
                 .select(house)
                 .from(house)
@@ -272,7 +266,11 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
                                 mapFilterRequest.getMaxMonthlyRentFee()),
                         house.maintenanceFee.between(
                                 mapFilterRequest.getMinMaintenanceFee(),
-                                mapFilterRequest.getMaxMaintenanceFee()))
+                                mapFilterRequest.getMaxMaintenanceFee()));
+    }
+
+    private List<HouseContentResult> createHouseContents(MapFilterRequest mapFilterRequest) {
+        return createConditionJPAQuery(mapFilterRequest)
                 .limit(HOUSE_LIST_COUNT)
                 .fetch()
                 .stream()
@@ -289,6 +287,29 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
                 .where(
                         facility.category.eq(mapFilterRequest.getCategory()),
                         houseFacilityRelation.walking.loe(mapFilterRequest.getWalking()))
+                .groupBy(houseFacilityRelation.house.id)
+                .having(
+                        houseFacilityRelation
+                                .house
+                                .id
+                                .count()
+                                .goe(mapFilterRequest.getFacilityCount()))
+                .fetch();
+    }
+
+    private List<Long> findHouseIdListByGuAndDongInCategory(MapFilterRequest mapFilterRequest) {
+        return jpaQueryFactory
+                .select(houseFacilityRelation.house.id)
+                .from(houseFacilityRelation)
+                .join(facility)
+                .on(houseFacilityRelation.facility.id.eq(facility.id))
+                .join(house)
+                .on(house.id.eq(houseFacilityRelation.house.id))
+                .where(
+                        facility.category.eq(mapFilterRequest.getCategory()),
+                        houseFacilityRelation.walking.loe(mapFilterRequest.getWalking()),
+                        house.gu.eq(mapFilterRequest.getGu()),
+                        house.dong.eq(mapFilterRequest.getDong()))
                 .groupBy(houseFacilityRelation.house.id)
                 .having(
                         houseFacilityRelation
