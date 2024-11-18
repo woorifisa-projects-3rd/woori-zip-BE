@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.support.RepositoryTest;
-
 import fisa.woorizip.backend.support.fixture.LoanGoodsFixture;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

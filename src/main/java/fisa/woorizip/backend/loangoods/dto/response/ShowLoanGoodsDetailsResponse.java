@@ -2,7 +2,7 @@ package fisa.woorizip.backend.loangoods.dto.response;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;
-import jakarta.persistence.*;
+
 import lombok.Builder;
 import lombok.Getter;
 
