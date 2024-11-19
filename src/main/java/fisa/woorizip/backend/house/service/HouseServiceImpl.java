@@ -4,6 +4,7 @@ import static fisa.woorizip.backend.facility.domain.Category.NONE;
 import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
 import static fisa.woorizip.backend.house.dto.MapLevel.HIGH;
 import static fisa.woorizip.backend.house.dto.MapLevel.MID;
+import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.house.domain.House;
@@ -45,7 +46,7 @@ public class HouseServiceImpl implements HouseService {
     @Override
     @Transactional(readOnly = true)
     public ShowMapResponse showMap(MapFilterRequest mapFilterRequest) {
-        if (mapFilterRequest.getGu() != null && mapFilterRequest.getDong() != null)
+        if (!isNull(mapFilterRequest.getGu()) && !isNull(mapFilterRequest.getDong()))
             return showMapByGuAndDong(mapFilterRequest);
         return mapFilterRequest.getLevel().equals(HIGH)
                 ? showMapHighLevel(mapFilterRequest)
