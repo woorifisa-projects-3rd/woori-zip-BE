@@ -3,6 +3,7 @@ package fisa.woorizip.backend.house.repository;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 
+import static fisa.woorizip.backend.bookmark.domain.QBookmark.bookmark;
 import static fisa.woorizip.backend.facility.domain.QFacility.facility;
 import static fisa.woorizip.backend.house.domain.HouseType.ALL;
 import static fisa.woorizip.backend.house.domain.HousingExpenses.ANY;
@@ -11,6 +12,7 @@ import static fisa.woorizip.backend.housefacilityrelation.domain.QHouseFacilityR
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -149,6 +151,35 @@ public class HouseCustomRepositoryImpl implements HouseCustomRepository {
         return createConditionJPAQuery(mapFilterRequest).limit(15).fetch().stream()
                 .map(HouseContentResult::init)
                 .toList();
+    }
+
+    @Override
+    public List<HouseContentResult> findHouseContentByMember(
+            MapFilterRequest mapFilterRequest, Long memberId) {
+        return createConditionJPAQuery(mapFilterRequest)
+                .leftJoin(bookmark)
+                .on(bookmark.house.id.eq(house.id))
+                .transform(
+                        groupBy(house.id)
+                                .list(
+                                        Projections.constructor(
+                                                HouseContentResult.class,
+                                                house.id,
+                                                house.housingExpenses.stringValue(),
+                                                house.deposit,
+                                                house.monthlyRentFee,
+                                                house.houseType.stringValue(),
+                                                house.gu,
+                                                house.dong,
+                                                house.maintenanceFee,
+                                                house.comment,
+                                                house.representativeImage,
+                                                house.latitude,
+                                                house.longitude,
+                                                new CaseBuilder()
+                                                        .when(bookmark.member.id.eq(memberId))
+                                                        .then(true)
+                                                        .otherwise(false))));
     }
 
     @Override

@@ -28,4 +28,7 @@ public interface HouseCustomRepository {
     List<Long> findHouseIdListByCategory(MapFilterRequest mapFilterRequest);
 
     List<Long> findHouseIdListByCategoryAndGuAndDong(MapFilterRequest mapFilterRequest);
+
+    List<HouseContentResult> findHouseContentByMember(
+            MapFilterRequest mapFilterRequest, Long memberId);
 }

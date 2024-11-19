@@ -3,6 +3,8 @@ package fisa.woorizip.backend.house.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import fisa.woorizip.backend.bookmark.domain.Bookmark;
+import fisa.woorizip.backend.bookmark.repository.BookmarkRepository;
 import fisa.woorizip.backend.facility.domain.Facility;
 import fisa.woorizip.backend.facility.repository.FacilityRepository;
 import fisa.woorizip.backend.house.domain.House;
@@ -35,6 +37,7 @@ public class HouseRepositoryTest {
 
     @Autowired private FacilityRepository facilityRepository;
     @Autowired private HouseFacilityRelationRepository houseFacilityRelationRepository;
+    @Autowired private BookmarkRepository bookmarkRepository;
 
     static final double SOUTH_WEST_LATITUDE = 37.452655162589174;
     static final double SOUTH_WEST_LONGITUDE = 126.79611509567208;
@@ -56,6 +59,8 @@ public class HouseRepositoryTest {
     private void save(HouseFacilityRelation houseFacilityRelation) {
         houseFacilityRelationRepository.save(houseFacilityRelation);
     }
+
+    private void save(Bookmark bookmark) { bookmarkRepository.save(bookmark); }
 
     @Test
     @DisplayName("매물 ID로 매물을 조회할 수 있다")
@@ -293,5 +298,33 @@ public class HouseRepositoryTest {
         List<HouseContentResult> result = houseRepository.findHouseContent(request);
 
         assertAll("result", () -> assertThat(result.size()).isEqualTo(15));
+    }
+
+    @Test
+    @DisplayName("회원은 집 목록 조회 시 자신이 북마크한 집인지 여부를 조회할 수 있다.")
+    public void findHouseContentByMember() {
+        Member agent = save(MemberFixture.builder().id(1L).build());
+        Member member = save(MemberFixture.builder().id(2L).build());
+        House isBookmark = save(HouseFixture.builder().member(agent).build());
+        House isNotBookmark = save(HouseFixture.builder().member(agent).build());
+        save(Bookmark.builder().member(member).house(isBookmark).build());
+
+        MapFilterRequest request =
+                MapFilterRequest.of(
+                        9,
+                        SOUTH_WEST_LATITUDE,
+                        SOUTH_WEST_LONGITUDE,
+                        NORTH_EAST_LATITUDE,
+                        NORTH_EAST_LONGITUDE);
+        List<HouseContentResult> result = houseRepository.findHouseContentByMember(request, member.getId());
+
+        assertAll(
+                "result",
+                () -> assertThat(result.size()).isEqualTo(2),
+                () -> assertThat(result.get(0).getHouseId()).isEqualTo(isBookmark.getId()),
+                () -> assertThat(result.get(1).getHouseId()).isEqualTo(isNotBookmark.getId()),
+                () -> assertThat(result.get(0).isBookmark()).isEqualTo(true),
+                () -> assertThat(result.get(1).isBookmark()).isEqualTo(false)
+        );
     }
 }
