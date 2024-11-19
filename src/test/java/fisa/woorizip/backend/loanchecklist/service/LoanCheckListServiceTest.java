@@ -30,8 +30,8 @@ class LoanCheckListServiceTest {
         LoanCheckList loanCheckList = LoanCheckListFixture.builder().build();
 
         given(
-                loanGoodsRepository.findLoanCheckListByLoanGoodsType(
-                        loanCheckList.getLoanGoodsType()))
+                        loanGoodsRepository.findLoanCheckListByLoanGoodsType(
+                                loanCheckList.getLoanGoodsType()))
                 .willReturn(List.of(loanCheckList));
 
         List<ShowLoanCheckListResponse> response =
