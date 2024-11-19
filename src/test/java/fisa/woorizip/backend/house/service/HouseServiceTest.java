@@ -3,21 +3,26 @@ package fisa.woorizip.backend.house.service;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.facility.domain.Facility;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
+import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
 import fisa.woorizip.backend.house.dto.result.HouseContentResult;
 import fisa.woorizip.backend.house.dto.result.HouseCountResult;
 import fisa.woorizip.backend.house.dto.result.HouseResult;
 import fisa.woorizip.backend.house.repository.HouseRepository;
+import fisa.woorizip.backend.houseimage.repository.HouseImageRepository;
 import fisa.woorizip.backend.support.fixture.FacilityFixture;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
 
@@ -28,11 +33,42 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class HouseServiceTest {
+class HouseServiceTest {
     @Mock private HouseRepository houseRepository;
+
+    @Mock private HouseImageRepository houseImageRepository;
+
     @InjectMocks private HouseServiceImpl houseService;
+
+    @Test
+    void 매물_상세정보와_이미지URL_조회_성공() {
+        House testHouse = HouseFixture.builder().build();
+        List<String> testImageUrls = List.of("test1.jpg", "test2.jpg");
+
+        given(houseRepository.findById(1L)).willReturn(Optional.of(testHouse));
+        given(houseImageRepository.findImageUrlsByHouseId(1L)).willReturn(testImageUrls);
+
+        HouseDetailResponse houseDetailResponse = houseService.getHouseDetail(1L);
+
+        assertThat(houseDetailResponse)
+                .satisfies(
+                        response -> {
+                            assertThat(response.getName()).isEqualTo(testHouse.getName());
+                            assertThat(response.getImageUrls())
+                                    .containsExactlyElementsOf(testImageUrls);
+                        });
+    }
+
+    @Test
+    void 존재하지_않는_매물_조회시_예외발생() {
+        given(houseRepository.findById(999L)).willReturn(Optional.empty());
+
+        assertThatThrownBy(() -> houseService.getHouseDetail(999L))
+                .isInstanceOf(WooriZipException.class);
+    }
 
     @Test
     void void_줌_레벨이_9_이상인_경우_구_별_집_개수를_조회할_수_있다() {
