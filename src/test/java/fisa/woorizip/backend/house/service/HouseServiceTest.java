@@ -332,31 +332,10 @@ public class HouseServiceTest {
                         verify(houseRepository, times(1))
                                 .findHouseByGuAndDongInCategory(mapFilterRequest),
                 () ->
-                        assertThat(expected.getHouses().get(0).getLatitude())
-                                .isEqualTo(response.getHouses().get(0).getLatitude()),
+                        assertThat(expected.getHouseContents().get(0).getGu())
+                                .isEqualTo(response.getHouseContents().get(0).getGu()),
                 () ->
-                        assertThat(expected.getHouses().get(0).getLongitude())
-                                .isEqualTo(response.getHouses().get(0).getLongitude()),
-                () ->
-                        assertThat(expected.getHouses().get(0).getFacilities().get(0).getLatitude())
-                                .isEqualTo(
-                                        response.getHouses()
-                                                .get(0)
-                                                .getFacilities()
-                                                .get(0)
-                                                .getLatitude()),
-                () ->
-                        assertThat(
-                                        expected.getHouses()
-                                                .get(0)
-                                                .getFacilities()
-                                                .get(0)
-                                                .getLongitude())
-                                .isEqualTo(
-                                        response.getHouses()
-                                                .get(0)
-                                                .getFacilities()
-                                                .get(0)
-                                                .getLongitude()));
+                        assertThat(expected.getHouseContents().get(0).getDong())
+                                .isEqualTo(response.getHouseContents().get(0).getDong()));
     }
 }
