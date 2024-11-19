@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 import fisa.woorizip.backend.loanchecklist.domain.LoanCheckList;
-import fisa.woorizip.backend.loanchecklist.dto.response.ShowLoanCheckListsResponse;
+import fisa.woorizip.backend.loanchecklist.dto.response.ShowLoanCheckListResponse;
 import fisa.woorizip.backend.loanchecklist.repository.LoanCheckListRepository;
 import fisa.woorizip.backend.support.fixture.LoanCheckListFixture;
 
@@ -34,10 +34,10 @@ class LoanCheckListServiceTest {
                                 loanCheckList.getLoanGoodsType()))
                 .willReturn(List.of(loanCheckList));
 
-        List<ShowLoanCheckListsResponse> response =
+        List<ShowLoanCheckListResponse> response =
                 loanCheckListService.showLoanCheckLists(loanCheckList.getLoanGoodsType());
 
-        ShowLoanCheckListsResponse loanCheckListResponse = response.get(0);
+        ShowLoanCheckListResponse loanCheckListResponse = response.get(0);
         assertAll(
                 () ->
                         assertThat(loanCheckListResponse.getOrderIndex())

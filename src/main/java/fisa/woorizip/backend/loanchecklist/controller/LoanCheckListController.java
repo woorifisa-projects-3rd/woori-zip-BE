@@ -1,6 +1,6 @@
 package fisa.woorizip.backend.loanchecklist.controller;
 
-import fisa.woorizip.backend.loanchecklist.dto.response.ShowLoanCheckListsResponse;
+import fisa.woorizip.backend.loanchecklist.dto.response.ShowLoanCheckListResponse;
 import fisa.woorizip.backend.loanchecklist.service.LoanCheckListService;
 import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;
 
@@ -20,8 +20,8 @@ public class LoanCheckListController {
     private final LoanCheckListService loanCheckListService;
 
     @GetMapping
-    public List<ShowLoanCheckListsResponse> getLoanCheckLists(
-            @RequestParam("type") LoanGoodsType loanGoodsType) {
+    public List<ShowLoanCheckListResponse> getLoanCheckLists(
+            @RequestParam("loanGoodsType") LoanGoodsType loanGoodsType) {
         return loanCheckListService.showLoanCheckLists(loanGoodsType);
     }
 }

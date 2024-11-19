@@ -33,7 +33,7 @@ class LoanCheckListRepositoryTest {
         assertAll(
                 () -> {
                     LoanCheckList loanCheckListValue = findLoanCheckLists.get(0);
-                    assertThat(loanCheckListValue.getId()).isNotNull();
+                    assertThat(loanCheckListValue.getId()).isEqualTo(loanCheckList.getId());
                     assertThat(loanCheckListValue.getOrderIndex())
                             .isEqualTo(loanCheckList.getOrderIndex());
                     assertThat(loanCheckListValue.getContent())

@@ -1,7 +1,7 @@
 package fisa.woorizip.backend.loanchecklist.service;
 
 import fisa.woorizip.backend.loanchecklist.domain.LoanCheckList;
-import fisa.woorizip.backend.loanchecklist.dto.response.ShowLoanCheckListsResponse;
+import fisa.woorizip.backend.loanchecklist.dto.response.ShowLoanCheckListResponse;
 import fisa.woorizip.backend.loanchecklist.repository.LoanCheckListRepository;
 import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;
 
@@ -21,13 +21,11 @@ public class LoanCheckListServiceImpl implements LoanCheckListService {
     private final LoanCheckListRepository loanCheckListRepository;
 
     @Override
-    @Transactional(readOnly = true)
-    public List<ShowLoanCheckListsResponse> showLoanCheckLists(LoanGoodsType loanGoodsType) {
-        List<LoanCheckList> loanCheckLists =
-                loanCheckListRepository.findLoanCheckListByLoanGoodsType(loanGoodsType);
+    public List<ShowLoanCheckListResponse> showLoanCheckLists(LoanGoodsType loanGoodsType) {
 
-        return loanCheckLists.stream()
-                .map(ShowLoanCheckListsResponse::from)
-                .collect(Collectors.toList());
+        return loanCheckListRepository.findLoanCheckListByLoanGoodsType(loanGoodsType)
+                .stream()
+                .map(ShowLoanCheckListResponse::from)
+                .toList();
     }
 }
