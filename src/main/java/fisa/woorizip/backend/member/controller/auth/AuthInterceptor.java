@@ -7,7 +7,6 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 import static java.util.Objects.isNull;
 
-import fisa.woorizip.backend.common.exception.WoohaengshiException;
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.service.auth.JwtTokenProvider;
@@ -42,7 +41,6 @@ public class AuthInterceptor implements HandlerInterceptor {
         String accessToken = jwtTokenProvider.extractAccessToken(authorization);
         jwtTokenProvider.validToken(accessToken);
         validateInsufficientRole(jwtTokenProvider.getMemberRole(accessToken), login.role());
-
         return true;
     }
 
