@@ -53,8 +53,8 @@ public class HouseRepositoryTest {
         return facilityRepository.save(facility);
     }
 
-    private HouseFacilityRelation save(HouseFacilityRelation houseFacilityRelation) {
-        return houseFacilityRelationRepository.save(houseFacilityRelation);
+    private void save(HouseFacilityRelation houseFacilityRelation) {
+        houseFacilityRelationRepository.save(houseFacilityRelation);
     }
 
     @Test
@@ -106,13 +106,13 @@ public class HouseRepositoryTest {
 
         assertAll(
                 "response",
-                () -> assertThat(response.getHouseAddressType().equals(GU)),
-                () -> assertThat(response.getCounts().size() == 2),
-                () -> assertThat(response.getCounts().get(0).getCount() == 10),
-                () -> assertThat(response.getCounts().get(0).getAddressName().equals("강동구")),
-                () -> assertThat(response.getCounts().get(1).getCount() == 10),
-                () -> assertThat(response.getCounts().get(0).getAddressName().equals("마포구")),
-                () -> assertThat(response.getHouseContents().size() == 15));
+                () -> assertThat(response.getHouseAddressType()).isEqualTo(GU.getName()),
+                () -> assertThat(response.getCounts().size()).isEqualTo(2),
+                () -> assertThat(response.getCounts().get(0).getCount()).isEqualTo(10),
+                () -> assertThat(response.getCounts().get(0).getAddressName()).isEqualTo("강동구"),
+                () -> assertThat(response.getCounts().get(1).getCount()).isEqualTo(10),
+                () -> assertThat(response.getCounts().get(1).getAddressName()).isEqualTo("마포구"),
+                () -> assertThat(response.getHouseContents().size()).isEqualTo(15));
     }
 
     @Test
@@ -134,13 +134,13 @@ public class HouseRepositoryTest {
 
         assertAll(
                 "response",
-                () -> assertThat(response.getHouseAddressType().equals(DONG)),
-                () -> assertThat(response.getCounts().size() == 2),
-                () -> assertThat(response.getCounts().get(0).getCount() == 10),
-                () -> assertThat(response.getCounts().get(0).getAddressName().equals("상암동")),
-                () -> assertThat(response.getCounts().get(1).getCount() == 10),
-                () -> assertThat(response.getCounts().get(0).getAddressName().equals("아현동")),
-                () -> assertThat(response.getHouseContents().size() == 15));
+                () -> assertThat(response.getHouseAddressType()).isEqualTo(DONG.getName()),
+                () -> assertThat(response.getCounts().size()).isEqualTo(2),
+                () -> assertThat(response.getCounts().get(0).getCount()).isEqualTo(10),
+                () -> assertThat(response.getCounts().get(0).getAddressName()).isEqualTo("상암동"),
+                () -> assertThat(response.getCounts().get(1).getCount()).isEqualTo(10),
+                () -> assertThat(response.getCounts().get(1).getAddressName()).isEqualTo("아현동"),
+                () -> assertThat(response.getHouseContents().size()).isEqualTo(15));
     }
 
     @Test
@@ -174,21 +174,25 @@ public class HouseRepositoryTest {
 
         assertAll(
                 "response",
-                () -> assertThat(response.getHouses().get(0).getHouseId().equals(house1.getId())),
+                () ->
+                        assertThat(response.getHouses().get(0).getHouseId())
+                                .isEqualTo(house1.getId()),
                 () ->
                         assertThat(response.getHouses().get(0).getLatitude())
                                 .isEqualTo(house1.getLatitude()),
                 () ->
                         assertThat(response.getHouses().get(0).getLongitude())
                                 .isEqualTo(house1.getLongitude()),
-                () -> assertThat(response.getHouses().get(1).getHouseId().equals(house2.getId())),
+                () ->
+                        assertThat(response.getHouses().get(1).getHouseId())
+                                .isEqualTo(house2.getId()),
                 () ->
                         assertThat(response.getHouses().get(1).getLatitude())
                                 .isEqualTo(house2.getLatitude()),
                 () ->
                         assertThat(response.getHouses().get(1).getLongitude())
                                 .isEqualTo(house2.getLongitude()),
-                () -> assertThat(response.getHouseContents().size() == 15));
+                () -> assertThat(response.getHouseContents().size()).isEqualTo(2));
     }
 
     @Test
@@ -232,15 +236,12 @@ public class HouseRepositoryTest {
 
         assertAll(
                 "response",
-                () -> assertThat(response.getHouseAddressType().equals(GU)),
-                () -> assertThat(response.getCounts().size() == 1),
+                () -> assertThat(response.getHouseAddressType()).isEqualTo(GU.getName()),
+                () -> assertThat(response.getCounts().size()).isEqualTo(1),
                 () ->
-                        assertThat(
-                                response.getCounts()
-                                        .get(0)
-                                        .getAddressName()
-                                        .equals(house1.getGu())),
-                () -> assertThat(response.getCounts().get(0).getCount() == 1));
+                        assertThat(response.getCounts().get(0).getAddressName())
+                                .isEqualTo(house1.getGu()),
+                () -> assertThat(response.getCounts().get(0).getCount()).isEqualTo(1));
     }
 
     @Test
@@ -280,19 +281,16 @@ public class HouseRepositoryTest {
                         "요식업",
                         10,
                         2);
-        ShowMapResponse response = houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
+        ShowMapResponse response = houseRepository.findHouseMidLevelInCategory(mapFilterRequest);
 
         assertAll(
                 "response",
-                () -> assertThat(response.getHouseAddressType().equals(DONG)),
-                () -> assertThat(response.getCounts().size() == 1),
+                () -> assertThat(response.getHouseAddressType()).isEqualTo(DONG.getName()),
+                () -> assertThat(response.getCounts().size()).isEqualTo(1),
                 () ->
-                        assertThat(
-                                response.getCounts()
-                                        .get(0)
-                                        .getAddressName()
-                                        .equals(house1.getDong())),
-                () -> assertThat(response.getCounts().get(0).getCount() == 1));
+                        assertThat(response.getCounts().get(0).getAddressName())
+                                .isEqualTo(house1.getDong()),
+                () -> assertThat(response.getCounts().get(0).getCount()).isEqualTo(1));
     }
 
     @Test
@@ -336,15 +334,17 @@ public class HouseRepositoryTest {
 
         assertAll(
                 "response",
-                () -> assertThat(response.getHouses().size() == 1),
-                () -> assertThat(response.getHouses().get(0).getHouseId().equals(house1.getId())),
+                () -> assertThat(response.getHouses().size()).isEqualTo(1),
+                () ->
+                        assertThat(response.getHouses().get(0).getHouseId())
+                                .isEqualTo(house1.getId()),
                 () ->
                         assertThat(response.getHouses().get(0).getLatitude())
                                 .isEqualTo(house1.getLatitude()),
                 () ->
                         assertThat(response.getHouses().get(0).getLongitude())
                                 .isEqualTo(house1.getLongitude()),
-                () -> assertThat(response.getHouses().get(0).getFacilities().size() == 2),
+                () -> assertThat(response.getHouses().get(0).getFacilities().size()).isEqualTo(2),
                 () ->
                         assertThat(response.getHouses().get(0).getFacilities().get(0).getLatitude())
                                 .isEqualTo(facility1.getLatitude()),
@@ -356,7 +356,7 @@ public class HouseRepositoryTest {
                                                 .get(1)
                                                 .getLongitude())
                                 .isEqualTo(facility1.getLongitude()),
-                () -> assertThat(response.getHouseContents().size() == 15));
+                () -> assertThat(response.getHouseContents().size()).isEqualTo(2));
     }
 
     @Test
@@ -382,10 +382,8 @@ public class HouseRepositoryTest {
         assertAll(
                 "response",
                 () ->
-                        response.getHouseContents()
-                                .get(0)
-                                .getRepresentativeImage()
-                                .equals(house.getRepresentativeImage()));
+                        assertThat(response.getHouseContents().get(0).getRepresentativeImage())
+                                .isEqualTo(house.getRepresentativeImage()));
     }
 
     @Test
@@ -412,15 +410,45 @@ public class HouseRepositoryTest {
 
         assertAll(
                 "response",
-                () -> response.getHouses().get(0).getHouseId().equals(house.getId()),
-                () -> response.getHouseContents().get(0).getGu().equals(house.getGu()),
-                () -> response.getHouseContents().get(0).getDong().equals(house.getDong()),
+                () -> assertThat(response.getHouses().get(0).getHouseId()).isEqualTo(house.getId()),
                 () ->
-                        response.getHouses()
-                                .get(0)
-                                .getFacilities()
-                                .get(0)
-                                .getFacilityId()
-                                .equals(facility.getId()));
+                        assertThat(response.getHouseContents().get(0).getGu())
+                                .isEqualTo(house.getGu()),
+                () ->
+                        assertThat(response.getHouseContents().get(0).getDong())
+                                .isEqualTo(house.getDong()),
+                () ->
+                        assertThat(
+                                        response.getHouses()
+                                                .get(0)
+                                                .getFacilities()
+                                                .get(0)
+                                                .getFacilityId())
+                                .isEqualTo(facility.getId()));
+    }
+
+    @Test
+    @DisplayName("지도 조회 시 집 목록에서 위도와 경도를 조회할 수 있다.")
+    public void findLatitudeAndLongitudeInHouseContentResult() {
+        Member member = save(MemberFixture.builder().build());
+        House house = save(HouseFixture.builder().member(member).build());
+
+        MapFilterRequest mapFilterRequest =
+                MapFilterRequest.of(
+                        9,
+                        SOUTH_WEST_LATITUDE,
+                        SOUTH_WEST_LONGITUDE,
+                        NORTH_EAST_LATITUDE,
+                        NORTH_EAST_LONGITUDE);
+        ShowMapResponse response = houseRepository.findHouseHighLevel(mapFilterRequest);
+
+        assertAll(
+                "response",
+                () ->
+                        assertThat(response.getHouseContents().get(0).getLatitude())
+                                .isEqualTo(house.getLatitude()),
+                () ->
+                        assertThat(response.getHouseContents().get(0).getLongitude())
+                                .isEqualTo(house.getLongitude()));
     }
 }
