@@ -100,4 +100,7 @@ public class House {
 
     @Column(name = "representative_image")
     private String representativeImage;
+
+    @Column(name = "bookmark_count", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
+    private int bookmarkCount;
 }

@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `house`
     `approval_date`            DATE         NOT NULL,
     `direction`                VARCHAR(255) NOT NULL,
     `representative_image`     VARCHAR(255),
+    `bookmark_count`           MEDIUMINT    NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 )
     engine = innodb
