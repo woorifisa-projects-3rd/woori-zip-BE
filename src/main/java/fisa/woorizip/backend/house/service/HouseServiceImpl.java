@@ -22,6 +22,7 @@ public class HouseServiceImpl implements HouseService {
     @Override
     @Transactional(readOnly = true)
     public ShowMapResponse showMap(MapFilterRequest mapFilterRequest) {
+
         return mapFilterRequest.getLevel().equals(HIGH)
                 ? showMapHighLevel(mapFilterRequest)
                 : mapFilterRequest.getLevel().equals(MID)
@@ -45,5 +46,10 @@ public class HouseServiceImpl implements HouseService {
         return mapFilterRequest.getCategory().equals(NONE)
                 ? houseRepository.findHouseLowLevel(mapFilterRequest)
                 : houseRepository.findHouseLowLevelInCategory(mapFilterRequest);
+    }
+
+    private ShowMapResponse showMapByGuAndDong(MapFilterRequest mapFilterRequest) {
+
+        return houseRepository.findHouseByGuAndDongInCategory(mapFilterRequest);
     }
 }
