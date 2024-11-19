@@ -32,6 +32,11 @@ public class HouseRepositoryTest {
     @Autowired private FacilityRepository facilityRepository;
     @Autowired private HouseFacilityRelationRepository houseFacilityRelationRepository;
 
+    static final double SOUTH_WEST_LATITUDE = 37.452655162589174;
+    static final double SOUTH_WEST_LONGITUDE = 126.79611509567208;
+    static final double NORTH_EAST_LATITUDE = 37.654612635772615;
+    static final double NORTH_EAST_LONGITUDE = 127.09945286237564;
+
     private House save(House house) {
         return houseRepository.save(house);
     }
@@ -59,10 +64,10 @@ public class HouseRepositoryTest {
         MapFilterRequest mapFilterRequest =
                 MapFilterRequest.of(
                         9,
-                        37.452655162589174,
-                        126.79611509567208,
-                        37.654612635772615,
-                        127.09945286237564);
+                        SOUTH_WEST_LATITUDE,
+                        SOUTH_WEST_LONGITUDE,
+                        NORTH_EAST_LATITUDE,
+                        NORTH_EAST_LONGITUDE);
         ShowMapResponse response = houseRepository.findHouseHighLevel(mapFilterRequest);
 
         assertAll(
@@ -87,10 +92,10 @@ public class HouseRepositoryTest {
         MapFilterRequest mapFilterRequest =
                 MapFilterRequest.of(
                         6,
-                        37.452655162589174,
-                        126.79611509567208,
-                        37.654612635772615,
-                        127.09945286237564);
+                        SOUTH_WEST_LATITUDE,
+                        SOUTH_WEST_LONGITUDE,
+                        NORTH_EAST_LATITUDE,
+                        NORTH_EAST_LONGITUDE);
         ShowMapResponse response = houseRepository.findHouseMidLevel(mapFilterRequest);
 
         assertAll(
@@ -127,10 +132,10 @@ public class HouseRepositoryTest {
         MapFilterRequest mapFilterRequest =
                 MapFilterRequest.of(
                         5,
-                        37.452655162589174,
-                        126.79611509567208,
-                        37.654612635772615,
-                        127.09945286237564);
+                        SOUTH_WEST_LATITUDE,
+                        SOUTH_WEST_LONGITUDE,
+                        NORTH_EAST_LATITUDE,
+                        NORTH_EAST_LONGITUDE);
         ShowMapResponse response = houseRepository.findHouseLowLevel(mapFilterRequest);
 
         assertAll(
@@ -175,32 +180,17 @@ public class HouseRepositoryTest {
         Facility facility1 = save(FacilityFixture.builder().build());
         Facility facility2 = save(FacilityFixture.builder().build());
 
-        HouseFacilityRelation relation1 =
-                save(
-                        HouseFacilityRelationFixture.builder()
-                                .house(house1)
-                                .facility(facility1)
-                                .build());
-        HouseFacilityRelation relation2 =
-                save(
-                        HouseFacilityRelationFixture.builder()
-                                .house(house1)
-                                .facility(facility2)
-                                .build());
-        HouseFacilityRelation relation3 =
-                save(
-                        HouseFacilityRelationFixture.builder()
-                                .house(house2)
-                                .facility(facility1)
-                                .build());
+        save(HouseFacilityRelationFixture.builder().house(house1).facility(facility1).build());
+        save(HouseFacilityRelationFixture.builder().house(house1).facility(facility2).build());
+        save(HouseFacilityRelationFixture.builder().house(house2).facility(facility1).build());
 
         MapFilterRequest mapFilterRequest =
                 MapFilterRequest.of(
                         9,
-                        37.452655162589174,
-                        126.79611509567208,
-                        37.654612635772615,
-                        127.09945286237564,
+                        SOUTH_WEST_LATITUDE,
+                        SOUTH_WEST_LONGITUDE,
+                        NORTH_EAST_LATITUDE,
+                        NORTH_EAST_LONGITUDE,
                         "요식업",
                         10,
                         2);
@@ -242,32 +232,17 @@ public class HouseRepositoryTest {
         Facility facility1 = save(FacilityFixture.builder().build());
         Facility facility2 = save(FacilityFixture.builder().build());
 
-        HouseFacilityRelation relation1 =
-                save(
-                        HouseFacilityRelationFixture.builder()
-                                .house(house1)
-                                .facility(facility1)
-                                .build());
-        HouseFacilityRelation relation2 =
-                save(
-                        HouseFacilityRelationFixture.builder()
-                                .house(house1)
-                                .facility(facility2)
-                                .build());
-        HouseFacilityRelation relation3 =
-                save(
-                        HouseFacilityRelationFixture.builder()
-                                .house(house2)
-                                .facility(facility1)
-                                .build());
+        save(HouseFacilityRelationFixture.builder().house(house1).facility(facility1).build());
+        save(HouseFacilityRelationFixture.builder().house(house1).facility(facility2).build());
+        save(HouseFacilityRelationFixture.builder().house(house2).facility(facility1).build());
 
         MapFilterRequest mapFilterRequest =
                 MapFilterRequest.of(
                         7,
-                        37.452655162589174,
-                        126.79611509567208,
-                        37.654612635772615,
-                        127.09945286237564,
+                        SOUTH_WEST_LATITUDE,
+                        SOUTH_WEST_LONGITUDE,
+                        NORTH_EAST_LATITUDE,
+                        NORTH_EAST_LONGITUDE,
                         "요식업",
                         10,
                         2);
@@ -309,32 +284,17 @@ public class HouseRepositoryTest {
         Facility facility1 = save(FacilityFixture.builder().build());
         Facility facility2 = save(FacilityFixture.builder().build());
 
-        HouseFacilityRelation relation1 =
-                save(
-                        HouseFacilityRelationFixture.builder()
-                                .house(house1)
-                                .facility(facility1)
-                                .build());
-        HouseFacilityRelation relation2 =
-                save(
-                        HouseFacilityRelationFixture.builder()
-                                .house(house1)
-                                .facility(facility2)
-                                .build());
-        HouseFacilityRelation relation3 =
-                save(
-                        HouseFacilityRelationFixture.builder()
-                                .house(house2)
-                                .facility(facility1)
-                                .build());
+        save(HouseFacilityRelationFixture.builder().house(house1).facility(facility1).build());
+        save(HouseFacilityRelationFixture.builder().house(house1).facility(facility2).build());
+        save(HouseFacilityRelationFixture.builder().house(house2).facility(facility1).build());
 
         MapFilterRequest mapFilterRequest =
                 MapFilterRequest.of(
                         5,
-                        37.452655162589174,
-                        126.79611509567208,
-                        37.654612635772615,
-                        127.09945286237564,
+                        SOUTH_WEST_LATITUDE,
+                        SOUTH_WEST_LONGITUDE,
+                        NORTH_EAST_LATITUDE,
+                        NORTH_EAST_LONGITUDE,
                         "요식업",
                         10,
                         2);
@@ -379,11 +339,10 @@ public class HouseRepositoryTest {
         MapFilterRequest mapFilterRequest =
                 MapFilterRequest.of(
                         5,
-                        37.452655162589174,
-                        126.79611509567208,
-                        37.654612635772615,
-                        127.09945286237564);
-
+                        SOUTH_WEST_LATITUDE,
+                        SOUTH_WEST_LONGITUDE,
+                        NORTH_EAST_LATITUDE,
+                        NORTH_EAST_LONGITUDE);
         ShowMapResponse response = houseRepository.findHouseLowLevel(mapFilterRequest);
 
         assertAll(
@@ -393,5 +352,41 @@ public class HouseRepositoryTest {
                                 .get(0)
                                 .getRepresentativeImage()
                                 .equals(house.getRepresentativeImage()));
+    }
+
+    @Test
+    @DisplayName("카테고리와 지역을 선택하여 지도에서 집을 조회할 수 있다.")
+    public void findHouseByGuAndDongInCategory() {
+        Member member = save(MemberFixture.builder().build());
+        House house = save(HouseFixture.builder().member(member).build());
+        Facility facility = save(FacilityFixture.builder().build());
+        save(HouseFacilityRelationFixture.builder().house(house).facility(facility).build());
+
+        MapFilterRequest mapFilterRequest =
+                MapFilterRequest.of(
+                        5,
+                        SOUTH_WEST_LATITUDE,
+                        SOUTH_WEST_LONGITUDE,
+                        NORTH_EAST_LATITUDE,
+                        NORTH_EAST_LONGITUDE,
+                        "요식업",
+                        10,
+                        1,
+                        house.getGu(),
+                        house.getDong());
+        ShowMapResponse response = houseRepository.findHouseByGuAndDongInCategory(mapFilterRequest);
+
+        assertAll(
+                "response",
+                () -> response.getHouses().get(0).getHouseId().equals(house.getId()),
+                () -> response.getHouseContents().get(0).getGu().equals(house.getGu()),
+                () -> response.getHouseContents().get(0).getDong().equals(house.getDong()),
+                () ->
+                        response.getHouses()
+                                .get(0)
+                                .getFacilities()
+                                .get(0)
+                                .getFacilityId()
+                                .equals(facility.getId()));
     }
 }
