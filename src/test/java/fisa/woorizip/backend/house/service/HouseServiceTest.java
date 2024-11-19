@@ -330,7 +330,7 @@ public class HouseServiceTest {
         assertAll(
                 () ->
                         verify(houseRepository, times(1))
-                                .findHouseLowLevelInCategory(mapFilterRequest),
+                                .findHouseByGuAndDongInCategory(mapFilterRequest),
                 () ->
                         assertThat(expected.getHouses().get(0).getLatitude())
                                 .isEqualTo(response.getHouses().get(0).getLatitude()),

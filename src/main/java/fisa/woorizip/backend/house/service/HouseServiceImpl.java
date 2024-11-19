@@ -45,7 +45,8 @@ public class HouseServiceImpl implements HouseService {
     @Override
     @Transactional(readOnly = true)
     public ShowMapResponse showMap(MapFilterRequest mapFilterRequest) {
-
+        if (mapFilterRequest.getGu() != null && mapFilterRequest.getDong() != null)
+            return showMapByGuAndDong(mapFilterRequest);
         return mapFilterRequest.getLevel().equals(HIGH)
                 ? showMapHighLevel(mapFilterRequest)
                 : mapFilterRequest.getLevel().equals(MID)
@@ -72,7 +73,6 @@ public class HouseServiceImpl implements HouseService {
     }
 
     private ShowMapResponse showMapByGuAndDong(MapFilterRequest mapFilterRequest) {
-
         return houseRepository.findHouseByGuAndDongInCategory(mapFilterRequest);
     }
 }
