@@ -154,8 +154,7 @@ public class HouseCustomRepositoryImpl implements HouseCustomRepository {
     }
 
     @Override
-    public List<HouseContentResult> findHouseContentByMember(
-            MapFilterRequest mapFilterRequest, Long memberId) {
+    public List<HouseContentResult> findHouseContent(MapFilterRequest mapFilterRequest, Long memberId) {
         return createConditionJPAQuery(mapFilterRequest)
                 .leftJoin(bookmark)
                 .on(bookmark.house.id.eq(house.id))

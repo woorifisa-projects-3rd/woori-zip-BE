@@ -316,7 +316,7 @@ public class HouseRepositoryTest {
                         SOUTH_WEST_LONGITUDE,
                         NORTH_EAST_LATITUDE,
                         NORTH_EAST_LONGITUDE);
-        List<HouseContentResult> result = houseRepository.findHouseContentByMember(request, member.getId());
+        List<HouseContentResult> result = houseRepository.findHouseContent(request, member.getId());
 
         assertAll(
                 "result",
