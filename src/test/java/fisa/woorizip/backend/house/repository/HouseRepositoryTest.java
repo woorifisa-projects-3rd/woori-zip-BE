@@ -41,6 +41,22 @@ public class HouseRepositoryTest {
     static final double NORTH_EAST_LATITUDE = 37.654612635772615;
     static final double NORTH_EAST_LONGITUDE = 127.09945286237564;
 
+    private House save(House house) {
+        return houseRepository.save(house);
+    }
+
+    private Member save(Member member) {
+        return memberRepository.save(member);
+    }
+
+    private Facility save(Facility facility) {
+        return facilityRepository.save(facility);
+    }
+
+    private HouseFacilityRelation save(HouseFacilityRelation houseFacilityRelation) {
+        return houseFacilityRelationRepository.save(houseFacilityRelation);
+    }
+
     @Test
     @DisplayName("매물 ID로 매물을 조회할 수 있다")
     void findById() {
@@ -69,22 +85,6 @@ public class HouseRepositoryTest {
         Optional<House> houseLookupResult = houseRepository.findById(999L);
 
         assertThat(houseLookupResult).isEmpty();
-    }
-
-    private House save(House house) {
-        return houseRepository.save(house);
-    }
-
-    private Member save(Member member) {
-        return memberRepository.save(member);
-    }
-
-    private Facility save(Facility facility) {
-        return facilityRepository.save(facility);
-    }
-
-    private HouseFacilityRelation save(HouseFacilityRelation houseFacilityRelation) {
-        return houseFacilityRelationRepository.save(houseFacilityRelation);
     }
 
     @Test
