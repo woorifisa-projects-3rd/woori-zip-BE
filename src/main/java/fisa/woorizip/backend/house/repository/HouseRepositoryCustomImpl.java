@@ -39,32 +39,16 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
     public ShowMapResponse findHouseHighLevel(MapFilterRequest mapFilterRequest) {
         return ShowMapResponse.of(
                 GU,
-                jpaQueryFactory
-                        .select(
-                                Projections.constructor(
-                                        HouseCountResult.class, house.gu, house.count().intValue()))
-                        .from(house)
-                        .where(
-                                house.latitude.between(
-                                        mapFilterRequest.getSouthWestLatitude(),
-                                        mapFilterRequest.getNorthEastLatitude()),
-                                house.longitude.between(
-                                        mapFilterRequest.getSouthWestLongitude(),
-                                        mapFilterRequest.getNorthEastLongitude()),
-                                houseTypeEq(mapFilterRequest.getHouseType()),
-                                housingExpensesEq(mapFilterRequest.getHousingExpenses()),
-                                house.deposit.between(
-                                        mapFilterRequest.getMinDeposit(),
-                                        mapFilterRequest.getMaxDeposit()),
-                                house.monthlyRentFee.between(
-                                        mapFilterRequest.getMinMonthlyRentFee(),
-                                        mapFilterRequest.getMaxMonthlyRentFee()),
-                                house.maintenanceFee.between(
-                                        mapFilterRequest.getMinMaintenanceFee(),
-                                        mapFilterRequest.getMaxMaintenanceFee()))
+                createConditionJPAQuery(mapFilterRequest)
                         .groupBy(house.gu)
                         .orderBy(house.gu.asc())
-                        .fetch(),
+                        .transform(
+                                groupBy(house.gu)
+                                        .list(
+                                                Projections.constructor(
+                                                        HouseCountResult.class,
+                                                        house.gu,
+                                                        house.count().intValue()))),
                 createHouseContents(mapFilterRequest));
     }
 
@@ -72,43 +56,23 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
     public ShowMapResponse findHouseMidLevel(MapFilterRequest mapFilterRequest) {
         return ShowMapResponse.of(
                 DONG,
-                jpaQueryFactory
-                        .select(
-                                Projections.constructor(
-                                        HouseCountResult.class,
-                                        house.dong,
-                                        house.count().intValue()))
-                        .from(house)
-                        .where(
-                                house.latitude.between(
-                                        mapFilterRequest.getSouthWestLatitude(),
-                                        mapFilterRequest.getNorthEastLatitude()),
-                                house.longitude.between(
-                                        mapFilterRequest.getSouthWestLongitude(),
-                                        mapFilterRequest.getNorthEastLongitude()),
-                                houseTypeEq(mapFilterRequest.getHouseType()),
-                                housingExpensesEq(mapFilterRequest.getHousingExpenses()),
-                                house.deposit.between(
-                                        mapFilterRequest.getMinDeposit(),
-                                        mapFilterRequest.getMaxDeposit()),
-                                house.monthlyRentFee.between(
-                                        mapFilterRequest.getMinMonthlyRentFee(),
-                                        mapFilterRequest.getMaxMonthlyRentFee()),
-                                house.maintenanceFee.between(
-                                        mapFilterRequest.getMinMaintenanceFee(),
-                                        mapFilterRequest.getMaxMaintenanceFee()))
+                createConditionJPAQuery(mapFilterRequest)
                         .groupBy(house.dong)
                         .orderBy(house.dong.asc())
-                        .fetch(),
+                        .transform(
+                                groupBy(house.dong)
+                                        .list(
+                                                Projections.constructor(
+                                                        HouseCountResult.class,
+                                                        house.dong,
+                                                        house.count().intValue()))),
                 createHouseContents(mapFilterRequest));
     }
 
     @Override
     public ShowMapResponse findHouseLowLevel(MapFilterRequest mapFilterRequest) {
         return ShowMapResponse.of(
-                createConditionJPAQuery(mapFilterRequest)
-                        .fetch()
-                        .stream()
+                createConditionJPAQuery(mapFilterRequest).fetch().stream()
                         .map(HouseResult::init)
                         .toList(),
                 createHouseContents(mapFilterRequest));
@@ -248,8 +212,7 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
 
     private JPAQuery<House> createConditionJPAQuery(MapFilterRequest mapFilterRequest) {
         return jpaQueryFactory
-                .select(house)
-                .from(house)
+                .selectFrom(house)
                 .where(
                         house.latitude.between(
                                 mapFilterRequest.getSouthWestLatitude(),
@@ -270,10 +233,7 @@ public class HouseRepositoryCustomImpl implements HouseRepositoryCustom {
     }
 
     private List<HouseContentResult> createHouseContents(MapFilterRequest mapFilterRequest) {
-        return createConditionJPAQuery(mapFilterRequest)
-                .limit(HOUSE_LIST_COUNT)
-                .fetch()
-                .stream()
+        return createConditionJPAQuery(mapFilterRequest).limit(HOUSE_LIST_COUNT).fetch().stream()
                 .map(HouseContentResult::init)
                 .toList();
     }
