@@ -57,5 +57,4 @@ public class AuthController {
                 .header(SET_COOKIE, cookieProvider.createSignOutCookie().toString())
                 .body(result.getSignInResponse());
     }
-
 }

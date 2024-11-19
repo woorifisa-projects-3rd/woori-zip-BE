@@ -74,7 +74,6 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-
     private RefreshToken findRefreshToken(String refreshToken) {
         return refreshTokenRepository
                 .findByValue(refreshToken)

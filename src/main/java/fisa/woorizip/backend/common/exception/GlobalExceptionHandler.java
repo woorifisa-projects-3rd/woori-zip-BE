@@ -3,11 +3,9 @@ package fisa.woorizip.backend.common.exception;
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.HTTP_METHOD_NOT_ALLOWED;
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.INVALID_INPUT;
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.RESOURCE_NOT_FOUND;
-
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.TYPE_MISMATCH;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
 import fisa.woorizip.backend.common.exception.response.ErrorResponse;
@@ -26,7 +24,6 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -56,8 +53,13 @@ public class GlobalExceptionHandler {
         Object value = exception.getValue();
         String message =
                 String.format(
-                        TYPE_MISMATCH.getMessage(), propertyName, value, propertyName, requiredType);
-        return ResponseEntity.status(TYPE_MISMATCH.getStatus()).body(ErrorResponse.of(TYPE_MISMATCH, message));
+                        TYPE_MISMATCH.getMessage(),
+                        propertyName,
+                        value,
+                        propertyName,
+                        requiredType);
+        return ResponseEntity.status(TYPE_MISMATCH.getStatus())
+                .body(ErrorResponse.of(TYPE_MISMATCH, message));
     }
 
     private String getRequiredType(MethodArgumentTypeMismatchException exception) {
