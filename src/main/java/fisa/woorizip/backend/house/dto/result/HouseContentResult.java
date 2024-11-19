@@ -21,6 +21,9 @@ public class HouseContentResult {
     private long maintenanceFee;
     private String comment;
     private String representativeImage;
+    private double latitude;
+    private double longitude;
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean isBookmark;
 
@@ -36,6 +39,8 @@ public class HouseContentResult {
                 house.getMaintenanceFee(),
                 house.getComment(),
                 house.getRepresentativeImage(),
+                house.getLatitude(),
+                house.getLongitude(),
                 null);
     }
 }
