@@ -1,6 +1,5 @@
 package fisa.woorizip.backend.house.dto.result;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import fisa.woorizip.backend.house.domain.House;
 
 import lombok.AllArgsConstructor;
@@ -23,9 +22,7 @@ public class HouseContentResult {
     private String representativeImage;
     private double latitude;
     private double longitude;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean isBookmark;
+    private boolean isBookmark;
 
     public static HouseContentResult init(House house) {
         return new HouseContentResult(
@@ -41,6 +38,6 @@ public class HouseContentResult {
                 house.getRepresentativeImage(),
                 house.getLatitude(),
                 house.getLongitude(),
-                null);
+                false);
     }
 }

@@ -46,34 +46,7 @@ public class HouseServiceImpl implements HouseService {
     @Override
     @Transactional(readOnly = true)
     public ShowMapResponse showMap(MapFilterRequest mapFilterRequest) {
-        if (!isNull(mapFilterRequest.getGu()) && !isNull(mapFilterRequest.getDong()))
-            return showMapByGuAndDong(mapFilterRequest);
-        return mapFilterRequest.getLevel().equals(HIGH)
-                ? showMapHighLevel(mapFilterRequest)
-                : mapFilterRequest.getLevel().equals(MID)
-                        ? showMapMidLevel(mapFilterRequest)
-                        : showMapLowLevel(mapFilterRequest);
-    }
-
-    private ShowMapResponse showMapHighLevel(MapFilterRequest mapFilterRequest) {
-        return mapFilterRequest.getCategory().equals(NONE)
-                ? houseRepository.findHouseHighLevel(mapFilterRequest)
-                : houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
-    }
-
-    private ShowMapResponse showMapMidLevel(MapFilterRequest mapFilterRequest) {
-        return mapFilterRequest.getCategory().equals(NONE)
-                ? houseRepository.findHouseMidLevel(mapFilterRequest)
-                : houseRepository.findHouseMidLevelInCategory(mapFilterRequest);
-    }
-
-    private ShowMapResponse showMapLowLevel(MapFilterRequest mapFilterRequest) {
-        return mapFilterRequest.getCategory().equals(NONE)
-                ? houseRepository.findHouseLowLevel(mapFilterRequest)
-                : houseRepository.findHouseLowLevelInCategory(mapFilterRequest);
-    }
-
-    private ShowMapResponse showMapByGuAndDong(MapFilterRequest mapFilterRequest) {
-        return houseRepository.findHouseByGuAndDongInCategory(mapFilterRequest);
+//        if(isNull(mapFilterRequest.getGu()) || isNull(mapFilterRequest.getDong()))
+        return null;
     }
 }
