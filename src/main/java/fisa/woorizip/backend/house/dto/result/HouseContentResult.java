@@ -1,5 +1,6 @@
 package fisa.woorizip.backend.house.dto.result;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import fisa.woorizip.backend.house.domain.House;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +21,8 @@ public class HouseContentResult {
     private long maintenanceFee;
     private String comment;
     private String representativeImage;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Boolean isBookmark;
 
     public static HouseContentResult init(House house) {
         return new HouseContentResult(
@@ -32,6 +35,7 @@ public class HouseContentResult {
                 house.getDong(),
                 house.getMaintenanceFee(),
                 house.getComment(),
-                house.getRepresentativeImage());
+                house.getRepresentativeImage(),
+                null);
     }
 }
