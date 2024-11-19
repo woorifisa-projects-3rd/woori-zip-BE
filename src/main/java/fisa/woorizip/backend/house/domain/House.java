@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -31,6 +30,9 @@ public class House {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "comment", nullable = false)
+    private String comment;
+
     @Column(name = "address", nullable = false)
     private String address;
 
@@ -39,10 +41,10 @@ public class House {
     private HousingExpenses housingExpenses;
 
     @Column(name = "latitude", nullable = false)
-    private BigDecimal latitude;
+    private double latitude;
 
     @Column(name = "longitude", nullable = false)
-    private BigDecimal longitude;
+    private double longitude;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "house_type", nullable = false)
