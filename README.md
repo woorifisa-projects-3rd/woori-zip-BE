@@ -63,6 +63,7 @@ DROP TABLE loan_check_list;
 DROP TABLE log;
 DROP TABLE recently_loan_goods;
 DROP TABLE refresh_token;
+DROP TABLE consumption_analysis;
 show tables;
 ```
 
