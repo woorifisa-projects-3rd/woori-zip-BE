@@ -8,4 +8,6 @@ public interface AuthService {
     SignInResult signIn(final SignInRequest signInRequest);
 
     void signOut(String refreshToken);
+
+    SignInResult reissue(String refreshToken);
 }

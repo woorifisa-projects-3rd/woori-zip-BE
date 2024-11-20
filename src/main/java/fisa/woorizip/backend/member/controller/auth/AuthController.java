@@ -48,4 +48,13 @@ public class AuthController {
                 .header(SET_COOKIE, cookieProvider.createSignOutCookie().toString())
                 .build();
     }
+
+    @PostMapping("/reissue")
+    public ResponseEntity<SignInResponse> reissue(
+            @CookieValue(name = REFRESH_TOKEN, required = false) String refreshToken) {
+        SignInResult result = authService.reissue(refreshToken);
+        return ResponseEntity.ok()
+                .header(SET_COOKIE, cookieProvider.createSignOutCookie().toString())
+                .body(result.getSignInResponse());
+    }
 }
