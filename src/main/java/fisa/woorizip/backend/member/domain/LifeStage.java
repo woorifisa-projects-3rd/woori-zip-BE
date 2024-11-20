@@ -1,15 +1,10 @@
 package fisa.woorizip.backend.member.domain;
 
-import static fisa.woorizip.backend.member.MemberErrorCode.LIFE_STAGE_NOT_FOUND;
-
-import fisa.woorizip.backend.common.exception.WooriZipException;
-
 import lombok.Getter;
-
-import java.util.Arrays;
 
 @Getter
 public enum LifeStage {
+
     UNI("대학생"),
     NEW_JOB("사회초년생"),
     NEW_WED("신혼"),
@@ -19,16 +14,9 @@ public enum LifeStage {
     GOLLIFE("중년기타"),
     NONE_LIFE_STAGE("해당없음");
 
-    private final String name;
+    private final String description;
 
-    LifeStage(String name) {
-        this.name = name;
-    }
-
-    public static LifeStage from(String name) {
-        return Arrays.stream(LifeStage.values())
-                .filter(lifeStage -> lifeStage.name().equals(name))
-                .findAny()
-                .orElseThrow(() -> new WooriZipException(LIFE_STAGE_NOT_FOUND));
+    LifeStage(String description) {
+        this.description = description;
     }
 }
