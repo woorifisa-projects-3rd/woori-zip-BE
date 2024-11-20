@@ -4,9 +4,7 @@ import fisa.woorizip.backend.bookmark.domain.Bookmark;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.member.domain.Member;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 public class BookmarkRequest {
@@ -18,7 +16,8 @@ public class BookmarkRequest {
     private Long houseId;
 
     public BookmarkRequest(Long memberId, Long houseId) {
-
+        this.memberId = memberId;
+        this.houseId = houseId;
     }
 
     protected BookmarkRequest() {}
