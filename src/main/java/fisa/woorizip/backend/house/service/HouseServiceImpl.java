@@ -2,8 +2,13 @@ package fisa.woorizip.backend.house.service;
 
 import static fisa.woorizip.backend.facility.domain.Category.NONE;
 import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
-import static fisa.woorizip.backend.house.dto.MapLevel.HIGH;
-import static fisa.woorizip.backend.house.dto.MapLevel.MID;
+import static fisa.woorizip.backend.house.HouseErrorCode.MAP_LEVEL_NOT_FOUND;
+import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
+import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
+import static fisa.woorizip.backend.house.dto.MapLevel.*;
+import static fisa.woorizip.backend.member.domain.Role.MEMBER;
+
+import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.house.domain.House;
@@ -12,6 +17,7 @@ import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
 import fisa.woorizip.backend.house.repository.HouseRepository;
 import fisa.woorizip.backend.houseimage.repository.HouseImageRepository;
+import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,29 +50,111 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     @Transactional(readOnly = true)
-    public ShowMapResponse showMap(MapFilterRequest mapFilterRequest) {
-        return mapFilterRequest.getLevel().equals(HIGH)
-                ? showMapHighLevel(mapFilterRequest)
-                : mapFilterRequest.getLevel().equals(MID)
-                        ? showMapMidLevel(mapFilterRequest)
-                        : showMapLowLevel(mapFilterRequest);
-    }
-
-    private ShowMapResponse showMapHighLevel(MapFilterRequest mapFilterRequest) {
-        return mapFilterRequest.getCategory().equals(NONE)
-                ? houseRepository.findHouseHighLevel(mapFilterRequest)
-                : houseRepository.findHouseHighLevelInCategory(mapFilterRequest);
-    }
-
-    private ShowMapResponse showMapMidLevel(MapFilterRequest mapFilterRequest) {
-        return mapFilterRequest.getCategory().equals(NONE)
-                ? houseRepository.findHouseMidLevel(mapFilterRequest)
-                : houseRepository.findHouseMidLevelInCategory(mapFilterRequest);
-    }
-
-    private ShowMapResponse showMapLowLevel(MapFilterRequest mapFilterRequest) {
-        return mapFilterRequest.getCategory().equals(NONE)
-                ? houseRepository.findHouseLowLevel(mapFilterRequest)
-                : houseRepository.findHouseLowLevelInCategory(mapFilterRequest);
+    public ShowMapResponse showMap(
+            MapFilterRequest mapFilterRequest, MemberIdentity memberIdentity) {
+        if (mapFilterRequest.getLevel() == HIGH) {
+            if (mapFilterRequest.getCategory() == NONE) {
+                if (isNull(memberIdentity) || memberIdentity.getRole() != MEMBER) {
+                    return ShowMapResponse.of(
+                            GU,
+                            houseRepository.findHouseCountByGu(mapFilterRequest),
+                            houseRepository.findHouseContent(mapFilterRequest));
+                } else {
+                    return ShowMapResponse.of(
+                            GU,
+                            houseRepository.findHouseCountByGu(mapFilterRequest),
+                            houseRepository.findHouseContent(
+                                    mapFilterRequest, memberIdentity.getId()));
+                }
+            } else {
+                List<Long> houseIdList =
+                        houseRepository.findHouseIdListByCategory(mapFilterRequest);
+                if (isNull(memberIdentity) || memberIdentity.getRole() != MEMBER) {
+                    return ShowMapResponse.of(
+                            GU,
+                            houseRepository.findHouseCountByGu(mapFilterRequest, houseIdList),
+                            houseRepository.findHouseContent(mapFilterRequest, houseIdList));
+                } else {
+                    return ShowMapResponse.of(
+                            GU,
+                            houseRepository.findHouseCountByGu(mapFilterRequest, houseIdList),
+                            houseRepository.findHouseContent(
+                                    mapFilterRequest, houseIdList, memberIdentity.getId()));
+                }
+            }
+        } else if (mapFilterRequest.getLevel() == MID) {
+            if (mapFilterRequest.getCategory() == NONE) {
+                if (isNull(memberIdentity) || memberIdentity.getRole() != MEMBER) {
+                    return ShowMapResponse.of(
+                            DONG,
+                            houseRepository.findHouseCountByDong(mapFilterRequest),
+                            houseRepository.findHouseContent(mapFilterRequest));
+                } else {
+                    return ShowMapResponse.of(
+                            DONG,
+                            houseRepository.findHouseCountByDong(mapFilterRequest),
+                            houseRepository.findHouseContent(
+                                    mapFilterRequest, memberIdentity.getId()));
+                }
+            } else {
+                List<Long> houseIdList =
+                        houseRepository.findHouseIdListByCategory(mapFilterRequest);
+                if (isNull(memberIdentity) || memberIdentity.getRole() != MEMBER) {
+                    return ShowMapResponse.of(
+                            DONG,
+                            houseRepository.findHouseCountByDong(mapFilterRequest, houseIdList),
+                            houseRepository.findHouseContent(mapFilterRequest, houseIdList));
+                } else {
+                    return ShowMapResponse.of(
+                            DONG,
+                            houseRepository.findHouseCountByDong(mapFilterRequest, houseIdList),
+                            houseRepository.findHouseContent(
+                                    mapFilterRequest, houseIdList, memberIdentity.getId()));
+                }
+            }
+        } else if (mapFilterRequest.getLevel() == LOW) {
+            if (mapFilterRequest.getCategory() == NONE) {
+                if (isNull(memberIdentity) || memberIdentity.getRole() != MEMBER) {
+                    return ShowMapResponse.of(
+                            houseRepository.findHouseLatitudeAndLongitude(mapFilterRequest),
+                            houseRepository.findHouseContent(mapFilterRequest));
+                } else {
+                    return ShowMapResponse.of(
+                            houseRepository.findHouseLatitudeAndLongitude(mapFilterRequest),
+                            houseRepository.findHouseContent(
+                                    mapFilterRequest, memberIdentity.getId()));
+                }
+            } else {
+                List<Long> houseIdList =
+                        houseRepository.findHouseIdListByCategory(mapFilterRequest);
+                if (isNull(memberIdentity) || memberIdentity.getRole() != MEMBER) {
+                    return ShowMapResponse.of(
+                            houseRepository.findHouseLatitudeAndLongitude(
+                                    mapFilterRequest, houseIdList),
+                            houseRepository.findHouseContent(mapFilterRequest, houseIdList));
+                } else {
+                    if (isNull(mapFilterRequest.getGu())) {
+                        return ShowMapResponse.of(
+                                houseRepository.findHouseLatitudeAndLongitude(
+                                        mapFilterRequest, houseIdList),
+                                houseRepository.findHouseContent(
+                                        mapFilterRequest, houseIdList, memberIdentity.getId()));
+                    } else {
+                        List<Long> houseIdListByGuAndDong =
+                                houseRepository.findHouseIdListByCategoryAndGuAndDong(
+                                        mapFilterRequest);
+                        return ShowMapResponse.of(
+                                houseRepository.findHouseLatitudeAndLongitude(
+                                        mapFilterRequest, houseIdListByGuAndDong),
+                                houseRepository.findHouseContent(
+                                        mapFilterRequest,
+                                        houseIdListByGuAndDong,
+                                        memberIdentity.getId()));
+                    }
+                }
+            }
+        } else {
+            throw new WooriZipException(MAP_LEVEL_NOT_FOUND);
+        }
     }
 }
