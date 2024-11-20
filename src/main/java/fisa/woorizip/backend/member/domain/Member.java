@@ -56,8 +56,9 @@ public class Member {
     @Column(name = "years_of_marriage", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
     private Integer yearsOfMarriage;
 
-    @Column(name = "months_of_employment", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
+    @Column(
+            name = "months_of_employment",
+            nullable = false,
+            columnDefinition = "MEDIUMINT DEFAULT 0")
     private Integer monthsOfEmployment;
-
 }
-

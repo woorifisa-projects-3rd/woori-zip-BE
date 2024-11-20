@@ -2,7 +2,6 @@ package fisa.woorizip.backend.support.fixture;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;
-import jakarta.persistence.Column;
 
 public class LoanGoodsFixture {
 
@@ -19,7 +18,6 @@ public class LoanGoodsFixture {
     private Integer minCreditScore = 600;
     private Long minMonthsOfEmployment = 0L;
     private Double interestRate = 2.8;
-
 
     public static LoanGoodsFixture builder() {
         return new LoanGoodsFixture();
@@ -89,7 +87,6 @@ public class LoanGoodsFixture {
         this.interestRate = interestRate;
         return this;
     }
-
 
     public LoanGoods build() {
         return LoanGoods.builder()

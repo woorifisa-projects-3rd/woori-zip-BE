@@ -9,7 +9,5 @@ public interface LoanGoodsService {
 
     ShowLoanGoodsDetailsResponse getLoanGoodsDetailsById(Long loanGoodsId);
 
-    List<ShowLoanGoodsDetailsResponse> getLoanGoodsRecommendations (MemberIdentity memberIdentity);
-
-
+    List<ShowLoanGoodsDetailsResponse> getLoanGoodsRecommendations(MemberIdentity memberIdentity);
 }
