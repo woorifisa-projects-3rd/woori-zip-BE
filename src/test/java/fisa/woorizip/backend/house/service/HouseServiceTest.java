@@ -209,7 +209,7 @@ public class HouseServiceTest {
                 .willReturn(expected.getCounts());
         given(houseRepository.findHouseIdListByCategory(any(MapFilterRequest.class)))
                 .willReturn(List.of(house.getId()));
-        given(houseRepository.findHouseContent(any(MapFilterRequest.class)))
+        given(houseRepository.findHouseContent(any(MapFilterRequest.class), any(List.class)))
                 .willReturn(expected.getHouseContents());
 
         ShowMapResponse response = houseService.showMap(mapFilterRequest, null);
@@ -219,7 +219,9 @@ public class HouseServiceTest {
                         verify(houseRepository, times(1))
                                 .findHouseCountByGu(mapFilterRequest, List.of(house.getId())),
                 () -> verify(houseRepository, times(1)).findHouseIdListByCategory(mapFilterRequest),
-                () -> verify(houseRepository, times(1)).findHouseContent(mapFilterRequest),
+                () ->
+                        verify(houseRepository, times(1))
+                                .findHouseContent(mapFilterRequest, List.of(house.getId())),
                 () ->
                         assertThat(expected.getHouseAddressType())
                                 .isEqualTo(response.getHouseAddressType()),
@@ -255,15 +257,19 @@ public class HouseServiceTest {
                 .willReturn(expected.getCounts());
         given(houseRepository.findHouseIdListByCategory(any(MapFilterRequest.class)))
                 .willReturn(List.of(house.getId()));
-        given(houseRepository.findHouseContent(any(MapFilterRequest.class)))
+        given(houseRepository.findHouseContent(any(MapFilterRequest.class), any(List.class)))
                 .willReturn(expected.getHouseContents());
 
         ShowMapResponse response = houseService.showMap(mapFilterRequest, null);
 
         assertAll(
-                () -> verify(houseRepository, times(1)).findHouseCountByDong(mapFilterRequest, List.of(house.getId())),
+                () ->
+                        verify(houseRepository, times(1))
+                                .findHouseCountByDong(mapFilterRequest, List.of(house.getId())),
                 () -> verify(houseRepository, times(1)).findHouseIdListByCategory(mapFilterRequest),
-                () -> verify(houseRepository, times(1)).findHouseContent(mapFilterRequest),
+                () ->
+                        verify(houseRepository, times(1))
+                                .findHouseContent(mapFilterRequest, List.of(house.getId())),
                 () ->
                         assertThat(expected.getHouseAddressType())
                                 .isEqualTo(response.getHouseAddressType()),
@@ -306,7 +312,7 @@ public class HouseServiceTest {
                 .willReturn(expected.getHouses());
         given(houseRepository.findHouseIdListByCategory(mapFilterRequest))
                 .willReturn(List.of(house.getId()));
-        given(houseRepository.findHouseContent(any(MapFilterRequest.class)))
+        given(houseRepository.findHouseContent(any(MapFilterRequest.class), any(List.class)))
                 .willReturn(expected.getHouseContents());
 
         ShowMapResponse response = houseService.showMap(mapFilterRequest, null);
@@ -317,7 +323,9 @@ public class HouseServiceTest {
                                 .findHouseLatitudeAndLongitude(
                                         mapFilterRequest, List.of(house.getId())),
                 () -> verify(houseRepository, times(1)).findHouseIdListByCategory(mapFilterRequest),
-                () -> verify(houseRepository, times(1)).findHouseContent(mapFilterRequest),
+                () ->
+                        verify(houseRepository, times(1))
+                                .findHouseContent(mapFilterRequest, List.of(house.getId())),
                 () ->
                         assertThat(expected.getHouses().get(0).getLatitude())
                                 .isEqualTo(response.getHouses().get(0).getLatitude()),
@@ -351,6 +359,7 @@ public class HouseServiceTest {
     void 카테고리와_구_및_동으로_지도를_조회하는_경우_집을_조회할_수_있다() {
         House house = HouseFixture.builder().id(1L).build();
         Facility facility = FacilityFixture.builder().build();
+        MemberIdentity memberIdentity = new MemberIdentity(1L, MEMBER.name());
 
         ShowMapResponse expected =
                 ShowMapResponse.of(
@@ -380,10 +389,12 @@ public class HouseServiceTest {
                 .willReturn(expected.getHouses());
         given(houseRepository.findHouseIdListByCategoryAndGuAndDong(any(MapFilterRequest.class)))
                 .willReturn(List.of(house.getId()));
-        given(houseRepository.findHouseContent(any(MapFilterRequest.class)))
+        given(
+                        houseRepository.findHouseContent(
+                                any(MapFilterRequest.class), any(List.class), any(Long.class)))
                 .willReturn(expected.getHouseContents());
 
-        ShowMapResponse response = houseService.showMap(mapFilterRequest, null);
+        ShowMapResponse response = houseService.showMap(mapFilterRequest, memberIdentity);
 
         assertAll(
                 () ->
@@ -393,7 +404,12 @@ public class HouseServiceTest {
                 () ->
                         verify(houseRepository, times(1))
                                 .findHouseIdListByCategoryAndGuAndDong(mapFilterRequest),
-                () -> verify(houseRepository, times(1)).findHouseContent(mapFilterRequest),
+                () ->
+                        verify(houseRepository, times(1))
+                                .findHouseContent(
+                                        mapFilterRequest,
+                                        List.of(house.getId()),
+                                        memberIdentity.getId()),
                 () ->
                         assertThat(expected.getHouseContents().get(0).getGu())
                                 .isEqualTo(response.getHouseContents().get(0).getGu()),
