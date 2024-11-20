@@ -60,7 +60,9 @@ public class HouseRepositoryTest {
         houseFacilityRelationRepository.save(houseFacilityRelation);
     }
 
-    private void save(Bookmark bookmark) { bookmarkRepository.save(bookmark); }
+    private void save(Bookmark bookmark) {
+        bookmarkRepository.save(bookmark);
+    }
 
     @Test
     @DisplayName("매물 ID로 매물을 조회할 수 있다")
@@ -324,7 +326,35 @@ public class HouseRepositoryTest {
                 () -> assertThat(result.get(0).getHouseId()).isEqualTo(isBookmark.getId()),
                 () -> assertThat(result.get(1).getHouseId()).isEqualTo(isNotBookmark.getId()),
                 () -> assertThat(result.get(0).isBookmark()).isEqualTo(true),
-                () -> assertThat(result.get(1).isBookmark()).isEqualTo(false)
-        );
+                () -> assertThat(result.get(1).isBookmark()).isEqualTo(false));
+    }
+
+    @Test
+    @DisplayName("지도 위치와 주소(구, 동)에 따라 집 목록을 최대 15개까지 조회할 수 있다.")
+    public void findHouseContentByGuAndDong() {
+        Member member = save(MemberFixture.builder().build());
+        for (int i = 0; i < 20; i++) {
+            House house = save(HouseFixture.builder().member(member).build());
+            Facility facility = save(FacilityFixture.builder().build());
+            save(HouseFacilityRelationFixture.builder().house(house).facility(facility).build());
+        }
+
+        MapFilterRequest request =
+                MapFilterRequest.of(
+                        5,
+                        SOUTH_WEST_LATITUDE,
+                        SOUTH_WEST_LONGITUDE,
+                        NORTH_EAST_LATITUDE,
+                        NORTH_EAST_LONGITUDE,
+                        "요식업",
+                        10,
+                        1,
+                        "마포구",
+                        "상암동");
+        List<HouseContentResult> result =
+                houseRepository.findHouseContent(
+                        request, houseRepository.findHouseIdListByCategoryAndGuAndDong(request), member.getId());
+
+        assertAll("result", () -> assertThat(result.size()).isEqualTo(15));
     }
 }

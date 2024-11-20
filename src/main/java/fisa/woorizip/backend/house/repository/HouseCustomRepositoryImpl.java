@@ -154,8 +154,41 @@ public class HouseCustomRepositoryImpl implements HouseCustomRepository {
     }
 
     @Override
-    public List<HouseContentResult> findHouseContent(MapFilterRequest mapFilterRequest, Long memberId) {
+    public List<HouseContentResult> findHouseContent(
+            MapFilterRequest mapFilterRequest, Long memberId) {
         return createConditionJPAQuery(mapFilterRequest)
+                .limit(15)
+                .leftJoin(bookmark)
+                .on(bookmark.house.id.eq(house.id))
+                .transform(
+                        groupBy(house.id)
+                                .list(
+                                        Projections.constructor(
+                                                HouseContentResult.class,
+                                                house.id,
+                                                house.housingExpenses.stringValue(),
+                                                house.deposit,
+                                                house.monthlyRentFee,
+                                                house.houseType.stringValue(),
+                                                house.gu,
+                                                house.dong,
+                                                house.maintenanceFee,
+                                                house.comment,
+                                                house.representativeImage,
+                                                house.latitude,
+                                                house.longitude,
+                                                new CaseBuilder()
+                                                        .when(bookmark.member.id.eq(memberId))
+                                                        .then(true)
+                                                        .otherwise(false))));
+    }
+
+    @Override
+    public List<HouseContentResult> findHouseContent(
+            MapFilterRequest mapFilterRequest, List<Long> houseIdList, Long memberId) {
+        return createConditionJPAQuery(mapFilterRequest)
+                .where(house.id.in(houseIdList))
+                .limit(15)
                 .leftJoin(bookmark)
                 .on(bookmark.house.id.eq(house.id))
                 .transform(

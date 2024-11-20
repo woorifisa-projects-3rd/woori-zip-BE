@@ -92,7 +92,13 @@ public class HouseServiceImpl implements HouseService {
     private List<HouseContentResult> createHouseContentResults(
             MapFilterRequest mapFilterRequest, MemberIdentity memberIdentity) {
         return !isNull(memberIdentity) && memberIdentity.getRole() == MEMBER
-                ? houseRepository.findHouseContent(mapFilterRequest, memberIdentity.getId())
+                ? isNull(mapFilterRequest.getGu())
+                        ? houseRepository.findHouseContent(mapFilterRequest, memberIdentity.getId())
+                        : houseRepository.findHouseContent(
+                                mapFilterRequest,
+                                houseRepository.findHouseIdListByCategoryAndGuAndDong(
+                                        mapFilterRequest),
+                                memberIdentity.getId())
                 : houseRepository.findHouseContent(mapFilterRequest);
     }
 }
