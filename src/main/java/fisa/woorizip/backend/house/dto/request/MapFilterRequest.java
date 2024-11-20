@@ -3,6 +3,7 @@ package fisa.woorizip.backend.house.dto.request;
 import static fisa.woorizip.backend.facility.domain.Category.NONE;
 import static fisa.woorizip.backend.house.domain.HouseType.ALL;
 import static fisa.woorizip.backend.house.domain.HousingExpenses.ANY;
+
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.facility.domain.Category;

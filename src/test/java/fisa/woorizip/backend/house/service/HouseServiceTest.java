@@ -2,9 +2,9 @@ package fisa.woorizip.backend.house.service;
 
 import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
-
 import static fisa.woorizip.backend.member.domain.Role.AGENT;
 import static fisa.woorizip.backend.member.domain.Role.MEMBER;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;

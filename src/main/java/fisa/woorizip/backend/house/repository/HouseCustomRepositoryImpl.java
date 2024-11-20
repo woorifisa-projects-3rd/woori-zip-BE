@@ -154,10 +154,13 @@ public class HouseCustomRepositoryImpl implements HouseCustomRepository {
     }
 
     @Override
-    public List<HouseContentResult> findHouseContent(MapFilterRequest mapFilterRequest, List<Long> houseIdList) {
+    public List<HouseContentResult> findHouseContent(
+            MapFilterRequest mapFilterRequest, List<Long> houseIdList) {
         return createConditionJPAQuery(mapFilterRequest)
                 .where(house.id.in(houseIdList))
-                .limit(15).fetch().stream()
+                .limit(15)
+                .fetch()
+                .stream()
                 .map(HouseContentResult::init)
                 .toList();
     }

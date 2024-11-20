@@ -7,6 +7,7 @@ import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
 import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
 import static fisa.woorizip.backend.house.dto.MapLevel.*;
 import static fisa.woorizip.backend.member.domain.Role.MEMBER;
+
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
@@ -16,8 +17,8 @@ import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
 import fisa.woorizip.backend.house.repository.HouseRepository;
 import fisa.woorizip.backend.houseimage.repository.HouseImageRepository;
-
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

@@ -353,7 +353,9 @@ public class HouseRepositoryTest {
                         "상암동");
         List<HouseContentResult> result =
                 houseRepository.findHouseContent(
-                        request, houseRepository.findHouseIdListByCategoryAndGuAndDong(request), member.getId());
+                        request,
+                        houseRepository.findHouseIdListByCategoryAndGuAndDong(request),
+                        member.getId());
 
         assertAll("result", () -> assertThat(result.size()).isEqualTo(15));
     }
