@@ -127,6 +127,27 @@ public class HouseControllerTest extends ControllerTest {
                 .then()
                 .log()
                 .all()
-                .statusCode(INTERNAL_SERVER_ERROR.value());
+                .statusCode(INVALID_INPUT.getStatus().value());
+    }
+
+    @Test
+    void 구와_동에_따라_집을_조회할_수_있다() {
+        baseRestAssured()
+                .queryParam("level", 6)
+                .queryParam("southWestLatitude", SOUTH_WEST_LATITUDE)
+                .queryParam("southWestLongitude", SOUTH_WEST_LONGITUDE)
+                .queryParam("northEastLatitude", NORTH_EAST_LATITUDE)
+                .queryParam("northEastLongitude", NORTH_EAST_LONGITUDE)
+                .queryParam("category", "요식업")
+                .queryParam("walking", 10)
+                .queryParam("facilityCount", 1)
+                .queryParam("gu", "강동구")
+                .queryParam("dong", "천호동")
+                .when()
+                .get("/api/v1/houses")
+                .then()
+                .log()
+                .all()
+                .statusCode(OK.value());
     }
 }

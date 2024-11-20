@@ -97,4 +97,10 @@ public class House {
 
     @Column(name = "direction", nullable = false)
     private String direction;
+
+    @Column(name = "representative_image")
+    private String representativeImage;
+
+    @Column(name = "bookmark_count", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
+    private int bookmarkCount;
 }

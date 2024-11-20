@@ -19,6 +19,10 @@ public class HouseContentResult {
     private String dong;
     private long maintenanceFee;
     private String comment;
+    private String representativeImage;
+    private double latitude;
+    private double longitude;
+    private boolean isBookmark;
 
     public static HouseContentResult init(House house) {
         return new HouseContentResult(
@@ -30,6 +34,10 @@ public class HouseContentResult {
                 house.getGu(),
                 house.getDong(),
                 house.getMaintenanceFee(),
-                house.getComment());
+                house.getComment(),
+                house.getRepresentativeImage(),
+                house.getLatitude(),
+                house.getLongitude(),
+                false);
     }
 }

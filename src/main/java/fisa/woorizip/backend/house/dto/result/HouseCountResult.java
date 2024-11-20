@@ -10,8 +10,4 @@ import lombok.NoArgsConstructor;
 public class HouseCountResult {
     private String addressName;
     private int count;
-
-    public static HouseCountResult init(String addressName, int count) {
-        return new HouseCountResult(addressName, count);
-    }
 }

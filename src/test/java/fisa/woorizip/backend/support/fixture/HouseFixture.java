@@ -36,6 +36,7 @@ public class HouseFixture {
     private LocalDate moveInDate = LocalDate.of(2025, 2, 1);
     private LocalDate approvalDate = LocalDate.of(2024, 11, 22);
     private String direction = "남향";
+    private String representativeImage;
 
     public static HouseFixture builder() {
         return new HouseFixture();
@@ -166,6 +167,11 @@ public class HouseFixture {
         return this;
     }
 
+    public HouseFixture representativeImage(String representativeImage) {
+        this.representativeImage = representativeImage;
+        return this;
+    }
+
     public House build() {
         return House.builder()
                 .id(id)
@@ -193,6 +199,7 @@ public class HouseFixture {
                 .moveInDate(moveInDate)
                 .approvalDate(approvalDate)
                 .direction(direction)
+                .representativeImage(representativeImage)
                 .build();
     }
 }
