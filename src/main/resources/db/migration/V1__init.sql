@@ -142,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `loan_check_list`
     `id`          BIGINT       NOT NULL auto_increment,
     `order_index` MEDIUMINT    NOT NULL,
     `content`     VARCHAR(255) NOT NULL,
+    `loan_goods_type` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb

@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.member.service.auth;
 
 import static fisa.woorizip.backend.member.AuthErrorCode.FAIL_TO_SIGN_IN;
+import static fisa.woorizip.backend.member.AuthErrorCode.REFRESH_TOKEN_EXPIRED;
 import static fisa.woorizip.backend.member.AuthErrorCode.REFRESH_TOKEN_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 
@@ -48,6 +49,28 @@ public class AuthServiceImpl implements AuthService {
     public void signOut(String refreshToken) {
         if (!isNull(refreshToken)) {
             refreshTokenRepository.delete(findRefreshToken(refreshToken));
+        }
+    }
+
+    @Override
+    @Transactional
+    public SignInResult reissue(String token) {
+        validateExistRefreshToken(token);
+        RefreshToken refreshToken = findRefreshToken(token);
+        validateRefreshTokenExpired(refreshToken);
+        refreshToken.reissue(expirationSeconds);
+        Member member = refreshToken.getMember();
+        String accessToken = jwtTokenProvider.createAccessToken(member);
+        return SignInResult.of(refreshToken, accessToken, member, expirationSeconds);
+    }
+
+    private void validateRefreshTokenExpired(RefreshToken refreshToken) {
+        if (refreshToken.isExpired()) throw new WooriZipException(REFRESH_TOKEN_EXPIRED);
+    }
+
+    private void validateExistRefreshToken(String refreshToken) {
+        if (isNull(refreshToken)) {
+            throw new WooriZipException(REFRESH_TOKEN_NOT_FOUND);
         }
     }
 

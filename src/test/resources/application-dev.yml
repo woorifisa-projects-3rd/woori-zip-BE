@@ -1,0 +1,22 @@
+jpa:
+  hibernate:
+    ddl-auto: create-drop
+  properties:
+    hibernate:
+      format_sql: true
+  show-sql: true
+  open-in-view: false
+  database-platform: org.hibernate.dialect.H2Dialect
+spring:
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MySQL;
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+security:
+  refresh:
+    expiration: ${JWT_REFRESH_EXPIRATION}
+  jwt:
+    key: ${JWT_KEY}
+    expiration:
+      access: ${JWT_ACCESS_EXPIRATION}

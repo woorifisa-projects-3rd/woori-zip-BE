@@ -1,5 +1,7 @@
 package fisa.woorizip.backend.loanchecklist.domain;
 
+import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;
+
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -20,4 +22,8 @@ public class LoanCheckList {
 
     @Column(name = "content", nullable = false)
     private String content;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "loan_goods_type", nullable = false)
+    private LoanGoodsType loanGoodsType;
 }
