@@ -6,6 +6,14 @@ CREATE TABLE IF NOT EXISTS `loan_goods`
     `description`     TEXT         NOT NULL,
     `content`         TEXT         NOT NULL,
     `loan_goods_type` VARCHAR(255) NOT NULL,
+    `max_assets` BIGINT NOT NULL,
+    `max_total_income_last_year` BIGINT NOT NULL,
+    `max_years_of_marriage` MEDIUMINT NOT NULL,
+    `max_age` MEDIUMINT NOT NULL,
+    `min_credit_score` MEDIUMINT NOT NULL,
+    `min_months_of_employment` BIGINT NOT NULL,
+    `interest_rate` DOUBLE NOT NULL,
+
     PRIMARY KEY (`id`)
 )
     engine = innodb
@@ -98,11 +106,14 @@ CREATE TABLE IF NOT EXISTS `member`
     `password`      VARCHAR(255) NOT NULL,
     `name`          VARCHAR(255) NOT NULL,
     `birthday`      DATE,
+    `role`          VARCHAR(255) NOT NULL,
     `earnings_type` VARCHAR(255),
     `earnings_fee`  BIGINT,
     `credit_score`  MEDIUMINT,
-    `debt`          BIGINT       NOT NULL DEFAULT 0,
-    `role`          VARCHAR(255) NOT NULL,
+    `assets`        BIGINT,
+    `total_income_last_year` BIGINT ,
+    `years_of_marriage`      MEDIUMINT DEFAULT 0,
+    `months_of_employment`   MEDIUMINT DEFAULT 0,
     PRIMARY KEY (`id`)
 )
     engine = innodb

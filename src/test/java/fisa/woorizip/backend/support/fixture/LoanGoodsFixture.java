@@ -2,6 +2,7 @@ package fisa.woorizip.backend.support.fixture;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;
+import jakarta.persistence.Column;
 
 public class LoanGoodsFixture {
 
@@ -11,6 +12,14 @@ public class LoanGoodsFixture {
     private String content = "대출 상품 내용";
     private String imageUrl = "https://test-images/loans";
     private LoanGoodsType loanGoodsType = LoanGoodsType.MONTHLY_RENT;
+    private Long maxAssets = 345000000L;
+    private Long maxTotalIncomeLastYear = 50000000L;
+    private Integer maxYearsOfMarriage = 200;
+    private Integer maxAge = 34;
+    private Integer minCreditScore = 600;
+    private Long minMonthsOfEmployment = 0L;
+    private Double interestRate = 2.8;
+
 
     public static LoanGoodsFixture builder() {
         return new LoanGoodsFixture();
@@ -46,6 +55,42 @@ public class LoanGoodsFixture {
         return this;
     }
 
+    public LoanGoodsFixture maxAssets(Long maxAssets) {
+        this.maxAssets = maxAssets;
+        return this;
+    }
+
+    public LoanGoodsFixture maxTotalIncomeLastYear(Long maxTotalIncomeLastYear) {
+        this.maxTotalIncomeLastYear = maxTotalIncomeLastYear;
+        return this;
+    }
+
+    public LoanGoodsFixture maxYearsOfMarriage(Integer maxYearsOfMarriage) {
+        this.maxYearsOfMarriage = maxYearsOfMarriage;
+        return this;
+    }
+
+    public LoanGoodsFixture maxAge(Integer maxAge) {
+        this.maxAge = maxAge;
+        return this;
+    }
+
+    public LoanGoodsFixture minCreditScore(Integer minCreditScore) {
+        this.minCreditScore = minCreditScore;
+        return this;
+    }
+
+    public LoanGoodsFixture minMonthsOfEmployment(Long minMonthsOfEmployment) {
+        this.minMonthsOfEmployment = minMonthsOfEmployment;
+        return this;
+    }
+
+    public LoanGoodsFixture interestRate(Double interestRate) {
+        this.interestRate = interestRate;
+        return this;
+    }
+
+
     public LoanGoods build() {
         return LoanGoods.builder()
                 .id(id)
@@ -54,6 +99,13 @@ public class LoanGoodsFixture {
                 .content(content)
                 .imageUrl(imageUrl)
                 .loanGoodsType(loanGoodsType)
+                .maxAssets(maxAssets)
+                .maxTotalIncomeLastYear(maxTotalIncomeLastYear)
+                .minCreditScore(minCreditScore)
+                .maxAge(maxAge)
+                .maxYearsOfMarriage(maxYearsOfMarriage)
+                .minMonthsOfEmployment(minMonthsOfEmployment)
+                .interestRate(interestRate)
                 .build();
     }
 }
