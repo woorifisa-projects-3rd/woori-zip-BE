@@ -2,8 +2,10 @@ package fisa.woorizip.backend.house.service;
 
 import static fisa.woorizip.backend.facility.domain.Category.NONE;
 import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
-import static fisa.woorizip.backend.house.dto.MapLevel.HIGH;
-import static fisa.woorizip.backend.house.dto.MapLevel.MID;
+import static fisa.woorizip.backend.house.dto.HouseAddressType.DONG;
+import static fisa.woorizip.backend.house.dto.HouseAddressType.GU;
+import static fisa.woorizip.backend.house.dto.MapLevel.*;
+import static fisa.woorizip.backend.member.domain.Role.MEMBER;
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
@@ -11,9 +13,13 @@ import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
 import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
+import fisa.woorizip.backend.house.dto.result.HouseContentResult;
+import fisa.woorizip.backend.house.dto.result.HouseCountResult;
+import fisa.woorizip.backend.house.dto.result.HouseResult;
 import fisa.woorizip.backend.house.repository.HouseRepository;
 import fisa.woorizip.backend.houseimage.repository.HouseImageRepository;
 
+import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,8 +51,48 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     @Transactional(readOnly = true)
-    public ShowMapResponse showMap(MapFilterRequest mapFilterRequest) {
-//        if(isNull(mapFilterRequest.getGu()) || isNull(mapFilterRequest.getDong()))
-        return null;
+    public ShowMapResponse showMap(
+            MapFilterRequest mapFilterRequest, MemberIdentity memberIdentity) {
+        return mapFilterRequest.getLevel() == LOW
+                ? ShowMapResponse.of(
+                        createHouseResults(mapFilterRequest),
+                        createHouseContentResults(mapFilterRequest, memberIdentity))
+                : ShowMapResponse.of(
+                        mapFilterRequest.getLevel() == HIGH ? GU : DONG,
+                        createHouseCountResults(mapFilterRequest),
+                        createHouseContentResults(mapFilterRequest, memberIdentity));
+    }
+
+    private List<HouseCountResult> createHouseCountResults(MapFilterRequest mapFilterRequest) {
+        return mapFilterRequest.getLevel() == HIGH
+                ? mapFilterRequest.getCategory() == NONE
+                        ? houseRepository.findHouseCountByGu(mapFilterRequest)
+                        : houseRepository.findHouseCountByGu(
+                                mapFilterRequest,
+                                houseRepository.findHouseIdListByCategory(mapFilterRequest))
+                : mapFilterRequest.getCategory() == NONE
+                        ? houseRepository.findHouseCountByDong(mapFilterRequest)
+                        : houseRepository.findHouseCountByDong(
+                                mapFilterRequest,
+                                houseRepository.findHouseIdListByCategory(mapFilterRequest));
+    }
+
+    private List<HouseResult> createHouseResults(MapFilterRequest mapFilterRequest) {
+        return isNull(mapFilterRequest.getGu())
+                ? mapFilterRequest.getCategory() == NONE
+                        ? houseRepository.findHouseLatitudeAndLongitude(mapFilterRequest)
+                        : houseRepository.findHouseLatitudeAndLongitude(
+                                mapFilterRequest,
+                                houseRepository.findHouseIdListByCategory(mapFilterRequest))
+                : houseRepository.findHouseLatitudeAndLongitude(
+                        mapFilterRequest,
+                        houseRepository.findHouseIdListByCategoryAndGuAndDong(mapFilterRequest));
+    }
+
+    private List<HouseContentResult> createHouseContentResults(
+            MapFilterRequest mapFilterRequest, MemberIdentity memberIdentity) {
+        return !isNull(memberIdentity) && memberIdentity.getRole() == MEMBER
+                ? houseRepository.findHouseContent(mapFilterRequest, memberIdentity.getId())
+                : houseRepository.findHouseContent(mapFilterRequest);
     }
 }
