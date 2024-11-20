@@ -3,10 +3,9 @@ package fisa.woorizip.backend.common.exception;
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.HTTP_METHOD_NOT_ALLOWED;
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.INVALID_INPUT;
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.RESOURCE_NOT_FOUND;
+import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.TYPE_MISMATCH;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
 import fisa.woorizip.backend.common.exception.response.ErrorResponse;
@@ -25,7 +24,6 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -47,10 +45,6 @@ public class GlobalExceptionHandler {
                                 INVALID_INPUT, exception.getBindingResult().getFieldErrors()));
     }
 
-    private List<String> ENUM_CLASSES =
-            List.of("Category", "HouseType", "HousingExpenses", "LoanGoodsType");
-    private String TYPE_MISMATCH_MESSAGE = "%s의 입력 값으로 %s는 type이 맞지 않습니다. %s의 type은 %s여야 합니다.";
-
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleTypeMismatchException(
             MethodArgumentTypeMismatchException exception) {
@@ -59,14 +53,18 @@ public class GlobalExceptionHandler {
         Object value = exception.getValue();
         String message =
                 String.format(
-                        TYPE_MISMATCH_MESSAGE, propertyName, value, propertyName, requiredType);
-        return ResponseEntity.status(UNPROCESSABLE_ENTITY)
-                .body(new ErrorResponse(BAD_REQUEST.value(), message, UNPROCESSABLE_ENTITY.name()));
+                        TYPE_MISMATCH.getMessage(),
+                        propertyName,
+                        value,
+                        propertyName,
+                        requiredType);
+        return ResponseEntity.status(TYPE_MISMATCH.getStatus())
+                .body(ErrorResponse.of(TYPE_MISMATCH, message));
     }
 
     private String getRequiredType(MethodArgumentTypeMismatchException exception) {
         String requiredType = exception.getRequiredType().getSimpleName();
-        if (!ENUM_CLASSES.contains(requiredType)) {
+        if (!EnumScanner.getEnumClasses().contains(requiredType)) {
             return requiredType;
         }
         return Arrays.stream(exception.getRequiredType().getFields())
