@@ -175,3 +175,21 @@ CREATE TABLE IF NOT EXISTS `refresh_token`
     auto_increment = 1
     DEFAULT charset = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `consumption_analysis`
+(
+    `id`             BIGINT       NOT NULL auto_increment,
+    `customer_type`  VARCHAR(255) NOT NULL,
+    `book`           DOUBLE       NOT NULL,
+    `car`            DOUBLE       NOT NULL,
+    `cloth`          DOUBLE       NOT NULL,
+    `culture`        DOUBLE       NOT NULL,
+    `food`           DOUBLE       NOT NULL,
+    `grocery`        DOUBLE       NOT NULL,
+    `customer_count` BIGINT       NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
