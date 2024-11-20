@@ -1,22 +1,19 @@
 package fisa.woorizip.backend.bookmark.service;
 
 import fisa.woorizip.backend.bookmark.domain.Bookmark;
-import fisa.woorizip.backend.bookmark.dto.request.BookmarkRequest;
 import fisa.woorizip.backend.bookmark.repository.BookmarkRepository;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.repository.HouseRepository;
+import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_EXIST;
 import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
@@ -24,7 +21,6 @@ import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 
 @Slf4j
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class BookmarkServiceImpl implements BookmarkService {
 
@@ -33,15 +29,20 @@ public class BookmarkServiceImpl implements BookmarkService {
     private final MemberRepository memberRepository;
 
 
+    @Override
     @Transactional
-    public void addBookmark(BookmarkRequest bookmarkRequest) {
-//        log.info("memberId {} ,houseId {}",memberId,houseId);
+    public void addBookmark(MemberIdentity memberIdentity, Long houseId) {
+        validateAlreadyExistBookmark(memberIdentity.getId(), houseId);
+        Member member = findMemberByMemberId(memberIdentity.getId());
+        House house = findHouseByHouseId(houseId);
+        bookmarkRepository.save(createBookmark(member, house));
+    }
 
-        bookmarkIsExist(bookmarkRequest.getMemberId(), bookmarkRequest.getHouseId());
-
-        bookmarkRepository.save(
-                bookmarkRequest.toBookmark(findMemberByMemberId(bookmarkRequest.getMemberId()), findHouseByHouseId(bookmarkRequest.getHouseId()))
-        );
+    private Bookmark createBookmark(Member member, House house) {
+        return Bookmark.builder()
+                .member(member)
+                .house(house)
+                .build();
     }
 
     private Member findMemberByMemberId(Long memberId) {
@@ -54,9 +55,9 @@ public class BookmarkServiceImpl implements BookmarkService {
                 .orElseThrow(() -> new WooriZipException(HOUSE_NOT_FOUND));
     }
 
-
-    private void bookmarkIsExist(Long memberId, Long houseId) {
-        if (bookmarkRepository.findByMemberIdAndHouseId(memberId, houseId).isPresent())
+    private void validateAlreadyExistBookmark(Long memberId, Long houseId) {
+        if (bookmarkRepository.existsByMemberIdAndHouseId(memberId, houseId))
             throw new WooriZipException(BOOKMARK_ALREADY_EXIST);
     }
+
 }
