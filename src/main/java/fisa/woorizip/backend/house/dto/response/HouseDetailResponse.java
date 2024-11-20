@@ -37,6 +37,7 @@ public class HouseDetailResponse {
     private final LocalDate moveInDate;
     private final LocalDate approvalDate;
     private final String direction;
+    private final int bookmarkCount;
     private final List<String> imageUrls;
 
     public static HouseDetailResponse of(House house, List<String> imageUrls) {
@@ -65,6 +66,7 @@ public class HouseDetailResponse {
                 .moveInDate(house.getMoveInDate())
                 .approvalDate(house.getApprovalDate())
                 .direction(house.getDirection())
+                .bookmarkCount(house.getBookmarkCount())
                 .imageUrls(imageUrls)
                 .build();
     }
