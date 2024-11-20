@@ -10,6 +10,7 @@ import fisa.woorizip.backend.house.domain.HouseType;
 import fisa.woorizip.backend.house.domain.HousingExpenses;
 import fisa.woorizip.backend.house.dto.MapLevel;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -22,47 +23,57 @@ import java.beans.ConstructorProperties;
 public class MapFilterRequest {
     private final MapLevel level;
 
-    @NotNull final private double southWestLatitude;
+    @NotNull private final double southWestLatitude;
 
-    @NotNull final private double southWestLongitude;
+    @NotNull private final double southWestLongitude;
 
-    @NotNull final private double northEastLatitude;
+    @NotNull private final double northEastLatitude;
 
-    @NotNull final private double northEastLongitude;
+    @NotNull private final double northEastLongitude;
 
     private final HouseType houseType;
     private final HousingExpenses housingExpenses;
-    @PositiveOrZero final private long minDeposit;
-    @Positive final private long maxDeposit;
-    @PositiveOrZero final private long minMonthlyRentFee;
-    @Positive final private long maxMonthlyRentFee;
-    @PositiveOrZero final private long minMaintenanceFee;
-    @Positive final private long maxMaintenanceFee;
+    @PositiveOrZero private final long minDeposit;
+    @Positive private final long maxDeposit;
+    @PositiveOrZero private final long minMonthlyRentFee;
+    @Positive private final long maxMonthlyRentFee;
+    @PositiveOrZero private final long minMaintenanceFee;
+    @Positive private final long maxMaintenanceFee;
     private final Category category;
     private final Integer walking;
     private final Integer facilityCount;
     private final String gu;
     private final String dong;
 
+    @AssertTrue(message = "주소(구, 동)는 함께 입력되어야 합니다.")
+    public boolean isGuAndDongValid() {
+        return isNull(gu) == isNull(dong);
+    }
+
+    @AssertTrue(message = "카테고리가 존재하는 경우 도보 시간과 시설 개수가 입력되어야 합니다.")
+    public boolean isCategoryValid() {
+        return isNull(walking) == isNull(facilityCount) && isNull(walking) == (category == NONE);
+    }
+
     @ConstructorProperties({
-            "level",
-            "southWestLatitude",
-            "southWestLongitude",
-            "northEastLatitude",
-            "northEastLongitude",
-            "houseType",
-            "housingExpenses",
-            "minDeposit",
-            "maxDeposit",
-            "minMonthlyRentFee",
-            "maxMonthlyRentFee",
-            "minMaintenanceFee",
-            "maxMaintenanceFee",
-            "category",
-            "walking",
-            "facilityCount",
-            "gu",
-            "dong"
+        "level",
+        "southWestLatitude",
+        "southWestLongitude",
+        "northEastLatitude",
+        "northEastLongitude",
+        "houseType",
+        "housingExpenses",
+        "minDeposit",
+        "maxDeposit",
+        "minMonthlyRentFee",
+        "maxMonthlyRentFee",
+        "minMaintenanceFee",
+        "maxMaintenanceFee",
+        "category",
+        "walking",
+        "facilityCount",
+        "gu",
+        "dong"
     })
     private MapFilterRequest(
             int level,

@@ -127,7 +127,7 @@ public class HouseControllerTest extends ControllerTest {
                 .then()
                 .log()
                 .all()
-                .statusCode(INTERNAL_SERVER_ERROR.value());
+                .statusCode(INVALID_INPUT.getStatus().value());
     }
 
     @Test
