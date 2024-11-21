@@ -1,4 +1,4 @@
-LOAD DATA INFILE '/Users/qqllzs/woori_project/final_project/woori-zip-BE/out/production/resources/data/consumption_analysis.csv'
+LOAD DATA INFILE '/Users/jeongseogjin/backend/houses/woori-zip-BE/src/main/resources/data/consumption_analysis.csv'
 INTO TABLE consumption_analysis
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
