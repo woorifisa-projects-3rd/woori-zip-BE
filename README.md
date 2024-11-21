@@ -51,7 +51,7 @@ security:
 
 ## V2__load_csv.sql
 ```SQL
-LOAD DATA LOCAL INFILE '${본인의 csv 파일 절대경로}'
+LOAD DATA INFILE '${본인의 csv 파일 절대경로}'
 INTO TABLE consumption_analysis
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
