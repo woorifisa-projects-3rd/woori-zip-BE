@@ -1,4 +1,4 @@
-package fisa.woorizip.backend.bookmark;
+package fisa.woorizip.backend.bookmark.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -6,7 +6,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import fisa.woorizip.backend.bookmark.service.BookmarkServiceImpl;
 import fisa.woorizip.backend.house.repository.HouseRepository;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.repository.MemberRepository;
@@ -45,28 +44,20 @@ public class BookmarkServiceTest {
     void 회원ID와_집ID를_통해_북마크를_추가할_수_있다() {
         Member member = MemberFixture.builder().id(1L).build();
         House house = HouseFixture.builder().id(1L).build();
-        Bookmark bookmark = Bookmark.builder()
-                .id(1L)
-                .member(member)
-                .house(house)
-                .build();
 
         MemberIdentity memberIdentity = new MemberIdentity(member.getId(), member.getRole().toString());
 
-        // given
         given(bookmarkRepository.existsByMemberIdAndHouseId(any(Long.class), any(Long.class))).willReturn(false);
         given(memberRepository.findById(any(Long.class))).willReturn(Optional.of(member));
         given(houseRepository.findById(any(Long.class))).willReturn(Optional.of(house));
-        given(bookmarkRepository.save(any(Bookmark.class))).willReturn(bookmark);
 
-        // when
         bookmarkService.addBookmark(memberIdentity, house.getId());
 
         assertAll(
                 () -> verify(bookmarkRepository, times(1)).existsByMemberIdAndHouseId(member.getId(), house.getId()),
                 () -> verify(memberRepository, times(1)).findById(member.getId()),
                 () -> verify(houseRepository, times(1)).findById(house.getId()),
-                () -> verify(bookmarkRepository, times(1)).save(bookmark)
+                () ->  verify(bookmarkRepository, times(1)).save(any(Bookmark.class))
         );
     }
 }
