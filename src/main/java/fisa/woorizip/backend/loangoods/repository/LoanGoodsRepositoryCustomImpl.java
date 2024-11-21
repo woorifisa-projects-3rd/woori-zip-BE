@@ -1,13 +1,16 @@
 package fisa.woorizip.backend.loangoods.repository;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
-public class LoanGoodsRepositoryCustomImpl implements LoanGoodsRepositoryCustom{
+public class LoanGoodsRepositoryCustomImpl implements LoanGoodsRepositoryCustom {
 
     private final EntityManager entityManager;
 

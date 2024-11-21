@@ -7,11 +7,12 @@ import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailsResponse;
 import fisa.woorizip.backend.loangoods.repository.LoanGoodsRepository;
-
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
+
 import jakarta.persistence.EntityManager;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -43,30 +44,31 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     }
 
     @Override
-    public List<ShowLoanGoodsDetailsResponse> getLoanGoodsRecommendations (MemberIdentity memberIdentity) {
+    public List<ShowLoanGoodsDetailsResponse> getLoanGoodsRecommendations(
+            MemberIdentity memberIdentity) {
         Long memberId = memberIdentity.getId();
 
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(()->new WooriZipException(MEMBER_NOT_FOUND));
+        Member member =
+                memberRepository
+                        .findById(memberId)
+                        .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
 
         int internationalAge = calculateInternationalAge(member.getBirthday());
 
-        List<LoanGoods> loanGoodsList = loanGoodsRepository.findLoanGoodsByCustomCriteria(
-                member.getAssets(),
-                member.getTotalIncomeLastYear(),
-                member.getYearsOfMarriage(),
-                member.getCreditScore(),
-                member.getMonthsOfEmployment(),
-                internationalAge
-        );
+        List<LoanGoods> loanGoodsList =
+                loanGoodsRepository.findLoanGoodsByCustomCriteria(
+                        member.getAssets(),
+                        member.getTotalIncomeLastYear(),
+                        member.getYearsOfMarriage(),
+                        member.getCreditScore(),
+                        member.getMonthsOfEmployment(),
+                        internationalAge);
 
         if (loanGoodsList.isEmpty()) {
             throw new WooriZipException(LOAN_GOODS_NOT_FOUND);
         }
 
-        return loanGoodsList.stream()
-                .map(ShowLoanGoodsDetailsResponse::from)
-                .toList();
+        return loanGoodsList.stream().map(ShowLoanGoodsDetailsResponse::from).toList();
     }
 
     public int calculateInternationalAge(LocalDate birthDate) {
@@ -74,15 +76,3 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
         return Period.between(birthDate, currentDate).getYears();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,12 +1,7 @@
 package fisa.woorizip.backend.support.fixture;
 
-import fisa.woorizip.backend.member.domain.EarningsType;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import net.bytebuddy.asm.Advice;
 
 import java.time.LocalDate;
 
@@ -64,7 +59,7 @@ public class MemberFixture {
     }
 
     public MemberFixture totalIncomeLastYear(Long totalIncomeLastYear) {
-        this.totalIncomeLastYear = totalIncomeLastYear ;
+        this.totalIncomeLastYear = totalIncomeLastYear;
         return this;
     }
 

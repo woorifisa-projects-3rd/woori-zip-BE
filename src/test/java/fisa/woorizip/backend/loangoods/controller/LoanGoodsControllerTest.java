@@ -4,8 +4,8 @@ import static org.springframework.http.HttpStatus.*;
 
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.support.ControllerTest;
-
 import fisa.woorizip.backend.support.fixture.MemberFixture;
+
 import org.junit.jupiter.api.Test;
 
 class LoanGoodsControllerTest extends ControllerTest {
@@ -36,6 +36,5 @@ class LoanGoodsControllerTest extends ControllerTest {
                 .log()
                 .all()
                 .statusCode(OK.value());
-
     }
 }

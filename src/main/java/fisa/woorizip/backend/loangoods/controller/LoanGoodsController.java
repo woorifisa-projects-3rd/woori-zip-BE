@@ -2,14 +2,12 @@ package fisa.woorizip.backend.loangoods.controller;
 
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailsResponse;
 import fisa.woorizip.backend.loangoods.service.LoanGoodsService;
-
 import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
+
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,8 +28,8 @@ public class LoanGoodsController {
 
     @Login
     @GetMapping("/recommendation")
-    public List<ShowLoanGoodsDetailsResponse> showLoanGoodsRecommendations (
-            @VerifiedMember MemberIdentity memberIdentity){
+    public List<ShowLoanGoodsDetailsResponse> showLoanGoodsRecommendations(
+            @VerifiedMember MemberIdentity memberIdentity) {
 
         return loanGoodsService.getLoanGoodsRecommendations(memberIdentity);
     }

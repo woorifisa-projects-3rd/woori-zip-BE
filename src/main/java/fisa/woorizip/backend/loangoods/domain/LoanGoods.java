@@ -61,6 +61,4 @@ public class LoanGoods {
 
     @Column(name = "interest_rate", nullable = false)
     private Double interestRate;
-
-
 }
