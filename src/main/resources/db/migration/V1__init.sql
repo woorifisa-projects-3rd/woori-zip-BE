@@ -117,6 +117,7 @@ CREATE TABLE IF NOT EXISTS `bookmark`
     `id`        BIGINT NOT NULL auto_increment,
     `member_id` BIGINT NOT NULL,
     `house_id`  BIGINT NOT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 )
     engine = innodb
