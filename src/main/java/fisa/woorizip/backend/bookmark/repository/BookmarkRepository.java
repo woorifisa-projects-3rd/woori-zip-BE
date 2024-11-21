@@ -4,10 +4,13 @@ import fisa.woorizip.backend.bookmark.domain.Bookmark;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     Optional<Bookmark> findByMemberIdAndHouseId(Long memberId, Long houseId);
 
     boolean existsByMemberIdAndHouseId(Long memberId, Long houseId);
+
+    List<Bookmark> findAllByMemberIdOrderByCreatedAtDesc(Long memberId);
 }
