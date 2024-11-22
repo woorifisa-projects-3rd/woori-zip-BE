@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.bookmark.dto.response;
 
 import fisa.woorizip.backend.bookmark.domain.Bookmark;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -23,18 +24,20 @@ public class BookmarkListResponse {
 
     public static List<BookmarkListResponse> from(List<Bookmark> bookmarks) {
         return bookmarks.stream()
-                .map(bookmark -> builder()
-                        .bookmarkId(bookmark.getId())
-                        .houseId(bookmark.getHouse().getId())
-                        .houseName(bookmark.getHouse().getName())
-                        .address(bookmark.getHouse().getAddress())
-                        .gu(bookmark.getHouse().getGu())
-                        .dong(bookmark.getHouse().getDong())
-                        .deposit(bookmark.getHouse().getDeposit())
-                        .monthlyRentFee(bookmark.getHouse().getMonthlyRentFee())
-                        .imageUrl(bookmark.getHouse().getRepresentativeImage())
-                        .createdAt(bookmark.getCreatedAt())
-                        .build())
+                .map(
+                        bookmark ->
+                                builder()
+                                        .bookmarkId(bookmark.getId())
+                                        .houseId(bookmark.getHouse().getId())
+                                        .houseName(bookmark.getHouse().getName())
+                                        .address(bookmark.getHouse().getAddress())
+                                        .gu(bookmark.getHouse().getGu())
+                                        .dong(bookmark.getHouse().getDong())
+                                        .deposit(bookmark.getHouse().getDeposit())
+                                        .monthlyRentFee(bookmark.getHouse().getMonthlyRentFee())
+                                        .imageUrl(bookmark.getHouse().getRepresentativeImage())
+                                        .createdAt(bookmark.getCreatedAt())
+                                        .build())
                 .toList();
     }
 }

@@ -1,11 +1,14 @@
 package fisa.woorizip.backend.bookmark.controller;
 
-import fisa.woorizip.backend.bookmark.dto.response.BookmarkSliceResponse;
-import fisa.woorizip.backend.bookmark.service.BookmarkService;
 import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_EXIST;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.OK;
 
+import fisa.woorizip.backend.bookmark.dto.response.BookmarkSliceResponse;
+import fisa.woorizip.backend.bookmark.service.BookmarkService;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.support.ControllerTest;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
@@ -21,18 +24,12 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Collections;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
 class BookmarkControllerTest extends ControllerTest {
 
-    @Mock
-    private BookmarkService bookmarkService;
+    @Mock private BookmarkService bookmarkService;
 
-    @InjectMocks
-    private BookmarkController bookmarkController;
+    @InjectMocks private BookmarkController bookmarkController;
 
     @Test
     @DisplayName("북마크 추가 성공")
@@ -68,11 +65,12 @@ class BookmarkControllerTest extends ControllerTest {
 
         Long memberId = 999L;
         Pageable pageable = PageRequest.of(0, 10);
-        BookmarkSliceResponse emptyResponse = BookmarkSliceResponse.builder()
-                .bookmarks(Collections.emptyList())
-                .hasNext(false)
-                .numberOfElements(0)
-                .build();
+        BookmarkSliceResponse emptyResponse =
+                BookmarkSliceResponse.builder()
+                        .bookmarks(Collections.emptyList())
+                        .hasNext(false)
+                        .numberOfElements(0)
+                        .build();
 
         when(bookmarkService.getBookmarkList(memberId, pageable)).thenReturn(emptyResponse);
 
@@ -81,8 +79,7 @@ class BookmarkControllerTest extends ControllerTest {
         assertAll(
                 () -> assertThat(response.getBookmarks()).isEmpty(),
                 () -> assertThat(response.isHasNext()).isFalse(),
-                () -> assertThat(response.getNumberOfElements()).isEqualTo(0)
-        );
+                () -> assertThat(response.getNumberOfElements()).isEqualTo(0));
     }
 
     @Test
@@ -91,20 +88,22 @@ class BookmarkControllerTest extends ControllerTest {
 
         Long nonExistentMemberId = 999L;
         Pageable pageable = PageRequest.of(0, 10);
-        BookmarkSliceResponse emptyResponse = BookmarkSliceResponse.builder()
-                .bookmarks(Collections.emptyList())
-                .hasNext(false)
-                .numberOfElements(0)
-                .build();
+        BookmarkSliceResponse emptyResponse =
+                BookmarkSliceResponse.builder()
+                        .bookmarks(Collections.emptyList())
+                        .hasNext(false)
+                        .numberOfElements(0)
+                        .build();
 
-        when(bookmarkService.getBookmarkList(nonExistentMemberId, pageable)).thenReturn(emptyResponse);
+        when(bookmarkService.getBookmarkList(nonExistentMemberId, pageable))
+                .thenReturn(emptyResponse);
 
-        BookmarkSliceResponse response = bookmarkController.getBookmarkList(nonExistentMemberId, pageable);
+        BookmarkSliceResponse response =
+                bookmarkController.getBookmarkList(nonExistentMemberId, pageable);
 
         assertAll(
                 () -> assertThat(response.getBookmarks()).isEmpty(),
                 () -> assertThat(response.isHasNext()).isFalse(),
-                () -> assertThat(response.getNumberOfElements()).isEqualTo(0)
-        );
+                () -> assertThat(response.getNumberOfElements()).isEqualTo(0));
     }
 }

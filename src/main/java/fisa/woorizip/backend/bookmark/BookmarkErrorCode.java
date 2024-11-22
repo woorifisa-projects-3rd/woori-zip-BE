@@ -5,6 +5,7 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
 
 import lombok.Getter;
+
 import org.springframework.http.HttpStatus;
 
 @Getter
