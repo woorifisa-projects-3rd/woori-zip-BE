@@ -1,4 +1,4 @@
-package fisa.woorizip.backend.member.domain.bank;
+package fisa.woorizip.backend.member.domain;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import lombok.Getter;

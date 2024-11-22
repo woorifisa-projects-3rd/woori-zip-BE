@@ -1,8 +1,5 @@
 package fisa.woorizip.backend.member.domain;
 
-import fisa.woorizip.backend.member.domain.bank.Gender;
-import fisa.woorizip.backend.member.domain.bank.LifeStage;
-import fisa.woorizip.backend.member.domain.bank.Membership;
 import jakarta.persistence.*;
 
 import lombok.AccessLevel;
@@ -33,7 +30,7 @@ public class Member {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "birthday", nullable = false)
+    @Column(name = "birthday")
     private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
@@ -41,19 +38,18 @@ public class Member {
     private Gender gender;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "membership", nullable = false)
+    @Column(
+            name = "membership",
+            nullable = false,
+            columnDefinition = "VARCHAR(255) DEFAULT 'NONE_MEMBERSHIP'")
     private Membership membership;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "life_stage", nullable = false)
+    @Column(
+            name = "life_stage",
+            nullable = false,
+            columnDefinition = "VARCHAR(255) DEFAULT 'NONE_LIFE_STAGE'")
     private LifeStage lifeStage;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "earnings_type")
-    private EarningsType earningsType;
-
-    @Column(name = "earnings_fee")
-    private Long earningsFee;
 
     @Column(name = "credit_score", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
     private int creditScore;

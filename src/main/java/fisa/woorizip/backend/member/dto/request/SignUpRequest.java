@@ -1,6 +1,5 @@
 package fisa.woorizip.backend.member.dto.request;
 
-import fisa.woorizip.backend.member.domain.EarningsType;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Role;
 
@@ -19,8 +18,6 @@ public class SignUpRequest {
     @NotBlank private String username;
     @NotBlank private String password;
     @Past private LocalDate birthday;
-    @NotBlank private String earningsType;
-    @NotNull private Long earningsFee;
     @NotNull private Integer creditScore;
     private long assets;
     private long totalIncomeLastYear;
@@ -34,8 +31,6 @@ public class SignUpRequest {
             String username,
             String password,
             LocalDate birthday,
-            String earningsType,
-            Long earningsFee,
             Integer creditScore,
             long assets,
             long totalIncomeLastYear,
@@ -45,8 +40,6 @@ public class SignUpRequest {
         this.username = username;
         this.password = password;
         this.birthday = birthday;
-        this.earningsType = earningsType;
-        this.earningsFee = earningsFee;
         this.creditScore = creditScore;
         this.assets = assets;
         this.totalIncomeLastYear = totalIncomeLastYear;
@@ -60,8 +53,6 @@ public class SignUpRequest {
                 .username(username)
                 .password(encodedPassword)
                 .birthday(birthday)
-                .earningsFee(earningsFee)
-                .earningsType(EarningsType.from(earningsType))
                 .creditScore(creditScore)
                 .role(role)
                 .assets(assets)

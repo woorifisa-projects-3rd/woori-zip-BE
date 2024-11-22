@@ -17,7 +17,6 @@ class EnumScannerTest {
                         "Category",
                         "HouseType",
                         "LoanGoodsType",
-                        "HousingExpenses",
-                        "EarningsType");
+                        "HousingExpenses");
     }
 }

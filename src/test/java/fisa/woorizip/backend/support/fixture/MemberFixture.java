@@ -1,7 +1,6 @@
 package fisa.woorizip.backend.support.fixture;
 
-import fisa.woorizip.backend.member.domain.Member;
-import fisa.woorizip.backend.member.domain.Role;
+import fisa.woorizip.backend.member.domain.*;
 
 import java.time.LocalDate;
 
@@ -11,6 +10,9 @@ public class MemberFixture {
     private String username = "rlfrkdms1";
     private String password = "password12!@";
     private String name = "길가은";
+    private Gender gender = Gender.MALE;
+    private Membership membership = Membership.PLATINUM;
+    private LifeStage lifeStage = LifeStage.NEW_JOB;
     private Role role = Role.MEMBER;
     private long assets = 10000000L;
     private long totalIncomeLastYear = 40000000L;
@@ -30,6 +32,21 @@ public class MemberFixture {
 
     public MemberFixture name(String name) {
         this.name = name;
+        return this;
+    }
+
+    public MemberFixture gender(Gender gender) {
+        this.gender = gender;
+        return this;
+    }
+
+    public MemberFixture membership(Membership membership) {
+        this.membership = membership;
+        return this;
+    }
+
+    public MemberFixture lifeStage(LifeStage lifeStage) {
+        this.lifeStage = lifeStage;
         return this;
     }
 
@@ -83,6 +100,9 @@ public class MemberFixture {
                 .id(id)
                 .username(username)
                 .name(name)
+                .gender(gender)
+                .membership(membership)
+                .lifeStage(lifeStage)
                 .password(password)
                 .role(role)
                 .assets(assets)

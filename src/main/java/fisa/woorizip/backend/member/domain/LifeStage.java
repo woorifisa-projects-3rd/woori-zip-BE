@@ -1,4 +1,4 @@
-package fisa.woorizip.backend.member.domain.bank;
+package fisa.woorizip.backend.member.domain;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import lombok.Getter;
@@ -15,7 +15,8 @@ public enum LifeStage {
     CHILD_BABY("자녀_영유아"),
     CHILD_TEEN("자녀_의무교육"),
     CHILD_UNI("자녀_대학생"),
-    GOLLIFE("중년기타");
+    GOLLIFE("중년기타"),
+    NONE_LIFE_STAGE("해당없음");
 
     private final String name;
 
