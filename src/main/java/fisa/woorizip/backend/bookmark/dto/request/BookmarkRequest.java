@@ -26,4 +26,3 @@ public class BookmarkRequest {
         return Bookmark.builder().member(member).house(house).build();
     }
 }
-

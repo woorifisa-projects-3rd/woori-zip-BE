@@ -1,7 +1,5 @@
 package fisa.woorizip.backend.bookmark.controller;
 
-import fisa.woorizip.backend.bookmark.domain.Bookmark;
-import fisa.woorizip.backend.bookmark.dto.response.BookmarkResponse;
 import fisa.woorizip.backend.bookmark.service.BookmarkService;
 
 import fisa.woorizip.backend.member.controller.auth.Login;
@@ -11,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
