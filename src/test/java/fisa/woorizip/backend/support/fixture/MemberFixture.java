@@ -12,12 +12,12 @@ public class MemberFixture {
     private String password = "password12!@";
     private String name = "길가은";
     private Role role = Role.MEMBER;
-    private Long assets = 10000000L;
-    private Long totalIncomeLastYear = 40000000L;
-    private Integer yearsOfMarriage = 5;
-    private Integer monthsOfEmployment = 60;
+    private long assets = 10000000L;
+    private long totalIncomeLastYear = 40000000L;
+    private int yearsOfMarriage = 5;
+    private int monthsOfEmployment = 60;
     private LocalDate birthday = LocalDate.parse("1990-01-01");
-    private Integer creditScore = 800;
+    private int creditScore = 800;
 
     public static MemberFixture builder() {
         return new MemberFixture();
@@ -53,27 +53,27 @@ public class MemberFixture {
         return this;
     }
 
-    public MemberFixture assets(Long assets) {
+    public MemberFixture assets(long assets) {
         this.assets = assets;
         return this;
     }
 
-    public MemberFixture totalIncomeLastYear(Long totalIncomeLastYear) {
+    public MemberFixture totalIncomeLastYear(long totalIncomeLastYear) {
         this.totalIncomeLastYear = totalIncomeLastYear;
         return this;
     }
 
-    public MemberFixture yearsOfMarriage(Integer yearsOfMarriage) {
+    public MemberFixture yearsOfMarriage(int yearsOfMarriage) {
         this.yearsOfMarriage = yearsOfMarriage;
         return this;
     }
 
-    public MemberFixture monthsOfEmployment(Integer monthsOfEmployment) {
+    public MemberFixture monthsOfEmployment(int monthsOfEmployment) {
         this.monthsOfEmployment = monthsOfEmployment;
         return this;
     }
 
-    public MemberFixture creditScore(Integer creditScore) {
+    public MemberFixture creditScore(int creditScore) {
         this.creditScore = creditScore;
         return this;
     }

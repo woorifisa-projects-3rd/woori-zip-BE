@@ -111,11 +111,11 @@ CREATE TABLE IF NOT EXISTS `member`
     `role`          VARCHAR(255) NOT NULL,
     `earnings_type` VARCHAR(255),
     `earnings_fee`  BIGINT,
-    `credit_score`  MEDIUMINT,
-    `assets`        BIGINT,
-    `total_income_last_year` BIGINT ,
-    `years_of_marriage`      MEDIUMINT DEFAULT 0,
-    `months_of_employment`   MEDIUMINT DEFAULT 0,
+    `credit_score`  MEDIUMINT NOT NULL DEFAULT 0,
+    `assets`        BIGINT NOT NULL DEFAULT 0,
+    `total_income_last_year` BIGINT NOT NULL DEFAULT 0,
+    `years_of_marriage`    MEDIUMINT NOT NULL DEFAULT 0,
+    `months_of_employment` MEDIUMINT NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 )
     engine = innodb
