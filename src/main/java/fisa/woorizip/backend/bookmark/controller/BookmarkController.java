@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/houses/{houseId}")
+@RequestMapping("/api/v1")
 public class BookmarkController {
 
     private final BookmarkService bookmarkService;
 
     @Login
-    @PostMapping("/bookmark")
+    @PostMapping("/houses/{houseId}/bookmark")
     public ResponseEntity<Void> addBookmark(@VerifiedMember MemberIdentity memberIdentity, @PathVariable("houseId") Long houseId) {
         bookmarkService.addBookmark(memberIdentity, houseId);
         return ResponseEntity.ok().build();
