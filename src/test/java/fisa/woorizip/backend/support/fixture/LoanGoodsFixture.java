@@ -11,13 +11,13 @@ public class LoanGoodsFixture {
     private String content = "대출 상품 내용";
     private String imageUrl = "https://test-images/loans";
     private LoanGoodsType loanGoodsType = LoanGoodsType.MONTHLY_RENT;
-    private Long maxAssets = 345000000L;
-    private Long maxTotalIncomeLastYear = 50000000L;
-    private Integer maxYearsOfMarriage = 200;
-    private Integer maxAge = 34;
-    private Integer minCreditScore = 600;
-    private Long minMonthsOfEmployment = 0L;
-    private Double interestRate = 2.8;
+    private long maxAssets = 345000000L;
+    private long maxTotalIncomeLastYear = 50000000L;
+    private int maxYearsOfMarriage = 200;
+    private int maxAge = 34;
+    private int minCreditScore = 600;
+    private long minMonthsOfEmployment = 0L;
+    private double interestRate = 2.8;
 
     public static LoanGoodsFixture builder() {
         return new LoanGoodsFixture();
@@ -53,37 +53,37 @@ public class LoanGoodsFixture {
         return this;
     }
 
-    public LoanGoodsFixture maxAssets(Long maxAssets) {
+    public LoanGoodsFixture maxAssets(long maxAssets) {
         this.maxAssets = maxAssets;
         return this;
     }
 
-    public LoanGoodsFixture maxTotalIncomeLastYear(Long maxTotalIncomeLastYear) {
+    public LoanGoodsFixture maxTotalIncomeLastYear(long maxTotalIncomeLastYear) {
         this.maxTotalIncomeLastYear = maxTotalIncomeLastYear;
         return this;
     }
 
-    public LoanGoodsFixture maxYearsOfMarriage(Integer maxYearsOfMarriage) {
+    public LoanGoodsFixture maxYearsOfMarriage(int maxYearsOfMarriage) {
         this.maxYearsOfMarriage = maxYearsOfMarriage;
         return this;
     }
 
-    public LoanGoodsFixture maxAge(Integer maxAge) {
+    public LoanGoodsFixture maxAge(int maxAge) {
         this.maxAge = maxAge;
         return this;
     }
 
-    public LoanGoodsFixture minCreditScore(Integer minCreditScore) {
+    public LoanGoodsFixture minCreditScore(int minCreditScore) {
         this.minCreditScore = minCreditScore;
         return this;
     }
 
-    public LoanGoodsFixture minMonthsOfEmployment(Long minMonthsOfEmployment) {
+    public LoanGoodsFixture minMonthsOfEmployment(long minMonthsOfEmployment) {
         this.minMonthsOfEmployment = minMonthsOfEmployment;
         return this;
     }
 
-    public LoanGoodsFixture interestRate(Double interestRate) {
+    public LoanGoodsFixture interestRate(double interestRate) {
         this.interestRate = interestRate;
         return this;
     }
