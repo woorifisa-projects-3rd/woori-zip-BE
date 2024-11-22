@@ -8,8 +8,6 @@ import lombok.Getter;
 
 import org.springframework.http.HttpStatus;
 
-import static org.springframework.http.HttpStatus.CONFLICT;
-
 @Getter
 public enum BookmarkErrorCode implements ErrorCode {
     BOOKMARK_ALREADY_EXIST(CONFLICT, "이미 존재하는 북마크입니다.");
