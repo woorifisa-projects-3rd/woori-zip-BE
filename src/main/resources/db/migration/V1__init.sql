@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `consumption_analysis`
     DEFAULT charset = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `consumption_analysis`
+CREATE TABLE IF NOT EXISTS `member_consumption`
 (
     `id`             BIGINT       NOT NULL auto_increment,
     `member_id`      BIGINT       NOT NULL,
