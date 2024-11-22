@@ -30,10 +30,6 @@ public class BookmarkFixture {
 
     // 실제 Bookmark 객체를 생성하여 반환
     public Bookmark build() {
-        return Bookmark.builder()
-                .id(id)
-                .member(member)
-                .house(house)
-                .build();
+        return Bookmark.builder().id(id).member(member).house(house).build();
     }
 }
