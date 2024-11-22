@@ -1,3 +1,8 @@
 package fisa.woorizip.backend.bookmark.service;
 
-public interface BookmarkService {}
+import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
+
+public interface BookmarkService {
+
+    void addBookmark(MemberIdentity memberIdentity, Long houseId);
+}
