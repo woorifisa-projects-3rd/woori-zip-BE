@@ -28,7 +28,6 @@ public class BookmarkFixture {
         return this;
     }
 
-    // 실제 Bookmark 객체를 생성하여 반환
     public Bookmark build() {
         return Bookmark.builder()
                 .id(id)
