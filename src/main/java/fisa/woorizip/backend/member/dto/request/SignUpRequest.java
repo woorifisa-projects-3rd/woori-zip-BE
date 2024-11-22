@@ -22,7 +22,10 @@ public class SignUpRequest {
     @NotBlank private String earningsType;
     @NotNull private Long earningsFee;
     @NotNull private Integer creditScore;
-    private long debt;
+    private long assets;
+    private long totalIncomeLastYear;
+    private Integer yearsOfMarriage;
+    private Integer monthsOfEmployment;
 
     protected SignUpRequest() {}
 
@@ -34,7 +37,10 @@ public class SignUpRequest {
             String earningsType,
             Long earningsFee,
             Integer creditScore,
-            long debt) {
+            long assets,
+            long totalIncomeLastYear,
+            Integer yearsOfMarriage,
+            Integer monthsOfEmployment) {
         this.name = name;
         this.username = username;
         this.password = password;
@@ -42,7 +48,10 @@ public class SignUpRequest {
         this.earningsType = earningsType;
         this.earningsFee = earningsFee;
         this.creditScore = creditScore;
-        this.debt = debt;
+        this.assets = assets;
+        this.totalIncomeLastYear = totalIncomeLastYear;
+        this.yearsOfMarriage = yearsOfMarriage;
+        this.monthsOfEmployment = monthsOfEmployment;
     }
 
     public Member toMember(String encodedPassword, Role role) {
@@ -54,8 +63,11 @@ public class SignUpRequest {
                 .earningsFee(earningsFee)
                 .earningsType(EarningsType.from(earningsType))
                 .creditScore(creditScore)
-                .debt(debt)
                 .role(role)
+                .assets(assets)
+                .totalIncomeLastYear(totalIncomeLastYear)
+                .yearsOfMarriage(yearsOfMarriage)
+                .monthsOfEmployment(monthsOfEmployment)
                 .build();
     }
 }

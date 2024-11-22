@@ -40,13 +40,28 @@ public class Member {
     @Column(name = "earnings_fee")
     private Long earningsFee;
 
-    @Column(name = "credit_score")
-    private Integer creditScore;
-
-    @Column(name = "debt", nullable = false, columnDefinition = "BIGINT DEFAULT 0")
-    private long debt;
+    @Column(name = "credit_score", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
+    private int creditScore;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
+
+    @Column(name = "assets", nullable = false, columnDefinition = "BIGINT DEFAULT 0")
+    private long assets;
+
+    @Column(
+            name = "total_income_last_year",
+            nullable = false,
+            columnDefinition = "BIGINT DEFAULT 0")
+    private long totalIncomeLastYear;
+
+    @Column(name = "years_of_marriage", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
+    private int yearsOfMarriage;
+
+    @Column(
+            name = "months_of_employment",
+            nullable = false,
+            columnDefinition = "MEDIUMINT DEFAULT 0")
+    private int monthsOfEmployment;
 }

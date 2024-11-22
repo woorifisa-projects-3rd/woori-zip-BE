@@ -11,6 +11,13 @@ public class LoanGoodsFixture {
     private String content = "대출 상품 내용";
     private String imageUrl = "https://test-images/loans";
     private LoanGoodsType loanGoodsType = LoanGoodsType.MONTHLY_RENT;
+    private long maxAssets = 345000000L;
+    private long maxTotalIncomeLastYear = 50000000L;
+    private int maxYearsOfMarriage = 200;
+    private int maxAge = 34;
+    private int minCreditScore = 600;
+    private long minMonthsOfEmployment = 0L;
+    private double interestRate = 2.8;
 
     public static LoanGoodsFixture builder() {
         return new LoanGoodsFixture();
@@ -46,6 +53,41 @@ public class LoanGoodsFixture {
         return this;
     }
 
+    public LoanGoodsFixture maxAssets(long maxAssets) {
+        this.maxAssets = maxAssets;
+        return this;
+    }
+
+    public LoanGoodsFixture maxTotalIncomeLastYear(long maxTotalIncomeLastYear) {
+        this.maxTotalIncomeLastYear = maxTotalIncomeLastYear;
+        return this;
+    }
+
+    public LoanGoodsFixture maxYearsOfMarriage(int maxYearsOfMarriage) {
+        this.maxYearsOfMarriage = maxYearsOfMarriage;
+        return this;
+    }
+
+    public LoanGoodsFixture maxAge(int maxAge) {
+        this.maxAge = maxAge;
+        return this;
+    }
+
+    public LoanGoodsFixture minCreditScore(int minCreditScore) {
+        this.minCreditScore = minCreditScore;
+        return this;
+    }
+
+    public LoanGoodsFixture minMonthsOfEmployment(long minMonthsOfEmployment) {
+        this.minMonthsOfEmployment = minMonthsOfEmployment;
+        return this;
+    }
+
+    public LoanGoodsFixture interestRate(double interestRate) {
+        this.interestRate = interestRate;
+        return this;
+    }
+
     public LoanGoods build() {
         return LoanGoods.builder()
                 .id(id)
@@ -54,6 +96,13 @@ public class LoanGoodsFixture {
                 .content(content)
                 .imageUrl(imageUrl)
                 .loanGoodsType(loanGoodsType)
+                .maxAssets(maxAssets)
+                .maxTotalIncomeLastYear(maxTotalIncomeLastYear)
+                .minCreditScore(minCreditScore)
+                .maxAge(maxAge)
+                .maxYearsOfMarriage(maxYearsOfMarriage)
+                .minMonthsOfEmployment(minMonthsOfEmployment)
+                .interestRate(interestRate)
                 .build();
     }
 }

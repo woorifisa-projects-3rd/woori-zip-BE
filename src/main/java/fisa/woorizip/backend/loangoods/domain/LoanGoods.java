@@ -40,4 +40,25 @@ public class LoanGoods {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "loan_goods_type", nullable = false)
     private LoanGoodsType loanGoodsType;
+
+    @Column(name = "max_assets", nullable = false)
+    private long maxAssets;
+
+    @Column(name = "max_total_income_last_year", nullable = false)
+    private long maxTotalIncomeLastYear;
+
+    @Column(name = "max_years_of_marriage", nullable = false)
+    private int maxYearsOfMarriage;
+
+    @Column(name = "max_age", nullable = false)
+    private int maxAge;
+
+    @Column(name = "min_credit_score", nullable = false)
+    private int minCreditScore;
+
+    @Column(name = "min_months_of_employment", nullable = false)
+    private long minMonthsOfEmployment;
+
+    @Column(name = "interest_rate", nullable = false)
+    private double interestRate;
 }
