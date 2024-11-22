@@ -15,7 +15,7 @@ public class BookmarkControllerTest extends ControllerTest {
 
     @Test
     @DisplayName("북마크 추가 성공")
-    void 북마크_목록을_추가할_수_있습니다() {
+    void 북마크를_추가할_수_있습니다() {
         Member member = MemberFixture.builder().id(3L).build();
 
         baseRestAssuredWithAuth(member)
@@ -40,4 +40,26 @@ public class BookmarkControllerTest extends ControllerTest {
                 .all()
                 .statusCode(BOOKMARK_ALREADY_EXIST.getStatus().value());
     }
+
+    @Test
+    @DisplayName("북마크 삭제 성공")
+    void 북마크를_삭제_할_수_있다() {
+        Member member = MemberFixture.builder().id(1L).build();
+
+        baseRestAssuredWithAuth(member)
+                .when()
+                .delete("/api/v1/houses/1/bookmark/2")
+                .then()
+                .log()
+                .all()
+                .statusCode(OK.value());
+    }
+
+    @Test
+    @DisplayName("북마크 삭제 실패")
+    void 존재하지_않는_북마크를_삭제_할_수_없다() {
+
+    }
+
+
 }
