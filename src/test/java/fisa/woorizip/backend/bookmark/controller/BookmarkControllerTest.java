@@ -1,13 +1,15 @@
 package fisa.woorizip.backend.bookmark.controller;
 
+import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_EXIST;
+
+import static org.springframework.http.HttpStatus.OK;
+
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.support.ControllerTest;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_EXIST;
-import static org.springframework.http.HttpStatus.OK;
 
 public class BookmarkControllerTest extends ControllerTest {
 

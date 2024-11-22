@@ -3,7 +3,9 @@ package fisa.woorizip.backend.bookmark.dto.request;
 import fisa.woorizip.backend.bookmark.domain.Bookmark;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.member.domain.Member;
+
 import jakarta.validation.constraints.NotNull;
+
 import lombok.Getter;
 
 @Getter

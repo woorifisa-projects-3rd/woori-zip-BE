@@ -29,10 +29,6 @@ public class BookmarkFixture {
     }
 
     public Bookmark build() {
-        return Bookmark.builder()
-                .id(id)
-                .member(member)
-                .house(house)
-                .build();
+        return Bookmark.builder().id(id).member(member).house(house).build();
     }
 }
