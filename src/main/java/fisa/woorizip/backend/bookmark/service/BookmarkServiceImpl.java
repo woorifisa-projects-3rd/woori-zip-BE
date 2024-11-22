@@ -35,11 +35,6 @@ public class BookmarkServiceImpl implements BookmarkService {
         bookmarkRepository.save(createBookmark(member, house));
     }
 
-    @Override
-    public List<Bookmark> getBookmarksByMember(Long memberId) {
-        return bookmarkRepository.findAllByMemberIdOrderByCreatedAtDesc(memberId);
-    }
-
     private Bookmark createBookmark(Member member, House house) {
         return Bookmark.builder()
                 .member(member)

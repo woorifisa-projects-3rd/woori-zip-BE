@@ -9,6 +9,4 @@ public interface BookmarkService {
 
     void addBookmark(MemberIdentity memberIdentity, Long houseId);
 
-    List<Bookmark> getBookmarksByMember(Long memberId);
-
 }
