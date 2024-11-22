@@ -7,12 +7,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Bookmark {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,12 +30,11 @@ public class Bookmark {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-
     @Builder
     private Bookmark(Long id, Member member, House house, LocalDateTime createdAt) {
         this.id = id;
         this.member = member;
         this.house = house;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = createdAt != null ? createdAt : LocalDateTime.now();
     }
 }
