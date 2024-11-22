@@ -23,8 +23,4 @@ public class BookmarkRequest {
     }
 
     protected BookmarkRequest() {}
-
-    public Bookmark toBookmark(Member member, House house) {
-        return Bookmark.builder().member(member).house(house).build();
-    }
 }
