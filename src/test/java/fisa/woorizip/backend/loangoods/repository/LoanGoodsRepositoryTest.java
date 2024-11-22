@@ -7,8 +7,8 @@ import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.support.RepositoryTest;
 import fisa.woorizip.backend.support.fixture.LoanGoodsFixture;
-
 import fisa.woorizip.backend.support.fixture.MemberFixture;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -56,7 +56,6 @@ class LoanGoodsRepositoryTest {
 
         assertThat(findLoanGoods).isNotPresent();
     }
-
 
     @Test
     void 사용자에_맞는_대출상품을_조회할_수_있다() {
@@ -123,5 +122,3 @@ class LoanGoodsRepositoryTest {
         assertThat(findLoanGoods).isEmpty();
     }
 }
-
-

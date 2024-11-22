@@ -11,8 +11,6 @@ import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 
-import jakarta.persistence.EntityManager;
-
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -42,39 +40,32 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
         return ShowLoanGoodsDetailsResponse.from(loanGoods);
     }
 
-
     @Override
     public List<ShowLoanGoodsDetailsResponse> getLoanGoodsRecommendations(
             MemberIdentity memberIdentity) {
 
         Member member = getMember(memberIdentity.getId());
 
-        return findLoanGoodsList(member)
-                .stream()
-                .map(ShowLoanGoodsDetailsResponse::from)
-                .toList();
+        return findLoanGoodsList(member).stream().map(ShowLoanGoodsDetailsResponse::from).toList();
     }
-
 
     private Member getMember(Long memberId) {
 
-        return  memberRepository
-                        .findById(memberId)
-                        .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
+        return memberRepository
+                .findById(memberId)
+                .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
     }
-
 
     private List<LoanGoods> findLoanGoodsList(Member member) {
 
         return loanGoodsRepository.findLoanGoodsByMemberInformation(
-                    member.getAssets(),
-                    member.getTotalIncomeLastYear(),
-                    member.getYearsOfMarriage(),
-                    member.getCreditScore(),
-                    member.getMonthsOfEmployment(),
-                    calculateInternationalAge(member.getBirthday()));
+                member.getAssets(),
+                member.getTotalIncomeLastYear(),
+                member.getYearsOfMarriage(),
+                member.getCreditScore(),
+                member.getMonthsOfEmployment(),
+                calculateInternationalAge(member.getBirthday()));
     }
-
 
     public int calculateInternationalAge(LocalDate birthDate) {
         LocalDate currentDate = LocalDate.now();

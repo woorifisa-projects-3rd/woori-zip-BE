@@ -50,12 +50,18 @@ public class Member {
     @Column(name = "assets", nullable = false, columnDefinition = "BIGINT DEFAULT 0")
     private long assets;
 
-    @Column(name = "total_income_last_year", nullable = false, columnDefinition = "BIGINT DEFAULT 0")
+    @Column(
+            name = "total_income_last_year",
+            nullable = false,
+            columnDefinition = "BIGINT DEFAULT 0")
     private long totalIncomeLastYear;
 
     @Column(name = "years_of_marriage", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
     private int yearsOfMarriage;
 
-    @Column(name = "months_of_employment", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
+    @Column(
+            name = "months_of_employment",
+            nullable = false,
+            columnDefinition = "MEDIUMINT DEFAULT 0")
     private int monthsOfEmployment;
 }
