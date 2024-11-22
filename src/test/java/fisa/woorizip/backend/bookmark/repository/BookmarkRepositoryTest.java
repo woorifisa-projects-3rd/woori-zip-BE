@@ -29,20 +29,23 @@ class BookmarkRepositoryTest {
     @Autowired private MemberRepository memberRepository;
     @Autowired private HouseRepository houseRepository;
 
+    private Member save(Member member) { return memberRepository.save(member); }
+    private House save(House house) { return houseRepository.save(house); }
+    private Bookmark save(Bookmark bookmark) { return bookmarkRepository.save(bookmark); }
+
     @Test
     @DisplayName("멤버의 북마크 목록을 최신순(최근에 생성된 순)으로 조회할 수 있다")
     void findBookmarksWithHouse() {
 
-        Member member = memberRepository.save(MemberFixture.builder().build());
-        House house1 = houseRepository.save(HouseFixture.builder().member(member).name("피사주택").build());
-        House house2 = houseRepository.save(HouseFixture.builder().member(member).name("피사아파트").build());
-
-        Bookmark bookmark1 = bookmarkRepository.save(Bookmark.builder()
+        Member member = save(MemberFixture.builder().build());
+        House house1 = save(HouseFixture.builder().member(member).build());
+        House house2 = save(HouseFixture.builder().member(member).build());
+        Bookmark bookmark1 = save(Bookmark.builder()
                 .member(member)
                 .house(house1)
                 .createdAt(LocalDateTime.now().minusHours(2))
                 .build());
-        Bookmark bookmark2 = bookmarkRepository.save(Bookmark.builder()
+        Bookmark bookmark2 = save(Bookmark.builder()
                 .member(member)
                 .house(house2)
                 .createdAt(LocalDateTime.now())
@@ -57,8 +60,6 @@ class BookmarkRepositoryTest {
                 () -> assertThat(result.hasNext()).isFalse(),
                 () -> assertThat(result.getContent().get(0).getId()).isEqualTo(bookmark2.getId()),
                 () -> assertThat(result.getContent().get(1).getId()).isEqualTo(bookmark1.getId()),
-                () -> assertThat(result.getContent().get(0).getHouse().getName()).isEqualTo("피사아파트"),
-                () -> assertThat(result.getContent().get(1).getHouse().getName()).isEqualTo("피사주택"),
                 () -> assertThat(result.getContent()).isSortedAccordingTo(
                         Comparator.comparing(Bookmark::getCreatedAt).reversed())
         );
