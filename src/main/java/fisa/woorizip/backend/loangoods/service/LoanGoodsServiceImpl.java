@@ -29,7 +29,6 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
 
     private final LoanGoodsRepository loanGoodsRepository;
     private final MemberRepository memberRepository;
-    private final EntityManager entityManager;
 
     @Override
     @Transactional(readOnly = true)
@@ -43,33 +42,39 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
         return ShowLoanGoodsDetailsResponse.from(loanGoods);
     }
 
+
     @Override
     public List<ShowLoanGoodsDetailsResponse> getLoanGoodsRecommendations(
             MemberIdentity memberIdentity) {
-        Long memberId = memberIdentity.getId();
 
-        Member member =
-                memberRepository
+        Member member = getMember(memberIdentity.getId());
+
+        return findLoanGoodsList(member)
+                .stream()
+                .map(ShowLoanGoodsDetailsResponse::from)
+                .toList();
+    }
+
+
+    private Member getMember(Long memberId) {
+
+        return  memberRepository
                         .findById(memberId)
                         .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
-
-        int internationalAge = calculateInternationalAge(member.getBirthday());
-
-        List<LoanGoods> loanGoodsList =
-                loanGoodsRepository.findLoanGoodsByCustomCriteria(
-                        member.getAssets(),
-                        member.getTotalIncomeLastYear(),
-                        member.getYearsOfMarriage(),
-                        member.getCreditScore(),
-                        member.getMonthsOfEmployment(),
-                        internationalAge);
-
-        if (loanGoodsList.isEmpty()) {
-            throw new WooriZipException(LOAN_GOODS_NOT_FOUND);
-        }
-
-        return loanGoodsList.stream().map(ShowLoanGoodsDetailsResponse::from).toList();
     }
+
+
+    private List<LoanGoods> findLoanGoodsList(Member member) {
+
+        return loanGoodsRepository.findLoanGoodsByMemberInformation(
+                    member.getAssets(),
+                    member.getTotalIncomeLastYear(),
+                    member.getYearsOfMarriage(),
+                    member.getCreditScore(),
+                    member.getMonthsOfEmployment(),
+                    calculateInternationalAge(member.getBirthday()));
+    }
+
 
     public int calculateInternationalAge(LocalDate birthDate) {
         LocalDate currentDate = LocalDate.now();

@@ -19,7 +19,7 @@ public interface LoanGoodsRepository extends JpaRepository<LoanGoods, Long>{
                  "AND l.minCreditScore <= : creditScore " +
                  "AND l.minMonthsOfEmployment <= : monthsOfEmployment " +
                  "AND l.maxAge >= : internationalAge ")
-    List<LoanGoods> findLoanGoodsByCustomCriteria(
+    List<LoanGoods> findLoanGoodsByMemberInformation(
          long assets,
          long totalIncomeLastYear,
          int yearsOfMarriage,

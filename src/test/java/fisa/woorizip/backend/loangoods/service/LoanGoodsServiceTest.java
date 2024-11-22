@@ -68,7 +68,7 @@ class LoanGoodsServiceTest {
         int expectedAge = 34;
         given(memberRepository.findById(memberIdentity.getId())).willReturn(Optional.of(member));
         given(
-                        loanGoodsRepository.findLoanGoodsByCustomCriteria(
+                        loanGoodsRepository.findLoanGoodsByMemberInformation(
                                 member.getAssets(),
                                 member.getTotalIncomeLastYear(),
                                 member.getYearsOfMarriage(),
@@ -84,7 +84,7 @@ class LoanGoodsServiceTest {
 
         verify(memberRepository, times(1)).findById(memberIdentity.getId());
         verify(loanGoodsRepository, times(1))
-                .findLoanGoodsByCustomCriteria(
+                .findLoanGoodsByMemberInformation(
                         member.getAssets(),
                         member.getTotalIncomeLastYear(),
                         member.getYearsOfMarriage(),
@@ -103,7 +103,7 @@ class LoanGoodsServiceTest {
 
         given(memberRepository.findById(memberIdentity.getId())).willReturn(Optional.of(member));
         given(
-                        loanGoodsRepository.findLoanGoodsByCustomCriteria(
+                        loanGoodsRepository.findLoanGoodsByMemberInformation(
                                 member.getAssets(),
                                 member.getTotalIncomeLastYear(),
                                 member.getYearsOfMarriage(),
@@ -120,7 +120,7 @@ class LoanGoodsServiceTest {
 
         verify(memberRepository, times(1)).findById(memberIdentity.getId());
         verify(loanGoodsRepository, times(1))
-                .findLoanGoodsByCustomCriteria(
+                .findLoanGoodsByMemberInformation(
                         member.getAssets(),
                         member.getTotalIncomeLastYear(),
                         member.getYearsOfMarriage(),
