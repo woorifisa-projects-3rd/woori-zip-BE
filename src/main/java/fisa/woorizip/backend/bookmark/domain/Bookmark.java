@@ -2,7 +2,9 @@ package fisa.woorizip.backend.bookmark.domain;
 
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.member.domain.Member;
+
 import jakarta.persistence.*;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
