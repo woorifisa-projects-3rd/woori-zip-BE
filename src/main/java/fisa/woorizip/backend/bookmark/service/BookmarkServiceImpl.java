@@ -40,8 +40,8 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     @Transactional(readOnly = true)
-    public BookmarkSliceResponse getBookmarkList(Long memberId, Pageable pageable) {
-        Slice<Bookmark> bookmarkSlice = bookmarkRepository.findBookmarksWithHouse(memberId, pageable);
+    public BookmarkSliceResponse getBookmarkList(MemberIdentity memberIdentity, Pageable pageable) {
+        Slice<Bookmark> bookmarkSlice = bookmarkRepository.findBookmarksWithHouse(memberIdentity.getId(), pageable);
 
         if (bookmarkSlice.isEmpty()) {
             throw new IllegalArgumentException(BookmarkErrorCode.BOOKMARK_NOT_FOUND.getMessage());
