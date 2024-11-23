@@ -1,5 +1,6 @@
 package fisa.woorizip.backend.bookmark.dto.request;
 
+
 import jakarta.validation.constraints.NotNull;
 
 import lombok.Getter;
