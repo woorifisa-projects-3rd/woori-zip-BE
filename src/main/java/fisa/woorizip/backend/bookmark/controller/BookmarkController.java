@@ -8,10 +8,10 @@ import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,8 +34,7 @@ public class BookmarkController {
     @Login
     @PostMapping("/houses/{houseId}/bookmark")
     public ResponseEntity<Void> addBookmark(
-            @VerifiedMember MemberIdentity memberIdentity,
-            @PathVariable("houseId") Long houseId) {
+            @VerifiedMember MemberIdentity memberIdentity, @PathVariable("houseId") Long houseId) {
         bookmarkService.addBookmark(memberIdentity, houseId);
         return ResponseEntity.ok().build();
     }

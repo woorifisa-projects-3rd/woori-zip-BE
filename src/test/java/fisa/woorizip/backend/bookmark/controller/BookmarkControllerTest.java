@@ -1,16 +1,16 @@
 package fisa.woorizip.backend.bookmark.controller;
 
-import fisa.woorizip.backend.bookmark.dto.response.BookmarkSliceResponse;
-import fisa.woorizip.backend.bookmark.service.BookmarkService;
 import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_EXIST;
-
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
+
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpStatus.OK;
 
+import fisa.woorizip.backend.bookmark.dto.response.BookmarkSliceResponse;
+import fisa.woorizip.backend.bookmark.service.BookmarkService;
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
@@ -30,11 +30,9 @@ import java.util.Collections;
 @ExtendWith(MockitoExtension.class)
 class BookmarkControllerTest extends ControllerTest {
 
-    @Mock
-    private BookmarkService bookmarkService;
+    @Mock private BookmarkService bookmarkService;
 
-    @InjectMocks
-    private BookmarkController bookmarkController;
+    @InjectMocks private BookmarkController bookmarkController;
 
     @Test
     @DisplayName("북마크 추가 성공")
@@ -46,7 +44,8 @@ class BookmarkControllerTest extends ControllerTest {
                 .when()
                 .post("/api/v1/houses/1/bookmark")
                 .then()
-                .log().all()
+                .log()
+                .all()
                 .statusCode(OK.value());
 
         verify(bookmarkService).addBookmark(any(MemberIdentity.class), eq(1L));
@@ -57,13 +56,15 @@ class BookmarkControllerTest extends ControllerTest {
     void getBookmarkList_noBookmarkedHouses() {
 
         Member member = MemberFixture.builder().id(999L).build();
-        MemberIdentity memberIdentity = new MemberIdentity(member.getId(), member.getRole().toString());
+        MemberIdentity memberIdentity =
+                new MemberIdentity(member.getId(), member.getRole().toString());
 
-        BookmarkSliceResponse emptyResponse = BookmarkSliceResponse.builder()
-                .bookmarks(Collections.emptyList())
-                .hasNext(false)
-                .numberOfElements(0)
-                .build();
+        BookmarkSliceResponse emptyResponse =
+                BookmarkSliceResponse.builder()
+                        .bookmarks(Collections.emptyList())
+                        .hasNext(false)
+                        .numberOfElements(0)
+                        .build();
 
         when(bookmarkService.getBookmarkList(any(MemberIdentity.class), any(Pageable.class)))
                 .thenReturn(emptyResponse);
@@ -85,7 +86,8 @@ class BookmarkControllerTest extends ControllerTest {
     void getBookmarkList_nonExistentMember() {
         // given
         Member member = MemberFixture.builder().id(999L).build();
-        MemberIdentity memberIdentity = new MemberIdentity(member.getId(), member.getRole().toString());
+        MemberIdentity memberIdentity =
+                new MemberIdentity(member.getId(), member.getRole().toString());
 
         when(bookmarkService.getBookmarkList(any(MemberIdentity.class), any(Pageable.class)))
                 .thenThrow(new WooriZipException(MEMBER_NOT_FOUND));
@@ -94,7 +96,8 @@ class BookmarkControllerTest extends ControllerTest {
                 .when()
                 .get("/api/v1/bookmarks")
                 .then()
-                .log().all()
+                .log()
+                .all()
                 .statusCode(MEMBER_NOT_FOUND.getStatus().value())
                 .body("message", equalTo(MEMBER_NOT_FOUND.getMessage()));
     }
@@ -105,13 +108,15 @@ class BookmarkControllerTest extends ControllerTest {
 
         Member member = MemberFixture.builder().id(2L).build();
         doThrow(new WooriZipException(BOOKMARK_ALREADY_EXIST))
-                .when(bookmarkService).addBookmark(any(MemberIdentity.class), eq(1L));
+                .when(bookmarkService)
+                .addBookmark(any(MemberIdentity.class), eq(1L));
 
         baseRestAssuredWithAuth(member)
                 .when()
                 .post("/api/v1/houses/1/bookmark")
                 .then()
-                .log().all()
+                .log()
+                .all()
                 .statusCode(BOOKMARK_ALREADY_EXIST.getStatus().value())
                 .body("message", equalTo(BOOKMARK_ALREADY_EXIST.getMessage()));
     }
