@@ -24,8 +24,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.SliceImpl;
@@ -54,9 +52,7 @@ public class BookmarkServiceTest {
     void 회원ID와_집ID를_통해_북마크를_추가할_수_있다() {
         Member member = MemberFixture.builder().id(1L).build();
         House house = HouseFixture.builder().id(1L).build();
-
-        MemberIdentity memberIdentity =
-                new MemberIdentity(member.getId(), member.getRole().toString());
+        MemberIdentity memberIdentity = new MemberIdentity(member.getId(), member.getRole().toString());
 
         given(bookmarkRepository.existsByMemberIdAndHouseId(any(Long.class), any(Long.class)))
                 .willReturn(false);
@@ -66,9 +62,8 @@ public class BookmarkServiceTest {
         bookmarkService.addBookmark(memberIdentity, house.getId());
 
         assertAll(
-                () ->
-                        verify(bookmarkRepository, times(1))
-                                .existsByMemberIdAndHouseId(member.getId(), house.getId()),
+                () -> verify(bookmarkRepository, times(1))
+                        .existsByMemberIdAndHouseId(member.getId(), house.getId()),
                 () -> verify(memberRepository, times(1)).findById(member.getId()),
                 () -> verify(houseRepository, times(1)).findById(house.getId()),
                 () -> verify(bookmarkRepository, times(1)).save(any(Bookmark.class)));
@@ -77,8 +72,8 @@ public class BookmarkServiceTest {
     @Test
     @DisplayName("북마크가 있는 경우 정상적으로 응답을 반환한다")
     void getBookmarkList_success() {
-
-        Long memberId = 1L;
+        Member member = MemberFixture.builder().id(1L).build();
+        MemberIdentity memberIdentity = new MemberIdentity(member.getId(), member.getRole().toString());
         Pageable pageable = PageRequest.of(0, 5);
 
         House house = House.builder()
@@ -94,9 +89,9 @@ public class BookmarkServiceTest {
 
         SliceImpl<Bookmark> bookmarkSlice = new SliceImpl<>(Collections.singletonList(bookmark), pageable, false);
 
-        when(bookmarkRepository.findBookmarksWithHouse(memberId, pageable)).thenReturn(bookmarkSlice);
+        when(bookmarkRepository.findBookmarksWithHouse(memberIdentity.getId(), pageable)).thenReturn(bookmarkSlice);
 
-        BookmarkSliceResponse response = bookmarkService.getBookmarkList(memberId, pageable);
+        BookmarkSliceResponse response = bookmarkService.getBookmarkList(memberIdentity, pageable);
 
         assertAll(
                 () -> assertThat(response.getBookmarks()).hasSize(1),
@@ -111,15 +106,16 @@ public class BookmarkServiceTest {
     @Test
     @DisplayName("북마크가 없는 경우 예외를 던진다")
     void getBookmarkList_throwsExceptionWhenEmpty() {
-
-        Long memberId = 2L;
+        Member member = MemberFixture.builder().id(2L).build();
+        MemberIdentity memberIdentity = new MemberIdentity(member.getId(), member.getRole().toString());
         Pageable pageable = PageRequest.of(0, 5);
         SliceImpl<Bookmark> emptyBookmarkSlice = new SliceImpl<>(Collections.emptyList(), pageable, false);
 
-        when(bookmarkRepository.findBookmarksWithHouse(memberId, pageable)).thenReturn(emptyBookmarkSlice);
+        when(bookmarkRepository.findBookmarksWithHouse(memberIdentity.getId(), pageable))
+                .thenReturn(emptyBookmarkSlice);
 
         assertAll(
-                () -> assertThatThrownBy(() -> bookmarkService.getBookmarkList(memberId, pageable))
+                () -> assertThatThrownBy(() -> bookmarkService.getBookmarkList(memberIdentity, pageable))
                         .isInstanceOf(IllegalArgumentException.class)
                         .hasMessage(BookmarkErrorCode.BOOKMARK_NOT_FOUND.getMessage())
         );
