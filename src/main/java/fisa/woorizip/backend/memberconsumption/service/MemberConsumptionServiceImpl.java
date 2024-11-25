@@ -8,6 +8,7 @@ import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.memberconsumption.domain.MemberConsumption;
+import fisa.woorizip.backend.memberconsumption.dto.Age;
 import fisa.woorizip.backend.memberconsumption.dto.response.CategoryResponse;
 import fisa.woorizip.backend.memberconsumption.dto.response.ConsumptionAnalysisResponse;
 import fisa.woorizip.backend.memberconsumption.repository.MemberConsumptionRepository;
@@ -19,6 +20,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import static fisa.woorizip.backend.facility.domain.Category.*;
 import static fisa.woorizip.backend.member.AuthErrorCode.INSUFFICIENT_PERMISSIONS;
@@ -54,7 +56,8 @@ public class MemberConsumptionServiceImpl implements MemberConsumptionService {
     }
 
     private String getCustomerType(Member member) {
-        return Period.between(member.getBirthday(), LocalDate.now()).getYears()
+        return Age.from(Period.between(member.getBirthday(), LocalDate.now()).getYears())
+                        .getMinAge()
                 + "_"
                 + member.getGender().getValue()
                 + "_"
@@ -78,7 +81,7 @@ public class MemberConsumptionServiceImpl implements MemberConsumptionService {
     private CategoryResponse getBestCategory(
             ConsumptionAnalysis consumptionAnalysis, MemberConsumption memberConsumption) {
         CategoryResponse[] categories = getCategorySubtract(consumptionAnalysis, memberConsumption);
-        Arrays.sort(categories);
+        Arrays.sort(categories, Comparator.comparing(CategoryResponse::getSubtract));
         return categories[categories.length - 1];
     }
 
