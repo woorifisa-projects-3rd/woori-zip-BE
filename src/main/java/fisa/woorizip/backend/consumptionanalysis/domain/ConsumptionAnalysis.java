@@ -37,5 +37,5 @@ public class ConsumptionAnalysis {
     private double grocery;
 
     @Column(name = "customer_count", nullable = false)
-    private int customerCount;
+    private long customerCount;
 }
