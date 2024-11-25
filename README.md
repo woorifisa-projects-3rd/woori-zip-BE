@@ -110,7 +110,7 @@ INSERT INTO member (
     800
 );
 
-INSERT INTO member_consumption (
+INSERT INTO member_consumption (
     member_id,
     book,
     car,
