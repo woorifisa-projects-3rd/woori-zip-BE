@@ -12,7 +12,7 @@ public class BookmarkFixture {
 
     private Member member;
 
-    private House house = House.builder().id((long) 1L).build();
+    private House house;
 
     private LocalDateTime createdAt = LocalDateTime.of(2000, 3, 31, 0, 0);
 
