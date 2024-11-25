@@ -110,6 +110,24 @@ INSERT INTO member (
     800
 );
 
+INSERT INTO member_consumption (
+    member_id,
+    book,
+    car,
+    cloth,
+    culture,
+    food,
+    grocery
+) VALUES (
+    1,
+    37.9228639,
+    0.8448971,
+    20.05107334,
+    30.06974449,
+    6.1842673,
+    4.92715387
+);
+
 INSERT INTO house (id, member_id, name, comment, address, housing_expenses, latitude, longitude, house_type, gu, dong, deposit, monthly_rent_fee, maintenance_fee, total_parking_spaces, household_parking_spaces, total_area, exclusive_area, rooms, bathrooms, floor, total_floors, move_in_date, approval_date, direction) VALUES (1, 1, '피사아파트', '10층 중 3층. 신축 풀옵션', '서울 마포구 월드컵북로 434 피사아파트', 'JEONSE', 37.5815199, 126.8860032, 'APARTMENT', '마포구', '상암동', 70000000, 0, 50000, 110, 1, '80.58', '73.54', 2, 1, 3, 10, '2025-02-01', '2024-11-22', '남향');
 INSERT INTO house (id, member_id, name, comment, address, housing_expenses, latitude, longitude, house_type, gu, dong, deposit, monthly_rent_fee, maintenance_fee, total_parking_spaces, household_parking_spaces, total_area, exclusive_area, rooms, bathrooms, floor, total_floors, move_in_date, approval_date, direction) VALUES (2, 1, '피사원룸', '10층 중 3층. 신축 풀옵션', '서울 마포구 월드컵북로 434 피사원룸', 'MONTHLY_RENT', 37.5815199, 126.8860032, 'ONE_ROOM', '마포구', '상암동', 70000000, 0, 50000, 110, 1, '80.58', '73.54', 2, 1, 3, 10, '2025-02-01', '2024-11-22', '남향');
 INSERT INTO house (id, member_id, name, comment, address, housing_expenses, latitude, longitude, house_type, gu, dong, deposit, monthly_rent_fee, maintenance_fee, total_parking_spaces, household_parking_spaces, total_area, exclusive_area, rooms, bathrooms, floor, total_floors, move_in_date, approval_date, direction) VALUES (3, 1, '피사빌라', '10층 중 3층. 신축 풀옵션', '서울 마포구 월드컵북로 434 피사빌라', 'MONTHLY_RENT', 37.5815199, 126.8860032, 'VILLA', '마포구', ' 아현동', 7000000, 500000, 50000, 110, 1, '80.58', '73.54', 2, 1, 3, 10, '2025-02-01', '2024-11-22', '남향');
