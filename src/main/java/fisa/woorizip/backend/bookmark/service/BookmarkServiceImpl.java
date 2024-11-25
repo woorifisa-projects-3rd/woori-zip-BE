@@ -81,5 +81,4 @@ public class BookmarkServiceImpl implements BookmarkService {
             throw new WooriZipException(BOOKMARK_HOUSE_NOT_FOUND);
         }
     }
-
 }

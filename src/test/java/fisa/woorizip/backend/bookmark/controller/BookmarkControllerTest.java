@@ -1,6 +1,9 @@
 package fisa.woorizip.backend.bookmark.controller;
 
-import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.*;
+import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_EXIST;
+import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_NOT_FOUND;
+import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_MEMBER_NOT_FOUND;
+
 import static org.springframework.http.HttpStatus.OK;
 
 import fisa.woorizip.backend.member.domain.Member;
