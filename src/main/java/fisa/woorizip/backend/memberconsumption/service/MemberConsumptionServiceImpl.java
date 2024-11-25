@@ -81,7 +81,10 @@ public class MemberConsumptionServiceImpl implements MemberConsumptionService {
     private CategoryResponse getBestCategory(
             ConsumptionAnalysis consumptionAnalysis, MemberConsumption memberConsumption) {
         CategoryResponse[] categories = getCategorySubtract(consumptionAnalysis, memberConsumption);
-        Arrays.sort(categories, Comparator.comparing(CategoryResponse::getSubtract));
+        Arrays.sort(
+                categories,
+                Comparator.comparing(CategoryResponse::getSubtract)
+                        .thenComparing(CategoryResponse::getMemberValue));
         return categories[categories.length - 1];
     }
 
@@ -100,6 +103,8 @@ public class MemberConsumptionServiceImpl implements MemberConsumptionService {
     private CategoryResponse createCategoryResponse(
             Category category, double memberValue, double otherValue) {
         return CategoryResponse.of(
-                category, BigDecimal.valueOf(memberValue).subtract(BigDecimal.valueOf(otherValue)));
+                category,
+                BigDecimal.valueOf(memberValue).subtract(BigDecimal.valueOf(otherValue)),
+                BigDecimal.valueOf(memberValue));
     }
 }

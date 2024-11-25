@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import static fisa.woorizip.backend.facility.domain.Category.BOOK;
+import static fisa.woorizip.backend.facility.domain.Category.CAR;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
@@ -51,7 +52,60 @@ public class MemberConsumptionServiceTest {
                 CategoryResponse.of(
                         BOOK,
                         BigDecimal.valueOf(37.9228639)
-                                .subtract(BigDecimal.valueOf(1.1741682974559686)));
+                                .subtract(BigDecimal.valueOf(1.1741682974559686)),
+                        BigDecimal.valueOf(37.9228639));
+        ConsumptionAnalysisResponse expected =
+                ConsumptionAnalysisResponse.of(
+                        consumptionAnalysis, memberConsumption, bestCategory);
+
+        given(memberRepository.findById(any(Long.class))).willReturn(Optional.of(member));
+        given(consumptionAnalysisRepository.findByCustomerType(any(String.class)))
+                .willReturn(Optional.of(consumptionAnalysis));
+        given(memberConsumptionRepository.findByMemberId(any(Long.class)))
+                .willReturn(Optional.of(memberConsumption));
+
+        ConsumptionAnalysisResponse result =
+                memberConsumptionService.getConsumptionAnalysis(memberIdentity);
+
+        assertAll(
+                "result",
+                () -> verify(memberRepository, times(1)).findById(member.getId()),
+                () ->
+                        verify(consumptionAnalysisRepository, times(1))
+                                .findByCustomerType(consumptionAnalysis.getCustomerType()),
+                () -> verify(memberConsumptionRepository, times(1)).findByMemberId(member.getId()),
+                () ->
+                        assertThat(expected.getMemberConsumption().getBookConsumption())
+                                .isEqualTo(result.getMemberConsumption().getBookConsumption()),
+                () ->
+                        assertThat(expected.getOtherConsumption().getBookConsumption())
+                                .isEqualTo(result.getOtherConsumption().getBookConsumption()),
+                () ->
+                        assertThat(expected.getBestCategory().getCategory())
+                                .isEqualTo(result.getBestCategory().getCategory()),
+                () ->
+                        assertThat(expected.getBestCategory().getSubtract())
+                                .isEqualTo(result.getBestCategory().getSubtract()));
+    }
+
+    @Test
+    void 자신에게_맞는_카테고리가_여러개인_경우_가장_많이_소비한_카테고리를_보여준다() {
+        Member member = MemberFixture.builder().id(1L).build();
+        MemberIdentity memberIdentity =
+                new MemberIdentity(member.getId(), member.getRole().toString());
+        ConsumptionAnalysis consumptionAnalysis =
+                ConsumptionAnalysisFixture.builder().id(10L).book(10.12345).car(11.12345).build();
+        MemberConsumption memberConsumption =
+                MemberConsumptionFixture.builder()
+                        .member(member)
+                        .book(90.12345)
+                        .car(100.12345)
+                        .build();
+        CategoryResponse bestCategory =
+                CategoryResponse.of(
+                        CAR,
+                        BigDecimal.valueOf(100.12345).subtract(BigDecimal.valueOf(11.12345)),
+                        BigDecimal.valueOf(100.12345));
         ConsumptionAnalysisResponse expected =
                 ConsumptionAnalysisResponse.of(
                         consumptionAnalysis, memberConsumption, bestCategory);
