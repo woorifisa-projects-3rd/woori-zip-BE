@@ -1,7 +1,6 @@
 package fisa.woorizip.backend.member.dto.request;
 
-import fisa.woorizip.backend.member.domain.Member;
-import fisa.woorizip.backend.member.domain.Role;
+import fisa.woorizip.backend.member.domain.*;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +17,9 @@ public class SignUpRequest {
     @NotBlank private String username;
     @NotBlank private String password;
     @Past private LocalDate birthday;
+    @NotNull private Gender gender;
+    private Membership membership;
+    private LifeStage lifeStage;
     @NotNull private Integer creditScore;
     private long assets;
     private long totalIncomeLastYear;
@@ -35,7 +37,10 @@ public class SignUpRequest {
             long assets,
             long totalIncomeLastYear,
             Integer yearsOfMarriage,
-            Integer monthsOfEmployment) {
+            Integer monthsOfEmployment,
+            Gender gender,
+            Membership membership,
+            LifeStage lifeStage) {
         this.name = name;
         this.username = username;
         this.password = password;
@@ -45,6 +50,9 @@ public class SignUpRequest {
         this.totalIncomeLastYear = totalIncomeLastYear;
         this.yearsOfMarriage = yearsOfMarriage;
         this.monthsOfEmployment = monthsOfEmployment;
+        this.gender = gender;
+        this.membership = membership;
+        this.lifeStage = lifeStage;
     }
 
     public Member toMember(String encodedPassword, Role role) {
@@ -59,6 +67,9 @@ public class SignUpRequest {
                 .totalIncomeLastYear(totalIncomeLastYear)
                 .yearsOfMarriage(yearsOfMarriage)
                 .monthsOfEmployment(monthsOfEmployment)
+                .gender(gender)
+                .membership(membership)
+                .lifeStage(lifeStage)
                 .build();
     }
 }
