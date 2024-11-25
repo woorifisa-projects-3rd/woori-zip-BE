@@ -76,6 +76,7 @@ public class BookmarkServiceImpl implements BookmarkService {
             throw new WooriZipException(BOOKMARK_MEMBER_NOT_FOUND);
         }
     }
+
     private void validateBookmarkHouse(Bookmark bookmark, Long houseId) {
         if (!bookmark.getHouse().getId().equals(houseId)) {
             throw new WooriZipException(BOOKMARK_HOUSE_NOT_FOUND);

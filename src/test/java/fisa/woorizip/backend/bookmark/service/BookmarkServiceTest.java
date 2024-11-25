@@ -70,7 +70,6 @@ public class BookmarkServiceTest {
 
         MemberIdentity memberIdentity = MemberIdentity.from(member);
 
-
         bookmarkService.deleteBookmark(memberIdentity, bookmark.getId(), house.getId());
 
         verify(bookmarkRepository, times(1)).deleteById(bookmark.getId());

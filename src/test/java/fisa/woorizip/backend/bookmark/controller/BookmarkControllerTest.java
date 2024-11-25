@@ -1,8 +1,8 @@
 package fisa.woorizip.backend.bookmark.controller;
 
 import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_EXIST;
-import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_NOT_FOUND;
 import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_MEMBER_NOT_FOUND;
+import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_NOT_FOUND;
 
 import static org.springframework.http.HttpStatus.OK;
 
@@ -84,5 +84,4 @@ public class BookmarkControllerTest extends ControllerTest {
                 .all()
                 .statusCode(OK.value());
     }
-
 }
