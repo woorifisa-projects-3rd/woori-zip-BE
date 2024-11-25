@@ -1,11 +1,9 @@
 package fisa.woorizip.backend.memberconsumption.dto.response;
 
 import fisa.woorizip.backend.consumptionanalysis.domain.ConsumptionAnalysis;
-import fisa.woorizip.backend.facility.domain.Category;
 import fisa.woorizip.backend.memberconsumption.domain.MemberConsumption;
-import lombok.Getter;
 
-import java.util.List;
+import lombok.Getter;
 
 @Getter
 public class ConsumptionAnalysisResponse {

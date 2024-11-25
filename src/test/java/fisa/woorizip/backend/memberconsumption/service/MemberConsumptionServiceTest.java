@@ -1,5 +1,15 @@
 package fisa.woorizip.backend.memberconsumption.service;
 
+import static fisa.woorizip.backend.facility.domain.Category.BOOK;
+import static fisa.woorizip.backend.facility.domain.Category.CAR;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import fisa.woorizip.backend.consumptionanalysis.domain.ConsumptionAnalysis;
 import fisa.woorizip.backend.consumptionanalysis.repository.ConsumptionAnalysisRepository;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
@@ -12,6 +22,7 @@ import fisa.woorizip.backend.memberconsumption.repository.MemberConsumptionRepos
 import fisa.woorizip.backend.support.fixture.ConsumptionAnalysisFixture;
 import fisa.woorizip.backend.support.fixture.MemberConsumptionFixture;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,15 +31,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-
-import static fisa.woorizip.backend.facility.domain.Category.BOOK;
-import static fisa.woorizip.backend.facility.domain.Category.CAR;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class MemberConsumptionServiceTest {

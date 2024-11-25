@@ -1,5 +1,12 @@
 package fisa.woorizip.backend.memberconsumption.service;
 
+import static fisa.woorizip.backend.facility.domain.Category.*;
+import static fisa.woorizip.backend.member.AuthErrorCode.INSUFFICIENT_PERMISSIONS;
+import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
+import static fisa.woorizip.backend.member.domain.Role.MEMBER;
+import static fisa.woorizip.backend.memberconsumption.MemberConsumptionErrorCode.CUSTOMER_TYPE_NOT_FOUND;
+import static fisa.woorizip.backend.memberconsumption.MemberConsumptionErrorCode.MEMBER_CONSUMPTION_NOT_FOUND;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.consumptionanalysis.domain.ConsumptionAnalysis;
 import fisa.woorizip.backend.consumptionanalysis.repository.ConsumptionAnalysisRepository;
@@ -12,7 +19,9 @@ import fisa.woorizip.backend.memberconsumption.dto.Age;
 import fisa.woorizip.backend.memberconsumption.dto.response.CategoryResponse;
 import fisa.woorizip.backend.memberconsumption.dto.response.ConsumptionAnalysisResponse;
 import fisa.woorizip.backend.memberconsumption.repository.MemberConsumptionRepository;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +30,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Arrays;
 import java.util.Comparator;
-
-import static fisa.woorizip.backend.facility.domain.Category.*;
-import static fisa.woorizip.backend.member.AuthErrorCode.INSUFFICIENT_PERMISSIONS;
-import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
-import static fisa.woorizip.backend.member.domain.Role.MEMBER;
-import static fisa.woorizip.backend.memberconsumption.MemberConsumptionErrorCode.CUSTOMER_TYPE_NOT_FOUND;
-import static fisa.woorizip.backend.memberconsumption.MemberConsumptionErrorCode.MEMBER_CONSUMPTION_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor

@@ -1,7 +1,9 @@
 package fisa.woorizip.backend.memberconsumption.domain;
 
 import fisa.woorizip.backend.member.domain.Member;
+
 import jakarta.persistence.*;
+
 import lombok.*;
 
 @Entity
