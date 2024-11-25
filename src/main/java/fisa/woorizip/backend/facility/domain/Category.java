@@ -26,7 +26,7 @@ public enum Category {
 
     public static Category from(String name) {
         return Arrays.stream(Category.values())
-                .filter(category -> category.toString().equals(name) || category.name().equals(name))
+                .filter(category -> category.getName().equals(name))
                 .findAny()
                 .orElseThrow(() -> new WooriZipException(CATEGORY_NOT_FOUND));
     }
