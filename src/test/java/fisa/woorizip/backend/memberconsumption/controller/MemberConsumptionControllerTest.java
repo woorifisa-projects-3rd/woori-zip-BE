@@ -1,12 +1,9 @@
-package fisa.woorizip.backend.memberconsumption;
+package fisa.woorizip.backend.memberconsumption.controller;
 
 import fisa.woorizip.backend.member.domain.Member;
-import fisa.woorizip.backend.member.repository.MemberRepository;
-import fisa.woorizip.backend.member.service.MemberService;
 import fisa.woorizip.backend.support.ControllerTest;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import static org.springframework.http.HttpStatus.OK;
 
