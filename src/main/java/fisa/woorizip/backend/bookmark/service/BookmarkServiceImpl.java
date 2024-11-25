@@ -76,5 +76,4 @@ public class BookmarkServiceImpl implements BookmarkService {
             throw new WooriZipException(MEMBER_NOT_FOUND);
         }
     }
-
 }
