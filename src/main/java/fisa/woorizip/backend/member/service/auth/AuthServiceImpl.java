@@ -11,6 +11,7 @@ import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.RefreshToken;
 import fisa.woorizip.backend.member.dto.request.SignInRequest;
+import fisa.woorizip.backend.member.dto.response.SignInResponse;
 import fisa.woorizip.backend.member.dto.result.SignInResult;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.member.repository.RefreshTokenRepository;
@@ -33,6 +34,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final WooriBankOauth wooriBankOauth;
 
     @Override
     @Transactional
@@ -62,6 +64,14 @@ public class AuthServiceImpl implements AuthService {
         Member member = refreshToken.getMember();
         String accessToken = jwtTokenProvider.createAccessToken(member);
         return SignInResult.of(refreshToken, accessToken, member, expirationSeconds);
+    }
+
+    @Override
+    @Transactional
+    public SignInResponse oauthLogin(String code) {
+        GetWooriBankTokenResponse token = wooriBankOauth.getToken(code);
+        GetMemberDataResponse memberData = wooriBankOauth.getMemberData(token.getAccessToken());
+        return SignInResponse.of(token.getAccessToken(), memberData.getName());
     }
 
     private void validateRefreshTokenExpired(RefreshToken refreshToken) {

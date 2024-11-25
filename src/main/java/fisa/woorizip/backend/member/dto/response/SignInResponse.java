@@ -20,4 +20,8 @@ public class SignInResponse {
     public static SignInResponse of(String accessToken, Member member) {
         return SignInResponse.builder().accessToken(accessToken).name(member.getName()).build();
     }
+
+    public static SignInResponse of(String accessToken, String name) {
+        return SignInResponse.builder().accessToken(accessToken).name(name).build();
+    }
 }
