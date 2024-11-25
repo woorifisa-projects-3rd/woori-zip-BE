@@ -1,7 +1,6 @@
 package fisa.woorizip.backend.bookmark.service;
 
-import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_EXIST;
-import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_NOT_FOUND;
+import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.*;
 import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 
@@ -59,10 +58,11 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     @Transactional
-    public void deleteBookmark(MemberIdentity memberIdentity, Long bookmarkId) {
+    public void deleteBookmark(MemberIdentity memberIdentity, Long bookmarkId, Long houseId) {
         Bookmark bookmark = findBookmarkByBookmarkId(bookmarkId);
         validateBookmarkMember(bookmark, memberIdentity.getId());
-        bookmarkRepository.deleteById(bookmarkId);
+        validateBookmarkHouse(bookmark, houseId);
+        bookmarkRepository.deleteById(bookmark.getId());
     }
 
     private Bookmark findBookmarkByBookmarkId(Long bookmarkId) {
@@ -73,7 +73,12 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     private void validateBookmarkMember(Bookmark bookmark, Long memberId) {
         if (!bookmark.getMember().getId().equals(memberId)) {
-            throw new WooriZipException(MEMBER_NOT_FOUND);
+            throw new WooriZipException(BOOKMARK_MEMBER_NOT_FOUND);
+        }
+    }
+    private void validateBookmarkHouse(Bookmark bookmark, Long houseId) {
+        if (!bookmark.getHouse().getId().equals(houseId)) {
+            throw new WooriZipException(BOOKMARK_HOUSE_NOT_FOUND);
         }
     }
 
