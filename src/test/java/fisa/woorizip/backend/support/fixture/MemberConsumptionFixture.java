@@ -13,7 +13,9 @@ public class MemberConsumptionFixture {
     private double food = 6.1842673;
     private double grocery = 4.92715387;
 
-    public static MemberConsumptionFixture builder() { return new MemberConsumptionFixture(); }
+    public static MemberConsumptionFixture builder() {
+        return new MemberConsumptionFixture();
+    }
 
     public MemberConsumptionFixture id(Long id) {
         this.id = id;
