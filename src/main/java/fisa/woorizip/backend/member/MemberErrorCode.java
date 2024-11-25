@@ -17,7 +17,8 @@ public enum MemberErrorCode implements ErrorCode {
     ROLE_NOT_FOUND(NOT_FOUND, "권한(role)을 찾을 수 없습니다."),
     GENDER_NOT_FOUND(NOT_FOUND, "성별이 존재하지 않습니다."),
     MEMBERSHIP_NOT_FOUND(NOT_FOUND, "회원 등급이 존재하지 않습니다."),
-    LIFE_STAGE_NOT_FOUND(NOT_FOUND, "라이프 스테이지가 존재하지 않습니다.");
+    LIFE_STAGE_NOT_FOUND(NOT_FOUND, "라이프 스테이지가 존재하지 않습니다."),
+    AGE_NOT_FOUND(NOT_FOUND, "나이가 존재하지 않습니다.");
 
     private final HttpStatus status;
     private final String message;
