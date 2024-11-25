@@ -32,7 +32,7 @@ public class BookmarkController {
             @PathVariable("houseId") Long houseId,
             @PathVariable("bookmarkId") Long bookmarkId) {
 
-        bookmarkService.deleteBookmark(memberIdentity, bookmarkId);
+        bookmarkService.deleteBookmark(memberIdentity, houseId, bookmarkId);
         return ResponseEntity.ok().build();
     }
 }
