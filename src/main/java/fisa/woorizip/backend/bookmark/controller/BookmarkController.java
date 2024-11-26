@@ -1,6 +1,6 @@
 package fisa.woorizip.backend.bookmark.controller;
 
-import fisa.woorizip.backend.bookmark.dto.response.BookmarkSliceResponse;
+import fisa.woorizip.backend.bookmark.dto.response.ShowBookmarksResponse;
 import fisa.woorizip.backend.bookmark.service.BookmarkService;
 import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
@@ -25,7 +25,7 @@ public class BookmarkController {
 
     @Login
     @GetMapping("/bookmarks")
-    public BookmarkSliceResponse getBookmarkList(
+    public ShowBookmarksResponse getBookmarkList(
             @VerifiedMember MemberIdentity memberIdentity,
             @PageableDefault(size = 6) Pageable pageable) {
         return bookmarkService.getBookmarkList(memberIdentity, pageable);
