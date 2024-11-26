@@ -18,6 +18,7 @@ import fisa.woorizip.backend.member.dto.result.SignInResult;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.member.repository.RefreshTokenRepository;
 
+import fisa.woorizip.backend.memberconsumption.repository.MemberConsumptionRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final WooriBankOauth wooriBankOauth;
+    private final MemberConsumptionRepository memberConsumptionRepository;
 
     @Override
     @Transactional
@@ -80,6 +82,10 @@ public class AuthServiceImpl implements AuthService {
         GetMemberDataResponse memberData = wooriBankOauth.getMemberData(token.getAccessToken());
         Member member = memberRepository.findByCustomerId(memberData.getCustomerId())
                 .orElseGet(() -> memberRepository.save(memberData.toMember()));
+        memberConsumptionRepository.findByMemberId(member.getId()).ifPresentOrElse(
+                memberConsumption -> memberConsumption.update(memberData.getSpendingHistory().toMemberConsumption()),
+                () -> memberConsumptionRepository.save(memberData.getSpendingHistory().toMemberConsumption(member))
+        );
         String accessToken = jwtTokenProvider.createAccessToken(member);
         refreshTokenRepository.deleteAllByMemberId(member.getId());
         final RefreshToken refreshToken = refreshTokenRepository.save(createRefreshToken(member));
