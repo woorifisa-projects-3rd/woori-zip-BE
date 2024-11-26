@@ -18,8 +18,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class BookmarkServiceImpl implements BookmarkService {
@@ -62,10 +60,8 @@ public class BookmarkServiceImpl implements BookmarkService {
     @Transactional
     public void deleteBookmark(MemberIdentity memberIdentity, Long houseId) {
         bookmarkRepository.delete(
-                bookmarkRepository.findByMemberIdAndHouseId(memberIdentity.getId(), houseId)
-                        .orElseThrow(() -> new WooriZipException(BOOKMARK_NOT_FOUND))
-        );
+                bookmarkRepository
+                        .findByMemberIdAndHouseId(memberIdentity.getId(), houseId)
+                        .orElseThrow(() -> new WooriZipException(BOOKMARK_NOT_FOUND)));
     }
-
-
 }
