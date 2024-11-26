@@ -34,11 +34,22 @@ public class Member {
     private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "earnings_type")
-    private EarningsType earningsType;
+    @Column(name = "gender", nullable = false)
+    private Gender gender;
 
-    @Column(name = "earnings_fee")
-    private Long earningsFee;
+    @Enumerated(EnumType.STRING)
+    @Column(
+            name = "membership",
+            nullable = false,
+            columnDefinition = "VARCHAR(255) DEFAULT 'NONE_MEMBERSHIP'")
+    private Membership membership;
+
+    @Enumerated(EnumType.STRING)
+    @Column(
+            name = "life_stage",
+            nullable = false,
+            columnDefinition = "VARCHAR(255) DEFAULT 'NONE_LIFE_STAGE'")
+    private LifeStage lifeStage;
 
     @Column(name = "credit_score", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
     private int creditScore;
