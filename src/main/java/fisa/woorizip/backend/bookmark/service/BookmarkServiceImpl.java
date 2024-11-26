@@ -62,7 +62,7 @@ public class BookmarkServiceImpl implements BookmarkService {
         Bookmark bookmark = findBookmarkByMemberIdAndHouseId(memberIdentity.getId(), houseId);
         bookmarkRepository.delete(bookmark);
     }
-g
+
     private Bookmark findBookmarkByMemberIdAndHouseId(Long memberId, Long houseId) {
         return bookmarkRepository.findByMemberIdAndHouseId(memberId, houseId)
                 .orElseThrow(() -> new WooriZipException(BOOKMARK_NOT_FOUND));
