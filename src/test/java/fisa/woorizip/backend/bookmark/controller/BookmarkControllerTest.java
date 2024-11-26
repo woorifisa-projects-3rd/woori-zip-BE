@@ -2,7 +2,6 @@ package fisa.woorizip.backend.bookmark.controller;
 
 import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_EXIST;
 import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_NOT_FOUND;
-import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_MEMBER_NOT_FOUND;
 
 import static org.springframework.http.HttpStatus.OK;
 
@@ -50,25 +49,11 @@ public class BookmarkControllerTest extends ControllerTest {
 
         baseRestAssuredWithAuth(member)
                 .when()
-                .delete("/api/v1/houses/1/bookmark/2")
+                .delete("/api/v1/houses/2/bookmark")
                 .then()
                 .log()
                 .all()
                 .statusCode(BOOKMARK_NOT_FOUND.getStatus().value());
-    }
-
-    @Test
-    @DisplayName("북마크 삭제 실패")
-    void 존재하지_않는_북마크_회원은_북마크를_삭제_할_수_없다() {
-        Member member = MemberFixture.builder().id(3L).build();
-
-        baseRestAssuredWithAuth(member)
-                .when()
-                .delete("/api/v1/houses/1/bookmark/1")
-                .then()
-                .log()
-                .all()
-                .statusCode(BOOKMARK_MEMBER_NOT_FOUND.getStatus().value());
     }
 
     @Test
@@ -78,7 +63,7 @@ public class BookmarkControllerTest extends ControllerTest {
 
         baseRestAssuredWithAuth(member)
                 .when()
-                .delete("/api/v1/houses/1/bookmark/1")
+                .delete("/api/v1/houses/1/bookmark")
                 .then()
                 .log()
                 .all()
