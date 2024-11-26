@@ -61,17 +61,11 @@ public class BookmarkServiceImpl implements BookmarkService {
     @Override
     @Transactional
     public void deleteBookmark(MemberIdentity memberIdentity, Long houseId) {
-        Long memberId = memberIdentity.getId();
-        Bookmark bookmark = findBookmarkOrThrow(memberId, houseId);
-        bookmarkRepository.delete(bookmark);
+        bookmarkRepository.delete(
+                bookmarkRepository.findByMemberIdAndHouseId(memberIdentity.getId(), houseId)
+                        .orElseThrow(() -> new WooriZipException(BOOKMARK_NOT_FOUND))
+        );
     }
 
-    private Bookmark findBookmarkOrThrow(Long memberId, Long houseId) {
-        return getBookmark(memberId, houseId)
-                .orElseThrow(() -> new WooriZipException(BOOKMARK_NOT_FOUND));
-    }
 
-    private Optional<Bookmark> getBookmark(Long memberId, Long houseId) {
-        return bookmarkRepository.findByMemberIdAndHouseId(memberId, houseId);
-    }
 }
