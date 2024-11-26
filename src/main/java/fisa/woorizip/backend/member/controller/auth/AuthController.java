@@ -31,8 +31,15 @@ public class AuthController {
     private final CookieProvider cookieProvider;
 
     @GetMapping("/oauth")
-    public SignInResponse oauthLogin(@RequestParam String code) {
-        return authService.oauthLogin(code);
+    public ResponseEntity<SignInResponse> oauthLogin(@RequestParam String code) {
+        SignInResult signInResult = authService.oauthLogin(code);
+        return ResponseEntity.ok()
+                .header(
+                        SET_COOKIE,
+                        cookieProvider
+                                .createRefreshTokenCookie(signInResult.getRefreshTokenResult())
+                                .toString())
+                .body(signInResult.getSignInResponse());
     }
 
     @PostMapping("/sign-in")
