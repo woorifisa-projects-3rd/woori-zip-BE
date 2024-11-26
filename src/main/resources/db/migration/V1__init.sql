@@ -1,19 +1,18 @@
 CREATE TABLE IF NOT EXISTS `loan_goods`
 (
-    `id`              BIGINT       NOT NULL auto_increment,
-    `name`            VARCHAR(255) NOT NULL,
-    `image_url`       VARCHAR(255),
-    `description`     TEXT         NOT NULL,
-    `content`         TEXT         NOT NULL,
-    `loan_goods_type` VARCHAR(255) NOT NULL,
-    `max_assets` BIGINT NOT NULL,
+    `id`                         BIGINT       NOT NULL auto_increment,
+    `name`                       VARCHAR(255) NOT NULL,
+    `image_url`                  VARCHAR(255),
+    `description`                TEXT         NOT NULL,
+    `content`                    TEXT         NOT NULL,
+    `loan_goods_type`            VARCHAR(255) NOT NULL,
+    `max_assets`                 BIGINT NOT NULL,
     `max_total_income_last_year` BIGINT NOT NULL,
-    `max_years_of_marriage` MEDIUMINT NOT NULL,
-    `max_age` MEDIUMINT NOT NULL,
-    `min_credit_score` MEDIUMINT NOT NULL,
-    `min_months_of_employment` BIGINT NOT NULL,
-    `interest_rate` DOUBLE NOT NULL,
-
+    `max_years_of_marriage`      MEDIUMINT NOT NULL,
+    `max_age`                    MEDIUMINT NOT NULL,
+    `min_credit_score`           MEDIUMINT NOT NULL,
+    `min_months_of_employment`   BIGINT NOT NULL,
+    `interest_rate`              DOUBLE NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
@@ -103,19 +102,20 @@ CREATE TABLE IF NOT EXISTS `house_image`
 
 CREATE TABLE IF NOT EXISTS `member`
 (
-    `id`            BIGINT       NOT NULL auto_increment,
-    `username`      VARCHAR(255) NOT NULL,
-    `password`      VARCHAR(255) NOT NULL,
-    `name`          VARCHAR(255) NOT NULL,
-    `birthday`      DATE,
-    `role`          VARCHAR(255) NOT NULL,
-    `earnings_type` VARCHAR(255),
-    `earnings_fee`  BIGINT,
-    `credit_score`  MEDIUMINT NOT NULL DEFAULT 0,
-    `assets`        BIGINT NOT NULL DEFAULT 0,
-    `total_income_last_year` BIGINT NOT NULL DEFAULT 0,
-    `years_of_marriage`    MEDIUMINT NOT NULL DEFAULT 0,
-    `months_of_employment` MEDIUMINT NOT NULL DEFAULT 0,
+    `id`                     BIGINT       NOT NULL auto_increment,
+    `username`               VARCHAR(255) NOT NULL,
+    `password`               VARCHAR(255) NOT NULL,
+    `name`                   VARCHAR(255) NOT NULL,
+    `birthday`               DATE,
+    `gender`                 VARCHAR(255) NOT NULL,
+    `membership`             VARCHAR(255) NOT NULL DEFAULT 'NONE_MEMBERSHIP',
+    `life_stage`             VARCHAR(255) NOT NULL DEFAULT 'NONE_LIFE_STAGE',
+    `role`                   VARCHAR(255) NOT NULL,
+    `credit_score`           MEDIUMINT    NOT NULL DEFAULT 0,
+    `assets`                 BIGINT       NOT NULL DEFAULT 0,
+    `total_income_last_year` BIGINT       NOT NULL DEFAULT 0,
+    `years_of_marriage`      MEDIUMINT    NOT NULL DEFAULT 0,
+    `months_of_employment`   MEDIUMINT    NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 )
     engine = innodb
@@ -199,6 +199,23 @@ CREATE TABLE IF NOT EXISTS `consumption_analysis`
     `food`           DOUBLE       NOT NULL,
     `grocery`        DOUBLE       NOT NULL,
     `customer_count` BIGINT       NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `member_consumption`
+(
+    `id`             BIGINT       NOT NULL auto_increment,
+    `member_id`      BIGINT       NOT NULL,
+    `book`           DOUBLE       NOT NULL,
+    `car`            DOUBLE       NOT NULL,
+    `cloth`          DOUBLE       NOT NULL,
+    `culture`        DOUBLE       NOT NULL,
+    `food`           DOUBLE       NOT NULL,
+    `grocery`        DOUBLE       NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
