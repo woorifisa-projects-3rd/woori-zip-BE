@@ -8,5 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface BookmarkService {
     void addBookmark(MemberIdentity memberIdentity, Long houseId);
 
-    void deleteBookmark(MemberIdentity memberIdentity, Long bookmarkId, Long houseId);
+    void deleteBookmark(MemberIdentity memberIdentity, Long houseId);
 }
