@@ -1,11 +1,12 @@
 package fisa.woorizip.backend.memberconsumption.controller;
 
+import static org.springframework.http.HttpStatus.OK;
+
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.support.ControllerTest;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
-import org.junit.jupiter.api.Test;
 
-import static org.springframework.http.HttpStatus.OK;
+import org.junit.jupiter.api.Test;
 
 public class MemberConsumptionControllerTest extends ControllerTest {
 

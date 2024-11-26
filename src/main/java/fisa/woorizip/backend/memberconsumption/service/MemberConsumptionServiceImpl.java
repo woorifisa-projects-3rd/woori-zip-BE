@@ -12,7 +12,9 @@ import fisa.woorizip.backend.memberconsumption.dto.Age;
 import fisa.woorizip.backend.memberconsumption.dto.response.CategoryResponse;
 import fisa.woorizip.backend.memberconsumption.dto.response.ConsumptionAnalysisResponse;
 import fisa.woorizip.backend.memberconsumption.repository.MemberConsumptionRepository;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
