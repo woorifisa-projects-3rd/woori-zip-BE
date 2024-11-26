@@ -14,7 +14,7 @@ public class BookmarkFixture {
 
     private House house;
 
-    private LocalDateTime createdAt = LocalDateTime.of(2000, 3, 31, 0, 0);
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     public static BookmarkFixture builder() {
         return new BookmarkFixture();
