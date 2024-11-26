@@ -30,6 +30,9 @@ public class Member {
     @Column(name = "customer_id")
     private String customerId;
 
+    @Column(name = "license_id")
+    private String licenseId;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status;
