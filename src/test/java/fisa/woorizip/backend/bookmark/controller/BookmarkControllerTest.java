@@ -1,8 +1,11 @@
 package fisa.woorizip.backend.bookmark.controller;
 
+import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_EXIST;
 import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.empty;
 import static org.springframework.http.HttpStatus.OK;
 
+import fisa.woorizip.backend.bookmark.dto.response.ShowBookmarksResponse;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.support.ControllerTest;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
@@ -26,6 +29,20 @@ class BookmarkControllerTest extends ControllerTest {
     }
 
     @Test
+    @DisplayName("북마크 추가 실패")
+    void 이미_존재하는_북마크입니다() {
+        Member member = MemberFixture.builder().id(2L).build();
+
+        baseRestAssuredWithAuth(member)
+                .when()
+                .post("/api/v1/houses/1/bookmark")
+                .then()
+                .log()
+                .all()
+                .statusCode(BOOKMARK_ALREADY_EXIST.getStatus().value());
+    }
+
+    @Test
     @DisplayName("북마크 빈목록 조회")
     void 북마크한_집이_없는_경우_빈북마크_목록_반환한다() {
         Member member = MemberFixture.builder().id(2L).build();
@@ -39,5 +56,20 @@ class BookmarkControllerTest extends ControllerTest {
                 .statusCode(OK.value())
                 .body("bookmarks", empty())
                 .body("hasNext", is(false));
+    }
+
+    @Test
+    @DisplayName("북마크 목록 조회")
+    void getBookmarkList_noBookmarkedHouses() {
+        Member member = MemberFixture.builder().id(1L).build();
+
+        baseRestAssuredWithAuth(member)
+                .when()
+                .get("/api/v1/bookmarks")
+                .then()
+                .log()
+                .all()
+                .statusCode(OK.value())
+                .body("bookmarks", not(empty()));
     }
 }
