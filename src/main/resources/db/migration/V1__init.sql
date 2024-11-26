@@ -103,8 +103,11 @@ CREATE TABLE IF NOT EXISTS `house_image`
 CREATE TABLE IF NOT EXISTS `member`
 (
     `id`                     BIGINT       NOT NULL auto_increment,
-    `username`               VARCHAR(255) NOT NULL,
-    `password`               VARCHAR(255) NOT NULL,
+    `customer_id`            VARCHAR(255),
+    `license_id`             VARCHAR(255),
+    `username`               VARCHAR(255),
+    `password`               VARCHAR(255),
+    `status`                 VARCHAR(255) NOT NULL,
     `name`                   VARCHAR(255) NOT NULL,
     `birthday`               DATE,
     `gender`                 VARCHAR(255) NOT NULL,
@@ -216,6 +219,18 @@ CREATE TABLE IF NOT EXISTS `member_consumption`
     `culture`        DOUBLE       NOT NULL,
     `food`           DOUBLE       NOT NULL,
     `grocery`        DOUBLE       NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `agent`
+(
+    `id`        BIGINT NOT NULL auto_increment,
+    `name`      VARCHAR(255) NOT NULL,
+    `license_id` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
