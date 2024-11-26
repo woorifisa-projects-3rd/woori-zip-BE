@@ -12,12 +12,6 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 
     boolean existsByMemberIdAndHouseId(Long memberId, Long houseId);
 
-    @Query(
-            value =
-                    "SELECT b FROM Bookmark b "
-                            + "JOIN FETCH b.house h "
-                            + "WHERE b.member.id = :memberId "
-                            + "ORDER BY b.createdAt DESC",
-            countQuery = "SELECT COUNT(b) FROM Bookmark b WHERE b.member.id = :memberId")
+    @Query(value = "select b FROM Bookmark b JOIN FETCH b.house h WHERE b.member.id = :memberId ORDER BY b.createdAt DESC")
     Slice<Bookmark> findBookmarksWithHouse(@Param("memberId") Long memberId, Pageable pageable);
 }
