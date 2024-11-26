@@ -4,9 +4,8 @@ import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_
 import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 
-import fisa.woorizip.backend.bookmark.BookmarkErrorCode;
 import fisa.woorizip.backend.bookmark.domain.Bookmark;
-import fisa.woorizip.backend.bookmark.dto.response.BookmarkSliceResponse;
+import fisa.woorizip.backend.bookmark.dto.response.ShowBookmarksResponse;
 import fisa.woorizip.backend.bookmark.repository.BookmarkRepository;
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.house.domain.House;
@@ -41,15 +40,11 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     @Transactional(readOnly = true)
-    public BookmarkSliceResponse getBookmarkList(MemberIdentity memberIdentity, Pageable pageable) {
-        Slice<Bookmark> bookmarkSlice =
+    public ShowBookmarksResponse getBookmarkList(MemberIdentity memberIdentity, Pageable pageable) {
+        Slice<Bookmark> bookmarks =
                 bookmarkRepository.findBookmarksWithHouse(memberIdentity.getId(), pageable);
 
-        if (bookmarkSlice.isEmpty()) {
-            throw new IllegalArgumentException(BookmarkErrorCode.BOOKMARK_NOT_FOUND.getMessage());
-        }
-
-        return BookmarkSliceResponse.from(bookmarkSlice);
+        return ShowBookmarksResponse.from(bookmarks);
     }
 
     private Bookmark createBookmark(Member member, House house) {
