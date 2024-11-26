@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import org.springframework.data.domain.Slice;
+
 import java.util.List;
 
 @Getter
@@ -18,9 +19,7 @@ public class ShowBookmarksResponse {
     public static ShowBookmarksResponse from(Slice<Bookmark> bookmarks) {
         return builder()
                 .hasNext(bookmarks.hasNext())
-                .bookmarks(bookmarks.getContent().stream()
-                        .map(BookmarkListResponse::from)
-                        .toList())
+                .bookmarks(bookmarks.getContent().stream().map(BookmarkListResponse::from).toList())
                 .build();
     }
 }

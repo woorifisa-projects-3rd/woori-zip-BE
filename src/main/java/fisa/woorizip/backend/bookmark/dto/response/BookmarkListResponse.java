@@ -2,6 +2,7 @@ package fisa.woorizip.backend.bookmark.dto.response;
 
 import fisa.woorizip.backend.bookmark.domain.Bookmark;
 import fisa.woorizip.backend.house.domain.House;
+
 import lombok.Builder;
 import lombok.Getter;
 
