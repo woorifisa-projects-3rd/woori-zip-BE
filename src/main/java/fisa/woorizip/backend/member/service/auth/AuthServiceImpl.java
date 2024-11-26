@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.member.service.auth;
 
 import static fisa.woorizip.backend.member.AuthErrorCode.FAIL_TO_SIGN_IN;
+import static fisa.woorizip.backend.member.AuthErrorCode.NOT_YET_ADMIN_APPROVE;
 import static fisa.woorizip.backend.member.AuthErrorCode.REFRESH_TOKEN_EXPIRED;
 import static fisa.woorizip.backend.member.AuthErrorCode.REFRESH_TOKEN_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
@@ -10,8 +11,9 @@ import static java.util.Objects.isNull;
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.RefreshToken;
+import fisa.woorizip.backend.member.domain.Role;
+import fisa.woorizip.backend.member.domain.Status;
 import fisa.woorizip.backend.member.dto.request.SignInRequest;
-import fisa.woorizip.backend.member.dto.response.SignInResponse;
 import fisa.woorizip.backend.member.dto.result.SignInResult;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.member.repository.RefreshTokenRepository;
@@ -68,11 +70,17 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public SignInResponse oauthLogin(String code) {
+    public SignInResult oauthLogin(String code) {
         GetWooriBankTokenResponse token = wooriBankOauth.getToken(code);
         GetMemberDataResponse memberData = wooriBankOauth.getMemberData(token.getAccessToken());
-        return SignInResponse.of(token.getAccessToken(), memberData.getName());
+        Member member = memberRepository.findByCustomerId(memberData.getCustomerId())
+                .orElseGet(() -> memberRepository.save(memberData.toMember()));
+        String accessToken = jwtTokenProvider.createAccessToken(member);
+        refreshTokenRepository.deleteAllByMemberId(member.getId());
+        final RefreshToken refreshToken = refreshTokenRepository.save(createRefreshToken(member));
+        return SignInResult.of(refreshToken, accessToken, member, expirationSeconds);
     }
+
 
     private void validateRefreshTokenExpired(RefreshToken refreshToken) {
         if (refreshToken.isExpired()) throw new WooriZipException(REFRESH_TOKEN_EXPIRED);
@@ -111,4 +119,6 @@ public class AuthServiceImpl implements AuthService {
                 .findByUsername(username)
                 .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
     }
+
+
 }
