@@ -24,8 +24,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public void signUp(SignUpRequest signUpRequest, Role role) {
+        String encodedPassword = passwordEncoder.encode(signUpRequest.getPassword());
+        if (role == Role.ADMIN) {
         Member member =
-                signUpRequest.toMember(passwordEncoder.encode(signUpRequest.getPassword()), role);
+                signUpRequest.toMember(encodedPassword, role);
+        }
         memberRepository.save(member);
     }
 
