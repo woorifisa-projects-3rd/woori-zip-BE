@@ -10,8 +10,12 @@ import java.util.Arrays;
 
 @Getter
 public enum Category {
-    FOOD("요식업"),
-    TEST("테스트용 카테고리"),
+    BOOK("서적/문구"),
+    CAR("자동차정비/유지"),
+    CLOTH("의류"),
+    CULTURE("문화/취미"),
+    FOOD("식당/카페"),
+    GROCERY("음식료품"),
     NONE("없음");
 
     private final String name;
