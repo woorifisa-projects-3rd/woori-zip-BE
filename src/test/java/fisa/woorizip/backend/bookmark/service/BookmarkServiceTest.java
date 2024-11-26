@@ -63,16 +63,16 @@ public class BookmarkServiceTest {
     @Test
     void 북마크를_삭제할_수_있다() {
         Member member = MemberFixture.builder().id(1L).build();
-        House house = House.builder().id((long) 1L).build();
+        House house = House.builder().id(1L).build();
         Bookmark bookmark = BookmarkFixture.builder().id(1L).member(member).build();
 
-        given(bookmarkRepository.findById(bookmark.getId())).willReturn(Optional.of(bookmark));
+        given(bookmarkRepository.findByMemberIdAndHouseId(member.getId(), house.getId()))
+                .willReturn(Optional.of(bookmark));
 
         MemberIdentity memberIdentity = MemberIdentity.from(member);
 
+        bookmarkService.deleteBookmark(memberIdentity, house.getId());
 
-        bookmarkService.deleteBookmark(memberIdentity, bookmark.getId(), house.getId());
-
-        verify(bookmarkRepository, times(1)).deleteById(bookmark.getId());
+        verify(bookmarkRepository, times(1)).delete(bookmark);
     }
 }
