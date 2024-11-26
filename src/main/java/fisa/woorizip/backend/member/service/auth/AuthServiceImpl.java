@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private void validateAdminStatus(Member member) {
-        if(member.getStatus() == Status.IN_PROGRESS) throw new WooriZipException(NOT_YET_ADMIN_APPROVE);
+        if(member.getStatus() == Status.PENDING_APPROVAL) throw new WooriZipException(NOT_YET_ADMIN_APPROVE);
     }
 
     @Override
