@@ -18,7 +18,7 @@ public class MemberFixture {
     private long totalIncomeLastYear = 40000000L;
     private int yearsOfMarriage = 5;
     private int monthsOfEmployment = 60;
-    private LocalDate birthday = LocalDate.parse("2000-01-01");
+    private LocalDate birthday = LocalDate.of(2000, 1, 1);
     private int creditScore = 800;
 
     public static MemberFixture builder() {
