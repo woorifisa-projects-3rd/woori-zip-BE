@@ -4,6 +4,7 @@ import static fisa.woorizip.backend.member.controller.auth.CookieProvider.REFRES
 
 import static org.springframework.http.HttpHeaders.SET_COOKIE;
 
+import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.dto.request.SignInRequest;
 import fisa.woorizip.backend.member.dto.response.SignInResponse;
 import fisa.woorizip.backend.member.dto.result.SignInResult;
@@ -43,8 +44,8 @@ public class AuthController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest signInRequest) {
-        SignInResult signInResult = authService.signIn(signInRequest);
+    public ResponseEntity<SignInResponse> signIn(@RequestParam Role role, @RequestBody @Valid SignInRequest signInRequest) {
+        SignInResult signInResult = authService.signIn(signInRequest, role);
         return ResponseEntity.ok()
                 .header(
                         SET_COOKIE,
