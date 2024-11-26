@@ -26,13 +26,12 @@ public class BookmarkController {
     }
 
     @Login
-    @DeleteMapping("/houses/{houseId}/bookmark/{bookmarkId}")
+    @DeleteMapping("/houses/{houseId}/bookmark")
     public ResponseEntity<Void> deleteBookmark(
             @VerifiedMember MemberIdentity memberIdentity,
-            @PathVariable("houseId") Long houseId,
-            @PathVariable("bookmarkId") Long bookmarkId) {
+            @PathVariable("houseId") Long houseId) {
 
-        bookmarkService.deleteBookmark(memberIdentity, houseId, bookmarkId);
+        bookmarkService.deleteBookmark(memberIdentity, houseId);
         return ResponseEntity.ok().build();
     }
 }
