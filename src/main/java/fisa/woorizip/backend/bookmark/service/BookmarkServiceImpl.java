@@ -64,8 +64,8 @@ public class BookmarkServiceImpl implements BookmarkService {
     }
 
     private Bookmark findBookmarkByMemberIdAndHouseId(Long memberId, Long houseId) {
-        return bookmarkRepository.findByMemberIdAndHouseId(memberId, houseId)
+        return bookmarkRepository
+                .findByMemberIdAndHouseId(memberId, houseId)
                 .orElseThrow(() -> new WooriZipException(BOOKMARK_NOT_FOUND));
     }
-
 }
