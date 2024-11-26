@@ -21,11 +21,10 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.StringJoiner;
 
 import static fisa.woorizip.backend.facility.domain.Category.*;
-import static fisa.woorizip.backend.member.AuthErrorCode.INSUFFICIENT_PERMISSIONS;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
-import static fisa.woorizip.backend.member.domain.Role.MEMBER;
 import static fisa.woorizip.backend.memberconsumption.MemberConsumptionErrorCode.CUSTOMER_TYPE_NOT_FOUND;
 import static fisa.woorizip.backend.memberconsumption.MemberConsumptionErrorCode.MEMBER_CONSUMPTION_NOT_FOUND;
 
@@ -40,39 +39,39 @@ public class MemberConsumptionServiceImpl implements MemberConsumptionService {
     @Override
     @Transactional(readOnly = true)
     public ConsumptionAnalysisResponse getConsumptionAnalysis(MemberIdentity memberIdentity) {
-        Member member = getMember(memberIdentity);
-        ConsumptionAnalysis consumptionAnalysis = getConsumptionAnalysis(member);
-        MemberConsumption memberConsumption = getMemberConsumption(member.getId());
+        Member member = findMember(memberIdentity.getId());
+        ConsumptionAnalysis consumptionAnalysis = findConsumptionAnalysis(member);
+        MemberConsumption memberConsumption = findMemberConsumption(member.getId());
         CategoryResponse bestCategory = getBestCategory(consumptionAnalysis, memberConsumption);
         return ConsumptionAnalysisResponse.of(consumptionAnalysis, memberConsumption, bestCategory);
     }
 
-    private Member getMember(MemberIdentity memberIdentity) {
-        if (memberIdentity.getRole() != MEMBER)
-            throw new WooriZipException(INSUFFICIENT_PERMISSIONS);
+    private Member findMember(Long memberId) {
         return memberRepository
-                .findById(memberIdentity.getId())
+                .findById(memberId)
                 .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
     }
 
     private String getCustomerType(Member member) {
-        return Age.from(Period.between(member.getBirthday(), LocalDate.now()).getYears())
-                        .getMinAge()
-                + "_"
-                + member.getGender().getValue()
-                + "_"
-                + member.getMembership().getValue()
-                + "_"
-                + member.getLifeStage().toString();
+        int age =
+                Age.from(Period.between(member.getBirthday(), LocalDate.now()).getYears())
+                        .getMinAge();
+
+        return new StringJoiner("_")
+                .add(String.valueOf(age))
+                .add(String.valueOf(member.getGender().getValue()))
+                .add(String.valueOf(member.getMembership().getValue()))
+                .add(member.getLifeStage().toString())
+                .toString();
     }
 
-    private ConsumptionAnalysis getConsumptionAnalysis(Member member) {
+    private ConsumptionAnalysis findConsumptionAnalysis(Member member) {
         return consumptionAnalysisRepository
                 .findByCustomerType(getCustomerType(member))
                 .orElseThrow(() -> new WooriZipException(CUSTOMER_TYPE_NOT_FOUND));
     }
 
-    private MemberConsumption getMemberConsumption(Long memberId) {
+    private MemberConsumption findMemberConsumption(Long memberId) {
         return memberConsumptionRepository
                 .findByMemberId(memberId)
                 .orElseThrow(() -> new WooriZipException(MEMBER_CONSUMPTION_NOT_FOUND));
