@@ -26,7 +26,7 @@ public enum Membership {
 
     public static Membership from(int value) {
         return Arrays.stream(Membership.values())
-                .filter(membership -> membership.value == value)
+                .filter(membership -> membership.getValue() == value)
                 .findAny()
                 .orElseThrow(() -> new WooriZipException(MEMBERSHIP_NOT_FOUND));
     }

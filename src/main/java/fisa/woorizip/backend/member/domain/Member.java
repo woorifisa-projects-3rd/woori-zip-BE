@@ -34,7 +34,7 @@ public class Member {
     private String licenseId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private Status status;
 
     @Column(name = "name", nullable = false)
