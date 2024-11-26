@@ -11,6 +11,7 @@ import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.support.RepositoryTest;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

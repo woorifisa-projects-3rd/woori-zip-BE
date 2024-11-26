@@ -2,13 +2,13 @@ package fisa.woorizip.backend.bookmark.controller;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.http.HttpStatus.OK;
-import fisa.woorizip.backend.bookmark.dto.response.ShowBookmarksResponse;
+
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.support.ControllerTest;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import java.util.Collections;
 
 class BookmarkControllerTest extends ControllerTest {
 

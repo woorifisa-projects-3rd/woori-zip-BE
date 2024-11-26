@@ -17,6 +17,7 @@ import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,15 +31,11 @@ import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class BookmarkServiceTest {
-    @Mock
-    private BookmarkRepository bookmarkRepository;
-    @Mock
-    private MemberRepository memberRepository;
-    @Mock
-    private HouseRepository houseRepository;
+    @Mock private BookmarkRepository bookmarkRepository;
+    @Mock private MemberRepository memberRepository;
+    @Mock private HouseRepository houseRepository;
 
-    @InjectMocks
-    private BookmarkServiceImpl bookmarkService;
+    @InjectMocks private BookmarkServiceImpl bookmarkService;
 
     @Test
     void 회원ID와_집ID를_통해_북마크를_추가할_수_있다() {
@@ -63,22 +60,13 @@ public class BookmarkServiceTest {
                 () -> verify(bookmarkRepository, times(1)).save(any(Bookmark.class)));
     }
 
-
     @Test
     void 북마크_목록_조회_성공() {
         Member member = MemberFixture.builder().build();
-        MemberIdentity memberIdentity = new MemberIdentity(
-                member.getId(),
-                member.getRole().toString()
-        );
-        House house = House.builder()
-                .id(1L)
-                .name("Test House")
-                .build();
-        Bookmark bookmark = Bookmark.builder()
-                .id(1L)
-                .house(house)
-                .build();
+        MemberIdentity memberIdentity =
+                new MemberIdentity(member.getId(), member.getRole().toString());
+        House house = House.builder().id(1L).name("Test House").build();
+        Bookmark bookmark = Bookmark.builder().id(1L).house(house).build();
         List<Bookmark> bookmarks = List.of(bookmark);
         Pageable pageable = Pageable.ofSize(5);
         SliceImpl<Bookmark> expectedBookmarks = new SliceImpl<>(bookmarks, pageable, false);
@@ -89,14 +77,15 @@ public class BookmarkServiceTest {
         ShowBookmarksResponse response = bookmarkService.getBookmarkList(memberIdentity, pageable);
 
         assertAll(
-                () -> verify(bookmarkRepository, times(1)).findBookmarksWithHouse(memberIdentity.getId(), pageable),
+                () ->
+                        verify(bookmarkRepository, times(1))
+                                .findBookmarksWithHouse(memberIdentity.getId(), pageable),
                 () -> assertThat(response.getBookmarks()).hasSize(1),
                 () -> assertThat(response.getBookmarks().get(0).getBookmarkId()).isEqualTo(1L),
                 () -> assertThat(response.getBookmarks().get(0).getHouseId()).isEqualTo(1L),
-                () -> assertThat(response.getBookmarks().get(0).getHouseName()).isEqualTo("Test House"),
-                () -> assertThat(response.isHasNext()).isFalse()
-        );
+                () ->
+                        assertThat(response.getBookmarks().get(0).getHouseName())
+                                .isEqualTo("Test House"),
+                () -> assertThat(response.isHasNext()).isFalse());
     }
-
 }
-
