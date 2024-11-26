@@ -22,7 +22,7 @@ public enum Gender {
 
     public static Gender from(int value) {
         return Arrays.stream(Gender.values())
-                .filter(gender -> gender.getValue() == value)
+                .filter(gender -> gender.value == value)
                 .findAny()
                 .orElseThrow(() -> new WooriZipException(GENDER_NOT_FOUND));
     }

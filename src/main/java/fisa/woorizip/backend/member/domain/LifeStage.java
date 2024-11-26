@@ -26,7 +26,7 @@ public enum LifeStage {
 
     public static LifeStage from(String name) {
         return Arrays.stream(LifeStage.values())
-                .filter(lifeStage -> lifeStage.getName().equals(name))
+                .filter(lifeStage -> lifeStage.name().equals(name))
                 .findAny()
                 .orElseThrow(() -> new WooriZipException(LIFE_STAGE_NOT_FOUND));
     }
