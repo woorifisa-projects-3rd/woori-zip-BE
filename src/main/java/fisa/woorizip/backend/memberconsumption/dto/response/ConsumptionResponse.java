@@ -15,12 +15,7 @@ public class ConsumptionResponse {
     private double grocery;
 
     private ConsumptionResponse(
-            double book,
-            double car,
-            double cloth,
-            double culture,
-            double food,
-            double grocery) {
+            double book, double car, double cloth, double culture, double food, double grocery) {
         this.book = book;
         this.car = car;
         this.cloth = cloth;

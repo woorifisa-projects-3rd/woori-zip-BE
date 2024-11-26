@@ -1,5 +1,10 @@
 package fisa.woorizip.backend.memberconsumption.service;
 
+import static fisa.woorizip.backend.facility.domain.Category.*;
+import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
+import static fisa.woorizip.backend.memberconsumption.MemberConsumptionErrorCode.CUSTOMER_TYPE_NOT_FOUND;
+import static fisa.woorizip.backend.memberconsumption.MemberConsumptionErrorCode.MEMBER_CONSUMPTION_NOT_FOUND;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.consumptionanalysis.domain.ConsumptionAnalysis;
 import fisa.woorizip.backend.consumptionanalysis.repository.ConsumptionAnalysisRepository;
@@ -24,11 +29,6 @@ import java.time.Period;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.StringJoiner;
-
-import static fisa.woorizip.backend.facility.domain.Category.*;
-import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
-import static fisa.woorizip.backend.memberconsumption.MemberConsumptionErrorCode.CUSTOMER_TYPE_NOT_FOUND;
-import static fisa.woorizip.backend.memberconsumption.MemberConsumptionErrorCode.MEMBER_CONSUMPTION_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
