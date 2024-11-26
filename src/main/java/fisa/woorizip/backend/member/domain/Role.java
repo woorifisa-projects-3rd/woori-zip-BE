@@ -14,10 +14,10 @@ public enum Role {
     AGENT("공인중개사"),
     ADMIN("관리자");
 
-    private final String name;
+    private final String description;
 
-    Role(String name) {
-        this.name = name;
+    Role(String description) {
+        this.description = description;
     }
 
     public static Role from(String name) {
