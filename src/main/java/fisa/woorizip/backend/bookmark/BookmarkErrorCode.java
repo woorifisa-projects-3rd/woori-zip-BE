@@ -1,12 +1,12 @@
 package fisa.woorizip.backend.bookmark;
 
+import static org.springframework.http.HttpStatus.*;
+
 import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
 
 import lombok.Getter;
 
 import org.springframework.http.HttpStatus;
-
-import static org.springframework.http.HttpStatus.*;
 
 @Getter
 public enum BookmarkErrorCode implements ErrorCode {

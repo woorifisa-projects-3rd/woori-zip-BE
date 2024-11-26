@@ -74,5 +74,4 @@ public class BookmarkServiceImpl implements BookmarkService {
     private Optional<Bookmark> getBookmark(Long memberId, Long houseId) {
         return bookmarkRepository.findByMemberIdAndHouseId(memberId, houseId);
     }
-
 }

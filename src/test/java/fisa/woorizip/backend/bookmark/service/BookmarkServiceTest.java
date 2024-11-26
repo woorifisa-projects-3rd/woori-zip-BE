@@ -74,6 +74,5 @@ public class BookmarkServiceTest {
         bookmarkService.deleteBookmark(memberIdentity, house.getId());
 
         verify(bookmarkRepository, times(1)).delete(bookmark);
-
     }
 }
