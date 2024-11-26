@@ -11,7 +11,6 @@ import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.support.RepositoryTest;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +41,8 @@ class BookmarkRepositoryTest {
     }
 
     @Test
-    @DisplayName("멤버의 북마크 목록을 최신순(최근에 생성된 순)으로 조회할 수 있다")
-    void findBookmarksWithHouse() {
-
+    @DisplayName("멤버의 북마크 목록을 최신순 조회")
+    void 북마크한_목록을_최신순으로_조회한다() {
         Member member = save(MemberFixture.builder().build());
         House house1 = save(HouseFixture.builder().member(member).build());
         House house2 = save(HouseFixture.builder().member(member).build());
