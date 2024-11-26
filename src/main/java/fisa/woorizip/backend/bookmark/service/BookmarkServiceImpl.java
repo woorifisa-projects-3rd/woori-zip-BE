@@ -18,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class BookmarkServiceImpl implements BookmarkService {
@@ -58,27 +60,19 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     @Transactional
-    public void deleteBookmark(MemberIdentity memberIdentity, Long bookmarkId, Long houseId) {
-        Bookmark bookmark = findBookmarkByBookmarkId(bookmarkId);
-        validateBookmarkMember(bookmark, memberIdentity.getId());
-        validateBookmarkHouse(bookmark, houseId);
-        bookmarkRepository.deleteById(bookmark.getId());
+    public void deleteBookmark(MemberIdentity memberIdentity, Long houseId) {
+        Long memberId = memberIdentity.getId();
+        Bookmark bookmark = findBookmarkOrThrow(memberId, houseId);
+        bookmarkRepository.delete(bookmark);
     }
 
-    private Bookmark findBookmarkByBookmarkId(Long bookmarkId) {
-        return bookmarkRepository
-                .findById(bookmarkId)
-                .orElseThrow(() -> new WooriZipException((BOOKMARK_NOT_FOUND)));
+    private Bookmark findBookmarkOrThrow(Long memberId, Long houseId) {
+        return getBookmark(memberId, houseId)
+                .orElseThrow(() -> new WooriZipException(BOOKMARK_NOT_FOUND));
     }
 
-    private void validateBookmarkMember(Bookmark bookmark, Long memberId) {
-        if (!bookmark.getMember().getId().equals(memberId)) {
-            throw new WooriZipException(BOOKMARK_MEMBER_NOT_FOUND);
-        }
+    private Optional<Bookmark> getBookmark(Long memberId, Long houseId) {
+        return bookmarkRepository.findByMemberIdAndHouseId(memberId, houseId);
     }
-    private void validateBookmarkHouse(Bookmark bookmark, Long houseId) {
-        if (!bookmark.getHouse().getId().equals(houseId)) {
-            throw new WooriZipException(BOOKMARK_HOUSE_NOT_FOUND);
-        }
-    }
+
 }
