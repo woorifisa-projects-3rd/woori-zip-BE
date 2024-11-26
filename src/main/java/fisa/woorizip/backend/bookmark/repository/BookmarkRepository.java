@@ -15,6 +15,6 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     @Query(
             value =
                     "select b FROM Bookmark b JOIN FETCH b.house h WHERE b.member.id = :memberId"
-                        + " ORDER BY b.createdAt DESC")
+                            + " ORDER BY b.createdAt DESC")
     Slice<Bookmark> findBookmarksWithHouse(@Param("memberId") Long memberId, Pageable pageable);
 }
