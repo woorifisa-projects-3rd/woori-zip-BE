@@ -75,11 +75,11 @@ public class MemberConsumptionServiceTest {
                                 .findByCustomerType(consumptionAnalysis.getCustomerType()),
                 () -> verify(memberConsumptionRepository, times(1)).findByMemberId(member.getId()),
                 () ->
-                        assertThat(expected.getMemberConsumption().getBookConsumption())
-                                .isEqualTo(result.getMemberConsumption().getBookConsumption()),
+                        assertThat(expected.getMemberConsumption().getBook())
+                                .isEqualTo(result.getMemberConsumption().getBook()),
                 () ->
-                        assertThat(expected.getOtherConsumption().getBookConsumption())
-                                .isEqualTo(result.getOtherConsumption().getBookConsumption()),
+                        assertThat(expected.getOtherConsumption().getBook())
+                                .isEqualTo(result.getOtherConsumption().getBook()),
                 () ->
                         assertThat(expected.getBestCategory().getCategory())
                                 .isEqualTo(result.getBestCategory().getCategory()),
@@ -127,11 +127,11 @@ public class MemberConsumptionServiceTest {
                                 .findByCustomerType(consumptionAnalysis.getCustomerType()),
                 () -> verify(memberConsumptionRepository, times(1)).findByMemberId(member.getId()),
                 () ->
-                        assertThat(expected.getMemberConsumption().getBookConsumption())
-                                .isEqualTo(result.getMemberConsumption().getBookConsumption()),
+                        assertThat(expected.getMemberConsumption().getBook())
+                                .isEqualTo(result.getMemberConsumption().getBook()),
                 () ->
-                        assertThat(expected.getOtherConsumption().getBookConsumption())
-                                .isEqualTo(result.getOtherConsumption().getBookConsumption()),
+                        assertThat(expected.getOtherConsumption().getBook())
+                                .isEqualTo(result.getOtherConsumption().getBook()),
                 () ->
                         assertThat(expected.getBestCategory().getCategory())
                                 .isEqualTo(result.getBestCategory().getCategory()),

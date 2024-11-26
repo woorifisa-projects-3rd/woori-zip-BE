@@ -6,26 +6,26 @@ import lombok.Getter;
 
 @Getter
 public class ConsumptionResponse {
-    private double bookConsumption;
-    private double carConsumption;
-    private double clothConsumption;
-    private double cultureConsumption;
-    private double foodConsumption;
-    private double groceryConsumption;
+    private double book;
+    private double car;
+    private double cloth;
+    private double culture;
+    private double food;
+    private double grocery;
 
     private ConsumptionResponse(
-            double bookConsumption,
-            double carConsumption,
-            double clothConsumption,
-            double cultureConsumption,
-            double foodConsumption,
-            double groceryConsumption) {
-        this.bookConsumption = bookConsumption;
-        this.carConsumption = carConsumption;
-        this.clothConsumption = clothConsumption;
-        this.cultureConsumption = cultureConsumption;
-        this.foodConsumption = foodConsumption;
-        this.groceryConsumption = groceryConsumption;
+            double book,
+            double car,
+            double cloth,
+            double culture,
+            double food,
+            double grocery) {
+        this.book = book;
+        this.car = car;
+        this.cloth = cloth;
+        this.culture = culture;
+        this.food = food;
+        this.grocery = grocery;
     }
 
     public static ConsumptionResponse from(ConsumptionAnalysis consumptionAnalysis) {
