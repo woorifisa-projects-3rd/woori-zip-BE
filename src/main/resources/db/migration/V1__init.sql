@@ -111,14 +111,14 @@ CREATE TABLE IF NOT EXISTS `member`
     `name`                   VARCHAR(255) NOT NULL,
     `birthday`               DATE,
     `gender`                 VARCHAR(255) NOT NULL,
-    `membership`             VARCHAR(255) NOT NULL DEFAULT 'NONE_MEMBERSHIP',
-    `life_stage`             VARCHAR(255) NOT NULL DEFAULT 'NONE_LIFE_STAGE',
+    `membership`             VARCHAR(255) DEFAULT 'NONE_MEMBERSHIP',
+    `life_stage`             VARCHAR(255) DEFAULT 'NONE_LIFE_STAGE',
     `role`                   VARCHAR(255) NOT NULL,
-    `credit_score`           MEDIUMINT    NOT NULL DEFAULT 0,
-    `assets`                 BIGINT       NOT NULL DEFAULT 0,
-    `total_income_last_year` BIGINT       NOT NULL DEFAULT 0,
-    `years_of_marriage`      MEDIUMINT    NOT NULL DEFAULT 0,
-    `months_of_employment`   MEDIUMINT    NOT NULL DEFAULT 0,
+    `credit_score`           MEDIUMINT    DEFAULT 0,
+    `assets`                 BIGINT       DEFAULT 0,
+    `total_income_last_year` BIGINT       DEFAULT 0,
+    `years_of_marriage`      MEDIUMINT    DEFAULT 0,
+    `months_of_employment`   MEDIUMINT    DEFAULT 0,
     PRIMARY KEY (`id`)
 )
     engine = innodb
