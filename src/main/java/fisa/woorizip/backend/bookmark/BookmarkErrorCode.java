@@ -1,7 +1,6 @@
 package fisa.woorizip.backend.bookmark;
 
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
 

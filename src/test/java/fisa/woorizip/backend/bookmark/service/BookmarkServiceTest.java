@@ -15,6 +15,7 @@ import fisa.woorizip.backend.house.repository.HouseRepository;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
+import fisa.woorizip.backend.support.fixture.BookmarkFixture;
 import fisa.woorizip.backend.support.fixture.HouseFixture;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
 
@@ -87,5 +88,21 @@ public class BookmarkServiceTest {
                         assertThat(response.getBookmarks().get(0).getHouseName())
                                 .isEqualTo("Test House"),
                 () -> assertThat(response.isHasNext()).isFalse());
+    }
+
+    @Test
+    void 북마크를_삭제할_수_있다() {
+        Member member = MemberFixture.builder().id(1L).build();
+        House house = House.builder().id(1L).build();
+        Bookmark bookmark = BookmarkFixture.builder().id(1L).member(member).build();
+
+        given(bookmarkRepository.findByMemberIdAndHouseId(member.getId(), house.getId()))
+                .willReturn(Optional.of(bookmark));
+
+        MemberIdentity memberIdentity = MemberIdentity.from(member);
+
+        bookmarkService.deleteBookmark(memberIdentity, house.getId());
+
+        verify(bookmarkRepository, times(1)).delete(bookmark);
     }
 }

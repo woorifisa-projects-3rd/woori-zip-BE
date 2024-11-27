@@ -1,6 +1,6 @@
 package fisa.woorizip.backend.bookmark.service;
 
-import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.BOOKMARK_ALREADY_EXIST;
+import static fisa.woorizip.backend.bookmark.BookmarkErrorCode.*;
 import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 
@@ -66,5 +66,18 @@ public class BookmarkServiceImpl implements BookmarkService {
     private void validateAlreadyExistBookmark(Long memberId, Long houseId) {
         if (bookmarkRepository.existsByMemberIdAndHouseId(memberId, houseId))
             throw new WooriZipException(BOOKMARK_ALREADY_EXIST);
+    }
+
+    @Override
+    @Transactional
+    public void deleteBookmark(MemberIdentity memberIdentity, Long houseId) {
+        Bookmark bookmark = findBookmarkByMemberIdAndHouseId(memberIdentity.getId(), houseId);
+        bookmarkRepository.delete(bookmark);
+    }
+
+    private Bookmark findBookmarkByMemberIdAndHouseId(Long memberId, Long houseId) {
+        return bookmarkRepository
+                .findByMemberIdAndHouseId(memberId, houseId)
+                .orElseThrow(() -> new WooriZipException(BOOKMARK_NOT_FOUND));
     }
 }
