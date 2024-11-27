@@ -65,7 +65,7 @@ IGNORE 1 ROWS
 (customer_type, book, car, cloth, culture, food, grocery, customer_count);
 ```
 
-## V3__load_csv.sql
+## V3__load_csv_and_update.sql
 ```SQL
 LOAD DATA INFILE '${본인의 csv 파일 절대경로}'
 INTO TABLE agent
@@ -106,35 +106,6 @@ show tables;
 
 ## Dummy Data Insert Query
 ```SQL
-INSERT INTO member (
-    username,
-    password,
-    name,
-    gender,
-    membership,
-    life_stage,
-    role,
-    assets,
-    total_income_last_year,
-    years_of_marriage,
-    months_of_employment,
-    birthday,
-    credit_score
-) VALUES (
-    'rlfrkdms1',
-    'password12!@',
-    '길가은',
-    'MALE',
-    'PLATINUM',
-    'NEW_JOB',
-    'MEMBER',
-    10000000,
-    40000000,
-    5,
-    60,
-    '1990-01-01',
-    800
-);
 
 INSERT INTO member_consumption (
     member_id,
