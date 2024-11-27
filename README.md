@@ -75,6 +75,7 @@ DROP TABLE recently_loan_goods;
 DROP TABLE refresh_token;
 DROP TABLE consumption_analysis;
 DROP TABLE member_consumption;
+DROP TABLE agent;
 show tables;
 ```
 
