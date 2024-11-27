@@ -38,4 +38,37 @@ public class MemberConsumption {
 
     @Column(name = "grocery", nullable = false)
     private double grocery;
+
+    private void updateBook(double book) {
+        this.book = book;
+    }
+
+    private void updateCar(double car) {
+        this.car = car;
+    }
+
+    private void updateCloth(double cloth) {
+        this.cloth = cloth;
+    }
+
+    private void updateCulture(double culture) {
+        this.culture = culture;
+    }
+
+    private void updateFood(double food) {
+        this.food = food;
+    }
+
+    private void updateGrocery(double grocery) {
+        this.grocery = grocery;
+    }
+
+    public void update(MemberConsumption memberConsumption) {
+        updateBook(memberConsumption.getBook());
+        updateCar(memberConsumption.getCar());
+        updateCloth(memberConsumption.getCloth());
+        updateCulture(memberConsumption.getCulture());
+        updateFood(memberConsumption.getFood());
+        updateGrocery(memberConsumption.getGrocery());
+    }
 }

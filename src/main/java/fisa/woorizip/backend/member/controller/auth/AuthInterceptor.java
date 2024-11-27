@@ -46,7 +46,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     }
 
     private void validateInsufficientRole(Role memberRole, Role requiredRole) {
-        if (!memberRole.canAccess(requiredRole)) {
+        if (memberRole != requiredRole) {
             throw new WooriZipException(INSUFFICIENT_PERMISSIONS);
         }
     }

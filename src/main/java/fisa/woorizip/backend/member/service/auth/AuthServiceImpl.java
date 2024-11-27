@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.member.service.auth;
 
 import static fisa.woorizip.backend.member.AuthErrorCode.FAIL_TO_SIGN_IN;
+import static fisa.woorizip.backend.member.AuthErrorCode.NOT_YET_ADMIN_APPROVE;
 import static fisa.woorizip.backend.member.AuthErrorCode.REFRESH_TOKEN_EXPIRED;
 import static fisa.woorizip.backend.member.AuthErrorCode.REFRESH_TOKEN_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
@@ -10,10 +11,13 @@ import static java.util.Objects.isNull;
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.RefreshToken;
+import fisa.woorizip.backend.member.domain.Role;
+import fisa.woorizip.backend.member.domain.Status;
 import fisa.woorizip.backend.member.dto.request.SignInRequest;
 import fisa.woorizip.backend.member.dto.result.SignInResult;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.member.repository.RefreshTokenRepository;
+import fisa.woorizip.backend.memberconsumption.repository.MemberConsumptionRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,15 +37,23 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final WooriBankOauth wooriBankOauth;
+    private final MemberConsumptionRepository memberConsumptionRepository;
 
     @Override
     @Transactional
-    public SignInResult signIn(SignInRequest request) {
+    public SignInResult signIn(SignInRequest request, Role role) {
         final Member member = findMemberByRequest(request);
+        if (role == Role.ADMIN) validateAdminStatus(member);
         final String accessToken = jwtTokenProvider.createAccessToken(member);
         refreshTokenRepository.deleteAllByMemberId(member.getId());
         final RefreshToken refreshToken = refreshTokenRepository.save(createRefreshToken(member));
         return SignInResult.of(refreshToken, accessToken, member, expirationSeconds);
+    }
+
+    private void validateAdminStatus(Member member) {
+        if (member.getStatus() == Status.PENDING_APPROVAL)
+            throw new WooriZipException(NOT_YET_ADMIN_APPROVE);
     }
 
     @Override
@@ -61,6 +73,32 @@ public class AuthServiceImpl implements AuthService {
         refreshToken.reissue(expirationSeconds);
         Member member = refreshToken.getMember();
         String accessToken = jwtTokenProvider.createAccessToken(member);
+        return SignInResult.of(refreshToken, accessToken, member, expirationSeconds);
+    }
+
+    @Override
+    @Transactional
+    public SignInResult oauthLogin(String code) {
+        GetWooriBankTokenResponse token = wooriBankOauth.getToken(code);
+        GetMemberDataResponse memberData = wooriBankOauth.getMemberData(token.getAccessToken());
+        Member member =
+                memberRepository
+                        .findByCustomerId(memberData.getCustomerId())
+                        .orElseGet(() -> memberRepository.save(memberData.toMember()));
+        memberConsumptionRepository
+                .findByMemberId(member.getId())
+                .ifPresentOrElse(
+                        memberConsumption ->
+                                memberConsumption.update(
+                                        memberData.getSpendingHistory().toMemberConsumption()),
+                        () ->
+                                memberConsumptionRepository.save(
+                                        memberData
+                                                .getSpendingHistory()
+                                                .toMemberConsumption(member)));
+        String accessToken = jwtTokenProvider.createAccessToken(member);
+        refreshTokenRepository.deleteAllByMemberId(member.getId());
+        final RefreshToken refreshToken = refreshTokenRepository.save(createRefreshToken(member));
         return SignInResult.of(refreshToken, accessToken, member, expirationSeconds);
     }
 

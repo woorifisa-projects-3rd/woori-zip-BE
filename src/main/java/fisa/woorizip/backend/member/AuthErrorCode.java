@@ -25,7 +25,8 @@ public enum AuthErrorCode implements ErrorCode {
     FAIL_TO_SIGN_IN(UNAUTHORIZED, "로그인에 실패했습니다."),
     REFRESH_TOKEN_NOT_FOUND(NOT_FOUND, "Refresh Token을 찾을 수 없습니다."),
     AUTHORIZATION_HEADER_NOT_FOUND(NOT_FOUND, "Authorization 헤더를 찾을 수 없습니다."),
-    REFRESH_TOKEN_EXPIRED(UNAUTHORIZED, "리프레시 토큰이 만료되었습니다.");
+    REFRESH_TOKEN_EXPIRED(UNAUTHORIZED, "리프레시 토큰이 만료되었습니다."),
+    NOT_YET_ADMIN_APPROVE(UNAUTHORIZED, "아직 관리자 승인이 되지 않았습니다.");
 
     private final HttpStatus status;
     private final String message;

@@ -7,20 +7,17 @@ import fisa.woorizip.backend.common.exception.WooriZipException;
 import lombok.Getter;
 
 import java.util.Arrays;
-import java.util.Set;
 
 @Getter
 public enum Role {
-    MEMBER("회원", Set.of()),
-    AGENT("공인중개사", Set.of(MEMBER)),
-    ADMIN("관리자", Set.of(MEMBER, AGENT));
+    MEMBER("회원"),
+    AGENT("공인중개사"),
+    ADMIN("관리자");
 
-    private final String name;
-    private final Set<Role> suRoles;
+    private final String description;
 
-    Role(String name, Set<Role> suRoles) {
-        this.name = name;
-        this.suRoles = suRoles;
+    Role(String description) {
+        this.description = description;
     }
 
     public static Role from(String name) {
@@ -28,9 +25,5 @@ public enum Role {
                 .filter(role -> role.name().equals(name))
                 .findAny()
                 .orElseThrow(() -> new WooriZipException(ROLE_NOT_FOUND));
-    }
-
-    public boolean canAccess(Role requiredRole) {
-        return requiredRole == this || this.getSuRoles().contains(requiredRole);
     }
 }

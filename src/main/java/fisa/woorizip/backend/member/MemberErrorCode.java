@@ -1,5 +1,6 @@
 package fisa.woorizip.backend.member;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -18,7 +19,10 @@ public enum MemberErrorCode implements ErrorCode {
     GENDER_NOT_FOUND(NOT_FOUND, "성별이 존재하지 않습니다."),
     MEMBERSHIP_NOT_FOUND(NOT_FOUND, "회원 등급이 존재하지 않습니다."),
     LIFE_STAGE_NOT_FOUND(NOT_FOUND, "라이프 스테이지가 존재하지 않습니다."),
-    AGE_NOT_FOUND(NOT_FOUND, "나이가 존재하지 않습니다.");
+    AGE_NOT_FOUND(NOT_FOUND, "나이가 존재하지 않습니다."),
+    AGENT_LICENSE_ID_IS_NULL(BAD_REQUEST, "부동산 중개업자는 등록번호가 필수입니다."),
+    AGENT_NOT_FOUND(NOT_FOUND, "부동산 중개업 정보를 찾을 수 없습니다."),
+    NOT_ALLOWED_SIGN_UP(BAD_REQUEST, "일반 회원 가입은 중개업자와 관리자만 가능합니다.");
 
     private final HttpStatus status;
     private final String message;
