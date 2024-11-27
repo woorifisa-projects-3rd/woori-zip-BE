@@ -24,12 +24,11 @@ import java.net.URI;
 public class MemberController {
 
     private final MemberService memberService;
-    private static final String DEFAULT_ROLE = "MEMBER";
 
     @PostMapping("/sign-up")
     public ResponseEntity<Void> signUp(
             @RequestBody @Valid SignUpRequest signUpRequest,
-            @RequestParam(name = "role", defaultValue = DEFAULT_ROLE) Role role) {
+            @RequestParam Role role) {
         memberService.signUp(signUpRequest, role);
         return ResponseEntity.created(URI.create("/api/v1/sign-in")).build();
     }
