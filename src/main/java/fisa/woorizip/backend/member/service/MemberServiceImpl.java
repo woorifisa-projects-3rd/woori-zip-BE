@@ -4,6 +4,7 @@ import static fisa.woorizip.backend.member.MemberErrorCode.AGENT_LICENSE_ID_IS_N
 import static fisa.woorizip.backend.member.MemberErrorCode.AGENT_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.ALREADY_EXIST_USERNAME;
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_ALLOWED_SIGN_UP;
+
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.agent.AgentRepository;
@@ -36,7 +37,8 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
     }
 
-    private Member createMemberByRole(SignUpRequest signUpRequest, Role role, String encodedPassword) {
+    private Member createMemberByRole(
+            SignUpRequest signUpRequest, Role role, String encodedPassword) {
         if (role == Role.ADMIN) {
             return signUpRequest.toAdminMember(encodedPassword);
         }
@@ -49,7 +51,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     private void validateExistAgent(SignUpRequest signUpRequest) {
-        if(!agentRepository.existsByNameAndLicenseId(signUpRequest.getName(), signUpRequest.getLicenseId())){
+        if (!agentRepository.existsByNameAndLicenseId(
+                signUpRequest.getName(), signUpRequest.getLicenseId())) {
             throw new WooriZipException(AGENT_NOT_FOUND);
         }
     }

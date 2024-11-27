@@ -2,6 +2,7 @@ package fisa.woorizip.backend.member.service.auth;
 
 import fisa.woorizip.backend.member.domain.LifeStage;
 import fisa.woorizip.backend.member.domain.Membership;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -21,7 +22,16 @@ public class ShowMemberDataResponse {
     private final SpendingHistoryResponse spendingHistory;
 
     @Builder
-    private ShowMemberDataResponse(String customerId, String name, LocalDate birthday, Integer creditScore, Membership membership, String address, LifeStage lifeStage, Long debt, SpendingHistoryResponse spendingHistory) {
+    private ShowMemberDataResponse(
+            String customerId,
+            String name,
+            LocalDate birthday,
+            Integer creditScore,
+            Membership membership,
+            String address,
+            LifeStage lifeStage,
+            Long debt,
+            SpendingHistoryResponse spendingHistory) {
         this.customerId = customerId;
         this.name = name;
         this.birthday = birthday;

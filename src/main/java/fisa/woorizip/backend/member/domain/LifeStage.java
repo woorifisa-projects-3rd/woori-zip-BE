@@ -4,7 +4,6 @@ import lombok.Getter;
 
 @Getter
 public enum LifeStage {
-
     UNI("대학생"),
     NEW_JOB("사회초년생"),
     NEW_WED("신혼"),

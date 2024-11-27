@@ -17,8 +17,8 @@ import fisa.woorizip.backend.member.dto.request.SignInRequest;
 import fisa.woorizip.backend.member.dto.result.SignInResult;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.member.repository.RefreshTokenRepository;
-
 import fisa.woorizip.backend.memberconsumption.repository.MemberConsumptionRepository;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -44,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public SignInResult signIn(SignInRequest request, Role role) {
         final Member member = findMemberByRequest(request);
-        if(role == Role.ADMIN) validateAdminStatus(member);
+        if (role == Role.ADMIN) validateAdminStatus(member);
         final String accessToken = jwtTokenProvider.createAccessToken(member);
         refreshTokenRepository.deleteAllByMemberId(member.getId());
         final RefreshToken refreshToken = refreshTokenRepository.save(createRefreshToken(member));
@@ -52,7 +52,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private void validateAdminStatus(Member member) {
-        if(member.getStatus() == Status.PENDING_APPROVAL) throw new WooriZipException(NOT_YET_ADMIN_APPROVE);
+        if (member.getStatus() == Status.PENDING_APPROVAL)
+            throw new WooriZipException(NOT_YET_ADMIN_APPROVE);
     }
 
     @Override
@@ -80,18 +81,26 @@ public class AuthServiceImpl implements AuthService {
     public SignInResult oauthLogin(String code) {
         GetWooriBankTokenResponse token = wooriBankOauth.getToken(code);
         GetMemberDataResponse memberData = wooriBankOauth.getMemberData(token.getAccessToken());
-        Member member = memberRepository.findByCustomerId(memberData.getCustomerId())
-                .orElseGet(() -> memberRepository.save(memberData.toMember()));
-        memberConsumptionRepository.findByMemberId(member.getId()).ifPresentOrElse(
-                memberConsumption -> memberConsumption.update(memberData.getSpendingHistory().toMemberConsumption()),
-                () -> memberConsumptionRepository.save(memberData.getSpendingHistory().toMemberConsumption(member))
-        );
+        Member member =
+                memberRepository
+                        .findByCustomerId(memberData.getCustomerId())
+                        .orElseGet(() -> memberRepository.save(memberData.toMember()));
+        memberConsumptionRepository
+                .findByMemberId(member.getId())
+                .ifPresentOrElse(
+                        memberConsumption ->
+                                memberConsumption.update(
+                                        memberData.getSpendingHistory().toMemberConsumption()),
+                        () ->
+                                memberConsumptionRepository.save(
+                                        memberData
+                                                .getSpendingHistory()
+                                                .toMemberConsumption(member)));
         String accessToken = jwtTokenProvider.createAccessToken(member);
         refreshTokenRepository.deleteAllByMemberId(member.getId());
         final RefreshToken refreshToken = refreshTokenRepository.save(createRefreshToken(member));
         return SignInResult.of(refreshToken, accessToken, member, expirationSeconds);
     }
-
 
     private void validateRefreshTokenExpired(RefreshToken refreshToken) {
         if (refreshToken.isExpired()) throw new WooriZipException(REFRESH_TOKEN_EXPIRED);
@@ -130,6 +139,4 @@ public class AuthServiceImpl implements AuthService {
                 .findByUsername(username)
                 .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
     }
-
-
 }

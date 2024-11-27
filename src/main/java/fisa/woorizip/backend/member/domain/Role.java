@@ -26,5 +26,4 @@ public enum Role {
                 .findAny()
                 .orElseThrow(() -> new WooriZipException(ROLE_NOT_FOUND));
     }
-
 }

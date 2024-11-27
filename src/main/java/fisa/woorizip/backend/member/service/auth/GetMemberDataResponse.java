@@ -6,6 +6,7 @@ import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Membership;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.domain.Status;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

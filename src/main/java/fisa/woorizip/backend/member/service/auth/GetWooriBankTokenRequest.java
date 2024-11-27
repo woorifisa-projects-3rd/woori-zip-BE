@@ -13,7 +13,12 @@ public class GetWooriBankTokenRequest {
     private String clientSecret;
 
     @Builder
-    private GetWooriBankTokenRequest(String grantType, String clientId, String redirectUri, String clientSecret, String code) {
+    private GetWooriBankTokenRequest(
+            String grantType,
+            String clientId,
+            String redirectUri,
+            String clientSecret,
+            String code) {
         this.grantType = grantType;
         this.clientId = clientId;
         this.redirectUri = redirectUri;
@@ -21,6 +26,5 @@ public class GetWooriBankTokenRequest {
         this.clientSecret = clientSecret;
     }
 
-    protected GetWooriBankTokenRequest() {
-    }
+    protected GetWooriBankTokenRequest() {}
 }

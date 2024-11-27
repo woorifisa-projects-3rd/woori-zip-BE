@@ -4,8 +4,8 @@ import fisa.woorizip.backend.member.domain.Gender;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Member.MemberBuilder;
 import fisa.woorizip.backend.member.domain.Role;
-
 import fisa.woorizip.backend.member.domain.Status;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -39,11 +39,17 @@ public class SignUpRequest {
     }
 
     public Member toAdminMember(String encodedPassword) {
-        return getMemberBuilder(encodedPassword).role(Role.ADMIN).status(Status.PENDING_APPROVAL).build();
+        return getMemberBuilder(encodedPassword)
+                .role(Role.ADMIN)
+                .status(Status.PENDING_APPROVAL)
+                .build();
     }
 
     public Member toAgentMember(String encodedPassword) {
-        return getMemberBuilder(encodedPassword).licenseId(licenseId).role(Role.AGENT).status(Status.NOT_ADMIN).build();
+        return getMemberBuilder(encodedPassword)
+                .licenseId(licenseId)
+                .role(Role.AGENT)
+                .status(Status.NOT_ADMIN)
+                .build();
     }
-
 }

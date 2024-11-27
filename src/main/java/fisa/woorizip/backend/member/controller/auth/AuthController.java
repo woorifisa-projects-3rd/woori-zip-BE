@@ -44,7 +44,8 @@ public class AuthController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<SignInResponse> signIn(@RequestParam Role role, @RequestBody @Valid SignInRequest signInRequest) {
+    public ResponseEntity<SignInResponse> signIn(
+            @RequestParam Role role, @RequestBody @Valid SignInRequest signInRequest) {
         SignInResult signInResult = authService.signIn(signInRequest, role);
         return ResponseEntity.ok()
                 .header(
