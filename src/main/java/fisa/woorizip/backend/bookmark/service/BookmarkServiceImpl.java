@@ -5,6 +5,7 @@ import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 
 import fisa.woorizip.backend.bookmark.domain.Bookmark;
+import fisa.woorizip.backend.bookmark.dto.response.ShowBookmarksResponse;
 import fisa.woorizip.backend.bookmark.repository.BookmarkRepository;
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.house.domain.House;
@@ -15,6 +16,8 @@ import fisa.woorizip.backend.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +36,15 @@ public class BookmarkServiceImpl implements BookmarkService {
         Member member = findMemberByMemberId(memberIdentity.getId());
         House house = findHouseByHouseId(houseId);
         bookmarkRepository.save(createBookmark(member, house));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ShowBookmarksResponse getBookmarkList(MemberIdentity memberIdentity, Pageable pageable) {
+        Slice<Bookmark> bookmarks =
+                bookmarkRepository.findBookmarksWithHouse(memberIdentity.getId(), pageable);
+
+        return ShowBookmarksResponse.from(bookmarks);
     }
 
     private Bookmark createBookmark(Member member, House house) {
