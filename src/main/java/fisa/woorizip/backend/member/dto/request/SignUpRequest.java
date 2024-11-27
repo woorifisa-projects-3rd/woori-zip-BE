@@ -12,14 +12,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
-@Builder
 public class SignUpRequest {
 
     @NotBlank private String name;
