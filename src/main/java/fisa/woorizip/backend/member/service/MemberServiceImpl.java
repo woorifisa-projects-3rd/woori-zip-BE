@@ -30,6 +30,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public void signUp(SignUpRequest signUpRequest, Role role) {
+        validateAlreadyExistUsername(signUpRequest.getUsername());
         String encodedPassword = passwordEncoder.encode(signUpRequest.getPassword());
         Member member = createMemberByRole(signUpRequest, role, encodedPassword);
         memberRepository.save(member);
