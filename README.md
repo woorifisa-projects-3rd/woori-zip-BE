@@ -47,6 +47,12 @@ security:
     key: ${JWT_KEY}
     expiration:
       access: ${JWT_ACCESS_EXPIRATION}
+
+woori-bank:
+  grant-type: ${GRANT_TYPE}
+  client-id: ${CLIENT_ID}
+  redirect-uri: ${REDIRECT_URI}
+  client-secret: ${CLIENT_SECRET}
 ```
 
 ## V2__load_csv.sql
@@ -63,10 +69,19 @@ IGNORE 1 ROWS
 ```SQL
 LOAD DATA INFILE '${본인의 csv 파일 절대경로}'
 INTO TABLE agent
+CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
 (license_id, name);
+
+UPDATE agent
+SET name = TRIM(name),
+    license_id = TRIM(license_id);
+
+UPDATE agent
+SET name = REPLACE(REPLACE(name, CHAR(10), ''), CHAR(13), ''),
+    license_id = REPLACE(REPLACE(license_id, CHAR(10), ''), CHAR(13), '');
 ```
 
 ## Drop Table Query
