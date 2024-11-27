@@ -37,6 +37,6 @@ public class Bookmark {
         this.id = id;
         this.member = member;
         this.house = house;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = createdAt != null ? createdAt : LocalDateTime.now();
     }
 }
