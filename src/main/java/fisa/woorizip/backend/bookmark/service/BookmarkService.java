@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface BookmarkService {
     void addBookmark(MemberIdentity memberIdentity, Long houseId);
+
     void deleteBookmark(MemberIdentity memberIdentity, Long houseId);
+
     ShowBookmarksResponse getBookmarkList(MemberIdentity memberIdentity, Pageable pageable);
 }

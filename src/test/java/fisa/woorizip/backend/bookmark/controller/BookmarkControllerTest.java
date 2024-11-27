@@ -62,7 +62,7 @@ class BookmarkControllerTest extends ControllerTest {
     @Test
     @DisplayName("북마크 목록 조회")
     void getBookmarkList_noBookmarkedHouses() {
-      Member member = MemberFixture.builder().id(1L).build();
+        Member member = MemberFixture.builder().id(1L).build();
 
         baseRestAssuredWithAuth(member)
                 .when()
@@ -73,7 +73,7 @@ class BookmarkControllerTest extends ControllerTest {
                 .statusCode(OK.value())
                 .body("bookmarks", not(empty()));
     }
-    
+
     @Test
     @DisplayName("북마크 삭제 실패")
     void 존재하지_않는_북마크는_삭제_할_수_없다() {
