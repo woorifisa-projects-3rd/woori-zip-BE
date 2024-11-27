@@ -59,6 +59,16 @@ IGNORE 1 ROWS
 (customer_type, book, car, cloth, culture, food, grocery, customer_count);
 ```
 
+## V3__load_csv.sql
+```SQL
+LOAD DATA INFILE '${본인의 csv 파일 절대경로}'
+INTO TABLE agent
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(license_id, name);
+```
+
 ## Drop Table Query
 ```SQL
 DROP TABLE bookmark;
