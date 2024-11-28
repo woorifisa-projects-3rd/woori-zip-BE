@@ -229,8 +229,8 @@ CREATE TABLE IF NOT EXISTS `member_consumption`
 CREATE TABLE IF NOT EXISTS `agent`
 (
     `id`        BIGINT NOT NULL auto_increment,
-    `name`      VARCHAR(255) NOT NULL,
     `license_id` VARCHAR(255) NOT NULL,
+    `name`      VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
