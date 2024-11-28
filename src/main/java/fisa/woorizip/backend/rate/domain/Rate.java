@@ -19,6 +19,7 @@ public class Rate {
     @JoinColumn(name = "loan_goods_id", nullable = false)
     private LoanGoods loanGoods;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "rate_type", nullable = false)
     private RateType rateType;
 
