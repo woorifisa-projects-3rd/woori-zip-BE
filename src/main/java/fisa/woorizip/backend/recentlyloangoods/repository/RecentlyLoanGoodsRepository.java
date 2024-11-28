@@ -13,6 +13,6 @@ public interface RecentlyLoanGoodsRepository extends JpaRepository<RecentlyLoanG
 
     @Query(
             "SELECT rg.loanGoods FROM RecentlyLoanGoods rg WHERE rg.member.id = :memberId ORDER BY"
-                + " rg.lookedAt DESC")
+                    + " rg.lookedAt DESC")
     Slice<LoanGoods> findLoanGoodsByMemberId(@Param("memberId") Long memberId, Pageable pageable);
 }
