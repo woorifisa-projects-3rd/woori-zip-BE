@@ -20,6 +20,7 @@ public class LoanGoods {
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "loan_type", nullable = false)
     private LoanType loanType;
 
