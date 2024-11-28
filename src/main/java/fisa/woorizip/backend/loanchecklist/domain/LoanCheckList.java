@@ -1,9 +1,7 @@
 package fisa.woorizip.backend.loanchecklist.domain;
 
-import fisa.woorizip.backend.loangoods.domain.LoanGoodsType;
-
+import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import jakarta.persistence.*;
-
 import lombok.*;
 
 @Entity
@@ -11,19 +9,46 @@ import lombok.*;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LoanCheckList {
+public class LoanChecklist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_index", nullable = false)
-    private int orderIndex;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "loan_goods_id", nullable = false)
+    private LoanGoods loanGoods;
 
-    @Column(name = "content", nullable = false)
-    private String content;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "work_status", nullable = false)
+    private WorkStatus workStatus;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "loan_goods_type", nullable = false)
-    private LoanGoodsType loanGoodsType;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "work_term", nullable = false)
+    private WorkTerm workTerm;
+
+    @Column(name = "annual_income", nullable = false)
+    private long annualIncome;
+
+    @Column(name = "available_assets", nullable = false)
+    private long availableAssets;
+
+    @Column(name = "total_assets", nullable = false)
+    private long totalAssets;
+
+    @Column(name = "contract", nullable = false)
+    private boolean contract;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "marriage_status", nullable = false)
+    private MarriageStatus marriageStatus;
+
+    @Column(name = "lease_deposit", nullable = false)
+    private long leaseDeposit;
+
+    @Column(name = "monthly_rent", nullable = false)
+    private long monthlyRent;
+
+    @Column(name = "exclusive_area", nullable = false)
+    private double exclusiveArea;
 }
