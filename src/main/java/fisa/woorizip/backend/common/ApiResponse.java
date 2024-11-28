@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 
 @Getter
