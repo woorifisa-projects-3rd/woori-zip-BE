@@ -198,3 +198,65 @@ CREATE TABLE IF NOT EXISTS `agent`
     auto_increment = 1
     DEFAULT charset = utf8mb4
     COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `loan_goods`
+(
+    `id` BIGINT NOT NULL auto_increment,
+    `name` VARCHAR(255) NOT NULL,
+    `image_url` VARCHAR(255) NOT NULL,
+    `loan_type` VARCHAR(255) NOT NULL,
+    `target` TEXT NOT NULL,
+    `limit_amount` TEXT NOT NULL,
+    `term` TEXT NOT NULL,
+    `normal_rate` TEXT NOT NULL,
+    `special_rate` TEXT NOT NULL,
+    `repay_type` TEXT NOT NULL,
+    `guarantee` TEXT NOT NULL,
+    `target_house` TEXT NOT NULL,
+    `customer_cost` TEXT NOT NULL,
+    `interest_method` TEXT NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `loan_checklist`
+(
+    `id` BIGINT NOT NULL auto_increment,
+    `loan_goods_id` BIGINT NOT NULL,
+    `work_status` VARCHAR(255) NOT NULL,
+    `work_term` VARCHAR(255) NOT NULL,
+    `annual_income` BIGINT NOT NULL,
+    `available_assets` BIGINT NOT NULL,
+    `total_assets` BIGINT NOT NULL,
+    `contract` VARCHAR(255) NOT NULL,
+    `marriage_status` VARCHAR(255) NOT NULL,
+    `lease_deposit` BIGINT NOT NULL,
+    `monthly_rent` BIGINT NOT NULL,
+    `exclusive_area` DOUBLE NOT NULL,
+    `payment` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `rate`
+(
+    `id` BIGINT NOT NULL auto_increment,
+    `loan_goods_id` BIGINT NOT NULL,
+    `rate_type` VARCHAR(255) NOT NULL,
+    `basic` VARCHAR(255) NOT NULL,
+    `add` VARCHAR(255) NOT NULL,
+    `normal` VARCHAR(255) NOT NULL,
+    `special` VARCHAR(255) NOT NULL,
+    `min` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    engine = innodb
+    auto_increment = 1
+    DEFAULT charset = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
