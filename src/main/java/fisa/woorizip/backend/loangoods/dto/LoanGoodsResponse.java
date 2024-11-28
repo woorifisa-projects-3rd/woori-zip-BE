@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.loangoods.dto;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
+
 import lombok.Getter;
 
 @Getter
