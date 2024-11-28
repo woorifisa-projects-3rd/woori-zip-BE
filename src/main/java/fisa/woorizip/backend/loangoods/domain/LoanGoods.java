@@ -1,18 +1,8 @@
 package fisa.woorizip.backend.loangoods.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
@@ -28,37 +18,40 @@ public class LoanGoods {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
-    private String description;
-
-    @Column(name = "content", nullable = false)
-    private String content;
-
-    @Column(name = "image_url")
+    @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "loan_goods_type", nullable = false)
-    private LoanGoodsType loanGoodsType;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "loan_type", nullable = false)
+    private LoanType loanType;
 
-    @Column(name = "max_assets", nullable = false)
-    private long maxAssets;
+    @Column(name = "target", nullable = false)
+    private String target;
 
-    @Column(name = "max_total_income_last_year", nullable = false)
-    private long maxTotalIncomeLastYear;
+    @Column(name = "limit_amount", nullable = false)
+    private String limitAmount;
 
-    @Column(name = "max_years_of_marriage", nullable = false)
-    private int maxYearsOfMarriage;
+    @Column(name = "term", nullable = false)
+    private String term;
 
-    @Column(name = "max_age", nullable = false)
-    private int maxAge;
+    @Column(name = "normal_rate", nullable = false)
+    private String normalRate;
 
-    @Column(name = "min_credit_score", nullable = false)
-    private int minCreditScore;
+    @Column(name = "special_rate", nullable = false)
+    private String specialRate;
 
-    @Column(name = "min_months_of_employment", nullable = false)
-    private long minMonthsOfEmployment;
+    @Column(name = "repay_type", nullable = false)
+    private String repayType;
 
-    @Column(name = "interest_rate", nullable = false)
-    private double interestRate;
+    @Column(name = "guarantee", nullable = false)
+    private String guarantee;
+
+    @Column(name = "target_house", nullable = false)
+    private String targetHouse;
+
+    @Column(name = "customer_cost", nullable = false)
+    private String customerCost;
+
+    @Column(name = "interest_method", nullable = false)
+    private String interestMethod;
 }
