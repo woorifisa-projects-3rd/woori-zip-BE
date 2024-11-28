@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 public interface RecentlyLoanGoodsRepository extends JpaRepository<RecentlyLoanGoods, Long> {
 
     @Query(
-            "SELECT rg.loanGoods FROM RecentlyLoanGoods rg WHERE rg.member.id = :memberId ORDER BY rg.lookedAt DESC")
+            "SELECT rg.loanGoods FROM RecentlyLoanGoods rg WHERE rg.member.id = :memberId ORDER BY"
+                + " rg.lookedAt DESC")
     Slice<LoanGoods> findLoanGoodsByMemberId(@Param("memberId") Long memberId, Pageable pageable);
 }

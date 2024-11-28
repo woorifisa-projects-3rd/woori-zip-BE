@@ -2,7 +2,9 @@ package fisa.woorizip.backend.recentlyloangoods.dto;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.dto.LoanGoodsResponse;
+
 import lombok.Getter;
+
 import org.springframework.data.domain.Slice;
 
 import java.util.List;

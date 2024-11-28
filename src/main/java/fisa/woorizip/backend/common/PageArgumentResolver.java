@@ -1,6 +1,11 @@
 package fisa.woorizip.backend.common;
 
+import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.*;
+
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
+
 import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -10,9 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
-
-import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.*;
-import static java.util.Objects.isNull;
 
 @Component
 public class PageArgumentResolver implements PageableArgumentResolver {

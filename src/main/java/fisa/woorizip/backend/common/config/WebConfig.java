@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.common.config;
 
 import fisa.woorizip.backend.common.PageArgumentResolver;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
