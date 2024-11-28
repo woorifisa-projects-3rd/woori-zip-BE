@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `member`
     `password`               VARCHAR(255) NOT NULL,
     `status`                 VARCHAR(255) NOT NULL,
     `name`                   VARCHAR(255) NOT NULL,
-    `birthday`                            NOT NULL DATE,
+    `birthday`               DATE         NOT NULL,
     `gender`                 VARCHAR(255) NOT NULL,
     `membership`             VARCHAR(255) NOT NULL DEFAULT 'NONE_MEMBERSHIP',
     `life_stage`             VARCHAR(255) NOT NULL DEFAULT 'NONE_LIFE_STAGE',
