@@ -1,9 +1,13 @@
 package fisa.woorizip.backend.member.domain;
 
+import static fisa.woorizip.backend.member.domain.LifeStage.NONE_LIFE_STAGE;
+import static fisa.woorizip.backend.member.domain.Membership.NONE_MEMBERSHIP;
+
+import static java.util.Objects.isNull;
+
 import jakarta.persistence.*;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +16,6 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
@@ -67,4 +69,34 @@ public class Member {
 
     @Column(name = "available_assets", nullable = false)
     private long availableAssets;
+
+    @Builder
+    private Member(
+            Long id,
+            String username,
+            String password,
+            String customerId,
+            String licenseId,
+            Status status,
+            String name,
+            LocalDate birthday,
+            Gender gender,
+            Membership membership,
+            LifeStage lifeStage,
+            Role role,
+            long availableAssets) {
+        this.id = id;
+        this.username = isNull(username) ? "" : username;
+        this.password = isNull(password) ? "" : password;
+        this.customerId = isNull(customerId) ? "" : customerId;
+        this.licenseId = isNull(licenseId) ? "" : licenseId;
+        this.status = status;
+        this.name = name;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.membership = isNull(membership) ? NONE_MEMBERSHIP : membership;
+        this.lifeStage = isNull(lifeStage) ? NONE_LIFE_STAGE : lifeStage;
+        this.role = role;
+        this.availableAssets = availableAssets;
+    }
 }

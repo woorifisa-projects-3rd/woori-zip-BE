@@ -40,7 +40,7 @@ public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
 
         String authorization = webRequest.getHeader(AUTHORIZATION);
         VerifiedMember verifiedMember = parameter.getParameterAnnotation(VerifiedMember.class);
-        if (isNull(verifiedMember) || !verifiedMember.required()) {
+        if (isNull(verifiedMember) || (!verifiedMember.required() && isNull(authorization))) {
             return null;
         }
 
