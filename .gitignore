@@ -237,6 +237,6 @@ gradle-app.setting
 *.env
 *.csv
 /src/main/resources/db/migration/V2__load_csv.sql
-/src/main/resources/db/migration/V3__load_csv.sql
+/src/main/resources/db/migration/V3__load_csv_and_update.sql
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,intellij,java,gradle
