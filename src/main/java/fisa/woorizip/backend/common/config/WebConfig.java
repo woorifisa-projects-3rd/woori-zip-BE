@@ -18,6 +18,10 @@ public class WebConfig implements WebMvcConfigurer {
     private static final String CLIENT_LOCALHOST = "http://localhost:3000";
     private static final String CLIENT_SECURE_LOCALHOST = "https://localhost:3000";
 
+    public WebConfig(PageArgumentResolver pageArgumentResolver) {
+        this.pageArgumentResolver = pageArgumentResolver;
+    }
+
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(pageArgumentResolver);
@@ -25,10 +29,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     private static final String CORS_ALLOWED_METHODS =
             "GET,POST,HEAD,PUT,PATCH,DELETE,TRACE,OPTIONS";
-
-    public WebConfig(PageArgumentResolver pageArgumentResolver) {
-        this.pageArgumentResolver = pageArgumentResolver;
-    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
