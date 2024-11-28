@@ -23,10 +23,7 @@ public class GetMemberDataResponse {
     private Integer creditScore;
     private int membership;
     private LifeStage lifeStage;
-    private Long assets;
-    private int monthsOfEmployment;
-    private int yearsOfMarriage;
-    private long totalIncomeLastYear;
+    private long availableAssets;
     private SpendingHistoryResponse spendingHistory;
 
     public Member toMember() {
@@ -36,14 +33,10 @@ public class GetMemberDataResponse {
                 .gender(Gender.from(gender))
                 .membership(Membership.from(membership))
                 .lifeStage(lifeStage)
-                .creditScore(creditScore)
                 .customerId(customerId)
                 .name(name)
                 .birthday(birthday)
-                .assets(assets)
-                .monthsOfEmployment(monthsOfEmployment)
-                .totalIncomeLastYear(totalIncomeLastYear)
-                .yearsOfMarriage(yearsOfMarriage)
+                .availableAssets(availableAssets)
                 .build();
     }
 }

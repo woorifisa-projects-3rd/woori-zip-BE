@@ -21,16 +21,16 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "customer_id")
+    @Column(name = "customer_id", nullable = false)
     private String customerId;
 
-    @Column(name = "license_id")
+    @Column(name = "license_id", nullable = false)
     private String licenseId;
 
     @Enumerated(EnumType.STRING)
@@ -40,7 +40,7 @@ public class Member {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "birthday")
+    @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
@@ -61,28 +61,10 @@ public class Member {
             columnDefinition = "VARCHAR(255) DEFAULT 'NONE_LIFE_STAGE'")
     private LifeStage lifeStage;
 
-    @Column(name = "credit_score", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
-    private int creditScore;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
 
-    @Column(name = "assets", nullable = false, columnDefinition = "BIGINT DEFAULT 0")
-    private long assets;
-
-    @Column(
-            name = "total_income_last_year",
-            nullable = false,
-            columnDefinition = "BIGINT DEFAULT 0")
-    private long totalIncomeLastYear;
-
-    @Column(name = "years_of_marriage", nullable = false, columnDefinition = "MEDIUMINT DEFAULT 0")
-    private int yearsOfMarriage;
-
-    @Column(
-            name = "months_of_employment",
-            nullable = false,
-            columnDefinition = "MEDIUMINT DEFAULT 0")
-    private int monthsOfEmployment;
+    @Column(name = "available_assets", nullable = false)
+    private long availableAssets;
 }

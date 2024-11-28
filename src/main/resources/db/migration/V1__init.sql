@@ -103,22 +103,18 @@ CREATE TABLE IF NOT EXISTS `house_image`
 CREATE TABLE IF NOT EXISTS `member`
 (
     `id`                     BIGINT       NOT NULL auto_increment,
-    `customer_id`            VARCHAR(255),
-    `license_id`             VARCHAR(255),
-    `username`               VARCHAR(255),
-    `password`               VARCHAR(255),
+    `customer_id`            VARCHAR(255) NOT NULL,
+    `license_id`             VARCHAR(255) NOT NULL,
+    `username`               VARCHAR(255) NOT NULL,
+    `password`               VARCHAR(255) NOT NULL,
     `status`                 VARCHAR(255) NOT NULL,
     `name`                   VARCHAR(255) NOT NULL,
-    `birthday`               DATE,
+    `birthday`                            NOT NULL DATE,
     `gender`                 VARCHAR(255) NOT NULL,
-    `membership`             VARCHAR(255) DEFAULT 'NONE_MEMBERSHIP',
-    `life_stage`             VARCHAR(255) DEFAULT 'NONE_LIFE_STAGE',
+    `membership`             VARCHAR(255) NOT NULL DEFAULT 'NONE_MEMBERSHIP',
+    `life_stage`             VARCHAR(255) NOT NULL DEFAULT 'NONE_LIFE_STAGE',
     `role`                   VARCHAR(255) NOT NULL,
-    `credit_score`           MEDIUMINT    DEFAULT 0,
-    `assets`                 BIGINT       DEFAULT 0,
-    `total_income_last_year` BIGINT       DEFAULT 0,
-    `years_of_marriage`      MEDIUMINT    DEFAULT 0,
-    `months_of_employment`   MEDIUMINT    DEFAULT 0,
+    `available_assets`       BIGINT       NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
