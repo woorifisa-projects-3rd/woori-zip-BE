@@ -14,12 +14,8 @@ public class MemberFixture {
     private Membership membership = Membership.PLATINUM;
     private LifeStage lifeStage = LifeStage.NEW_JOB;
     private Role role = Role.MEMBER;
-    private long assets = 10000000L;
-    private long totalIncomeLastYear = 40000000L;
-    private int yearsOfMarriage = 5;
-    private int monthsOfEmployment = 60;
+    private long availableAssets = 1000000;
     private LocalDate birthday = LocalDate.of(2000, 1, 1);
-    private int creditScore = 800;
 
     public static MemberFixture builder() {
         return new MemberFixture();
@@ -65,33 +61,13 @@ public class MemberFixture {
         return this;
     }
 
+    public MemberFixture availableAssets(long availableAssets) {
+        this.availableAssets = availableAssets;
+        return this;
+    }
+
     public MemberFixture birthday(LocalDate birthday) {
         this.birthday = birthday;
-        return this;
-    }
-
-    public MemberFixture assets(long assets) {
-        this.assets = assets;
-        return this;
-    }
-
-    public MemberFixture totalIncomeLastYear(long totalIncomeLastYear) {
-        this.totalIncomeLastYear = totalIncomeLastYear;
-        return this;
-    }
-
-    public MemberFixture yearsOfMarriage(int yearsOfMarriage) {
-        this.yearsOfMarriage = yearsOfMarriage;
-        return this;
-    }
-
-    public MemberFixture monthsOfEmployment(int monthsOfEmployment) {
-        this.monthsOfEmployment = monthsOfEmployment;
-        return this;
-    }
-
-    public MemberFixture creditScore(int creditScore) {
-        this.creditScore = creditScore;
         return this;
     }
 
@@ -105,12 +81,8 @@ public class MemberFixture {
                 .lifeStage(lifeStage)
                 .password(password)
                 .role(role)
-                .assets(assets)
+                .availableAssets(availableAssets)
                 .birthday(birthday)
-                .creditScore(creditScore)
-                .yearsOfMarriage(yearsOfMarriage)
-                .monthsOfEmployment(monthsOfEmployment)
-                .totalIncomeLastYear(totalIncomeLastYear)
                 .build();
     }
 }
