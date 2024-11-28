@@ -18,6 +18,7 @@ public class RecentlyLoanGoodsServiceImpl implements RecentlyLoanGoodsService {
     private final RecentlyLoanGoodsRepository recentlyLoanGoodsRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public ShowRecentlyLoanGoodsResponse getRecentlyLoanGoods(
             MemberIdentity memberIdentity, Pageable pageable) {
         Slice<LoanGoods> loanGoods =
