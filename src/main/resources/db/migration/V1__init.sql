@@ -231,12 +231,11 @@ CREATE TABLE IF NOT EXISTS `loan_checklist`
     `annual_income` BIGINT NOT NULL,
     `available_assets` BIGINT NOT NULL,
     `total_assets` BIGINT NOT NULL,
-    `contract` VARCHAR(255) NOT NULL,
+    `contract` TINYINT(1) NOT NULL,
     `marriage_status` VARCHAR(255) NOT NULL,
     `lease_deposit` BIGINT NOT NULL,
     `monthly_rent` BIGINT NOT NULL,
     `exclusive_area` DOUBLE NOT NULL,
-    `payment` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
