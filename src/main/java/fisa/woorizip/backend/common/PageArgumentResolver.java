@@ -19,6 +19,11 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 @Component
 public class PageArgumentResolver implements PageableArgumentResolver {
 
+    private static final int DEFAULT_PAGE_SIZE = 10;
+    private static final String PAGE = "page";
+    private static final String NUMERIC_PATTERN = "-?\\d+";
+    private static final int MAX_PAGE_LENGTH = 2;
+
     @Override
     public Pageable resolveArgument(
             MethodParameter parameter,
@@ -37,14 +42,14 @@ public class PageArgumentResolver implements PageableArgumentResolver {
 
     private int getSize(MethodParameter parameter) {
         PageableDefault pageableDefault = parameter.getParameterAnnotation(PageableDefault.class);
-        return pageableDefault != null ? pageableDefault.size() : 10;
+        return isNull(pageableDefault) ? pageableDefault.size() : DEFAULT_PAGE_SIZE;
     }
 
     private int getPage(NativeWebRequest webRequest) {
-        String pageParam = webRequest.getParameter("page");
+        String pageParam = webRequest.getParameter(PAGE);
         if (isNull(pageParam)) throw new WooriZipException(PAGE_SIZE_IS_NULL);
-        if (!pageParam.matches("-?\\d+")) throw new WooriZipException(NON_NUMERIC_PAGE);
-        if (pageParam.length() > 2) throw new WooriZipException(INVALID_PAGE_SIZE);
+        if (!pageParam.matches(NUMERIC_PATTERN)) throw new WooriZipException(NON_NUMERIC_PAGE);
+        if (pageParam.length() > MAX_PAGE_LENGTH) throw new WooriZipException(INVALID_PAGE_SIZE);
         return Integer.parseInt(pageParam);
     }
 }
