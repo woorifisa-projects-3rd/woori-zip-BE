@@ -94,13 +94,14 @@ DROP TABLE house_image;
 DROP TABLE loan_goods;
 DROP TABLE member;
 DROP TABLE flyway_schema_history;
-DROP TABLE loan_check_list;
+DROP TABLE loan_checklist;
 DROP TABLE log;
 DROP TABLE recently_loan_goods;
 DROP TABLE refresh_token;
 DROP TABLE consumption_analysis;
 DROP TABLE member_consumption;
 DROP TABLE agent;
+DROP TABLE rate;
 show tables;
 ```
 
