@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.member.dto.request;
 
 import jakarta.validation.constraints.NotNull;
+
 import lombok.Getter;
 
 import java.util.List;
@@ -14,6 +15,5 @@ public class RevokeApprovalRequest {
         this.admins = admins;
     }
 
-    protected RevokeApprovalRequest() {
-    }
+    protected RevokeApprovalRequest() {}
 }

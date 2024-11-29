@@ -66,7 +66,7 @@ public class MemberFixture {
         this.status = status;
         return this;
     }
-  
+
     public MemberFixture availableAssets(long availableAssets) {
         this.availableAssets = availableAssets;
         return this;

@@ -6,9 +6,9 @@ import static fisa.woorizip.backend.member.MemberErrorCode.AGENT_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.ALREADY_EXIST_USERNAME;
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_ADMINS;
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_ALLOWED_SIGN_UP;
-
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_APPROVED_ADMINS;
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_PENDING_APPROVAL_ADMINS;
+
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.agent.AgentRepository;
@@ -103,35 +103,52 @@ public class MemberServiceImpl implements MemberService {
     }
 
     private void validateApprovedAdmins(List<Member> admins) {
-        String notApprovedAdmins = admins.stream().filter(admin -> admin.getStatus() != Status.APPROVED)
-                .map(admin -> String.format("(%d : %s)",admin.getId(), admin.getStatus())).collect(Collectors.joining(", "));
+        String notApprovedAdmins =
+                admins.stream()
+                        .filter(admin -> admin.getStatus() != Status.APPROVED)
+                        .map(admin -> String.format("(%d : %s)", admin.getId(), admin.getStatus()))
+                        .collect(Collectors.joining(", "));
         if (!isNull(notApprovedAdmins) && !notApprovedAdmins.isBlank()) {
-            throw new WoorizipDetailException(NOT_APPROVED_ADMINS, new String[]{notApprovedAdmins});
+            throw new WoorizipDetailException(
+                    NOT_APPROVED_ADMINS, new String[] {notApprovedAdmins});
         }
     }
 
     private void validatePendingApprovalAdmins(List<Member> admins) {
-        String notPendingApprovalAdmins = admins.stream().filter(admin -> admin.getStatus() != Status.PENDING_APPROVAL)
-                .map(admin -> String.format("(%d : %s)",admin.getId(), admin.getStatus())).collect(Collectors.joining(", "));
+        String notPendingApprovalAdmins =
+                admins.stream()
+                        .filter(admin -> admin.getStatus() != Status.PENDING_APPROVAL)
+                        .map(admin -> String.format("(%d : %s)", admin.getId(), admin.getStatus()))
+                        .collect(Collectors.joining(", "));
         if (!isNull(notPendingApprovalAdmins) && !notPendingApprovalAdmins.isBlank()) {
-            throw new WoorizipDetailException(NOT_PENDING_APPROVAL_ADMINS, new String[]{notPendingApprovalAdmins});
+            throw new WoorizipDetailException(
+                    NOT_PENDING_APPROVAL_ADMINS, new String[] {notPendingApprovalAdmins});
         }
     }
 
     private void validateExistAdmins(List<Member> admins, List<Long> requestIds) {
         List<Long> adminIds = admins.stream().mapToLong(Member::getId).boxed().toList();
-        List<Long> notExistIds = requestIds.stream().filter(requestId -> !adminIds.contains(requestId)).toList();
+        List<Long> notExistIds =
+                requestIds.stream().filter(requestId -> !adminIds.contains(requestId)).toList();
         if (!notExistIds.isEmpty()) {
-            throw new WoorizipDetailException(ADMINS_NOT_FOUND,
-                    new String[]{notExistIds.stream().map(String::valueOf).collect(Collectors.joining(", "))});
+            throw new WoorizipDetailException(
+                    ADMINS_NOT_FOUND,
+                    new String[] {
+                        notExistIds.stream().map(String::valueOf).collect(Collectors.joining(", "))
+                    });
         }
     }
 
     private void validateAreAdmin(List<Member> admins) {
         List<Member> notAdmins = admins.stream().filter(admin -> !admin.isAdmin()).toList();
-        if(!notAdmins.isEmpty()) {
-            throw new WoorizipDetailException(NOT_ADMINS,
-                    new String[]{notAdmins.stream().map(member -> String.valueOf(member.getId())).collect(Collectors.joining(", "))});
+        if (!notAdmins.isEmpty()) {
+            throw new WoorizipDetailException(
+                    NOT_ADMINS,
+                    new String[] {
+                        notAdmins.stream()
+                                .map(member -> String.valueOf(member.getId()))
+                                .collect(Collectors.joining(", "))
+                    });
         }
     }
 }

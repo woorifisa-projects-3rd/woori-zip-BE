@@ -1,9 +1,8 @@
 package fisa.woorizip.backend.common.exception;
 
 import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
-import lombok.Getter;
 
-import java.util.List;
+import lombok.Getter;
 
 @Getter
 public class WoorizipDetailException extends WooriZipException {

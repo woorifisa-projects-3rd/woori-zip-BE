@@ -1,5 +1,7 @@
 package fisa.woorizip.backend.member.controller;
 
+import static fisa.woorizip.backend.member.domain.Role.ADMIN;
+
 import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
@@ -21,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-
-import static fisa.woorizip.backend.member.domain.Role.ADMIN;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -46,7 +46,8 @@ public class MemberController {
 
     @Login(role = ADMIN)
     @DeleteMapping("/admins")
-    public ResponseEntity<Void> revokeApproval(@RequestBody @Valid RevokeApprovalRequest revokeApprovalRequest) {
+    public ResponseEntity<Void> revokeApproval(
+            @RequestBody @Valid RevokeApprovalRequest revokeApprovalRequest) {
         memberService.revokeApprovals(revokeApprovalRequest);
         return ResponseEntity.ok().build();
     }

@@ -4,6 +4,7 @@ import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
+
 import jakarta.validation.Valid;
 
 public interface MemberService {

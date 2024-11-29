@@ -33,10 +33,12 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(WoorizipDetailException.class)
-    public ResponseEntity<ErrorResponse> handleWoorizipDetailException(WoorizipDetailException exception) {
+    public ResponseEntity<ErrorResponse> handleWoorizipDetailException(
+            WoorizipDetailException exception) {
         ErrorCode errorCode = exception.getErrorCode();
         String message = String.format(errorCode.getMessage(), exception.getMessages());
-        return ResponseEntity.status(errorCode.getStatus()).body(ErrorResponse.of(errorCode, message));
+        return ResponseEntity.status(errorCode.getStatus())
+                .body(ErrorResponse.of(errorCode, message));
     }
 
     @ExceptionHandler(WooriZipException.class)
