@@ -18,10 +18,10 @@ public class MemberInfoResponse {
     private LocalDate birthDate;
     private String gender;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String membership;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String licenseId;
 
     public static MemberInfoResponse from(Member member) {
@@ -30,8 +30,8 @@ public class MemberInfoResponse {
                 .name(member.getName())
                 .birthDate(member.getBirthday())
                 .gender(member.getGender().getName())
-                .membership(member.getRole() == MEMBER ? member.getMembership().getName() : null)
-                .licenseId(member.getRole() == AGENT ? member.getLicenseId() : null)
+                .membership(member.getMembership().getName())
+                .licenseId(member.getLicenseId())
                 .build();
     }
 }
