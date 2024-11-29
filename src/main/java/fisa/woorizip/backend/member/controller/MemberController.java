@@ -1,5 +1,8 @@
 package fisa.woorizip.backend.member.controller;
 
+import static fisa.woorizip.backend.member.domain.Role.AGENT;
+import static fisa.woorizip.backend.member.domain.Role.MEMBER;
+
 import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
@@ -21,9 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-
-import static fisa.woorizip.backend.member.domain.Role.AGENT;
-import static fisa.woorizip.backend.member.domain.Role.MEMBER;
 
 @RestController
 @RequestMapping("/api/v1")
