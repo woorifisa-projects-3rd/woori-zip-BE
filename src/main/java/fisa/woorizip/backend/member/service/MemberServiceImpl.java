@@ -85,7 +85,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public void approve(ApprovalRequest approvalRequest) {
-        List<Member> admins = memberRepository.findAdminsInIds(approvalRequest.getAdmins());
+        List<Member> admins = memberRepository.findAllByIdIn(approvalRequest.getAdmins());
         validateExistAdmins(admins, approvalRequest.getAdmins());
         validateAreAdmin(admins);
         validatePendingApprovalAdmins(admins);
@@ -95,7 +95,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public void revokeApprovals(RevokeApprovalRequest revokeApprovalRequest) {
-        List<Member> admins = memberRepository.findAdminsInIds(revokeApprovalRequest.getAdmins());
+        List<Member> admins = memberRepository.findAllByIdIn(revokeApprovalRequest.getAdmins());
         validateExistAdmins(admins, revokeApprovalRequest.getAdmins());
         validateAreAdmin(admins);
         validateApprovedAdmins(admins);
