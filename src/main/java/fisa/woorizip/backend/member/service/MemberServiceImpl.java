@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.member.service;
 
 import static fisa.woorizip.backend.member.MemberErrorCode.*;
+
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.agent.AgentRepository;
