@@ -99,4 +99,16 @@ public class Member {
         this.role = role;
         this.availableAssets = availableAssets;
     }
+
+    public boolean isAdmin() {
+        return this.role == Role.ADMIN;
+    }
+
+    public void revokeApproval() {
+        this.status = Status.REVOKED_APPROVAL;
+    }
+
+    public void approve() {
+        this.status = Status.APPROVED;
+    }
 }

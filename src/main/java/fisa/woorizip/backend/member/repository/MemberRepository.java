@@ -4,6 +4,7 @@ import fisa.woorizip.backend.member.domain.Member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
@@ -12,4 +13,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     boolean existsByUsername(String username);
 
     Optional<Member> findByCustomerId(String customerId);
+
+    List<Member> findAllByIdIn(List<Long> ids);
 }
