@@ -18,7 +18,7 @@ public class MemberInfoResponse {
     private LocalDate birthDate;
     private String gender;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String membership;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -30,7 +30,7 @@ public class MemberInfoResponse {
                 .name(member.getName())
                 .birthDate(member.getBirthday())
                 .gender(member.getGender().getName())
-                .membership(member.getMembership().getName())
+                .membership(member.getRole() == MEMBER ? member.getMembership().getName() : null)
                 .licenseId(member.getLicenseId())
                 .build();
     }
