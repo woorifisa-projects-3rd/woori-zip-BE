@@ -1,5 +1,6 @@
 package fisa.woorizip.backend.member.service;
 
+import static fisa.woorizip.backend.member.MemberErrorCode.*;
 import static fisa.woorizip.backend.member.MemberErrorCode.ADMINS_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.AGENT_LICENSE_ID_IS_NULL;
 import static fisa.woorizip.backend.member.MemberErrorCode.AGENT_NOT_FOUND;
@@ -14,12 +15,14 @@ import static java.util.Objects.isNull;
 import fisa.woorizip.backend.agent.AgentRepository;
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.common.exception.WoorizipDetailException;
+import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.domain.Status;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
+import fisa.woorizip.backend.member.dto.response.MemberInfoResponse;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -150,5 +153,17 @@ public class MemberServiceImpl implements MemberService {
                                 .collect(Collectors.joining(", "))
                     });
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public MemberInfoResponse getMemberInfo(MemberIdentity memberIdentity) {
+        return MemberInfoResponse.from(findMemberById(memberIdentity.getId()));
+    }
+
+    private Member findMemberById(Long memberId) {
+        return memberRepository
+                .findById(memberId)
+                .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
     }
 }

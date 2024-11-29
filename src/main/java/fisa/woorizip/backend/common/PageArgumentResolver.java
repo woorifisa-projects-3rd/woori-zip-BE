@@ -42,7 +42,7 @@ public class PageArgumentResolver implements PageableArgumentResolver {
 
     private int getSize(MethodParameter parameter) {
         PageableDefault pageableDefault = parameter.getParameterAnnotation(PageableDefault.class);
-        return isNull(pageableDefault) ? pageableDefault.size() : DEFAULT_PAGE_SIZE;
+        return isNull(pageableDefault) ? DEFAULT_PAGE_SIZE : pageableDefault.size();
     }
 
     private int getPage(NativeWebRequest webRequest) {

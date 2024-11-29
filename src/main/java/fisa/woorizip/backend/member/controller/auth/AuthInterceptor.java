@@ -20,6 +20,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.Arrays;
+
 @Component
 @RequiredArgsConstructor
 public class AuthInterceptor implements HandlerInterceptor {
@@ -45,10 +47,11 @@ public class AuthInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private void validateInsufficientRole(Role memberRole, Role requiredRole) {
-        if (memberRole != requiredRole) {
-            throw new WooriZipException(INSUFFICIENT_PERMISSIONS);
-        }
+    private void validateInsufficientRole(Role memberRole, Role[] requiredRoles) {
+        Arrays.stream(requiredRoles)
+                .filter(requiredRole -> memberRole == requiredRole)
+                .findAny()
+                .orElseThrow(() -> new WooriZipException(INSUFFICIENT_PERMISSIONS));
     }
 
     private void validateExistAuthHeader(String authorization) {

@@ -1,5 +1,6 @@
 package fisa.woorizip.backend.recentlyloangoods.controller;
 
+import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
 import fisa.woorizip.backend.recentlyloangoods.dto.ShowRecentlyLoanGoodsResponse;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RecentlyLoanGoodsController {
     private final RecentlyLoanGoodsService recentlyLoanGoodsService;
 
+    @Login
     @GetMapping
     public ShowRecentlyLoanGoodsResponse showRecentlyLoanGoods(
             @VerifiedMember MemberIdentity memberIdentity,
