@@ -16,6 +16,7 @@ public class MemberFixture {
     private Role role = Role.MEMBER;
     private long availableAssets = 10000000L;
     private LocalDate birthday = LocalDate.of(2000, 1, 1);
+    private Status status = Status.NOT_ADMIN;
 
     public static MemberFixture builder() {
         return new MemberFixture();
@@ -66,6 +67,11 @@ public class MemberFixture {
         return this;
     }
 
+    public MemberFixture status(Status status) {
+        this.status = status;
+        return this;
+    }
+
     public MemberFixture availableAssets(long availableAssets) {
         this.availableAssets = availableAssets;
         return this;
@@ -82,6 +88,7 @@ public class MemberFixture {
                 .password(password)
                 .role(role)
                 .birthday(birthday)
+                .status(status)
                 .availableAssets(availableAssets)
                 .build();
     }
