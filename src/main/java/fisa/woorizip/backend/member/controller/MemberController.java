@@ -2,6 +2,7 @@ package fisa.woorizip.backend.member.controller;
 
 import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.domain.Role;
+import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.service.MemberService;
@@ -47,6 +48,13 @@ public class MemberController {
     @DeleteMapping("/admins")
     public ResponseEntity<Void> revokeApproval(@RequestBody @Valid RevokeApprovalRequest revokeApprovalRequest) {
         memberService.revokeApprovals(revokeApprovalRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @Login(role = ADMIN)
+    @DeleteMapping("/admins")
+    public ResponseEntity<Void> approve(@RequestBody @Valid ApprovalRequest approvalRequest) {
+        memberService.approve(approvalRequest);
         return ResponseEntity.ok().build();
     }
 }
