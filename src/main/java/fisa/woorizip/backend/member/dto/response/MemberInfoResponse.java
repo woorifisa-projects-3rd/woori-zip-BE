@@ -1,6 +1,5 @@
 package fisa.woorizip.backend.member.dto.response;
 
-import static fisa.woorizip.backend.member.domain.Role.AGENT;
 import static fisa.woorizip.backend.member.domain.Role.MEMBER;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

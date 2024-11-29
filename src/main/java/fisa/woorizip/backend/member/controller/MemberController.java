@@ -1,13 +1,12 @@
 package fisa.woorizip.backend.member.controller;
 
+import static fisa.woorizip.backend.member.domain.Role.ADMIN;
 import static fisa.woorizip.backend.member.domain.Role.AGENT;
 import static fisa.woorizip.backend.member.domain.Role.MEMBER;
 
 import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
-import static fisa.woorizip.backend.member.domain.Role.ADMIN;
-
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
