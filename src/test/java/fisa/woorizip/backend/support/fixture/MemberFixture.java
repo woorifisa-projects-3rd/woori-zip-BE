@@ -14,6 +14,7 @@ public class MemberFixture {
     private Membership membership = Membership.PLATINUM;
     private LifeStage lifeStage = LifeStage.NEW_JOB;
     private Role role = Role.MEMBER;
+    private Status status = Status.NOT_ADMIN;
     private long availableAssets = 1000000;
     private LocalDate birthday = LocalDate.of(2000, 1, 1);
 
@@ -61,6 +62,11 @@ public class MemberFixture {
         return this;
     }
 
+    public MemberFixture status(Status status) {
+        this.status = status;
+        return this;
+    }
+
     public MemberFixture availableAssets(long availableAssets) {
         this.availableAssets = availableAssets;
         return this;
@@ -81,8 +87,9 @@ public class MemberFixture {
                 .lifeStage(lifeStage)
                 .password(password)
                 .role(role)
-                .availableAssets(availableAssets)
                 .birthday(birthday)
+                .status(status)
+                .availableAssets(availableAssets)
                 .build();
     }
 }
