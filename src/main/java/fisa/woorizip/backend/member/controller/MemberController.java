@@ -52,7 +52,7 @@ public class MemberController {
     }
 
     @Login(role = ADMIN)
-    @DeleteMapping("/admins")
+    @PostMapping("/admins")
     public ResponseEntity<Void> approve(@RequestBody @Valid ApprovalRequest approvalRequest) {
         memberService.approve(approvalRequest);
         return ResponseEntity.ok().build();
