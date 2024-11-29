@@ -7,6 +7,8 @@ import static fisa.woorizip.backend.member.MemberErrorCode.ALREADY_EXIST_USERNAM
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_ADMINS;
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_ALLOWED_SIGN_UP;
 
+import static fisa.woorizip.backend.member.MemberErrorCode.NOT_APPROVED_ADMINS;
+import static fisa.woorizip.backend.member.MemberErrorCode.NOT_PENDING_APPROVAL_ADMINS;
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.agent.AgentRepository;
@@ -14,6 +16,8 @@ import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.common.exception.WoorizipDetailException;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Role;
+import fisa.woorizip.backend.member.domain.Status;
+import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.repository.MemberRepository;
@@ -80,11 +84,38 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
+    public void approve(ApprovalRequest approvalRequest) {
+        List<Member> admins = memberRepository.findAdminsInIds(approvalRequest.getAdmins());
+        validateExistAdmins(admins, approvalRequest.getAdmins());
+        validateAreAdmin(admins);
+        validatePendingApprovalAdmins(admins);
+        admins.stream().forEach(admin -> admin.approve());
+    }
+
+    @Override
+    @Transactional
     public void revokeApprovals(RevokeApprovalRequest revokeApprovalRequest) {
         List<Member> admins = memberRepository.findAdminsInIds(revokeApprovalRequest.getAdmins());
         validateExistAdmins(admins, revokeApprovalRequest.getAdmins());
         validateAreAdmin(admins);
+        validateApprovedAdmins(admins);
         admins.stream().forEach(admin -> admin.revokeApproval());
+    }
+
+    private void validateApprovedAdmins(List<Member> admins) {
+        String notApprovedAdmins = admins.stream().filter(admin -> admin.getStatus() != Status.APPROVED)
+                .map(admin -> String.format("(%d : %s)",admin.getId(), admin.getStatus())).collect(Collectors.joining(", "));
+        if (!isNull(notApprovedAdmins) && !notApprovedAdmins.isBlank()) {
+            throw new WoorizipDetailException(NOT_APPROVED_ADMINS, new String[]{notApprovedAdmins});
+        }
+    }
+
+    private void validatePendingApprovalAdmins(List<Member> admins) {
+        String notPendingApprovalAdmins = admins.stream().filter(admin -> admin.getStatus() != Status.PENDING_APPROVAL)
+                .map(admin -> String.format("(%d : %s)",admin.getId(), admin.getStatus())).collect(Collectors.joining(", "));
+        if (!isNull(notPendingApprovalAdmins) && !notPendingApprovalAdmins.isBlank()) {
+            throw new WoorizipDetailException(NOT_PENDING_APPROVAL_ADMINS, new String[]{notPendingApprovalAdmins});
+        }
     }
 
     private void validateExistAdmins(List<Member> admins, List<Long> requestIds) {
