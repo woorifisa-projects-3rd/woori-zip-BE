@@ -47,9 +47,9 @@ public class AuthInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private void validateInsufficientRole(Role memberRole, Role[] requiredRole) {
-        Arrays.stream(requiredRole)
-                .filter(role -> memberRole == role)
+    private void validateInsufficientRole(Role memberRole, Role[] requiredRoles) {
+        Arrays.stream(requiredRoles)
+                .filter(requiredRole -> memberRole == requiredRole)
                 .findAny()
                 .orElseThrow(() -> new WooriZipException(INSUFFICIENT_PERMISSIONS));
     }
