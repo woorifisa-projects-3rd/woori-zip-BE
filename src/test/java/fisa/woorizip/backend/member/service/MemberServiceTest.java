@@ -3,6 +3,8 @@ package fisa.woorizip.backend.member.service;
 import fisa.woorizip.backend.common.exception.WoorizipDetailException;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Role;
+import fisa.woorizip.backend.member.domain.Status;
+import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
@@ -16,12 +18,14 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class MemberServiceTest {
 
-    @Mock private MemberRepository memberRepository;
+    @Mock
+    private MemberRepository memberRepository;
     @InjectMocks
     private MemberServiceImpl memberService;
 
@@ -48,13 +52,29 @@ class MemberServiceTest {
 
     @Test
     void 관리자_권한을_취소할_수_있다() {
-        Member admin1 = MemberFixture.builder().id(1L).role(Role.ADMIN).build();
-        Member admin2 = MemberFixture.builder().id(2L).role(Role.ADMIN).build();
+        Member admin1 = MemberFixture.builder().id(1L).role(Role.ADMIN).status(Status.APPROVED).build();
+        Member admin2 = MemberFixture.builder().id(2L).role(Role.ADMIN).status(Status.APPROVED).build();
 
         RevokeApprovalRequest revokeApprovalRequest = new RevokeApprovalRequest(List.of(admin1.getId(), admin2.getId()));
         given(memberRepository.findAdminsInIds(revokeApprovalRequest.getAdmins())).willReturn(List.of(admin1, admin2));
 
         memberService.revokeApprovals(revokeApprovalRequest);
+        assertAll(
+                () -> assertThat(admin1.getStatus()).isEqualTo(Status.REVOKED_APPROVAL),
+                () -> assertThat(admin1.getStatus()).isEqualTo(Status.REVOKED_APPROVAL)
+        );
+    }
+
+    @Test
+    void 관리자_권한을_취소시_APPROVE가_아니면_예외를_던진다() {
+        Member admin1 = MemberFixture.builder().id(1L).role(Role.ADMIN).status(Status.PENDING_APPROVAL).build();
+        Member admin2 = MemberFixture.builder().id(2L).role(Role.ADMIN).status(Status.NOT_ADMIN).build();
+
+        RevokeApprovalRequest revokeApprovalRequest = new RevokeApprovalRequest(List.of(admin1.getId(), admin2.getId()));
+        given(memberRepository.findAdminsInIds(revokeApprovalRequest.getAdmins())).willReturn(List.of(admin1, admin2));
+
+        assertThatThrownBy(() -> memberService.revokeApprovals(revokeApprovalRequest))
+                .isExactlyInstanceOf(WoorizipDetailException.class);
     }
 
     @Test
