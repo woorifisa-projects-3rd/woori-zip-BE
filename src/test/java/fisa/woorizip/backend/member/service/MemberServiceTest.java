@@ -32,6 +32,21 @@ class MemberServiceTest {
     }
 
     @Test
+    void 관리자_권한을_승인할_수_있다() {
+        Member admin1 = MemberFixture.builder().id(1L).role(Role.ADMIN).status(Status.PENDING_APPROVAL).build();
+        Member admin2 = MemberFixture.builder().id(2L).role(Role.ADMIN).status(Status.PENDING_APPROVAL).build();
+
+        ApprovalRequest approvalRequest = new ApprovalRequest(List.of(admin1.getId(), admin2.getId()));
+        given(memberRepository.findAdminsInIds(approvalRequest.getAdmins())).willReturn(List.of(admin1, admin2));
+
+        memberService.approve(approvalRequest);
+        assertAll(
+                () -> assertThat(admin1.getStatus()).isEqualTo(Status.APPROVED),
+                () -> assertThat(admin1.getStatus()).isEqualTo(Status.APPROVED)
+        );
+    }
+
+    @Test
     void 관리자_권한을_취소할_수_있다() {
         Member admin1 = MemberFixture.builder().id(1L).role(Role.ADMIN).build();
         Member admin2 = MemberFixture.builder().id(2L).role(Role.ADMIN).build();
