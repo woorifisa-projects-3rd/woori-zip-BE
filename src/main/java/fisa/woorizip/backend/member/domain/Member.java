@@ -107,4 +107,8 @@ public class Member {
     public void revokeApproval() {
         this.status = Status.REVOKED_APPROVAL;
     }
+
+    public void approve() {
+        this.status = Status.APPROVED;
+    }
 }
