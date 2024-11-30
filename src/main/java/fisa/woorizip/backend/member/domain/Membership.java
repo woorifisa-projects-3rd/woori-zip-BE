@@ -12,7 +12,7 @@ import java.util.Arrays;
 public enum Membership {
     VVIP("VVIP", 21),
     VIP("VIP", 22),
-    PLATINUM("플레티넘", 23),
+    PLATINUM("플래티넘", 23),
     GOLD("골드", 24),
     NONE_MEMBERSHIP("해당없음", 25);
 

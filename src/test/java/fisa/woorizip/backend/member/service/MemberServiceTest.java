@@ -51,7 +51,7 @@ class MemberServiceTest {
 
         ApprovalRequest approvalRequest =
                 new ApprovalRequest(List.of(admin1.getId(), admin2.getId()));
-        given(memberRepository.findAdminsInIds(approvalRequest.getAdmins()))
+        given(memberRepository.findAllByIdIn(approvalRequest.getAdmins()))
                 .willReturn(List.of(admin1, admin2));
 
         memberService.approve(approvalRequest);
@@ -69,7 +69,7 @@ class MemberServiceTest {
 
         RevokeApprovalRequest revokeApprovalRequest =
                 new RevokeApprovalRequest(List.of(admin1.getId(), admin2.getId()));
-        given(memberRepository.findAdminsInIds(revokeApprovalRequest.getAdmins()))
+        given(memberRepository.findAllByIdIn(revokeApprovalRequest.getAdmins()))
                 .willReturn(List.of(admin1, admin2));
 
         memberService.revokeApprovals(revokeApprovalRequest);
@@ -91,7 +91,7 @@ class MemberServiceTest {
 
         RevokeApprovalRequest revokeApprovalRequest =
                 new RevokeApprovalRequest(List.of(admin1.getId(), admin2.getId()));
-        given(memberRepository.findAdminsInIds(revokeApprovalRequest.getAdmins()))
+        given(memberRepository.findAllByIdIn(revokeApprovalRequest.getAdmins()))
                 .willReturn(List.of(admin1, admin2));
 
         assertThatThrownBy(() -> memberService.revokeApprovals(revokeApprovalRequest))
@@ -101,7 +101,7 @@ class MemberServiceTest {
     @Test
     void 관리자_권한_취소시_없는_회원이면_예외를_던진다() {
         RevokeApprovalRequest revokeApprovalRequest = new RevokeApprovalRequest(List.of(1L));
-        given(memberRepository.findAdminsInIds(revokeApprovalRequest.getAdmins()))
+        given(memberRepository.findAllByIdIn(revokeApprovalRequest.getAdmins()))
                 .willReturn(List.of());
 
         assertThatThrownBy(() -> memberService.revokeApprovals(revokeApprovalRequest))
@@ -114,7 +114,7 @@ class MemberServiceTest {
 
         RevokeApprovalRequest revokeApprovalRequest =
                 new RevokeApprovalRequest(List.of(admin1.getId()));
-        given(memberRepository.findAdminsInIds(revokeApprovalRequest.getAdmins()))
+        given(memberRepository.findAllByIdIn(revokeApprovalRequest.getAdmins()))
                 .willReturn(List.of(admin1));
 
         assertThatThrownBy(() -> memberService.revokeApprovals(revokeApprovalRequest))

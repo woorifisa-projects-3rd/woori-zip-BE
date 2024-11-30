@@ -1,12 +1,17 @@
 package fisa.woorizip.backend.member.controller;
 
 import static fisa.woorizip.backend.member.domain.Role.ADMIN;
+import static fisa.woorizip.backend.member.domain.Role.AGENT;
+import static fisa.woorizip.backend.member.domain.Role.MEMBER;
 
 import fisa.woorizip.backend.member.controller.auth.Login;
+import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
+import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
+import fisa.woorizip.backend.member.dto.response.MemberInfoResponse;
 import fisa.woorizip.backend.member.service.MemberService;
 
 import jakarta.validation.Valid;
@@ -57,5 +62,11 @@ public class MemberController {
     public ResponseEntity<Void> approve(@RequestBody @Valid ApprovalRequest approvalRequest) {
         memberService.approve(approvalRequest);
         return ResponseEntity.ok().build();
+    }
+
+    @Login(role = {MEMBER, AGENT})
+    @GetMapping("/members/info")
+    public MemberInfoResponse showMemberInfo(@VerifiedMember MemberIdentity memberIdentity) {
+        return memberService.getMemberInfo(memberIdentity);
     }
 }
