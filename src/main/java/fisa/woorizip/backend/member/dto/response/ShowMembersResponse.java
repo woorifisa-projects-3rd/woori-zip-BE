@@ -1,9 +1,11 @@
 package fisa.woorizip.backend.member.dto.response;
 
 import fisa.woorizip.backend.member.domain.Member;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -24,5 +26,4 @@ public class ShowMembersResponse {
                 .members(members.getContent().stream().map(MemberResponse::from).toList())
                 .build();
     }
-
 }

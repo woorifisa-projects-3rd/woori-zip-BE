@@ -6,9 +6,10 @@ import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.dto.response.MemberInfoResponse;
-
 import fisa.woorizip.backend.member.dto.response.ShowMembersResponse;
+
 import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Pageable;
 
 public interface MemberService {

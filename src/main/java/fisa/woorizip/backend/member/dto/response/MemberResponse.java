@@ -1,7 +1,7 @@
 package fisa.woorizip.backend.member.dto.response;
 
 import fisa.woorizip.backend.member.domain.Member;
-import fisa.woorizip.backend.member.domain.Status;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,5 +24,4 @@ public class MemberResponse {
                 .status(member.getStatus().getDescription())
                 .build();
     }
-
 }

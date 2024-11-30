@@ -39,12 +39,10 @@ class MemberRepositoryTest {
         Member member2 = 저장(MemberFixture.builder().role(Role.MEMBER).build());
         Member member3 = 저장(MemberFixture.builder().role(Role.ADMIN).build());
 
-
         Page<Member> members = memberRepository.findAllByRole(Role.ADMIN, PageRequest.of(0, 2));
         assertAll(
                 () -> assertThat(members.getNumber()).isEqualTo(0),
                 () -> assertThat(members.getTotalPages()).isEqualTo(1),
-                () -> assertThat(members.getContent()).containsExactly(member1, member3)
-        );
+                () -> assertThat(members.getContent()).containsExactly(member1, member3));
     }
 }

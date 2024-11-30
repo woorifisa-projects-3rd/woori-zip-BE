@@ -74,9 +74,10 @@ public class MemberController {
 
     @Login(role = ADMIN)
     @GetMapping("/members")
-    public ShowMembersResponse showMembers(@RequestParam("role") Role role,
-                                           Pageable pageable,
-                                           @VerifiedMember MemberIdentity memberIdentity) {
+    public ShowMembersResponse showMembers(
+            @RequestParam("role") Role role,
+            Pageable pageable,
+            @VerifiedMember MemberIdentity memberIdentity) {
         return memberService.getMembers(role, pageable);
     }
 }
