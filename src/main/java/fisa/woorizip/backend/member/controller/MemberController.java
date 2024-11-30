@@ -12,12 +12,14 @@ import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.dto.response.MemberInfoResponse;
+import fisa.woorizip.backend.member.dto.response.ShowMembersResponse;
 import fisa.woorizip.backend.member.service.MemberService;
 
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,5 +70,13 @@ public class MemberController {
     @GetMapping("/members/info")
     public MemberInfoResponse showMemberInfo(@VerifiedMember MemberIdentity memberIdentity) {
         return memberService.getMemberInfo(memberIdentity);
+    }
+
+    @Login(role = ADMIN)
+    @GetMapping("/members")
+    public ShowMembersResponse showMembers(@RequestParam("role") Role role,
+                                           Pageable pageable,
+                                           @VerifiedMember MemberIdentity memberIdentity) {
+        return memberService.getMembers(role, pageable);
     }
 }
