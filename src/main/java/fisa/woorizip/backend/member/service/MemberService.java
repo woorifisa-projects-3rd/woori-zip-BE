@@ -7,7 +7,9 @@ import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.dto.response.MemberInfoResponse;
 
+import fisa.woorizip.backend.member.dto.response.ShowMembersResponse;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
 
 public interface MemberService {
     void signUp(SignUpRequest signUpRequest, Role role);
@@ -19,4 +21,6 @@ public interface MemberService {
     void approve(@Valid ApprovalRequest approvalRequest);
 
     MemberInfoResponse getMemberInfo(MemberIdentity memberIdentity);
+
+    ShowMembersResponse getMembers(Role role, Pageable pageable);
 }
