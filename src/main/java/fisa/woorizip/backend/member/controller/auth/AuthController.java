@@ -44,9 +44,8 @@ public class AuthController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<SignInResponse> signIn(
-            @RequestParam("role") Role role, @RequestBody @Valid SignInRequest signInRequest) {
-        SignInResult signInResult = authService.signIn(signInRequest, role);
+    public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest signInRequest) {
+        SignInResult signInResult = authService.signIn(signInRequest);
         return ResponseEntity.ok()
                 .header(
                         SET_COOKIE,
