@@ -10,12 +10,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static fisa.woorizip.backend.log.domain.QLog.log;
-import static fisa.woorizip.backend.member.domain.QMember.member;
 import static java.util.Objects.isNull;
 
 @Repository
@@ -41,8 +39,7 @@ public class LogCustomRepositoryImpl implements LogCustomRepository {
     }
 
     private <T> JPAQuery<T> searchLogsConditions(JPAQuery<T> query, String username, LocalDateTime startDate, LocalDateTime endDate) {
-        return query.where(usernameContains(username)
-                .and(betweenDate(startDate, endDate)));
+        return query.where(usernameContains(username), betweenDate(startDate, endDate));
     }
 
     private BooleanExpression usernameContains(String username) {
