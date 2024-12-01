@@ -7,6 +7,7 @@ import fisa.woorizip.backend.loangoods.repository.LoanGoodsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static fisa.woorizip.backend.loangoods.LoanGoodsErrorCode.LOAN_GOODS_NOT_FOUND;
 
@@ -17,6 +18,7 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     private final LoanGoodsRepository loanGoodsRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public ShowLoanGoodsResponse getLoanGoods(Pageable pageable) {
         return ShowLoanGoodsResponse.from(loanGoodsRepository.findAllBy(pageable));
     }
