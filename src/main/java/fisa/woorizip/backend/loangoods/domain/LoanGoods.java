@@ -54,4 +54,6 @@ public class LoanGoods {
 
     @Column(name = "interest_method", nullable = false)
     private String interestMethod;
+
+
 }
