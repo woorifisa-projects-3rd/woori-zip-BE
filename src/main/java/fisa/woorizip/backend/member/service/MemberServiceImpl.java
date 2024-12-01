@@ -23,10 +23,13 @@ import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.dto.response.MemberInfoResponse;
+import fisa.woorizip.backend.member.dto.response.ShowMembersResponse;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -159,6 +162,13 @@ public class MemberServiceImpl implements MemberService {
     @Transactional(readOnly = true)
     public MemberInfoResponse getMemberInfo(MemberIdentity memberIdentity) {
         return MemberInfoResponse.from(findMemberById(memberIdentity.getId()));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ShowMembersResponse getMembers(Role role, Pageable pageable) {
+        Page<Member> members = memberRepository.findAllByRole(role, pageable);
+        return ShowMembersResponse.of(members);
     }
 
     private Member findMemberById(Long memberId) {
