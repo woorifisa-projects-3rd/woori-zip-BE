@@ -24,6 +24,7 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     }
 
     @Override
+    @Transactional
     public void deleteLoanGoods(Long id) {
         LoanGoods loanGoods = findLoanGoodsById(id);
         loanGoodsRepository.delete(loanGoods);
