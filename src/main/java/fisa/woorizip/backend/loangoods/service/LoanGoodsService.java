@@ -6,4 +6,6 @@ import org.springframework.data.domain.Pageable;
 public interface LoanGoodsService {
 
     ShowLoanGoodsResponse getLoanGoods(Pageable pageable);
+
+    void deleteLoanGoods(Long id);
 }
