@@ -2,7 +2,7 @@ package fisa.woorizip.backend.recentlyloangoods.service;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
-import fisa.woorizip.backend.recentlyloangoods.dto.ShowRecentlyLoanGoodsResponse;
+import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
 import fisa.woorizip.backend.recentlyloangoods.repository.RecentlyLoanGoodsRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,11 +19,11 @@ public class RecentlyLoanGoodsServiceImpl implements RecentlyLoanGoodsService {
 
     @Override
     @Transactional(readOnly = true)
-    public ShowRecentlyLoanGoodsResponse getRecentlyLoanGoods(
+    public ShowLoanGoodsResponse getRecentlyLoanGoods(
             MemberIdentity memberIdentity, Pageable pageable) {
         Slice<LoanGoods> loanGoods =
                 recentlyLoanGoodsRepository.findLoanGoodsByMemberId(
                         memberIdentity.getId(), pageable);
-        return ShowRecentlyLoanGoodsResponse.from(loanGoods);
+        return ShowLoanGoodsResponse.from(loanGoods);
     }
 }

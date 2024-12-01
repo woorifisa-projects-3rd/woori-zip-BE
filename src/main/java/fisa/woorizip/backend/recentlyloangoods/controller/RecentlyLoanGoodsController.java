@@ -3,7 +3,7 @@ package fisa.woorizip.backend.recentlyloangoods.controller;
 import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
-import fisa.woorizip.backend.recentlyloangoods.dto.ShowRecentlyLoanGoodsResponse;
+import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
 import fisa.woorizip.backend.recentlyloangoods.service.RecentlyLoanGoodsService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class RecentlyLoanGoodsController {
 
     @Login
     @GetMapping
-    public ShowRecentlyLoanGoodsResponse showRecentlyLoanGoods(
+    public ShowLoanGoodsResponse showRecentlyLoanGoods(
             @VerifiedMember MemberIdentity memberIdentity,
             @PageableDefault(size = 5) Pageable pageable) {
         return recentlyLoanGoodsService.getRecentlyLoanGoods(memberIdentity, pageable);

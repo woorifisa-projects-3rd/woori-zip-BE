@@ -1,12 +1,12 @@
 package fisa.woorizip.backend.recentlyloangoods.service;
 
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
-import fisa.woorizip.backend.recentlyloangoods.dto.ShowRecentlyLoanGoodsResponse;
+import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
 
 import org.springframework.data.domain.Pageable;
 
 public interface RecentlyLoanGoodsService {
 
-    ShowRecentlyLoanGoodsResponse getRecentlyLoanGoods(
+    ShowLoanGoodsResponse getRecentlyLoanGoods(
             MemberIdentity memberIdentity, Pageable pageable);
 }
