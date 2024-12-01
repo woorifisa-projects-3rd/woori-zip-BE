@@ -8,9 +8,8 @@ import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import static fisa.woorizip.backend.member.domain.Role.ADMIN;
 
@@ -25,6 +24,13 @@ public class LoanGoodsController {
     @GetMapping
     public ShowLoanGoodsResponse showLoanGoods(@VerifiedMember MemberIdentity memberIdentity, @PageableDefault(size = 5) Pageable pageable) {
         return loanGoodsService.getLoanGoods(pageable);
+    }
+
+    @Login(role = ADMIN)
+    @DeleteMapping("/{loanGoodsId}")
+    public ResponseEntity<Void> removeLoanGoods(@VerifiedMember MemberIdentity memberIdentity, @PathVariable("loanGoodsId") Long loanGoodsId) {
+        loanGoodsService.deleteLoanGoods(loanGoodsId);
+        return ResponseEntity.ok().build();
     }
 
 }
