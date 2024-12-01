@@ -1,9 +1,9 @@
 package fisa.woorizip.backend.support.fixture;
 
+import static fisa.woorizip.backend.loangoods.domain.LoanType.NATIONAL_HOUSING_URBAN_FUND;
+
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.domain.LoanType;
-
-import static fisa.woorizip.backend.loangoods.domain.LoanType.NATIONAL_HOUSING_URBAN_FUND;
 
 public class LoanGoodsFixture {
     private Long id;

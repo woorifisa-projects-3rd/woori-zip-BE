@@ -1,9 +1,9 @@
 package fisa.woorizip.backend.recentlyloangoods.controller;
 
+import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
 import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
-import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
 import fisa.woorizip.backend.recentlyloangoods.service.RecentlyLoanGoodsService;
 
 import lombok.RequiredArgsConstructor;
