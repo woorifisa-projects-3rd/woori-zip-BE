@@ -1,15 +1,11 @@
 package fisa.woorizip.backend.support.fixture;
 
-import fisa.woorizip.backend.house.domain.House;
+import static fisa.woorizip.backend.loangoods.domain.LoanType.LOAN_LEASE_DEPOSIT;
+
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.domain.LoanType;
-import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
-import fisa.woorizip.backend.rate.dto.response.RateResponse;
+
 import jakarta.persistence.*;
-
-import java.util.List;
-
-import static fisa.woorizip.backend.loangoods.domain.LoanType.LOAN_LEASE_DEPOSIT;
 
 public class LoanGoodsFixture {
 
@@ -27,7 +23,6 @@ public class LoanGoodsFixture {
     private String targetHouse = "지방";
     private String customerCost = "5천";
     private String interestMethod = "세부";
-
 
     public static LoanGoodsFixture builder() {
         return new LoanGoodsFixture();
@@ -69,7 +64,7 @@ public class LoanGoodsFixture {
     }
 
     public LoanGoodsFixture normalRate(String normalRate) {
-        this.normalRate= normalRate;
+        this.normalRate = normalRate;
         return this;
     }
 

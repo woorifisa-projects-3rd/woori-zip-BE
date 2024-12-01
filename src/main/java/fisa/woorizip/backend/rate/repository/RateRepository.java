@@ -13,12 +13,4 @@ public interface RateRepository extends JpaRepository<Rate, Long> {
 
     @Query("SELECT R FROM Rate R JOIN FETCH R.loanGoods WHERE R.loanGoods = :loanGoods")
     List<Rate> findByLoanGoodsIdWithFetchJoin(@Param("loanGoods") LoanGoods loanGoods);
-
-
-
-
-
-
-
-
 }

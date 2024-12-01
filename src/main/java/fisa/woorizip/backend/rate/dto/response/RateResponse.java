@@ -4,6 +4,7 @@ import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.dto.LoanGoodsResponse;
 import fisa.woorizip.backend.rate.domain.Rate;
 import fisa.woorizip.backend.rate.domain.RateType;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -20,7 +21,7 @@ public class RateResponse {
     private String special;
     private String min;
 
-    public static RateResponse from (Rate rate) {
+    public static RateResponse from(Rate rate) {
         LoanGoods loanGoods = rate.getLoanGoods();
 
         return RateResponse.builder()

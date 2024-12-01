@@ -1,9 +1,10 @@
 package fisa.woorizip.backend.loangoods.controller;
 
-
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.service.LoanGoodsService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,5 +23,4 @@ public class LoanGoodsController {
 
         return loanGoodsService.getLoanGoodsDetailsById(loanGoodsId);
     }
-
 }

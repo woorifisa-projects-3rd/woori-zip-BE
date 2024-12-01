@@ -1,9 +1,9 @@
 package fisa.woorizip.backend.loangoods.dto.response;
 
-
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.domain.LoanType;
 import fisa.woorizip.backend.rate.dto.response.RateResponse;
+
 import lombok.Builder;
 import lombok.Getter;
 

@@ -1,27 +1,26 @@
 package fisa.woorizip.backend.support.fixture;
 
+import static fisa.woorizip.backend.rate.domain.RateType.FIXED;
+
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.rate.domain.Rate;
 import fisa.woorizip.backend.rate.domain.RateType;
-import jakarta.persistence.*;
 
-import static fisa.woorizip.backend.rate.domain.RateType.FIXED;
+import jakarta.persistence.*;
 
 public class RateFixture {
 
     private LoanGoods loanGoods;
-    private RateType rateType =  FIXED;
+    private RateType rateType = FIXED;
     private String basic = "3%";
     private String add = "1.5%";
     private String normal = "4.15%";
-    private String special = "0%" ;
+    private String special = "0%";
     private String min = "4.15%";
-
 
     public static RateFixture builder() {
         return new RateFixture();
     }
-
 
     public RateFixture loanGoods(LoanGoods loanGoods) {
         this.loanGoods = loanGoods;
@@ -54,7 +53,7 @@ public class RateFixture {
     }
 
     public RateFixture min(String min) {
-        this.min= min;
+        this.min = min;
         return this;
     }
 
@@ -70,5 +69,3 @@ public class RateFixture {
                 .build();
     }
 }
-
-
