@@ -42,9 +42,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public SignInResult signIn(SignInRequest request, Role role) {
+    public SignInResult signIn(SignInRequest request) {
         final Member member = findMemberByRequest(request);
-        if (role == Role.ADMIN) validateAdminStatus(member);
+        if (member.getRole() == Role.ADMIN) validateAdminStatus(member);
         final String accessToken = jwtTokenProvider.createAccessToken(member);
         refreshTokenRepository.deleteAllByMemberId(member.getId());
         final RefreshToken refreshToken = refreshTokenRepository.save(createRefreshToken(member));
