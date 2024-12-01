@@ -21,7 +21,8 @@ public class LogServiceImpl implements LogService {
     private final LogRepository logRepository;
 
     @Override
-    public ShowLogsResponse searchLogs(String username, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
+    public ShowLogsResponse searchLogs(
+            String username, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
         Page<Log> logs = logRepository.searchLogs(username, startDate, endDate, pageable);
         return ShowLogsResponse.from(logs);
     }

@@ -1,9 +1,11 @@
 package fisa.woorizip.backend.log.dto;
 
 import fisa.woorizip.backend.log.domain.Log;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -24,5 +26,4 @@ public class ShowLogsResponse {
                 .logs(logs.getContent().stream().map(LogResponse::from).toList())
                 .build();
     }
-
 }
