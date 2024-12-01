@@ -1,4 +1,4 @@
-package fisa.woorizip.backend.loangoods.dto;
+package fisa.woorizip.backend.loangoods.dto.response;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 
