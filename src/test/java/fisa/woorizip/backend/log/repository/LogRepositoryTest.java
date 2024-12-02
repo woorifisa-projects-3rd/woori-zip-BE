@@ -37,10 +37,10 @@ class LogRepositoryTest {
         저장(Log.builder().member(member2).content("Log3").createdAt(LocalDateTime.now().minusHours(1)).build());
         Log log = 저장(Log.builder().member(member2).content("Log4").createdAt(LocalDateTime.now()).build());
 
-        Page<Log> logs = logRepository.searchLogs("종수", LocalDateTime.now().minusHours(2), LocalDateTime.now(), PageRequest.of(0, 1));
+        Page<Log> logs = logRepository.searchLogs(log.getId(), "종수", LocalDateTime.now().minusHours(2), LocalDateTime.now(), PageRequest.of(0, 1));
 
         assertAll(
-                () -> assertThat(logs.getTotalPages()).isEqualTo(3),
+                () -> assertThat(logs.getTotalPages()).isEqualTo(1),
                 () -> assertThat(logs.getContent()).containsExactly(log)
         );
     }

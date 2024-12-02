@@ -8,6 +8,6 @@ import java.time.LocalDateTime;
 
 public interface LogCustomRepository {
 
-    Page<Log> searchLogs(String username, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
+    Page<Log> searchLogs(Long logId, String username, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 
 }
