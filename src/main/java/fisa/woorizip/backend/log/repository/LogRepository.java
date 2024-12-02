@@ -4,4 +4,4 @@ import fisa.woorizip.backend.log.domain.Log;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LogRepository extends JpaRepository<Log, Long> {}
+public interface LogRepository extends JpaRepository<Log, Long>, LogCustomRepository {}
