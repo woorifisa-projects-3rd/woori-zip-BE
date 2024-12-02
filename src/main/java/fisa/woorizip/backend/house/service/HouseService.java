@@ -5,6 +5,7 @@ import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import fisa.woorizip.backend.house.dto.response.ShowAgentHouseResponse;
 import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
+
 import org.springframework.data.domain.Pageable;
 
 public interface HouseService {

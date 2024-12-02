@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.house.dto.response;
 
 import fisa.woorizip.backend.house.domain.House;
+
 import lombok.Builder;
 import lombok.Getter;
 

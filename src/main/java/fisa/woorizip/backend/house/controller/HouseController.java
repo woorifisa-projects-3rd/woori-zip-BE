@@ -1,5 +1,7 @@
 package fisa.woorizip.backend.house.controller;
 
+import static fisa.woorizip.backend.member.domain.Role.AGENT;
+
 import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
 import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
 import fisa.woorizip.backend.house.dto.response.ShowAgentHouseResponse;
@@ -17,8 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import static fisa.woorizip.backend.member.domain.Role.AGENT;
 
 @Slf4j
 @RestController
