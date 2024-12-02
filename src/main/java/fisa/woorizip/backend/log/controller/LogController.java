@@ -24,13 +24,14 @@ import static java.util.Objects.isNull;
 public class LogController {
 
     private final LogService logService;
+    private final static String LOCAL_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 
     @Login(role = ADMIN)
     @GetMapping("/logs")
-    public ShowLogsResponse showLogs(@RequestParam(value = "username", required = false) String username,
-                                     @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime startDate,
-                                     @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime endDate,
+    public ShowLogsResponse showLogs(@RequestParam(value = "username", required = false) String keyword,
+                                     @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = LOCAL_DATE_TIME_FORMAT) LocalDateTime startDate,
+                                     @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = LOCAL_DATE_TIME_FORMAT) LocalDateTime endDate,
                                      Pageable pageable) {
-        return logService.searchLogs(username, startDate, endDate, pageable);
+        return logService.searchLogs(keyword, startDate, endDate, pageable);
     }
 }
