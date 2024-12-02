@@ -1,6 +1,5 @@
 package fisa.woorizip.backend.loangoods.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.HttpStatus.OK;
 
 import fisa.woorizip.backend.member.domain.Member;

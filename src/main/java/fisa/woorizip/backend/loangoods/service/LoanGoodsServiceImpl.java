@@ -2,15 +2,15 @@ package fisa.woorizip.backend.loangoods.service;
 
 import static fisa.woorizip.backend.loangoods.LoanGoodsErrorCode.LOAN_GOODS_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
-import static fisa.woorizip.backend.member.domain.QMember.member;
+
 
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
-import fisa.woorizip.backend.loangoods.domain.LoanType;
+
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
-import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
+
 import fisa.woorizip.backend.loangoods.repository.LoanGoodsRepository;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;

@@ -1,6 +1,6 @@
 package fisa.woorizip.backend.loangoods.service;
 
-import static fisa.woorizip.backend.member.domain.QMember.member;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.BDDMockito.given;
@@ -13,7 +13,7 @@ import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.rate.domain.Rate;
-import fisa.woorizip.backend.rate.dto.response.RateResponse;
+
 import fisa.woorizip.backend.rate.repository.RateRepository;
 
 import fisa.woorizip.backend.recentlyloangoods.domain.RecentlyLoanGoods;

@@ -1,11 +1,9 @@
 package fisa.woorizip.backend.support.fixture;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
-import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
+
 import fisa.woorizip.backend.member.domain.Member;
-import fisa.woorizip.backend.rate.domain.Rate;
-import fisa.woorizip.backend.rate.domain.RateType;
-import jakarta.persistence.*;
+
 
 import java.time.LocalDateTime;
 
