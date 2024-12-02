@@ -40,14 +40,9 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     public ShowLoanGoodsDetailResponse getLoanGoodsDetailsById(
             Long loanGoodsId, MemberIdentity memberIdentity) {
 
-        LoanGoods loanGoods =
-                loanGoodsRepository
-                        .findById(loanGoodsId)
-                        .orElseThrow(() -> new WooriZipException(LOAN_GOODS_NOT_FOUND));
-
+        LoanGoods loanGoods = findLoanGoodsById(loanGoodsId);
         List<RateResponse> rateList = getRateResponseList(loanGoodsId);
-
-        saveRecentlyLoanGoods(memberIdentity, loanGoods);
+        saveRecentlyLoanGoods(memberIdentity.getId(), loanGoods);
 
         return ShowLoanGoodsDetailResponse.of(loanGoods, rateList);
     }
@@ -59,12 +54,21 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
         return rateList;
     }
 
-    private void saveRecentlyLoanGoods(MemberIdentity memberIdentity, LoanGoods loanGoods) {
+    private void saveRecentlyLoanGoods(Long memberId, LoanGoods loanGoods) {
+        Member member = findMemberById(memberId);
+        RecentlyLoanGoods recentlyLoanGoods = createRecentlyLoanGoods(loanGoods, member);
+        recentlyLoanGoodsRepository.save(recentlyLoanGoods);
+    }
+
+    private Member findMemberById(Long memberId) {
         Member member =
                 memberRepository
-                        .findById(memberIdentity.getId())
+                        .findById(memberId)
                         .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
+        return member;
+    }
 
+    private static RecentlyLoanGoods createRecentlyLoanGoods(LoanGoods loanGoods, Member member) {
         RecentlyLoanGoods recentlyLoanGoods =
                 RecentlyLoanGoods.builder()
                         .member(member)
@@ -72,7 +76,7 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
                         .lookedAt(LocalDateTime.now())
                         .build();
 
-        recentlyLoanGoodsRepository.save(recentlyLoanGoods);
+        return recentlyLoanGoods;
     }
 
     @Override
