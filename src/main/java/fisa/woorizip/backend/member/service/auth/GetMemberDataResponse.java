@@ -24,6 +24,7 @@ public class GetMemberDataResponse {
     private int membership;
     private LifeStage lifeStage;
     private long availableAssets;
+    private String username;
     private SpendingHistoryResponse spendingHistory;
 
     public Member toMember() {
@@ -31,6 +32,7 @@ public class GetMemberDataResponse {
                 .status(Status.NOT_ADMIN)
                 .role(Role.MEMBER)
                 .gender(Gender.from(gender))
+                .username(username)
                 .membership(Membership.from(membership))
                 .lifeStage(lifeStage)
                 .customerId(customerId)
