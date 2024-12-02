@@ -14,6 +14,7 @@ import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.dto.request.MapFilterRequest;
 import fisa.woorizip.backend.house.dto.response.HouseDetailResponse;
+import fisa.woorizip.backend.house.dto.response.ShowAgentHouseResponse;
 import fisa.woorizip.backend.house.dto.response.ShowMapResponse;
 import fisa.woorizip.backend.house.repository.HouseRepository;
 import fisa.woorizip.backend.houseimage.repository.HouseImageRepository;
@@ -22,6 +23,7 @@ import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -156,5 +158,12 @@ public class HouseServiceImpl implements HouseService {
         } else {
             throw new WooriZipException(MAP_LEVEL_NOT_FOUND);
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ShowAgentHouseResponse getAgentHouse(MemberIdentity memberIdentity, Pageable pageable) {
+        return ShowAgentHouseResponse.from(
+                houseRepository.findByMemberId(memberIdentity.getId(), pageable));
     }
 }
