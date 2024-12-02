@@ -3,8 +3,8 @@ package fisa.woorizip.backend.loangoods.service;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
 
+import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import org.springframework.data.domain.Pageable;
-import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 
 public interface LoanGoodsService {
 
@@ -12,5 +12,5 @@ public interface LoanGoodsService {
 
     void deleteLoanGoods(Long id);
 
-    ShowLoanGoodsDetailResponse getLoanGoodsDetailsById(Long loanGoodsId);
+    ShowLoanGoodsDetailResponse getLoanGoodsDetailsById(Long loanGoodsId, MemberIdentity member);
 }

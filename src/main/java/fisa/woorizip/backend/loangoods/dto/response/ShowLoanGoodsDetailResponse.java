@@ -1,5 +1,6 @@
 package fisa.woorizip.backend.loangoods.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.domain.LoanType;
 import fisa.woorizip.backend.rate.dto.response.RateResponse;
@@ -26,6 +27,8 @@ public class ShowLoanGoodsDetailResponse {
     private String targetHouse;
     private String customerCost;
     private String interestMethod;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<RateResponse> rateList;
 
     public static ShowLoanGoodsDetailResponse of(LoanGoods loanGoods, List<RateResponse> rateList) {

@@ -36,16 +36,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/loangoods")
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/loans")
 public class LoanGoodsController {
 
     private final LoanGoodsService loanGoodsService;
 
     @GetMapping("/{loanGoodsId}")
     public ShowLoanGoodsDetailResponse showLoanGoodsDetails(
+            @VerifiedMember MemberIdentity memberIdentity,
             @PathVariable("loanGoodsId") Long loanGoodsId) {
 
-        return loanGoodsService.getLoanGoodsDetailsById(loanGoodsId);
+        return loanGoodsService.getLoanGoodsDetailsById(loanGoodsId, memberIdentity);
     }
 
     @Login(role = ADMIN)
