@@ -1,7 +1,6 @@
-package fisa.woorizip.backend.recentlyloangoods.dto;
+package fisa.woorizip.backend.loangoods.dto.response;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
-import fisa.woorizip.backend.loangoods.dto.LoanGoodsResponse;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -12,11 +11,11 @@ import java.util.List;
 
 @Getter
 @Builder
-public class ShowRecentlyLoanGoodsResponse {
+public class ShowLoanGoodsResponse {
     private final boolean hasNext;
     private final List<LoanGoodsResponse> recentlyLoanGoods;
 
-    public static ShowRecentlyLoanGoodsResponse from(Slice<LoanGoods> loanGoods) {
+    public static ShowLoanGoodsResponse from(Slice<LoanGoods> loanGoods) {
         return builder()
                 .hasNext(loanGoods.hasNext())
                 .recentlyLoanGoods(
