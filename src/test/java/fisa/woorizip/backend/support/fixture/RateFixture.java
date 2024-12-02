@@ -12,11 +12,11 @@ public class RateFixture {
 
     private LoanGoods loanGoods;
     private RateType rateType = FIXED;
-    private String basic = "3%";
-    private String add = "1.5%";
-    private String normal = "4.15%";
-    private String special = "0%";
-    private String min = "4.15%";
+    private String basicRate = "3%";
+    private String addRate = "1.5%";
+    private String normalRate = "4.15%";
+    private String specialRate = "0%";
+    private String minRate = "4.15%";
 
     public static RateFixture builder() {
         return new RateFixture();
@@ -32,28 +32,28 @@ public class RateFixture {
         return this;
     }
 
-    public RateFixture basic(String basic) {
-        this.basic = basic;
+    public RateFixture basicRate(String basicRate) {
+        this.basicRate = basicRate;
         return this;
     }
 
-    public RateFixture add(String add) {
-        this.add = add;
+    public RateFixture addRate(String addRate) {
+        this.addRate = addRate;
         return this;
     }
 
-    public RateFixture normal(String normal) {
-        this.normal = normal;
+    public RateFixture normalRate(String normalRate) {
+        this.normalRate = normalRate;
         return this;
     }
 
-    public RateFixture special(String special) {
-        this.special = special;
+    public RateFixture specialRate(String specialRate) {
+        this.specialRate = specialRate;
         return this;
     }
 
-    public RateFixture min(String min) {
-        this.min = min;
+    public RateFixture minRate(String minRate) {
+        this.minRate = minRate;
         return this;
     }
 
@@ -61,11 +61,11 @@ public class RateFixture {
         return Rate.builder()
                 .loanGoods(loanGoods)
                 .rateType(rateType)
-                .basic(basic)
-                .add(add)
-                .normal(normal)
-                .special(special)
-                .min(min)
+                .basicRate(basicRate)
+                .addRate(addRate)
+                .normalRate(normalRate)
+                .specialRate(specialRate)
+                .minRate(minRate)
                 .build();
     }
 }
