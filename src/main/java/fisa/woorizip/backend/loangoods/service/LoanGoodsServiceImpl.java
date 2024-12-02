@@ -3,14 +3,10 @@ package fisa.woorizip.backend.loangoods.service;
 import static fisa.woorizip.backend.loangoods.LoanGoodsErrorCode.LOAN_GOODS_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 
-
-
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
-
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
-
 import fisa.woorizip.backend.loangoods.repository.LoanGoodsRepository;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
@@ -18,9 +14,9 @@ import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.rate.domain.Rate;
 import fisa.woorizip.backend.rate.dto.response.RateResponse;
 import fisa.woorizip.backend.rate.repository.RateRepository;
-
 import fisa.woorizip.backend.recentlyloangoods.domain.RecentlyLoanGoods;
 import fisa.woorizip.backend.recentlyloangoods.repository.RecentlyLoanGoodsRepository;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Pageable;
@@ -41,7 +37,8 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
 
     @Override
     @Transactional
-    public ShowLoanGoodsDetailResponse getLoanGoodsDetailsById(Long loanGoodsId, MemberIdentity memberIdentity) {
+    public ShowLoanGoodsDetailResponse getLoanGoodsDetailsById(
+            Long loanGoodsId, MemberIdentity memberIdentity) {
 
         LoanGoods loanGoods =
                 loanGoodsRepository
@@ -63,19 +60,20 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     }
 
     private void saveRecentlyLoanGoods(MemberIdentity memberIdentity, LoanGoods loanGoods) {
-        Member member = memberRepository.findById(memberIdentity.getId())
-                .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
+        Member member =
+                memberRepository
+                        .findById(memberIdentity.getId())
+                        .orElseThrow(() -> new WooriZipException(MEMBER_NOT_FOUND));
 
-        RecentlyLoanGoods recentlyLoanGoods = RecentlyLoanGoods.builder()
-                .member(member)
-                .loanGoods(loanGoods)
-                .lookedAt(LocalDateTime.now())
-                .build();
+        RecentlyLoanGoods recentlyLoanGoods =
+                RecentlyLoanGoods.builder()
+                        .member(member)
+                        .loanGoods(loanGoods)
+                        .lookedAt(LocalDateTime.now())
+                        .build();
 
         recentlyLoanGoodsRepository.save(recentlyLoanGoods);
     }
-
-
 
     @Override
     @Transactional(readOnly = true)

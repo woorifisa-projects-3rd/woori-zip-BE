@@ -1,6 +1,5 @@
 package fisa.woorizip.backend.loangoods.service;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.BDDMockito.given;
@@ -14,14 +13,13 @@ import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.rate.domain.Rate;
-
 import fisa.woorizip.backend.rate.repository.RateRepository;
-
 import fisa.woorizip.backend.recentlyloangoods.domain.RecentlyLoanGoods;
 import fisa.woorizip.backend.recentlyloangoods.repository.RecentlyLoanGoodsRepository;
 import fisa.woorizip.backend.support.fixture.LoanGoodsFixture;
 import fisa.woorizip.backend.support.fixture.MemberFixture;
 import fisa.woorizip.backend.support.fixture.RateFixture;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -51,15 +49,15 @@ class LoanGoodsServiceTest {
         LoanGoods loanGoods = LoanGoodsFixture.builder().id(1L).build();
         Rate rate = RateFixture.builder().loanGoods(loanGoods).build();
         Member member = MemberFixture.builder().id(1L).build();
-        MemberIdentity memberIdentity = new MemberIdentity(member.getId(), member.getRole().toString());
-
+        MemberIdentity memberIdentity =
+                new MemberIdentity(member.getId(), member.getRole().toString());
 
         given(loanGoodsRepository.findById(loanGoods.getId())).willReturn(Optional.of(loanGoods));
         given(rateRepository.findByLoanGoodsId(loanGoods.getId())).willReturn(List.of(rate));
         given(memberRepository.findById(member.getId())).willReturn(Optional.of(member));
 
-
-        ShowLoanGoodsDetailResponse response = loanGoodsService.getLoanGoodsDetailsById(loanGoods.getId(), memberIdentity);
+        ShowLoanGoodsDetailResponse response =
+                loanGoodsService.getLoanGoodsDetailsById(loanGoods.getId(), memberIdentity);
 
         assertAll(
                 () -> assertThat(response).isNotNull(),
@@ -78,9 +76,7 @@ class LoanGoodsServiceTest {
                 () ->
                         assertThat(response.getInterestMethod())
                                 .isEqualTo(loanGoods.getInterestMethod()),
-                () ->
-                        assertThat(response.getRateList().get(0).getId())
-                                .isEqualTo(rate.getId()),
+                () -> assertThat(response.getRateList().get(0).getId()).isEqualTo(rate.getId()),
                 () ->
                         assertThat(response.getRateList().get(0).getRateType())
                                 .isEqualTo(rate.getRateType()),
@@ -95,7 +91,9 @@ class LoanGoodsServiceTest {
                                 .isEqualTo(loanGoods.getInterestMethod()),
                 () -> verify(loanGoodsRepository, times(1)).findById(loanGoods.getId()),
                 () -> verify(rateRepository, times(1)).findByLoanGoodsId(loanGoods.getId()),
-                () -> verify(recentlyLoanGoodsRepository, times(1)).save(any(RecentlyLoanGoods.class)));
+                () ->
+                        verify(recentlyLoanGoodsRepository, times(1))
+                                .save(any(RecentlyLoanGoods.class)));
     }
 
     @Test

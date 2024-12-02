@@ -1,13 +1,9 @@
 package fisa.woorizip.backend.support.fixture;
 
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
-
 import fisa.woorizip.backend.member.domain.Member;
 
-
 import java.time.LocalDateTime;
-
-
 
 public class RecentlyLoanGoodsFixture {
 
@@ -15,7 +11,6 @@ public class RecentlyLoanGoodsFixture {
     private Member member;
     private LoanGoods loanGoods;
     private LocalDateTime lookedAt;
-
 
     public static RecentlyLoanGoodsFixture builder() {
         return new RecentlyLoanGoodsFixture();
