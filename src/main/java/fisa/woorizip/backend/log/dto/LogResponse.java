@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.log.dto;
 
 import fisa.woorizip.backend.log.domain.Log;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +25,5 @@ public class LogResponse {
                 .time(log.getCreatedAt())
                 .content(log.getContent())
                 .build();
-
     }
 }
