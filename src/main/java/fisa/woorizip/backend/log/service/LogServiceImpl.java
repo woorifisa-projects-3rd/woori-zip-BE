@@ -1,5 +1,7 @@
 package fisa.woorizip.backend.log.service;
 
+import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.END_DATE_BEFORE_START_DATE;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.log.domain.Log;
 import fisa.woorizip.backend.log.dto.ShowLogsResponse;
@@ -14,8 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.END_DATE_BEFORE_START_DATE;
-
 @Service
 @RequiredArgsConstructor
 public class LogServiceImpl implements LogService {
@@ -25,7 +25,8 @@ public class LogServiceImpl implements LogService {
 
     @Override
     @Transactional(readOnly = true)
-    public ShowLogsResponse searchLogs(String keyword, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
+    public ShowLogsResponse searchLogs(
+            String keyword, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
         validateEndDateBeforeStartDate(startDate, endDate);
         Long logId = null;
         String username = null;
@@ -39,7 +40,7 @@ public class LogServiceImpl implements LogService {
     }
 
     private void validateEndDateBeforeStartDate(LocalDateTime startDate, LocalDateTime endDate) {
-        if(endDate.isBefore(startDate)) {
+        if (endDate.isBefore(startDate)) {
             throw new WooriZipException(END_DATE_BEFORE_START_DATE);
         }
     }
