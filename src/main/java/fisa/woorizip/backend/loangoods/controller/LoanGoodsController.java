@@ -1,7 +1,6 @@
 package fisa.woorizip.backend.loangoods.controller;
 
 import static fisa.woorizip.backend.member.domain.Role.ADMIN;
-import static fisa.woorizip.backend.member.domain.Role.MEMBER;
 
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
@@ -9,8 +8,8 @@ import fisa.woorizip.backend.loangoods.service.LoanGoodsService;
 import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
-
 import fisa.woorizip.backend.member.domain.Role;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Pageable;
