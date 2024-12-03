@@ -39,7 +39,7 @@ public class LoanCheckListController {
             @RequestParam("houseId") Long houseId,
             @ModelAttribute @Valid RecommendMemberInfoFilter recommendMemberInfoFilter) {
 
-        return loanCheckListService.getLoanGoodsRecommend(recommendMemberInfoFilter, memberIdentity,houseId);
+        return loanCheckListService.getLoanGoodsRecommend(recommendMemberInfoFilter, houseId);
     }
 
 

@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum WorkStatus {
-    UNEMPLOYED("무직"),
+    UNEMPLOYED("비작징인"),
     EMPLOYED("직장인"),
-    SELF_EMPLOYED("자영업자");
+    ALL("전체");
 
     private final String name;
 

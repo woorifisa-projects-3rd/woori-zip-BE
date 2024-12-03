@@ -53,7 +53,7 @@ public class LoanCheckListServiceImpl implements LoanCheckListService{
 
 
     @Override
-    public List<LoanGoodsResponse> getLoanGoodsRecommend(RecommendMemberInfoFilter recommendMemberInfoFilter, MemberIdentity memberIdentity, Long houseId) {
+    public List<LoanGoodsResponse> getLoanGoodsRecommend(RecommendMemberInfoFilter recommendMemberInfoFilter, Long houseId) {
         House house = getHouse(houseId);
         List<LoanGoods> recommendLoanGoods = loanCheckListRepository.findRecommendLoanGoods(RecommendLoanFilter.of(house),recommendMemberInfoFilter);
 
