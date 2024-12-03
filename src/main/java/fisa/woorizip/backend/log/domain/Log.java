@@ -27,8 +27,8 @@ public class Log {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(name = "client_id", nullable = false)
-    private String clientId;
+    @Column(name = "client_ip", nullable = false)
+    private String clientIp;
 
     @Column(name = "request_url", nullable = false)
     private String requestUrl;
