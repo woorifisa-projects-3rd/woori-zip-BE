@@ -10,6 +10,8 @@ public interface LoanCheckListService {
 
     List<LoanGoodsResponse> getLoanGoodsRecommendByMemberIdAndHouseId(Long houseId);
 
-
-    List<LoanGoodsResponse> getLoanGoodsRecommend(RecommendMemberInfoFilter recommendMemberInfoFilter, MemberIdentity memberIdentity, Long houseId);
+    List<LoanGoodsResponse> getLoanGoodsRecommend(
+            RecommendMemberInfoFilter recommendMemberInfoFilter,
+            MemberIdentity memberIdentity,
+            Long houseId);
 }

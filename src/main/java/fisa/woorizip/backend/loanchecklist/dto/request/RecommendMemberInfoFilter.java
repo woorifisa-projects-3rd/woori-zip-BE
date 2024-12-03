@@ -5,6 +5,7 @@ import fisa.woorizip.backend.loanchecklist.domain.WorkStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkTerm;
 
 import jakarta.validation.constraints.NotNull;
+
 import lombok.*;
 
 @AllArgsConstructor
@@ -20,11 +21,12 @@ public class RecommendMemberInfoFilter {
     private long totalAssets;
     @NotNull private MarriageStatus marriageStatus;
 
-
-
-    public static RecommendMemberInfoFilter of(WorkStatus workStatus, WorkTerm workTerm,
-                                               long annualIncome, long totalAssets,
-                                               MarriageStatus marriageStatus) {
+    public static RecommendMemberInfoFilter of(
+            WorkStatus workStatus,
+            WorkTerm workTerm,
+            long annualIncome,
+            long totalAssets,
+            MarriageStatus marriageStatus) {
         return builder()
                 .workStatus(workStatus)
                 .workTerm(workTerm)
@@ -33,5 +35,4 @@ public class RecommendMemberInfoFilter {
                 .marriageStatus(marriageStatus)
                 .build();
     }
-
 }
