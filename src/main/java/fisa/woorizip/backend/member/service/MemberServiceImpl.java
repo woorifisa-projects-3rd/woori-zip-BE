@@ -1,5 +1,3 @@
-
-
 package fisa.woorizip.backend.member.service;
 
 import static fisa.woorizip.backend.member.MemberErrorCode.*;
@@ -8,7 +6,6 @@ import static fisa.woorizip.backend.member.MemberErrorCode.AGENT_LICENSE_ID_IS_N
 import static fisa.woorizip.backend.member.MemberErrorCode.AGENT_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.ALREADY_EXIST_USERNAME;
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_ADMINS;
-import static fisa.woorizip.backend.member.MemberErrorCode.NOT_ALLOWED_SIGN_UP;
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_APPROVED_ADMINS;
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_PENDING_APPROVAL_ADMINS;
 
@@ -66,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
             validateExistAgent(signUpRequest);
             return signUpRequest.toAgentMember(encodedPassword);
         }
-//        throw new WooriZipException(NOT_ALLOWED_SIGN_UP);
+        //        throw new WooriZipException(NOT_ALLOWED_SIGN_UP);
         return signUpRequest.toMember(encodedPassword);
     }
 
@@ -143,7 +140,7 @@ public class MemberServiceImpl implements MemberService {
             throw new WoorizipDetailException(
                     ADMINS_NOT_FOUND,
                     new String[] {
-                            notExistIds.stream().map(String::valueOf).collect(Collectors.joining(", "))
+                        notExistIds.stream().map(String::valueOf).collect(Collectors.joining(", "))
                     });
         }
     }
@@ -154,9 +151,9 @@ public class MemberServiceImpl implements MemberService {
             throw new WoorizipDetailException(
                     NOT_ADMINS,
                     new String[] {
-                            notAdmins.stream()
-                                    .map(member -> String.valueOf(member.getId()))
-                                    .collect(Collectors.joining(", "))
+                        notAdmins.stream()
+                                .map(member -> String.valueOf(member.getId()))
+                                .collect(Collectors.joining(", "))
                     });
         }
     }
