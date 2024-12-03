@@ -1,6 +1,5 @@
 package fisa.woorizip.backend.loangoods.service;
 
-import fisa.woorizip.backend.loangoods.dto.response.LoanGoodsResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
@@ -14,5 +13,4 @@ public interface LoanGoodsService {
     void deleteLoanGoods(Long id);
 
     ShowLoanGoodsDetailResponse getLoanGoodsDetailsById(Long loanGoodsId, MemberIdentity member);
-
 }

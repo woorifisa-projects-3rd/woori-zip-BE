@@ -1,6 +1,5 @@
 package fisa.woorizip.backend.loanchecklist.controller;
 
-import fisa.woorizip.backend.loanchecklist.domain.QLoanChecklist;
 import fisa.woorizip.backend.loanchecklist.dto.request.RecommendMemberInfoFilter;
 import fisa.woorizip.backend.loanchecklist.service.LoanCheckListService;
 import fisa.woorizip.backend.loangoods.dto.response.LoanGoodsResponse;

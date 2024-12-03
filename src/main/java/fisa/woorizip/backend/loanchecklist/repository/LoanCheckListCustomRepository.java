@@ -9,6 +9,8 @@ import java.util.List;
 public interface LoanCheckListCustomRepository {
 
     List<LoanGoods> findRecommendLoanGoodsFirstTime(RecommendLoanFilter recommendLoanFilter);
-    List<LoanGoods> findRecommendLoanGoods(RecommendLoanFilter recommendLoanFilter, RecommendMemberInfoFilter recommendMemberInfoFilter);
 
+    List<LoanGoods> findRecommendLoanGoods(
+            RecommendLoanFilter recommendLoanFilter,
+            RecommendMemberInfoFilter recommendMemberInfoFilter);
 }
