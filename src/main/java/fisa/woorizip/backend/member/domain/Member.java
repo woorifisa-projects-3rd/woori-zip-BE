@@ -67,8 +67,8 @@ public class Member {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    @Column(name = "available_assets", nullable = false)
-    private long availableAssets;
+    @Column(name = "available_assets")
+    private Long availableAssets;
 
     @Builder
     private Member(

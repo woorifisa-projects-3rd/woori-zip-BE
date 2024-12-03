@@ -1,3 +1,5 @@
+
+
 package fisa.woorizip.backend.member.service;
 
 import static fisa.woorizip.backend.member.MemberErrorCode.*;
@@ -64,7 +66,8 @@ public class MemberServiceImpl implements MemberService {
             validateExistAgent(signUpRequest);
             return signUpRequest.toAgentMember(encodedPassword);
         }
-        throw new WooriZipException(NOT_ALLOWED_SIGN_UP);
+//        throw new WooriZipException(NOT_ALLOWED_SIGN_UP);
+        return signUpRequest.toMember(encodedPassword);
     }
 
     private void validateExistAgent(SignUpRequest signUpRequest) {
@@ -140,7 +143,7 @@ public class MemberServiceImpl implements MemberService {
             throw new WoorizipDetailException(
                     ADMINS_NOT_FOUND,
                     new String[] {
-                        notExistIds.stream().map(String::valueOf).collect(Collectors.joining(", "))
+                            notExistIds.stream().map(String::valueOf).collect(Collectors.joining(", "))
                     });
         }
     }
@@ -151,9 +154,9 @@ public class MemberServiceImpl implements MemberService {
             throw new WoorizipDetailException(
                     NOT_ADMINS,
                     new String[] {
-                        notAdmins.stream()
-                                .map(member -> String.valueOf(member.getId()))
-                                .collect(Collectors.joining(", "))
+                            notAdmins.stream()
+                                    .map(member -> String.valueOf(member.getId()))
+                                    .collect(Collectors.joining(", "))
                     });
         }
     }

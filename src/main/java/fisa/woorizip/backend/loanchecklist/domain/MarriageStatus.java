@@ -6,7 +6,8 @@ import lombok.Getter;
 public enum MarriageStatus {
     SINGLE("미혼"),
     MARRIED("기혼"),
-    NEW_MARRIAGE("신혼");
+    NEW_MARRIAGE("신혼"),
+    ALL("전체");
 
     private final String name;
 
