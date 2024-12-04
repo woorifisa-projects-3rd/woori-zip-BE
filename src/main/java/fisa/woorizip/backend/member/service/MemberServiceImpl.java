@@ -64,7 +64,6 @@ public class MemberServiceImpl implements MemberService {
             return signUpRequest.toAgentMember(encodedPassword);
         }
         throw new WooriZipException(NOT_ALLOWED_SIGN_UP);
-        return signUpRequest.toMember(encodedPassword);
     }
 
     private void validateExistAgent(SignUpRequest signUpRequest) {
