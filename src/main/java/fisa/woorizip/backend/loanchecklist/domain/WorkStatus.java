@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 @Getter
 public enum WorkStatus {
-    UNEMPLOYED("비작징인"),
+    UNEMPLOYED("무직"),
     EMPLOYED("직장인"),
     NONE_WORK_STATUS("해당없음");
 
