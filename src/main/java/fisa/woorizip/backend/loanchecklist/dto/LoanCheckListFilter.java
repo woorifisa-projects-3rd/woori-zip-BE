@@ -5,13 +5,13 @@ import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.loanchecklist.domain.MarriageStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkTerm;
-import fisa.woorizip.backend.loanchecklist.dto.request.LoanGoodsCheckListRequest;
+import fisa.woorizip.backend.loanchecklist.dto.request.LoanCheckListRequest;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class LoanGoodsCheckListFilter {
+public class LoanCheckListFilter {
     private WorkStatus workStatus;
     private WorkTerm workTerm;
     private Long annualIncome;
@@ -22,7 +22,7 @@ public class LoanGoodsCheckListFilter {
     private Long monthlyRentFee;
     private double exclusiveArea;
 
-    public static LoanGoodsCheckListFilter of(House house, LoanGoodsCheckListRequest request) {
+    public static LoanCheckListFilter of(House house, LoanCheckListRequest request) {
         return builder()
                 .workStatus(request.getWorkStatus())
                 .workTerm(request.getWorkTerm())

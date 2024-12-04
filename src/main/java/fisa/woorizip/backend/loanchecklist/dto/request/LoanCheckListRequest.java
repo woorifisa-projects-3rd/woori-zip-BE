@@ -9,8 +9,7 @@ import lombok.*;
 import java.beans.ConstructorProperties;
 
 @Getter
-@Builder
-public class LoanGoodsCheckListRequest {
+public class LoanCheckListRequest {
 
     private Long annualIncome;
     private Long totalAssets;
@@ -27,7 +26,7 @@ public class LoanGoodsCheckListRequest {
             "workStatus",
             "workTerm"
     })
-    private LoanGoodsCheckListRequest(
+    private LoanCheckListRequest(
             Long annualIncome,
             Long totalAssets,
             String marriageStatus,
