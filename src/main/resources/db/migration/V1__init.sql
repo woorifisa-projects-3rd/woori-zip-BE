@@ -248,11 +248,11 @@ CREATE TABLE IF NOT EXISTS `rate`
     `id` BIGINT NOT NULL auto_increment,
     `loan_goods_id` BIGINT NOT NULL,
     `rate_type` VARCHAR(255) NOT NULL,
-    `basic` VARCHAR(255) NOT NULL,
-    `add` VARCHAR(255) NOT NULL,
-    `normal` VARCHAR(255) NOT NULL,
-    `special` VARCHAR(255) NOT NULL,
-    `min` VARCHAR(255) NOT NULL,
+    `basic_rate` VARCHAR(255) NOT NULL,
+    `add_rate` VARCHAR(255) NOT NULL,
+    `normal_rate` VARCHAR(255) NOT NULL,
+    `special_rate` VARCHAR(255) NOT NULL,
+    `min_rate` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 )
     engine = innodb
