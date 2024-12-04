@@ -3,11 +3,10 @@ package fisa.woorizip.backend.loanchecklist.service;
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.repository.HouseRepository;
-import fisa.woorizip.backend.loanchecklist.dto.LoanCheckListFilter;
-import fisa.woorizip.backend.loanchecklist.dto.request.LoanCheckListRequest;
+import fisa.woorizip.backend.loanchecklist.dto.LoanChecklistFilter;
+import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistRequest;
 import fisa.woorizip.backend.loanchecklist.repository.LoanChecklistRepository;
 import fisa.woorizip.backend.loangoods.dto.response.LoanGoodsResponse;
-import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,9 +27,9 @@ public class LoanCheckListServiceImpl implements LoanCheckListService {
     @Override
     @Transactional(readOnly = true)
     public List<LoanGoodsResponse> getRecommendLoanGoods(
-            Long houseId, LoanCheckListRequest loanGoodsCheckListRequest) {
-        LoanCheckListFilter loanCheckListFilter =
-                LoanCheckListFilter.of(findHouseById(houseId), loanGoodsCheckListRequest);
+            Long houseId, LoanChecklistRequest loanGoodsCheckListRequest) {
+        LoanChecklistFilter loanCheckListFilter =
+                LoanChecklistFilter.of(findHouseById(houseId), loanGoodsCheckListRequest);
         return loanCheckListRepository.findRecommendLoanGoods(loanCheckListFilter).stream()
                 .map(LoanGoodsResponse::from)
                 .toList();

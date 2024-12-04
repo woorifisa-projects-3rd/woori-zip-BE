@@ -14,7 +14,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import fisa.woorizip.backend.loanchecklist.domain.MarriageStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkTerm;
-import fisa.woorizip.backend.loanchecklist.dto.LoanCheckListFilter;
+import fisa.woorizip.backend.loanchecklist.dto.LoanChecklistFilter;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class LoanCheckListCustomRepositoryImpl implements LoanCheckListCustomRep
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<LoanGoods> findRecommendLoanGoods(LoanCheckListFilter filter) {
+    public List<LoanGoods> findRecommendLoanGoods(LoanChecklistFilter filter) {
         return jpaQueryFactory
                 .selectFrom(loanGoods)
                 .join(loanChecklist)
