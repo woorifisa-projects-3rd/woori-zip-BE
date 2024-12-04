@@ -75,7 +75,7 @@ public class House {
     private String totalArea;
 
     @Column(name = "exclusive_area", nullable = false)
-    private Double exclusiveArea;
+    private double exclusiveArea;
 
     @Column(name = "rooms", nullable = false)
     private int rooms;
