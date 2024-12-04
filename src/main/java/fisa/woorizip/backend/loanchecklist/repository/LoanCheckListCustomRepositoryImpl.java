@@ -4,6 +4,7 @@ import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NONE_MAR
 import static fisa.woorizip.backend.loanchecklist.domain.QLoanChecklist.loanChecklist;
 import static fisa.woorizip.backend.loanchecklist.domain.WorkStatus.NONE_WORK_STATUS;
 import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.NONE_TERM;
+import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.ONE_YEAR;
 import static fisa.woorizip.backend.loangoods.domain.QLoanGoods.loanGoods;
 import static java.util.Objects.isNull;
 
@@ -53,6 +54,7 @@ public class LoanCheckListCustomRepositoryImpl implements LoanCheckListCustomRep
     }
 
     private BooleanExpression workTermEq(WorkTerm workTerm) {
+        if (workTerm == ONE_YEAR) return null;
         return loanChecklist.workTerm.eq(NONE_TERM).or(loanChecklist.workTerm.eq(workTerm));
     }
 
@@ -60,16 +62,24 @@ public class LoanCheckListCustomRepositoryImpl implements LoanCheckListCustomRep
         if (isNull(annualIncome)) return null;
         return loanChecklist
                 .annualIncome
-                .isNotNull()
-                .and(loanChecklist.annualIncome.goe(annualIncome));
+                .isNull()
+                .or(
+                        loanChecklist
+                                .annualIncome
+                                .isNotNull()
+                                .and(loanChecklist.annualIncome.goe(annualIncome)));
     }
 
     private BooleanExpression totalAssetsEq(Long totalAssets) {
         if (isNull(totalAssets)) return null;
         return loanChecklist
                 .totalAssets
-                .isNotNull()
-                .and(loanChecklist.totalAssets.goe(totalAssets));
+                .isNull()
+                .or(
+                        loanChecklist
+                                .totalAssets
+                                .isNotNull()
+                                .and(loanChecklist.totalAssets.goe(totalAssets)));
     }
 
     private BooleanExpression contractEq(Boolean contract) {
@@ -88,23 +98,35 @@ public class LoanCheckListCustomRepositoryImpl implements LoanCheckListCustomRep
         if (isNull(leaseDeposit)) return null;
         return loanChecklist
                 .leaseDeposit
-                .isNotNull()
-                .and(loanChecklist.leaseDeposit.goe(leaseDeposit));
+                .isNull()
+                .or(
+                        loanChecklist
+                                .leaseDeposit
+                                .isNotNull()
+                                .and(loanChecklist.leaseDeposit.goe(leaseDeposit)));
     }
 
     private BooleanExpression monthlyRentEq(Long monthlyRent) {
         if (isNull(monthlyRent)) return null;
         return loanChecklist
                 .monthlyRent
-                .isNotNull()
-                .and(loanChecklist.monthlyRent.goe(monthlyRent));
+                .isNull()
+                .or(
+                        loanChecklist
+                                .monthlyRent
+                                .isNotNull()
+                                .and(loanChecklist.monthlyRent.goe(monthlyRent)));
     }
 
     private BooleanExpression exclusiveAreaEq(Double exclusiveArea) {
         if (isNull(exclusiveArea)) return null;
         return loanChecklist
                 .exclusiveArea
-                .isNotNull()
-                .and(loanChecklist.exclusiveArea.goe(exclusiveArea));
+                .isNull()
+                .or(
+                        loanChecklist
+                                .exclusiveArea
+                                .isNotNull()
+                                .and(loanChecklist.exclusiveArea.goe(exclusiveArea)));
     }
 }
