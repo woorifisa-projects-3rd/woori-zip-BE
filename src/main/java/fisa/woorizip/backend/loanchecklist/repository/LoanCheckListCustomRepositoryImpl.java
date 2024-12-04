@@ -6,6 +6,7 @@ import static fisa.woorizip.backend.loanchecklist.domain.WorkStatus.NONE_WORK_ST
 import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.NONE_TERM;
 import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.ONE_YEAR;
 import static fisa.woorizip.backend.loangoods.domain.QLoanGoods.loanGoods;
+
 import static java.util.Objects.isNull;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
