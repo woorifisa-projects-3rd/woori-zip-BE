@@ -30,7 +30,7 @@ public class LoanCheckListRequest {
             Long annualIncome,
             Long totalAssets,
             String marriageStatus,
-            boolean contract,
+            Boolean contract,
             String workStatus,
             String workTerm
     ) {
