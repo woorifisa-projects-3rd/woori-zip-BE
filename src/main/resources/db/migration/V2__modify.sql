@@ -1,9 +1,8 @@
-
 ALTER TABLE `house`
     MODIFY `exclusive_area` DOUBLE NOT NULL;
 
 ALTER TABLE `member`
-    DROP COLUMN `available_assets`;
+DROP COLUMN `available_assets`;
 
 ALTER TABLE `loan_checklist`
     MODIFY `annual_income` BIGINT NULL,
