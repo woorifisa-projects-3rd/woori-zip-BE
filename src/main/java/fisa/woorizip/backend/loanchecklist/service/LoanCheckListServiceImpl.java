@@ -1,5 +1,7 @@
 package fisa.woorizip.backend.loanchecklist.service;
 
+import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.repository.HouseRepository;
@@ -14,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor

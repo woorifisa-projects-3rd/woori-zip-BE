@@ -67,6 +67,7 @@ public class LoanGoodsController {
             @VerifiedMember MemberIdentity memberIdentity,
             @PathVariable("houseId") Long houseId,
             @ModelAttribute LoanChecklistRequest loanCheckListRequest) {
-        return ResponseEntity.ok(loanCheckListService.getRecommendLoanGoods(houseId, loanCheckListRequest));
+        return ResponseEntity.ok(
+                loanCheckListService.getRecommendLoanGoods(houseId, loanCheckListRequest));
     }
 }

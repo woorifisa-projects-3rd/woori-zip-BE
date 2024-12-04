@@ -1,6 +1,5 @@
 package fisa.woorizip.backend.loanchecklist.domain;
 
-import fisa.woorizip.backend.common.exception.WooriZipException;
 import lombok.Getter;
 
 import java.util.Arrays;

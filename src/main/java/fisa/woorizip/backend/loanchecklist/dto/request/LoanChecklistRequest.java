@@ -19,12 +19,12 @@ public class LoanChecklistRequest {
     private WorkTerm workTerm;
 
     @ConstructorProperties({
-            "annualIncome",
-            "totalAssets",
-            "marriageStatus",
-            "contract",
-            "workStatus",
-            "workTerm"
+        "annualIncome",
+        "totalAssets",
+        "marriageStatus",
+        "contract",
+        "workStatus",
+        "workTerm"
     })
     private LoanChecklistRequest(
             Long annualIncome,
@@ -32,8 +32,7 @@ public class LoanChecklistRequest {
             String marriageStatus,
             Boolean contract,
             String workStatus,
-            String workTerm
-    ) {
+            String workTerm) {
         this.annualIncome = annualIncome;
         this.totalAssets = totalAssets;
         this.marriageStatus = MarriageStatus.from(marriageStatus);
