@@ -94,8 +94,7 @@ public class LoanCheckListCustomRepositoryImpl implements LoanCheckListCustomRep
                 .or(loanChecklist.marriageStatus.eq(marriageStatus));
     }
 
-    private BooleanExpression leaseDepositEq(Long leaseDeposit) {
-        if (isNull(leaseDeposit)) return null;
+    private BooleanExpression leaseDepositEq(long leaseDeposit) {
         return loanChecklist
                 .leaseDeposit
                 .isNull()
@@ -106,8 +105,7 @@ public class LoanCheckListCustomRepositoryImpl implements LoanCheckListCustomRep
                                 .and(loanChecklist.leaseDeposit.goe(leaseDeposit)));
     }
 
-    private BooleanExpression monthlyRentEq(Long monthlyRent) {
-        if (isNull(monthlyRent)) return null;
+    private BooleanExpression monthlyRentEq(long monthlyRent) {
         return loanChecklist
                 .monthlyRent
                 .isNull()
@@ -118,8 +116,7 @@ public class LoanCheckListCustomRepositoryImpl implements LoanCheckListCustomRep
                                 .and(loanChecklist.monthlyRent.goe(monthlyRent)));
     }
 
-    private BooleanExpression exclusiveAreaEq(Double exclusiveArea) {
-        if (isNull(exclusiveArea)) return null;
+    private BooleanExpression exclusiveAreaEq(double exclusiveArea) {
         return loanChecklist
                 .exclusiveArea
                 .isNull()
