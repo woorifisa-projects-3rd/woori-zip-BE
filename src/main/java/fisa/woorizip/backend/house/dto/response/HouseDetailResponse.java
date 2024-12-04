@@ -29,7 +29,7 @@ public class HouseDetailResponse {
     private final int totalParkingSpaces;
     private final int householdParkingSpaces;
     private final String totalArea;
-    private final String exclusiveArea;
+    private final double exclusiveArea;
     private final int rooms;
     private final int bathrooms;
     private final int floor;

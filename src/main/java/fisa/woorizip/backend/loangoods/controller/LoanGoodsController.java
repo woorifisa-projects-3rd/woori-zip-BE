@@ -2,6 +2,9 @@ package fisa.woorizip.backend.loangoods.controller;
 
 import static fisa.woorizip.backend.member.domain.Role.ADMIN;
 
+import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistRequest;
+import fisa.woorizip.backend.loanchecklist.service.LoanCheckListService;
+import fisa.woorizip.backend.loangoods.dto.response.LoanGoodsResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
 import fisa.woorizip.backend.loangoods.service.LoanGoodsService;
@@ -22,12 +25,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/loangoods")
 @RequiredArgsConstructor
 public class LoanGoodsController {
 
     private final LoanGoodsService loanGoodsService;
+    private final LoanCheckListService loanCheckListService;
 
     @Login(role = {Role.MEMBER, Role.ADMIN})
     @GetMapping("/{loanGoodsId}")
@@ -53,5 +59,15 @@ public class LoanGoodsController {
             @PathVariable("loanGoodsId") Long loanGoodsId) {
         loanGoodsService.deleteLoanGoods(loanGoodsId);
         return ResponseEntity.ok().build();
+    }
+
+    @Login
+    @GetMapping("/recommend/{houseId}")
+    public ResponseEntity<List<LoanGoodsResponse>> showRecommendedLoanGoods(
+            @VerifiedMember MemberIdentity memberIdentity,
+            @PathVariable("houseId") Long houseId,
+            @ModelAttribute LoanChecklistRequest loanCheckListRequest) {
+        return ResponseEntity.ok(
+                loanCheckListService.getRecommendLoanGoods(houseId, loanCheckListRequest));
     }
 }
