@@ -1,5 +1,6 @@
 package fisa.woorizip.backend.loangoods.domain;
 
+import fisa.woorizip.backend.loangoods.dto.request.LoanGoodsRequest;
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -54,4 +55,19 @@ public class LoanGoods {
 
     @Column(name = "interest_method", nullable = false)
     private String interestMethod;
+
+    public void updateLoanGoods(LoanGoodsRequest loanGoodsRequest) {
+        this.name = loanGoodsRequest.getName();
+        this.loanType = loanGoodsRequest.getLoanType();
+        this.target = loanGoodsRequest.getTarget();
+        this.limitAmount = loanGoodsRequest.getLimitAmount();
+        this.term = loanGoodsRequest.getTerm();
+        this.normalRate = loanGoodsRequest.getNormalRate();
+        this.specialRate = loanGoodsRequest.getSpecialRate();
+        this.repayType = loanGoodsRequest.getRepayType();
+        this.guarantee = loanGoodsRequest.getGuarantee();
+        this.targetHouse = loanGoodsRequest.getTargetHouse();
+        this.customerCost = loanGoodsRequest.getCustomerCost();
+        this.interestMethod = loanGoodsRequest.getInterestMethod();
+    }
 }
