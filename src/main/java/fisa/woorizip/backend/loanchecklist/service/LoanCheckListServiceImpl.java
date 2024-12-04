@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
-import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
