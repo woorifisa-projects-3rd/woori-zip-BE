@@ -8,9 +8,11 @@ import fisa.woorizip.backend.loanchecklist.domain.WorkTerm;
 import fisa.woorizip.backend.loanchecklist.dto.request.LoanCheckListRequest;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 @Builder
+@ToString
 public class LoanCheckListFilter {
     private WorkStatus workStatus;
     private WorkTerm workTerm;
