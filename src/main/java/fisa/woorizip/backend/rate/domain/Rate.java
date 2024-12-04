@@ -25,18 +25,18 @@ public class Rate {
     @Column(name = "rate_type", nullable = false)
     private RateType rateType;
 
-    @Column(name = "basic", nullable = false)
-    private String basic;
+    @Column(name = "basic_rate", nullable = false)
+    private String basicRate;
 
-    @Column(name = "add", nullable = false)
-    private String add;
+    @Column(name = "add_rate", nullable = false)
+    private String addRate;
 
-    @Column(name = "normal", nullable = false)
-    private String normal;
+    @Column(name = "normal_rate", nullable = false)
+    private String normalRate;
 
-    @Column(name = "special", nullable = false)
-    private String special;
+    @Column(name = "special_rate", nullable = false)
+    private String specialRate;
 
-    @Column(name = "min", nullable = false)
-    private String min;
+    @Column(name = "min_rate", nullable = false)
+    private String minRate;
 }
