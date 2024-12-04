@@ -1,8 +1,9 @@
 package fisa.woorizip.backend.loanchecklist.repository;
 
-import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NEW_MARRIAGE;
+import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NONE_MARRIAGE;
 import static fisa.woorizip.backend.loanchecklist.domain.QLoanChecklist.loanChecklist;
 import static fisa.woorizip.backend.loanchecklist.domain.WorkStatus.NONE_WORK_STATUS;
+import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.NONE_TERM;
 import static fisa.woorizip.backend.loangoods.domain.QLoanGoods.loanGoods;
 import static java.util.Objects.isNull;
 
@@ -13,7 +14,6 @@ import fisa.woorizip.backend.loanchecklist.domain.MarriageStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkTerm;
 import fisa.woorizip.backend.loanchecklist.dto.LoanCheckListFilter;
-import fisa.woorizip.backend.loanchecklist.dto.request.LoanCheckListRequest;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 
 import lombok.RequiredArgsConstructor;
@@ -32,17 +32,28 @@ public class LoanCheckListCustomRepositoryImpl implements LoanCheckListCustomRep
                 .join(loanChecklist)
                 .on(loanChecklist.loanGoods.id.eq(loanGoods.id))
                 .where(
-                        loanChecklist.workStatus.eq(filter.getWorkStatus()),
-                        loanChecklist.workTerm.eq(filter.getWorkTerm()),
+                        workStatusEq(filter.getWorkStatus()),
+                        workTermEq(filter.getWorkTerm()),
                         annualIncomeEq(filter.getAnnualIncome()),
                         totalAssetsEq(filter.getTotalAssets()),
                         contractEq(filter.getContract()),
-                        loanChecklist.marriageStatus.eq(filter.getMarriageStatus()),
+                        marriageStatusEq(filter.getMarriageStatus()),
                         leaseDepositEq(filter.getLeaseDeposit()),
                         monthlyRentEq(filter.getMonthlyRent()),
                         exclusiveAreaEq(filter.getExclusiveArea()))
                 .stream()
                 .toList();
+    }
+
+    private BooleanExpression workStatusEq(WorkStatus workStatus) {
+        return loanChecklist
+                .workStatus
+                .eq(NONE_WORK_STATUS)
+                .or(loanChecklist.workStatus.eq(workStatus));
+    }
+
+    private BooleanExpression workTermEq(WorkTerm workTerm) {
+        return loanChecklist.workTerm.eq(NONE_TERM).or(loanChecklist.workTerm.eq(workTerm));
     }
 
     private BooleanExpression annualIncomeEq(Long annualIncome) {
@@ -64,6 +75,13 @@ public class LoanCheckListCustomRepositoryImpl implements LoanCheckListCustomRep
     private BooleanExpression contractEq(Boolean contract) {
         if (isNull(contract)) return null;
         return loanChecklist.contract.eq(contract);
+    }
+
+    private BooleanExpression marriageStatusEq(MarriageStatus marriageStatus) {
+        return loanChecklist
+                .marriageStatus
+                .eq(NONE_MARRIAGE)
+                .or(loanChecklist.marriageStatus.eq(marriageStatus));
     }
 
     private BooleanExpression leaseDepositEq(Long leaseDeposit) {
