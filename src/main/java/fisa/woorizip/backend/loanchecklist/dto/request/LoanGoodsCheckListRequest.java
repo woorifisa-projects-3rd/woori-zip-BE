@@ -15,7 +15,7 @@ public class LoanGoodsCheckListRequest {
     private Long annualIncome;
     private Long totalAssets;
     private MarriageStatus marriageStatus;
-    private boolean contract;
+    private Boolean contract;
     private WorkStatus workStatus;
     private WorkTerm workTerm;
 
