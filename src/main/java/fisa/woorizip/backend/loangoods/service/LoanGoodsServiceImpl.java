@@ -5,6 +5,7 @@ import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
+import fisa.woorizip.backend.loangoods.dto.request.LoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
 import fisa.woorizip.backend.loangoods.repository.LoanGoodsRepository;
@@ -45,6 +46,13 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
         saveRecentlyLoanGoods(memberIdentity.getId(), loanGoods);
 
         return ShowLoanGoodsDetailResponse.of(loanGoods, rateList);
+    }
+
+    @Override
+    @Transactional
+    public void updateLoanGoods(Long loanGoodsId, LoanGoodsRequest loanGoodsRequest) {
+        LoanGoods loanGoods = findLoanGoodsById(loanGoodsId);
+        loanGoods.updateLoanGoods(loanGoodsRequest);
     }
 
     private List<RateResponse> getRateResponseList(Long loanGoodsId) {
