@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.log.service;
 
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.END_DATE_BEFORE_START_DATE;
+import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.log.domain.Log;
@@ -31,7 +32,7 @@ public class LogServiceImpl implements LogService {
         Long logId = null;
         String username = null;
 
-        if (keyword.matches(NUMERIC_PATTERN)) {
+        if (!isNull(keyword) && keyword.matches(NUMERIC_PATTERN)) {
             logId = Long.valueOf(keyword);
         } else username = keyword;
 
@@ -40,7 +41,7 @@ public class LogServiceImpl implements LogService {
     }
 
     private void validateEndDateBeforeStartDate(LocalDateTime startDate, LocalDateTime endDate) {
-        if (endDate.isBefore(startDate)) {
+        if ((!isNull(startDate) && !isNull(endDate)) && endDate.isBefore(startDate)) {
             throw new WooriZipException(END_DATE_BEFORE_START_DATE);
         }
     }
