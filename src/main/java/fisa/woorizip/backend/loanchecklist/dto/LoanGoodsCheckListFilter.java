@@ -1,11 +1,11 @@
-package fisa.woorizip.backend.loanchecklist.dto.request;
+package fisa.woorizip.backend.loanchecklist.dto;
 
 import fisa.woorizip.backend.house.domain.House;
 
 import fisa.woorizip.backend.loanchecklist.domain.MarriageStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkTerm;
-import fisa.woorizip.backend.member.domain.Member;
+import fisa.woorizip.backend.loanchecklist.dto.request.LoanGoodsCheckListRequest;
 import lombok.Builder;
 import lombok.Getter;
 
