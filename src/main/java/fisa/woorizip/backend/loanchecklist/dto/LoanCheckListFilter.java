@@ -19,7 +19,7 @@ public class LoanCheckListFilter {
     private Boolean contract;
     private MarriageStatus marriageStatus;
     private long leaseDeposit;
-    private Long monthlyRentFee;
+    private Long monthlyRent;
     private double exclusiveArea;
 
     public static LoanCheckListFilter of(House house, LoanCheckListRequest request) {
@@ -31,7 +31,7 @@ public class LoanCheckListFilter {
                 .contract(request.getContract())
                 .marriageStatus(request.getMarriageStatus())
                 .leaseDeposit(house.getDeposit())
-                .monthlyRentFee(house.getMonthlyRentFee())
+                .monthlyRent(house.getMonthlyRentFee())
                 .exclusiveArea(house.getExclusiveArea())
                 .build();
     }
