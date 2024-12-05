@@ -4,6 +4,7 @@ import fisa.woorizip.backend.member.domain.Gender;
 import fisa.woorizip.backend.member.domain.Member;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
