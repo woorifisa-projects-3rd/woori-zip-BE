@@ -16,7 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
     private final PageArgumentResolver pageArgumentResolver;
 
     private static final String CLIENT_LOCALHOST = "http://localhost:3000";
-    private static final String CLIENT_SECURE_LOCALHOST = "https://localhost:3000";
+    private static final String CLIENT_VERCEL = "https://woori-zip-fe.vercel.app";
 
     public WebConfig(PageArgumentResolver pageArgumentResolver) {
         this.pageArgumentResolver = pageArgumentResolver;
@@ -34,7 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
                 .allowedMethods(CORS_ALLOWED_METHODS.split(","))
-                .allowedOrigins(CLIENT_LOCALHOST, CLIENT_SECURE_LOCALHOST)
+                .allowedOrigins(CLIENT_LOCALHOST, CLIENT_VERCEL)
                 .exposedHeaders(HttpHeaders.SET_COOKIE, HttpHeaders.LOCATION)
                 .allowCredentials(true);
     }

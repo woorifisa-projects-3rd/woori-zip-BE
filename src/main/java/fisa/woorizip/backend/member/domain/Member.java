@@ -80,8 +80,7 @@ public class Member {
             Gender gender,
             Membership membership,
             LifeStage lifeStage,
-            Role role,
-            long availableAssets) {
+            Role role) {
         this.id = id;
         this.username = isNull(username) ? "" : username;
         this.password = isNull(password) ? "" : password;
@@ -106,5 +105,18 @@ public class Member {
 
     public void approve() {
         this.status = Status.APPROVED;
+    }
+
+    private void updateBirthDay(LocalDate birthday) {
+        if (!isNull(birthday)) this.birthday = birthday;
+    }
+
+    private void updateGender(Gender gender) {
+        if (!isNull(gender)) this.gender = gender;
+    }
+
+    public void updateProfile(Member member) {
+        updateBirthDay(member.getBirthday());
+        updateGender(member.getGender());
     }
 }
