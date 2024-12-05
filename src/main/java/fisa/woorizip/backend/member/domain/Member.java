@@ -4,6 +4,7 @@ import static fisa.woorizip.backend.member.domain.LifeStage.NONE_LIFE_STAGE;
 import static fisa.woorizip.backend.member.domain.Membership.NONE_MEMBERSHIP;
 
 import static java.util.Objects.isNull;
+
 import jakarta.persistence.*;
 
 import lombok.AccessLevel;
