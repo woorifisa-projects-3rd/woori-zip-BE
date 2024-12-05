@@ -11,9 +11,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Component
 public class WooriBankOauth {
 
-    private static final String TOKEN_URI = "http://localhost:8082/api/v1/token";
-    private static final String MEMBER_DATA_URI = "http://localhost:8082/api/v1/members";
-
+    private final String tokenUri;
+    private final String memberDataUri;
     private final String grantType;
     private final String clientId;
     private final String redirectUri;
@@ -22,10 +21,14 @@ public class WooriBankOauth {
     private WebClient webClient = WebClient.builder().build();
 
     public WooriBankOauth(
+            @Value("${woori-bank.token-uri}") String tokenUri,
+            @Value("${woori-bank.member-data-uri}") String memberDataUri,
             @Value("${woori-bank.grant-type}") String grantType,
             @Value("${woori-bank.client-id}") String clientId,
             @Value("${woori-bank.redirect-uri}") String redirectUri,
             @Value("${woori-bank.client-secret}") String clientSecret) {
+        this.tokenUri = tokenUri;
+        this.memberDataUri = memberDataUri;
         this.grantType = grantType;
         this.clientId = clientId;
         this.redirectUri = redirectUri;
@@ -35,7 +38,7 @@ public class WooriBankOauth {
     public GetMemberDataResponse getMemberData(String accessToken) {
         return webClient
                 .get()
-                .uri(MEMBER_DATA_URI)
+                .uri(memberDataUri)
                 .header(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .header(AUTHORIZATION, "Bearer " + accessToken)
                 .retrieve()
@@ -46,7 +49,7 @@ public class WooriBankOauth {
     public GetWooriBankTokenResponse getToken(String code) {
         return webClient
                 .post()
-                .uri(TOKEN_URI)
+                .uri(tokenUri)
                 .header(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .bodyValue(createTokenRequest(code))
                 .retrieve()
