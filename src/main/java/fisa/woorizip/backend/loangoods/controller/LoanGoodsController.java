@@ -85,10 +85,9 @@ public class LoanGoodsController {
 
     @Login(role = ADMIN)
     @PutMapping("/{loanGoodsId}")
-    public ResponseEntity<Void> modify(
-            @VerifiedMember MemberIdentity memberIdentity,
+    public ResponseEntity<Void> modifyLoanGoods(
             @PathVariable("loanGoodsId") Long loanGoodsId,
-            @RequestBody ModifyLoanGoodsRequest loanGoodsRequest) {
+            @RequestBody @Valid ModifyLoanGoodsRequest loanGoodsRequest) {
         loanGoodsService.updateLoanGoods(loanGoodsId, loanGoodsRequest);
         return ResponseEntity.ok().build();
     }
