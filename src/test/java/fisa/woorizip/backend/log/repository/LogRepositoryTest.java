@@ -37,26 +37,22 @@ class LogRepositoryTest {
         저장(
                 Log.builder()
                         .member(member1)
-                        .content("Log1")
                         .createdAt(LocalDateTime.now().minusHours(2))
                         .build());
         저장(
                 Log.builder()
                         .member(member2)
-                        .content("Log2")
                         .createdAt(LocalDateTime.now().minusHours(3))
                         .build());
         저장(
                 Log.builder()
                         .member(member2)
-                        .content("Log3")
                         .createdAt(LocalDateTime.now().minusHours(1))
                         .build());
         Log log =
                 저장(
                         Log.builder()
                                 .member(member2)
-                                .content("Log4")
                                 .createdAt(LocalDateTime.now())
                                 .build());
 
