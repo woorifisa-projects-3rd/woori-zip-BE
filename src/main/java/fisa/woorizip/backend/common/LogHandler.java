@@ -82,12 +82,24 @@ public class LogHandler {
             ApiResponse<?> apiResponse = (ApiResponse<?>) result;
             LogBuilder logBuilder = logs.getOrDefault(MDC.get(TRACE_ID), Log.builder());
             String responseBody = isNull(apiResponse.getData()) ? "" : apiResponse.getData().toString();
-            Log log = logBuilder.isSuccess(apiResponse.isSuccess()).responseBody(responseBody).responseStatus(HttpStatus.valueOf(response.getStatus()).toString()).build();
-            logRepository.save(log);
+            Log log = logRepository.save(logBuilder.isSuccess(apiResponse.isSuccess()).responseBody(responseBody).responseStatus(HttpStatus.valueOf(response.getStatus()).toString()).build());
+            printLog(log);
         }
-
         MDC.clear();
         return result;
+    }
+
+    private void printLog(Log logging) {
+        log.info("[Success: {} | Log ID: {}] Member: {} | IP: {} | URL: {} | ReqBody: {} | RespStatus: {} | RespBody: {} | CreatedAt: {}\n",
+                logging.isSuccess(),
+                logging.getId(),
+                logging.getMember() != null ? logging.getMember().getId() : "Anonymous",
+                logging.getClientIp(),
+                logging.getRequestUrl(),
+                logging.getRequestBody(),
+                logging.getResponseStatus(),
+                logging.getResponseBody(),
+                logging.getCreatedAt());
     }
 
     private String createRequestUrl(HttpServletRequest request) {
