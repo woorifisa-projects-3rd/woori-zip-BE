@@ -2,9 +2,11 @@ package fisa.woorizip.backend.common.exception.response;
 
 import lombok.Getter;
 
+import lombok.ToString;
 import org.springframework.validation.FieldError;
 
 @Getter
+@ToString
 public class ValidErrorResponse {
 
     private final String field;
