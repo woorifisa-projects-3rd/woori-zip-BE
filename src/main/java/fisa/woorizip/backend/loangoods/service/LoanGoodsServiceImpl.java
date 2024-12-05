@@ -3,6 +3,7 @@ package fisa.woorizip.backend.loangoods.service;
 import static fisa.woorizip.backend.loangoods.LoanGoodsErrorCode.LOAN_GOODS_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 
+import static fisa.woorizip.backend.rate.RateErrorCode.RATE_NOT_FOUND;
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
@@ -56,7 +57,25 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     @Transactional
     public void updateLoanGoods(Long loanGoodsId, ModifyLoanGoodsRequest loanGoodsRequest) {
         LoanGoods loanGoods = findLoanGoodsById(loanGoodsId);
-        loanGoods.updateLoanGoods(loanGoodsRequest);
+        loanGoods.updateLoanGoods(loanGoodsRequest.toLoanGoods());
+        if (!isNull(loanGoodsRequest.getRateRequests()))
+            updateRates(loanGoodsRequest.getRateRequests());
+    }
+
+    private void updateRates(List<RateRequest> rateRequests) {
+        rateRequests.forEach(
+                rateRequest ->
+                        rateRepository
+                                .findById(rateRequest.getId())
+                                .ifPresentOrElse(
+                                        rate -> rate.updateRate(rateRequest.toRate()),
+                                        () -> {
+                                            throw new WooriZipException(RATE_NOT_FOUND);
+                                        }));
+    }
+
+    private List<Rate> findRatesByLoanGoodsId(Long loanGoodsId) {
+        return rateRepository.findAllByLoanGoodsId(loanGoodsId);
     }
 
     @Override
@@ -73,7 +92,7 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     }
 
     private List<RateResponse> getRateResponseList(Long loanGoodsId) {
-        List<Rate> rates = rateRepository.findByLoanGoodsId(loanGoodsId);
+        List<Rate> rates = rateRepository.findAllByLoanGoodsId(loanGoodsId);
         List<RateResponse> rateList = rates.stream().map(RateResponse::from).toList();
 
         return rateList;
