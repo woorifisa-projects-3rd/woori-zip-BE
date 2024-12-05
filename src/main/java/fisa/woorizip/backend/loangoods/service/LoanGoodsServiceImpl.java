@@ -2,8 +2,8 @@ package fisa.woorizip.backend.loangoods.service;
 
 import static fisa.woorizip.backend.loangoods.LoanGoodsErrorCode.LOAN_GOODS_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
-
 import static fisa.woorizip.backend.rate.RateErrorCode.RATE_NOT_FOUND;
+
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
