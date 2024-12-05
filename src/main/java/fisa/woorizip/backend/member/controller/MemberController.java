@@ -9,7 +9,7 @@ import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
-import fisa.woorizip.backend.member.dto.request.MemberProfileRequest;
+import fisa.woorizip.backend.member.dto.request.ModifyMemberProfileRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.dto.response.MemberProfileResponse;
@@ -80,8 +80,8 @@ public class MemberController {
     @PutMapping("/members/profile")
     public ResponseEntity<Void> updateProfile(
             @VerifiedMember MemberIdentity memberIdentity,
-            @RequestBody @Valid MemberProfileRequest memberProfileRequest) {
-        memberService.updateProfile(memberIdentity, memberProfileRequest);
+            @RequestBody @Valid ModifyMemberProfileRequest modifyMemberProfileRequest) {
+        memberService.updateProfile(memberIdentity, modifyMemberProfileRequest);
         return ResponseEntity.ok().build();
     }
 }
