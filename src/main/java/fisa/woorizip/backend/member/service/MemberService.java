@@ -26,5 +26,6 @@ public interface MemberService {
 
     ShowMembersResponse getMembers(Role role, Pageable pageable);
 
-    void updateProfile(MemberIdentity memberIdentity, ModifyMemberProfileRequest memberProfileRequest);
+    void updateProfile(
+            MemberIdentity memberIdentity, ModifyMemberProfileRequest memberProfileRequest);
 }
