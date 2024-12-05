@@ -6,6 +6,7 @@ import static fisa.woorizip.backend.member.domain.Membership.NONE_MEMBERSHIP;
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.member.dto.request.MemberProfileRequest;
+
 import jakarta.persistence.*;
 
 import lombok.AccessLevel;

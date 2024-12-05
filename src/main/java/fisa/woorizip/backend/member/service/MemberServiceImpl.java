@@ -173,7 +173,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public void updateProfile(MemberIdentity memberIdentity, MemberProfileRequest memberProfileRequest) {
+    public void updateProfile(
+            MemberIdentity memberIdentity, MemberProfileRequest memberProfileRequest) {
         Member member = findMemberById(memberIdentity.getId());
         member.updateProfile(memberProfileRequest);
     }
