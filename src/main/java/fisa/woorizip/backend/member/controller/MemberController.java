@@ -9,9 +9,10 @@ import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
+import fisa.woorizip.backend.member.dto.request.ModifyMemberProfileRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
-import fisa.woorizip.backend.member.dto.response.MemberInfoResponse;
+import fisa.woorizip.backend.member.dto.response.MemberProfileResponse;
 import fisa.woorizip.backend.member.dto.response.ShowMembersResponse;
 import fisa.woorizip.backend.member.service.MemberService;
 
@@ -21,13 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -67,9 +62,9 @@ public class MemberController {
     }
 
     @Login(role = {MEMBER, AGENT})
-    @GetMapping("/members/info")
-    public MemberInfoResponse showMemberInfo(@VerifiedMember MemberIdentity memberIdentity) {
-        return memberService.getMemberInfo(memberIdentity);
+    @GetMapping("/members/profile")
+    public MemberProfileResponse showMemberInfo(@VerifiedMember MemberIdentity memberIdentity) {
+        return memberService.getMemberProfile(memberIdentity);
     }
 
     @Login(role = ADMIN)
@@ -79,5 +74,14 @@ public class MemberController {
             Pageable pageable,
             @VerifiedMember MemberIdentity memberIdentity) {
         return memberService.getMembers(role, pageable);
+    }
+
+    @Login(role = AGENT)
+    @PutMapping("/members/profile")
+    public ResponseEntity<Void> updateProfile(
+            @VerifiedMember MemberIdentity memberIdentity,
+            @RequestBody @Valid ModifyMemberProfileRequest modifyMemberProfileRequest) {
+        memberService.updateProfile(memberIdentity, modifyMemberProfileRequest);
+        return ResponseEntity.ok().build();
     }
 }
