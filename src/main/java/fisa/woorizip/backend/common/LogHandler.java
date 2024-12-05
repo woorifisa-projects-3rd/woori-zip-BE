@@ -56,7 +56,7 @@ public class LogHandler {
 
     @Pointcut(
             "within(fisa.woorizip.backend..*) &&"
-                + " @within(org.springframework.web.bind.annotation.RestController)")
+                    + " @within(org.springframework.web.bind.annotation.RestController)")
     public void allController() {}
 
     @Before(
@@ -138,7 +138,7 @@ public class LogHandler {
     private void printLog(Log logging) {
         log.info(
                 "[Success: {} | Log ID: {}] Member: {} | IP: {} | URL: {} | ReqBody: {} |"
-                    + " RespStatus: {} | RespBody: {} | CreatedAt: {}\n",
+                        + " RespStatus: {} | RespBody: {} | CreatedAt: {}\n",
                 logging.isSuccess(),
                 logging.getId(),
                 logging.getMember() != null ? logging.getMember().getId() : "Anonymous",
