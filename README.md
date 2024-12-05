@@ -53,18 +53,6 @@ woori-bank:
   client-id: ${CLIENT_ID}
   redirect-uri: ${REDIRECT_URI}
   client-secret: ${CLIENT_SECRET}
-
-cloud:
-  aws:
-    credentials:
-      accessKey: ${S3_KEY}
-      secretKey: ${S3_SECRET_KEY}
-    s3:
-      bucket: ${S3_BUCKET_NAME}
-    region:
-      static: ${S3_REGION}
-    stack:
-      auto: false
 ```
 
 ## V2__load_csv.sql
