@@ -2,6 +2,7 @@ package fisa.woorizip.backend.log.service;
 
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.END_DATE_BEFORE_START_DATE;
 import static fisa.woorizip.backend.log.LogErrorCode.LOG_NOT_FOUND;
+
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
@@ -50,7 +51,9 @@ public class LogServiceImpl implements LogService {
     }
 
     private Log findLogById(Long logId) {
-        return logRepository.findById(logId).orElseThrow(() -> new WooriZipException(LOG_NOT_FOUND));
+        return logRepository
+                .findById(logId)
+                .orElseThrow(() -> new WooriZipException(LOG_NOT_FOUND));
     }
 
     private void validateEndDateBeforeStartDate(LocalDateTime startDate, LocalDateTime endDate) {

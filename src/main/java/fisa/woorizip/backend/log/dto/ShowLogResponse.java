@@ -1,14 +1,15 @@
 package fisa.woorizip.backend.log.dto;
 
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.log.domain.Log;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-
-import static java.util.Objects.isNull;
 
 @ToString
 @Getter
