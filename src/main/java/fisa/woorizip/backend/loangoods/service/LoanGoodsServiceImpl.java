@@ -3,8 +3,11 @@ package fisa.woorizip.backend.loangoods.service;
 import static fisa.woorizip.backend.loangoods.LoanGoodsErrorCode.LOAN_GOODS_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
+import fisa.woorizip.backend.loangoods.dto.request.SaveLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
 import fisa.woorizip.backend.loangoods.repository.LoanGoodsRepository;
@@ -12,6 +15,7 @@ import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.rate.domain.Rate;
+import fisa.woorizip.backend.rate.dto.request.RateRequest;
 import fisa.woorizip.backend.rate.dto.response.RateResponse;
 import fisa.woorizip.backend.rate.repository.RateRepository;
 import fisa.woorizip.backend.recentlyloangoods.domain.RecentlyLoanGoods;
@@ -45,6 +49,19 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
         saveRecentlyLoanGoods(memberIdentity.getId(), loanGoods);
 
         return ShowLoanGoodsDetailResponse.of(loanGoods, rateList);
+    }
+
+    @Override
+    @Transactional
+    public void saveLoanGoods(SaveLoanGoodsRequest saveLoanGoodsRequest) {
+        LoanGoods loanGoods = loanGoodsRepository.save(saveLoanGoodsRequest.toLoanGoods());
+        saveRates(saveLoanGoodsRequest.getRateRequests(), loanGoods);
+    }
+
+    private void saveRates(List<RateRequest> rateRequests, LoanGoods loanGoods) {
+        if (isNull(rateRequests)) return;
+        List<Rate> rates = rateRequests.stream().map(rate -> rate.toRate(loanGoods)).toList();
+        rateRepository.saveAll(rates);
     }
 
     private List<RateResponse> getRateResponseList(Long loanGoodsId) {
