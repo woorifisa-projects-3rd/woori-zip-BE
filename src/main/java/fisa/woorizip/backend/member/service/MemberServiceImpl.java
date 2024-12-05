@@ -19,6 +19,7 @@ import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.domain.Status;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
+import fisa.woorizip.backend.member.dto.request.MemberProfileRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.dto.response.MemberProfileResponse;
@@ -168,6 +169,13 @@ public class MemberServiceImpl implements MemberService {
     public ShowMembersResponse getMembers(Role role, Pageable pageable) {
         Page<Member> members = memberRepository.findAllByRole(role, pageable);
         return ShowMembersResponse.of(members);
+    }
+
+    @Override
+    @Transactional
+    public void updateProfile(MemberIdentity memberIdentity, MemberProfileRequest memberProfileRequest) {
+        Member member = findMemberById(memberIdentity.getId());
+        member.updateProfile(memberProfileRequest);
     }
 
     private Member findMemberById(Long memberId) {

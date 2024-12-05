@@ -3,6 +3,7 @@ package fisa.woorizip.backend.member.service;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
+import fisa.woorizip.backend.member.dto.request.MemberProfileRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.dto.response.MemberProfileResponse;
@@ -24,4 +25,6 @@ public interface MemberService {
     MemberProfileResponse getMemberProfile(MemberIdentity memberIdentity);
 
     ShowMembersResponse getMembers(Role role, Pageable pageable);
+
+    void updateProfile(MemberIdentity memberIdentity, MemberProfileRequest memberProfileRequest);
 }
