@@ -4,8 +4,8 @@ import fisa.woorizip.backend.bookmark.domain.Bookmark;
 
 import lombok.Builder;
 import lombok.Getter;
-
 import lombok.ToString;
+
 import org.springframework.data.domain.Slice;
 
 import java.util.List;

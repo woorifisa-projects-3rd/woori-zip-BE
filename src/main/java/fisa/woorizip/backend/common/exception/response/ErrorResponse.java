@@ -6,8 +6,8 @@ import fisa.woorizip.backend.common.exception.errorcode.ErrorCode;
 
 import lombok.Builder;
 import lombok.Getter;
-
 import lombok.ToString;
+
 import org.springframework.validation.FieldError;
 
 import java.util.List;
