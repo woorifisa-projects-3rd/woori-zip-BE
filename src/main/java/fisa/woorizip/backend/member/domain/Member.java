@@ -4,8 +4,6 @@ import static fisa.woorizip.backend.member.domain.LifeStage.NONE_LIFE_STAGE;
 import static fisa.woorizip.backend.member.domain.Membership.NONE_MEMBERSHIP;
 
 import static java.util.Objects.isNull;
-
-import fisa.woorizip.backend.member.dto.request.MemberProfileRequest;
 import jakarta.persistence.*;
 
 import lombok.AccessLevel;
@@ -108,8 +106,8 @@ public class Member {
         this.status = Status.APPROVED;
     }
 
-    public void updateProfile(MemberProfileRequest memberProfileRequest) {
-        this.birthday = memberProfileRequest.getBirthday();
-        this.gender = memberProfileRequest.getGender();
+    public void updateProfile(Member member) {
+        this.birthday = member.getBirthday();
+        this.gender = member.getGender();
     }
 }

@@ -19,7 +19,7 @@ import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.domain.Status;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
-import fisa.woorizip.backend.member.dto.request.MemberProfileRequest;
+import fisa.woorizip.backend.member.dto.request.ModifyMemberProfileRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
 import fisa.woorizip.backend.member.dto.response.MemberProfileResponse;
@@ -173,9 +173,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public void updateProfile(MemberIdentity memberIdentity, MemberProfileRequest memberProfileRequest) {
+    public void updateProfile(MemberIdentity memberIdentity, ModifyMemberProfileRequest memberProfileRequest) {
         Member member = findMemberById(memberIdentity.getId());
-        member.updateProfile(memberProfileRequest);
+        member.updateProfile(memberProfileRequest.toMember());
     }
 
     private Member findMemberById(Long memberId) {
