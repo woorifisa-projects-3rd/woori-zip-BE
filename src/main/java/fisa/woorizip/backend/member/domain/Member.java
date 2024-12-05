@@ -107,8 +107,16 @@ public class Member {
         this.status = Status.APPROVED;
     }
 
+    private void updateBirthDay(LocalDate birthday) {
+        if(!isNull(birthday)) this.birthday = birthday;
+    }
+
+    private void updateGender(Gender gender) {
+        if(!isNull(gender)) this.gender = gender;
+    }
+
     public void updateProfile(Member member) {
-        this.birthday = member.getBirthday();
-        this.gender = member.getGender();
+        updateBirthDay(member.getBirthday());
+        updateGender(member.getGender());
     }
 }
