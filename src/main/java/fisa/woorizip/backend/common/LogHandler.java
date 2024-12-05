@@ -86,6 +86,8 @@ public class LogHandler {
     private String createRequestBody(ProceedingJoinPoint joinPoint) {
         return Arrays.stream(joinPoint.getArgs())
                 .map(String::valueOf)
+                .filter(arg -> arg.startsWith("Sign"))
+                .map(arg -> arg.replaceAll(", password=[^,\\)]*", ""))
                 .filter(arg -> arg.endsWith(")"))
                 .collect(Collectors.joining(", "));
     }
