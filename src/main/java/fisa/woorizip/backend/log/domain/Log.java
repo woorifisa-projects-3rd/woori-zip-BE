@@ -11,10 +11,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+import static java.util.Objects.isNull;
+
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(value = {AuditingEntityListener.class})
 public class Log {
@@ -33,7 +33,7 @@ public class Log {
     @Column(name = "request_url", nullable = false)
     private String requestUrl;
 
-    @Column(name = "request_body", nullable = false)
+    @Column(name = "request_body")
     private String requestBody;
 
     @Column(name = "response_status", nullable = false)
@@ -48,4 +48,17 @@ public class Log {
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @Builder
+    private Log(Long id, Member member, String clientIp, String requestUrl, String requestBody, String responseStatus, String responseBody, boolean isSuccess, LocalDateTime createdAt) {
+        this.id = id;
+        this.member = member;
+        this.clientIp = clientIp;
+        this.requestUrl = requestUrl;
+        this.requestBody = isNull(requestBody) ? "" : requestBody;
+        this.responseStatus = responseStatus;
+        this.responseBody = responseBody;
+        this.isSuccess = isSuccess;
+        this.createdAt = createdAt;
+    }
 }
