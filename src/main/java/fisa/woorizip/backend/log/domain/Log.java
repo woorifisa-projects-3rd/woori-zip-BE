@@ -42,6 +42,9 @@ public class Log {
     @Column(name = "response_body", nullable = false)
     private String responseBody;
 
+    @Column(name = "is_success", nullable = false)
+    private boolean isSuccess;
+
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
