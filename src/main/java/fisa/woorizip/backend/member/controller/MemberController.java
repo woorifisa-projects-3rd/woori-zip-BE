@@ -11,7 +11,7 @@ import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
-import fisa.woorizip.backend.member.dto.response.MemberInfoResponse;
+import fisa.woorizip.backend.member.dto.response.MemberProfileResponse;
 import fisa.woorizip.backend.member.dto.response.ShowMembersResponse;
 import fisa.woorizip.backend.member.service.MemberService;
 
@@ -67,9 +67,9 @@ public class MemberController {
     }
 
     @Login(role = {MEMBER, AGENT})
-    @GetMapping("/members/info")
-    public MemberInfoResponse showMemberInfo(@VerifiedMember MemberIdentity memberIdentity) {
-        return memberService.getMemberInfo(memberIdentity);
+    @GetMapping("/members/profile")
+    public MemberProfileResponse showMemberInfo(@VerifiedMember MemberIdentity memberIdentity) {
+        return memberService.getMemberProfile(memberIdentity);
     }
 
     @Login(role = ADMIN)

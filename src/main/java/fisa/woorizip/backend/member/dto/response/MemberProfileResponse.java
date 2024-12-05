@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 @Getter
 @Builder
-public class MemberInfoResponse {
+public class MemberProfileResponse {
     private Long id;
     private String name;
     private LocalDate birthDate;
@@ -25,7 +25,7 @@ public class MemberInfoResponse {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String licenseId;
 
-    public static MemberInfoResponse from(Member member) {
+    public static MemberProfileResponse from(Member member) {
         return builder()
                 .id(member.getId())
                 .name(member.getName())

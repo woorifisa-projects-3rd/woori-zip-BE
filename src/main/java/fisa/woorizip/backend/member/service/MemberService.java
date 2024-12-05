@@ -5,7 +5,7 @@ import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
-import fisa.woorizip.backend.member.dto.response.MemberInfoResponse;
+import fisa.woorizip.backend.member.dto.response.MemberProfileResponse;
 import fisa.woorizip.backend.member.dto.response.ShowMembersResponse;
 
 import jakarta.validation.Valid;
@@ -21,7 +21,7 @@ public interface MemberService {
 
     void approve(@Valid ApprovalRequest approvalRequest);
 
-    MemberInfoResponse getMemberInfo(MemberIdentity memberIdentity);
+    MemberProfileResponse getMemberProfile(MemberIdentity memberIdentity);
 
     ShowMembersResponse getMembers(Role role, Pageable pageable);
 }
