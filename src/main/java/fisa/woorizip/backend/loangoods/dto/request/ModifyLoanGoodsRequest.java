@@ -5,11 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.ToString;
 
-import static java.util.Objects.isNull;
-
 @Getter
 @ToString
-public class LoanGoodsRequest {
+public class ModifyLoanGoodsRequest {
     @NotBlank private String name;
     @NotBlank private LoanType loanType;
     @NotBlank private String target;
@@ -23,7 +21,7 @@ public class LoanGoodsRequest {
     @NotBlank private String customerCost;
     @NotBlank private String interestMethod;
 
-    public LoanGoodsRequest(
+    public ModifyLoanGoodsRequest(
             String name,
             String loanType,
             String target,
@@ -50,5 +48,5 @@ public class LoanGoodsRequest {
         this.interestMethod = interestMethod;
     }
 
-    protected LoanGoodsRequest() {}
+    protected ModifyLoanGoodsRequest() {}
 }

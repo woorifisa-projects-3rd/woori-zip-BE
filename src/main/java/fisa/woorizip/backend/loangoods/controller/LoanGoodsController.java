@@ -5,7 +5,7 @@ import static fisa.woorizip.backend.member.domain.Role.ADMIN;
 import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistRequest;
 import fisa.woorizip.backend.loanchecklist.service.LoanCheckListService;
 import fisa.woorizip.backend.loangoods.dto.request.SaveLoanGoodsRequest;
-import fisa.woorizip.backend.loangoods.dto.request.LoanGoodsRequest;
+import fisa.woorizip.backend.loangoods.dto.request.ModifyLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.response.LoanGoodsResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
@@ -88,7 +88,7 @@ public class LoanGoodsController {
     public ResponseEntity<Void> modify(
             @VerifiedMember MemberIdentity memberIdentity,
             @PathVariable("loanGoodsId") Long loanGoodsId,
-            @RequestBody LoanGoodsRequest loanGoodsRequest) {
+            @RequestBody ModifyLoanGoodsRequest loanGoodsRequest) {
         loanGoodsService.updateLoanGoods(loanGoodsId, loanGoodsRequest);
         return ResponseEntity.ok().build();
     }

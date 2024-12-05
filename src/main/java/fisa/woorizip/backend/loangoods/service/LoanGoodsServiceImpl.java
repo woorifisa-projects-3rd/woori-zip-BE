@@ -7,7 +7,7 @@ import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
-import fisa.woorizip.backend.loangoods.dto.request.LoanGoodsRequest;
+import fisa.woorizip.backend.loangoods.dto.request.ModifyLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.request.SaveLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
@@ -54,7 +54,7 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
 
     @Override
     @Transactional
-    public void updateLoanGoods(Long loanGoodsId, LoanGoodsRequest loanGoodsRequest) {
+    public void updateLoanGoods(Long loanGoodsId, ModifyLoanGoodsRequest loanGoodsRequest) {
         LoanGoods loanGoods = findLoanGoodsById(loanGoodsId);
         loanGoods.updateLoanGoods(loanGoodsRequest);
     }
