@@ -10,4 +10,4 @@ ALTER TABLE `loan_checklist`
     MODIFY `total_assets` BIGINT NULL,
     MODIFY `lease_deposit` BIGINT NULL,
     MODIFY `monthly_rent` BIGINT NULL,
-    MODIFY `exclusive_area` DOUBLE NULL;
+    MODIFY `exclusive_area` DOUBLE NOT NULL;
