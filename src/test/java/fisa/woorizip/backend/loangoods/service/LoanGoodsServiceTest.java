@@ -53,7 +53,7 @@ class LoanGoodsServiceTest {
                 new MemberIdentity(member.getId(), member.getRole().toString());
 
         given(loanGoodsRepository.findById(loanGoods.getId())).willReturn(Optional.of(loanGoods));
-        given(rateRepository.findByLoanGoodsId(loanGoods.getId())).willReturn(List.of(rate));
+        given(rateRepository.findAllByLoanGoodsId(loanGoods.getId())).willReturn(List.of(rate));
         given(memberRepository.findById(member.getId())).willReturn(Optional.of(member));
 
         ShowLoanGoodsDetailResponse response =
@@ -90,7 +90,7 @@ class LoanGoodsServiceTest {
                         assertThat(response.getInterestMethod())
                                 .isEqualTo(loanGoods.getInterestMethod()),
                 () -> verify(loanGoodsRepository, times(1)).findById(loanGoods.getId()),
-                () -> verify(rateRepository, times(1)).findByLoanGoodsId(loanGoods.getId()),
+                () -> verify(rateRepository, times(1)).findAllByLoanGoodsId(loanGoods.getId()),
                 () ->
                         verify(recentlyLoanGoodsRepository, times(1))
                                 .save(any(RecentlyLoanGoods.class)));

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface RateRepository extends JpaRepository<Rate, Long> {
 
-    List<Rate> findByLoanGoodsId(Long loanGoodsId);
+    List<Rate> findAllByLoanGoodsId(Long loanGoodsId);
 }
