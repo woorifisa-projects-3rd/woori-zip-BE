@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 
 import lombok.*;
 
+import static java.util.Objects.isNull;
+
 @Entity
 @Getter
 @Builder
@@ -39,4 +41,37 @@ public class Rate {
 
     @Column(name = "min_rate", nullable = false)
     private String minRate;
+
+    private void updateRateType(RateType rateType) {
+        if(!isNull(rateType)) this.rateType = rateType;
+    }
+
+    private void updateBasicRate(String basicRate) {
+        if(!isNull(this.basicRate)) this.basicRate = basicRate;
+    }
+
+    private void updateAddRate(String addRate) {
+        if(!isNull(this.addRate)) this.addRate = addRate;
+    }
+
+    private void updateNormalRate(String normalRate) {
+        if(!isNull(this.normalRate)) this.normalRate = normalRate;
+    }
+
+    private void updateSpecialRate(String specialRate) {
+        if(!isNull(this.specialRate)) this.specialRate = specialRate;
+    }
+
+    private void updateMinRate(String minRate) {
+        if(!isNull(this.minRate)) this.minRate = minRate;
+    }
+
+    public void updateRate(Rate rate) {
+        updateRateType(rate.getRateType());
+        updateBasicRate(rate.getBasicRate());
+        updateAddRate(rate.getAddRate());
+        updateNormalRate(rate.getNormalRate());
+        updateSpecialRate(rate.getSpecialRate());
+        updateMinRate(rate.getMinRate());
+    }
 }
