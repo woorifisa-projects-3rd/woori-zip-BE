@@ -23,7 +23,6 @@ public class GetMemberDataResponse {
     private Integer creditScore;
     private int membership;
     private LifeStage lifeStage;
-    private long availableAssets;
     private String email;
     private SpendingHistoryResponse spendingHistory;
 
@@ -38,7 +37,6 @@ public class GetMemberDataResponse {
                 .customerId(customerId)
                 .name(name)
                 .birthday(birthday)
-                .availableAssets(availableAssets)
                 .build();
     }
 }
