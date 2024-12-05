@@ -34,8 +34,8 @@ public class LogCustomRepositoryImpl implements LogCustomRepository {
             LocalDateTime endDate,
             Pageable pageable) {
 
-        JPAQuery<Long> countQuery = jpaQueryFactory.select(log.count()).from(log).join(log.member);
-        JPAQuery<Log> contentQuery = jpaQueryFactory.selectFrom(log).join(log.member).fetchJoin();
+        JPAQuery<Long> countQuery = jpaQueryFactory.select(log.count()).from(log).leftJoin(log.member);
+        JPAQuery<Log> contentQuery = jpaQueryFactory.selectFrom(log).leftJoin(log.member).fetchJoin();
 
         Long count =
                 searchLogsConditions(countQuery, logId, username, startDate, endDate).fetchOne();
