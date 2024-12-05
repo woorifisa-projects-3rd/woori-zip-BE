@@ -3,6 +3,7 @@ package fisa.woorizip.backend.rate.dto.request;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.rate.domain.Rate;
 import fisa.woorizip.backend.rate.domain.RateType;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

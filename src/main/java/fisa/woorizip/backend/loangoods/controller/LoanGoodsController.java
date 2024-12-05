@@ -15,6 +15,7 @@ import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
 import fisa.woorizip.backend.member.domain.Role;
 
 import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Pageable;

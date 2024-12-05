@@ -1,16 +1,18 @@
 package fisa.woorizip.backend.loangoods.dto.request;
 
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.domain.LoanType;
 import fisa.woorizip.backend.rate.dto.request.RateRequest;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
-
-import static java.util.Objects.isNull;
 
 @Getter
 @AllArgsConstructor
