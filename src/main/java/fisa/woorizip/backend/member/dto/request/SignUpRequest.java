@@ -13,11 +13,13 @@ import jakarta.validation.constraints.Past;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
+@ToString
 public class SignUpRequest {
 
     @NotBlank private String name;

@@ -4,6 +4,7 @@ import static fisa.woorizip.backend.member.domain.Role.ADMIN;
 
 import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistRequest;
 import fisa.woorizip.backend.loanchecklist.service.LoanCheckListService;
+import fisa.woorizip.backend.loangoods.dto.request.SaveLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.request.LoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.response.LoanGoodsResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
@@ -13,6 +14,8 @@ import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.controller.auth.VerifiedMember;
 import fisa.woorizip.backend.member.domain.Role;
+
+import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 
@@ -70,6 +73,14 @@ public class LoanGoodsController {
             @ModelAttribute LoanChecklistRequest loanCheckListRequest) {
         return ResponseEntity.ok(
                 loanCheckListService.getRecommendLoanGoods(houseId, loanCheckListRequest));
+    }
+
+    @Login(role = ADMIN)
+    @PostMapping
+    public ResponseEntity<Void> saveLoanGoods(
+            @RequestBody @Valid SaveLoanGoodsRequest saveLoanGoodsRequest) {
+        loanGoodsService.saveLoanGoods(saveLoanGoodsRequest);
+        return ResponseEntity.ok().build();
     }
 
     @Login(role = ADMIN)

@@ -5,10 +5,12 @@ import fisa.woorizip.backend.house.domain.House;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class HouseContentResult {
     private Long houseId;
     private String housingExpenses;

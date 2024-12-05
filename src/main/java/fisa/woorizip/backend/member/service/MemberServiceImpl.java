@@ -19,9 +19,10 @@ import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.domain.Role;
 import fisa.woorizip.backend.member.domain.Status;
 import fisa.woorizip.backend.member.dto.request.ApprovalRequest;
+import fisa.woorizip.backend.member.dto.request.ModifyMemberProfileRequest;
 import fisa.woorizip.backend.member.dto.request.RevokeApprovalRequest;
 import fisa.woorizip.backend.member.dto.request.SignUpRequest;
-import fisa.woorizip.backend.member.dto.response.MemberInfoResponse;
+import fisa.woorizip.backend.member.dto.response.MemberProfileResponse;
 import fisa.woorizip.backend.member.dto.response.ShowMembersResponse;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 
@@ -159,8 +160,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(readOnly = true)
-    public MemberInfoResponse getMemberInfo(MemberIdentity memberIdentity) {
-        return MemberInfoResponse.from(findMemberById(memberIdentity.getId()));
+    public MemberProfileResponse getMemberProfile(MemberIdentity memberIdentity) {
+        return MemberProfileResponse.from(findMemberById(memberIdentity.getId()));
     }
 
     @Override
@@ -168,6 +169,14 @@ public class MemberServiceImpl implements MemberService {
     public ShowMembersResponse getMembers(Role role, Pageable pageable) {
         Page<Member> members = memberRepository.findAllByRole(role, pageable);
         return ShowMembersResponse.of(members);
+    }
+
+    @Override
+    @Transactional
+    public void updateProfile(
+            MemberIdentity memberIdentity, ModifyMemberProfileRequest modifyMemberProfileRequest) {
+        Member member = findMemberById(memberIdentity.getId());
+        member.updateProfile(modifyMemberProfileRequest.toMember());
     }
 
     private Member findMemberById(Long memberId) {

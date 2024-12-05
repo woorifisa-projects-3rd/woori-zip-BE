@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.loangoods.service;
 
 import fisa.woorizip.backend.loangoods.dto.request.LoanGoodsRequest;
+import fisa.woorizip.backend.loangoods.dto.request.SaveLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
@@ -16,4 +17,6 @@ public interface LoanGoodsService {
     ShowLoanGoodsDetailResponse getLoanGoodsDetailsById(Long loanGoodsId, MemberIdentity member);
 
     void updateLoanGoods(Long loanGoodsId, LoanGoodsRequest loanGoodsRequest);
+
+    void saveLoanGoods(SaveLoanGoodsRequest saveLoanGoodsRequest);
 }
