@@ -4,9 +4,11 @@ import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.log.domain.Log;
 import fisa.woorizip.backend.log.domain.Log.LogBuilder;
 import fisa.woorizip.backend.log.repository.LogRepository;
+import fisa.woorizip.backend.member.controller.auth.Login;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
+import fisa.woorizip.backend.member.service.auth.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +19,14 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +35,7 @@ import java.util.stream.Collectors;
 
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
 import static java.util.Objects.isNull;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Aspect
 @Component
@@ -42,6 +47,7 @@ public class LogHandler {
     private final MemberRepository memberRepository;
     private final Map<String, LogBuilder> logs = new HashMap<>();
     private final static String TRACE_ID = "traceId";
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Pointcut(
             "within(fisa.woorizip.backend..*) && @within(org.springframework.web.bind.annotation.RestController)")
@@ -64,10 +70,8 @@ public class LogHandler {
     @Before("allController()")
     public void controllerRequest(JoinPoint joinPoint) {
         String requestBody = createRequestBody(joinPoint);
-        MemberIdentity memberIdentity = getMemberIdentity(joinPoint);
-        Member member = isNull(memberIdentity) ? null : findMemberById(memberIdentity.getId());
         String traceId = MDC.get(TRACE_ID);
-        logs.getOrDefault(traceId, Log.builder()).requestBody(requestBody).member(member);
+        logs.getOrDefault(traceId, Log.builder()).requestBody(requestBody).member(getMember(joinPoint));
     }
 
     @Around("execution(* fisa.woorizip.backend.common.ApiResponseHandler.beforeBodyWrite(..))")
@@ -87,6 +91,31 @@ public class LogHandler {
         }
         MDC.clear();
         return result;
+    }
+
+    private Member getMember(JoinPoint joinPoint) {
+        MemberIdentity memberIdentity = getMemberIdentity(joinPoint);
+        if (!isNull(memberIdentity)) {
+            return findMemberById(memberIdentity.getId());
+        }
+
+        Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
+        if(method.isAnnotationPresent(Login.class)) {
+            Long memberId = getMemberIdFromRequestHeader();
+            return findMemberById(memberId);
+        }
+
+        return null;
+    }
+
+    private Long getMemberIdFromRequestHeader() {
+        HttpServletRequest request =
+                ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+                        .getRequest();
+        String authorizationHeader = request.getHeader(AUTHORIZATION);
+        String accessToken = jwtTokenProvider.extractAccessToken(authorizationHeader);
+        Long memberId = jwtTokenProvider.getMemberId(accessToken);
+        return memberId;
     }
 
     private void printLog(Log logging) {
