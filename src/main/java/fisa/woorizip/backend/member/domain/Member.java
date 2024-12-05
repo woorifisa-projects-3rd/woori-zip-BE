@@ -108,11 +108,11 @@ public class Member {
     }
 
     private void updateBirthDay(LocalDate birthday) {
-        if(!isNull(birthday)) this.birthday = birthday;
+        if (!isNull(birthday)) this.birthday = birthday;
     }
 
     private void updateGender(Gender gender) {
-        if(!isNull(gender)) this.gender = gender;
+        if (!isNull(gender)) this.gender = gender;
     }
 
     public void updateProfile(Member member) {
