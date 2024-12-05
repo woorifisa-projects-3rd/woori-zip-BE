@@ -3,10 +3,12 @@ package fisa.woorizip.backend.memberconsumption.dto.response;
 import fisa.woorizip.backend.facility.domain.Category;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
 @Getter
+@ToString
 public class CategoryResponse {
     private Category category;
     private BigDecimal subtract;

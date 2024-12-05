@@ -5,12 +5,14 @@ import fisa.woorizip.backend.log.domain.Log;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
 @Builder
+@ToString
 public class LogResponse {
 
     private Long id;
@@ -23,7 +25,7 @@ public class LogResponse {
                 .id(log.getId())
                 .username(log.getMember().getUsername())
                 .time(log.getCreatedAt())
-                .content(log.getContent())
+//                .content(log.getContent())
                 .build();
     }
 }

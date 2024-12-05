@@ -8,11 +8,13 @@ import fisa.woorizip.backend.rate.dto.response.RateResponse;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Getter
 @Builder
+@ToString
 public class ShowLoanGoodsDetailResponse {
     private Long id;
     private String name;

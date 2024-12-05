@@ -5,10 +5,12 @@ import fisa.woorizip.backend.facility.domain.Facility;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class FacilityResult {
     private Long facilityId;
     private double latitude;

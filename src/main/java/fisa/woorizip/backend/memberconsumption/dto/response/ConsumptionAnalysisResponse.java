@@ -4,8 +4,10 @@ import fisa.woorizip.backend.consumptionanalysis.domain.ConsumptionAnalysis;
 import fisa.woorizip.backend.memberconsumption.domain.MemberConsumption;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class ConsumptionAnalysisResponse {
     private ConsumptionResponse memberConsumption;
     private ConsumptionResponse otherConsumption;

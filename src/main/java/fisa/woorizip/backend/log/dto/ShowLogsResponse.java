@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import lombok.ToString;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @Builder
+@ToString
 public class ShowLogsResponse {
 
     private int page;
