@@ -8,10 +8,12 @@ import fisa.woorizip.backend.house.dto.result.HouseCountResult;
 import fisa.woorizip.backend.house.dto.result.HouseResult;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Getter
+@ToString
 public class ShowMapResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String houseAddressType;

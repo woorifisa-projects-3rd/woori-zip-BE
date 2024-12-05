@@ -4,9 +4,11 @@ import fisa.woorizip.backend.house.domain.House;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 @Builder
+@ToString
 public class HouseResponse {
     private final Long id;
     private final String name;
