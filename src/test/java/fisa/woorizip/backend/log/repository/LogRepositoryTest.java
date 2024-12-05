@@ -34,27 +34,10 @@ class LogRepositoryTest {
     void 조건에_맞는_로그를_조회할_수_있다() {
         Member member1 = 저장(MemberFixture.builder().build());
         Member member2 = 저장(MemberFixture.builder().username("최종수").build());
-        저장(
-                Log.builder()
-                        .member(member1)
-                        .createdAt(LocalDateTime.now().minusHours(2))
-                        .build());
-        저장(
-                Log.builder()
-                        .member(member2)
-                        .createdAt(LocalDateTime.now().minusHours(3))
-                        .build());
-        저장(
-                Log.builder()
-                        .member(member2)
-                        .createdAt(LocalDateTime.now().minusHours(1))
-                        .build());
-        Log log =
-                저장(
-                        Log.builder()
-                                .member(member2)
-                                .createdAt(LocalDateTime.now())
-                                .build());
+        저장(Log.builder().member(member1).createdAt(LocalDateTime.now().minusHours(2)).build());
+        저장(Log.builder().member(member2).createdAt(LocalDateTime.now().minusHours(3)).build());
+        저장(Log.builder().member(member2).createdAt(LocalDateTime.now().minusHours(1)).build());
+        Log log = 저장(Log.builder().member(member2).createdAt(LocalDateTime.now()).build());
 
         Page<Log> logs =
                 logRepository.searchLogs(

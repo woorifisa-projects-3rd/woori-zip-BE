@@ -1,5 +1,7 @@
 package fisa.woorizip.backend.log.domain;
 
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.member.domain.Member;
 
 import jakarta.persistence.*;
@@ -10,8 +12,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-
-import static java.util.Objects.isNull;
 
 @Entity
 @Getter
@@ -50,7 +50,16 @@ public class Log {
     private LocalDateTime createdAt;
 
     @Builder
-    private Log(Long id, Member member, String clientIp, String requestUrl, String requestBody, String responseStatus, String responseBody, boolean isSuccess, LocalDateTime createdAt) {
+    private Log(
+            Long id,
+            Member member,
+            String clientIp,
+            String requestUrl,
+            String requestBody,
+            String responseStatus,
+            String responseBody,
+            boolean isSuccess,
+            LocalDateTime createdAt) {
         this.id = id;
         this.member = member;
         this.clientIp = clientIp;

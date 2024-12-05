@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.log.service;
 
 import static fisa.woorizip.backend.common.exception.errorcode.CommonErrorCode.END_DATE_BEFORE_START_DATE;
+
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;

@@ -1,5 +1,11 @@
 package fisa.woorizip.backend.common;
 
+import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.log.domain.Log;
 import fisa.woorizip.backend.log.domain.Log.LogBuilder;
@@ -9,10 +15,13 @@ import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import fisa.woorizip.backend.member.service.auth.JwtTokenProvider;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -33,10 +42,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
-import static java.util.Objects.isNull;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-
 @Aspect
 @Component
 @Slf4j
@@ -46,15 +51,17 @@ public class LogHandler {
     private final LogRepository logRepository;
     private final MemberRepository memberRepository;
     private final Map<String, LogBuilder> logs = new HashMap<>();
-    private final static String TRACE_ID = "traceId";
+    private static final String TRACE_ID = "traceId";
     private final JwtTokenProvider jwtTokenProvider;
 
     @Pointcut(
-            "within(fisa.woorizip.backend..*) && @within(org.springframework.web.bind.annotation.RestController)")
-    public void allController() {
-    }
+            "within(fisa.woorizip.backend..*) &&"
+                + " @within(org.springframework.web.bind.annotation.RestController)")
+    public void allController() {}
 
-    @Before("execution(* fisa.woorizip.backend.member.controller.auth.AuthInterceptor.preHandle(..))")
+    @Before(
+            "execution(*"
+                + " fisa.woorizip.backend.member.controller.auth.AuthInterceptor.preHandle(..))")
     public void interceptorRequest(JoinPoint joinPoint) {
         HttpServletRequest request =
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
@@ -71,7 +78,9 @@ public class LogHandler {
     public void controllerRequest(JoinPoint joinPoint) {
         String requestBody = createRequestBody(joinPoint);
         String traceId = MDC.get(TRACE_ID);
-        logs.getOrDefault(traceId, Log.builder()).requestBody(requestBody).member(getMember(joinPoint));
+        logs.getOrDefault(traceId, Log.builder())
+                .requestBody(requestBody)
+                .member(getMember(joinPoint));
     }
 
     @Around("execution(* fisa.woorizip.backend.common.ApiResponseHandler.beforeBodyWrite(..))")
@@ -82,11 +91,19 @@ public class LogHandler {
 
         Object result = joinPoint.proceed();
 
-        if(result instanceof ApiResponse) {
+        if (result instanceof ApiResponse) {
             ApiResponse<?> apiResponse = (ApiResponse<?>) result;
             LogBuilder logBuilder = logs.getOrDefault(MDC.get(TRACE_ID), Log.builder());
-            String responseBody = isNull(apiResponse.getData()) ? "" : apiResponse.getData().toString();
-            Log log = logRepository.save(logBuilder.isSuccess(apiResponse.isSuccess()).responseBody(responseBody).responseStatus(HttpStatus.valueOf(response.getStatus()).toString()).build());
+            String responseBody =
+                    isNull(apiResponse.getData()) ? "" : apiResponse.getData().toString();
+            Log log =
+                    logRepository.save(
+                            logBuilder
+                                    .isSuccess(apiResponse.isSuccess())
+                                    .responseBody(responseBody)
+                                    .responseStatus(
+                                            HttpStatus.valueOf(response.getStatus()).toString())
+                                    .build());
             printLog(log);
         }
         MDC.clear();
@@ -100,7 +117,7 @@ public class LogHandler {
         }
 
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-        if(method.isAnnotationPresent(Login.class)) {
+        if (method.isAnnotationPresent(Login.class)) {
             Long memberId = getMemberIdFromRequestHeader();
             return findMemberById(memberId);
         }
@@ -119,7 +136,9 @@ public class LogHandler {
     }
 
     private void printLog(Log logging) {
-        log.info("[Success: {} | Log ID: {}] Member: {} | IP: {} | URL: {} | ReqBody: {} | RespStatus: {} | RespBody: {} | CreatedAt: {}\n",
+        log.info(
+                "[Success: {} | Log ID: {}] Member: {} | IP: {} | URL: {} | ReqBody: {} |"
+                    + " RespStatus: {} | RespBody: {} | CreatedAt: {}\n",
                 logging.isSuccess(),
                 logging.getId(),
                 logging.getMember() != null ? logging.getMember().getId() : "Anonymous",
