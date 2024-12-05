@@ -6,12 +6,14 @@ import fisa.woorizip.backend.house.domain.HousingExpenses;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @Builder
+@ToString
 public class HouseDetailResponse {
     private final Long id;
     private final String name;

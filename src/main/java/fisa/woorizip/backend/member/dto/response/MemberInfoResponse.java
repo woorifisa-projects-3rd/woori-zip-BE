@@ -8,11 +8,13 @@ import fisa.woorizip.backend.member.domain.Member;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Getter
 @Builder
+@ToString
 public class MemberInfoResponse {
     private Long id;
     private String name;
