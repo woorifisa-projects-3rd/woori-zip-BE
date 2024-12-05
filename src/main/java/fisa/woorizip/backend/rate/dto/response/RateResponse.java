@@ -5,9 +5,11 @@ import fisa.woorizip.backend.rate.domain.RateType;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 @Builder
+@ToString
 public class RateResponse {
 
     private Long id;

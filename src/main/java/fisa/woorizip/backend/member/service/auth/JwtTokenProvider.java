@@ -111,6 +111,14 @@ public class JwtTokenProvider {
         }
     }
 
+    public Long getMemberId(String token) {
+        try {
+            return getClaimsJwt(token).getPayload().get(MEMBER_ID, Long.class);
+        } catch (RequiredTypeException e) {
+            throw new WooriZipException(INVALID_CLAIM_TYPE);
+        }
+    }
+
     public String extractAccessToken(String authorization) {
         String[] tokenFormat = authorization.split(" ");
         if (tokenFormat.length != 2 && !tokenFormat[0].equals(TOKEN_TYPE)) {

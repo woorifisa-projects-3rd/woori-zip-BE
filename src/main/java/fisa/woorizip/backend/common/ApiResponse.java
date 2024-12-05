@@ -3,8 +3,10 @@ package fisa.woorizip.backend.common;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class ApiResponse<T> {
 
     private boolean isSuccess;
