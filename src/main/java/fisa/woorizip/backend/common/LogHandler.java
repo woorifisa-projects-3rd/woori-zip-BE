@@ -2,25 +2,31 @@ package fisa.woorizip.backend.common;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.log.domain.Log;
+import fisa.woorizip.backend.log.domain.Log.LogBuilder;
 import fisa.woorizip.backend.log.repository.LogRepository;
 import fisa.woorizip.backend.member.controller.auth.MemberIdentity;
 import fisa.woorizip.backend.member.domain.Member;
 import fisa.woorizip.backend.member.repository.MemberRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Arrays;
-import java.util.StringJoiner;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
@@ -34,42 +40,54 @@ public class LogHandler {
 
     private final LogRepository logRepository;
     private final MemberRepository memberRepository;
+    private final Map<String, LogBuilder> logs = new HashMap<>();
+    private final static String TRACE_ID = "traceId";
 
     @Pointcut(
             "within(fisa.woorizip.backend..*) && @within(org.springframework.web.bind.annotation.RestController)")
-    public void allController() {}
+    public void allController() {
+    }
 
-    @Around("allController()")
-    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Before("execution(* fisa.woorizip.backend.member.controller.auth.AuthInterceptor.preHandle(..))")
+    public void interceptorRequest(JoinPoint joinPoint) {
         HttpServletRequest request =
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
                         .getRequest();
-
         String clientIp = request.getRemoteAddr();
         String requestUrl = createRequestUrl(request);
+        String traceId = UUID.randomUUID().toString();
+        LogBuilder logBuilder = Log.builder().requestUrl(requestUrl).clientIp(clientIp);
+        logs.put(traceId, logBuilder);
+        MDC.put(TRACE_ID, traceId);
+    }
+
+    @Before("allController()")
+    public void controllerRequest(JoinPoint joinPoint) {
         String requestBody = createRequestBody(joinPoint);
-
-        ResponseEntity response = (ResponseEntity<?>) joinPoint.proceed();
-        String responseStatus = HttpStatus.valueOf(response.getStatusCode().value()).toString();
-        Object responseBodyObject = response.getBody();
-        String responseBody = isNull(responseBodyObject) ? "" : responseBodyObject.toString();
-
         MemberIdentity memberIdentity = getMemberIdentity(joinPoint);
+        Member member = isNull(memberIdentity) ? null : findMemberById(memberIdentity.getId());
+        String traceId = MDC.get(TRACE_ID);
+        logs.getOrDefault(traceId, Log.builder()).requestBody(requestBody).member(member);
+    }
 
-        logRepository.save(
-                Log.builder()
-                        .member(
-                                isNull(memberIdentity)
-                                        ? null
-                                        : findMemberById(memberIdentity.getId()))
-                        .clientIp(clientIp)
-                        .requestUrl(requestUrl)
-                        .requestBody(requestBody)
-                        .responseStatus(responseStatus)
-                        .responseBody(responseBody)
-                        .build());
+    @Around("execution(* fisa.woorizip.backend.common.ApiResponseHandler.beforeBodyWrite(..))")
+    public Object logResponse(ProceedingJoinPoint joinPoint) throws Throwable {
+        HttpServletResponse response =
+                ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+                        .getResponse();
 
-        return response;
+        Object result = joinPoint.proceed();
+
+        if(result instanceof ApiResponse) {
+            ApiResponse<?> apiResponse = (ApiResponse<?>) result;
+            LogBuilder logBuilder = logs.getOrDefault(MDC.get(TRACE_ID), Log.builder());
+            String responseBody = isNull(apiResponse.getData()) ? "" : apiResponse.getData().toString();
+            Log log = logBuilder.isSuccess(apiResponse.isSuccess()).responseBody(responseBody).responseStatus(HttpStatus.valueOf(response.getStatus()).toString()).build();
+            logRepository.save(log);
+        }
+
+        MDC.clear();
+        return result;
     }
 
     private String createRequestUrl(HttpServletRequest request) {
@@ -83,14 +101,14 @@ public class LogHandler {
         return requestUrl.toString();
     }
 
-    private String createRequestBody(ProceedingJoinPoint joinPoint) {
+    private String createRequestBody(JoinPoint joinPoint) {
         return Arrays.stream(joinPoint.getArgs())
                 .map(String::valueOf)
                 .filter(arg -> arg.endsWith(")"))
                 .collect(Collectors.joining(", "));
     }
 
-    private MemberIdentity getMemberIdentity(ProceedingJoinPoint joinPoint) {
+    private MemberIdentity getMemberIdentity(JoinPoint joinPoint) {
         return (MemberIdentity)
                 Arrays.stream(joinPoint.getArgs())
                         .filter(arg -> arg instanceof MemberIdentity)
