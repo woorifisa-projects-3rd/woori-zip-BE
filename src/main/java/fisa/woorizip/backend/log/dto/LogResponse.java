@@ -9,6 +9,8 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
+import static java.util.Objects.isNull;
+
 @Getter
 @AllArgsConstructor
 @Builder
@@ -16,16 +18,22 @@ import java.time.LocalDateTime;
 public class LogResponse {
 
     private Long id;
+    private boolean isSuccess;
     private String username;
-    private LocalDateTime time;
-    private String content;
+    private String clientIp;
+    private String requestUrl;
+    private String responseStatus;
+    private LocalDateTime createdAt;
 
     public static LogResponse from(Log log) {
         return LogResponse.builder()
                 .id(log.getId())
-                .username(log.getMember().getUsername())
-                .time(log.getCreatedAt())
-//                .content(log.getContent())
+                .isSuccess(log.isSuccess())
+                .username(isNull(log.getMember()) ? null : log.getMember().getUsername())
+                .clientIp(log.getClientIp())
+                .requestUrl(log.getRequestUrl())
+                .responseStatus(log.getResponseStatus())
+                .createdAt(log.getCreatedAt())
                 .build();
     }
 }
