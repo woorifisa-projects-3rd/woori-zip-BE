@@ -29,14 +29,11 @@ public class LoanChecklist {
     @Column(name = "work_term", nullable = false)
     private WorkTerm workTerm;
 
-    @Column(name = "annual_income", nullable = false)
-    private long annualIncome;
+    @Column(name = "annual_income")
+    private Long annualIncome;
 
-    @Column(name = "available_assets", nullable = false)
-    private long availableAssets;
-
-    @Column(name = "total_assets", nullable = false)
-    private long totalAssets;
+    @Column(name = "total_assets")
+    private Long totalAssets;
 
     @Column(name = "contract", nullable = false)
     private boolean contract;
@@ -45,12 +42,12 @@ public class LoanChecklist {
     @Column(name = "marriage_status", nullable = false)
     private MarriageStatus marriageStatus;
 
-    @Column(name = "lease_deposit", nullable = false)
-    private long leaseDeposit;
+    @Column(name = "lease_deposit")
+    private Long leaseDeposit;
 
-    @Column(name = "monthly_rent", nullable = false)
-    private long monthlyRent;
+    @Column(name = "monthly_rent")
+    private Long monthlyRent;
 
-    @Column(name = "exclusive_area", nullable = false)
-    private double exclusiveArea;
+    @Column(name = "exclusive_area")
+    private Double exclusiveArea;
 }

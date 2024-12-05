@@ -67,9 +67,6 @@ public class Member {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    @Column(name = "available_assets", nullable = false)
-    private long availableAssets;
-
     @Builder
     private Member(
             Long id,
@@ -97,7 +94,6 @@ public class Member {
         this.membership = isNull(membership) ? NONE_MEMBERSHIP : membership;
         this.lifeStage = isNull(lifeStage) ? NONE_LIFE_STAGE : lifeStage;
         this.role = role;
-        this.availableAssets = availableAssets;
     }
 
     public boolean isAdmin() {

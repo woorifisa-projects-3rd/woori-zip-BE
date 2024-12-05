@@ -6,7 +6,6 @@ import static fisa.woorizip.backend.member.MemberErrorCode.AGENT_LICENSE_ID_IS_N
 import static fisa.woorizip.backend.member.MemberErrorCode.AGENT_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.ALREADY_EXIST_USERNAME;
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_ADMINS;
-import static fisa.woorizip.backend.member.MemberErrorCode.NOT_ALLOWED_SIGN_UP;
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_APPROVED_ADMINS;
 import static fisa.woorizip.backend.member.MemberErrorCode.NOT_PENDING_APPROVAL_ADMINS;
 
