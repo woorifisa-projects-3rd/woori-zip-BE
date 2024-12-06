@@ -12,11 +12,13 @@ import jakarta.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Getter
 @AllArgsConstructor
+@ToString
 public class SaveLoanGoodsRequest {
     @NotBlank private String name;
     @NotBlank private String imageUrl;
