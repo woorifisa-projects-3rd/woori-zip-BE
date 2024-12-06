@@ -10,7 +10,7 @@ import java.beans.ConstructorProperties;
 
 @Getter
 @ToString
-public class LoanChecklistRequest {
+public class LoanChecklistFilterRequest {
 
     private Long annualIncome;
     private Long totalAssets;
@@ -27,7 +27,7 @@ public class LoanChecklistRequest {
         "workStatus",
         "workTerm"
     })
-    private LoanChecklistRequest(
+    private LoanChecklistFilterRequest(
             Long annualIncome,
             Long totalAssets,
             String marriageStatus,

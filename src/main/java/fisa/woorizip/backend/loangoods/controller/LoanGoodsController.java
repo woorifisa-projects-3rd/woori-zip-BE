@@ -2,7 +2,7 @@ package fisa.woorizip.backend.loangoods.controller;
 
 import static fisa.woorizip.backend.member.domain.Role.ADMIN;
 
-import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistRequest;
+import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistFilterRequest;
 import fisa.woorizip.backend.loanchecklist.service.LoanCheckListService;
 import fisa.woorizip.backend.loangoods.dto.request.ModifyLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.request.SaveLoanGoodsRequest;
@@ -70,7 +70,7 @@ public class LoanGoodsController {
     public ResponseEntity<List<LoanGoodsResponse>> showRecommendedLoanGoods(
             @VerifiedMember MemberIdentity memberIdentity,
             @PathVariable("houseId") Long houseId,
-            @ModelAttribute LoanChecklistRequest loanCheckListRequest) {
+            @ModelAttribute LoanChecklistFilterRequest loanCheckListRequest) {
         return ResponseEntity.ok(
                 loanCheckListService.getRecommendLoanGoods(houseId, loanCheckListRequest));
     }
