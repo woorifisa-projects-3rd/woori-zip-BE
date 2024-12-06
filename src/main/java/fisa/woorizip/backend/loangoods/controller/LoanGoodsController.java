@@ -61,7 +61,7 @@ public class LoanGoodsController {
     public ResponseEntity<Void> removeLoanGoods(
             @VerifiedMember MemberIdentity memberIdentity,
             @PathVariable("loanGoodsId") Long loanGoodsId) {
-        loanGoodsService.deleteLoanGoods(loanGoodsId);
+        loanGoodsService.removeLoanGoods(loanGoodsId);
         return ResponseEntity.ok().build();
     }
 

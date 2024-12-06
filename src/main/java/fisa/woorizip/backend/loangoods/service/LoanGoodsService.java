@@ -12,7 +12,7 @@ public interface LoanGoodsService {
 
     ShowLoanGoodsResponse getLoanGoods(Pageable pageable);
 
-    void deleteLoanGoods(Long id);
+    void removeLoanGoods(Long id);
 
     ShowLoanGoodsDetailResponse getLoanGoodsDetailsById(Long loanGoodsId, MemberIdentity member);
 
