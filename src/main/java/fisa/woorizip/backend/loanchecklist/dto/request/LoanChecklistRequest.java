@@ -5,6 +5,7 @@ import fisa.woorizip.backend.loanchecklist.domain.MarriageStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkTerm;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NONE_MARRIAGE;
@@ -13,6 +14,7 @@ import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.NONE_TERM;
 import static java.util.Objects.isNull;
 
 @Getter
+@AllArgsConstructor
 public class LoanChecklistRequest {
     private WorkStatus workStatus;
     private WorkTerm workTerm;
@@ -26,36 +28,15 @@ public class LoanChecklistRequest {
 
     protected LoanChecklistRequest() {}
 
-    public LoanChecklistRequest(
-            WorkStatus workStatus,
-            WorkTerm workTerm,
-            Long annualIncome,
-            Long totalAssets,
-            Boolean contract,
-            MarriageStatus marriageStatus,
-            Long leaseDeposit,
-            Long monthlyRent,
-            Double exclusiveArea) {
-        this.workStatus = isNull(workStatus) ? NONE_WORK_STATUS : workStatus;
-        this.workTerm = isNull(workTerm) ? NONE_TERM : workTerm;
-        this.annualIncome = annualIncome;
-        this.totalAssets = totalAssets;
-        this.contract = contract;
-        this.marriageStatus = isNull(marriageStatus) ? NONE_MARRIAGE : marriageStatus;
-        this.leaseDeposit = leaseDeposit;
-        this.monthlyRent = monthlyRent;
-        this.exclusiveArea = exclusiveArea;
-    }
-
     public LoanChecklist toLoanChecklist(LoanGoods loanGoods) {
         return LoanChecklist.builder()
                 .loanGoods(loanGoods)
-                .workStatus(workStatus)
-                .workTerm(workTerm)
+                .workStatus(isNull(workStatus) ? NONE_WORK_STATUS : workStatus)
+                .workTerm(isNull(workTerm) ? NONE_TERM : workTerm)
                 .annualIncome(annualIncome)
                 .totalAssets(totalAssets)
                 .contract(contract)
-                .marriageStatus(marriageStatus)
+                .marriageStatus(isNull(marriageStatus) ? NONE_MARRIAGE : marriageStatus)
                 .leaseDeposit(leaseDeposit)
                 .monthlyRent(monthlyRent)
                 .exclusiveArea(exclusiveArea)
