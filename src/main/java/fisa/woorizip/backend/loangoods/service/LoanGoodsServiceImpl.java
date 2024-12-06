@@ -64,14 +64,16 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
 
     private void updateRates(List<RateRequest> rateRequests) {
         rateRequests.forEach(
-                rateRequest ->
-                        rateRepository
-                                .findById(rateRequest.getId())
-                                .ifPresentOrElse(
-                                        rate -> rate.updateRate(rateRequest.toRate()),
-                                        () -> {
-                                            throw new WooriZipException(RATE_NOT_FOUND);
-                                        }));
+                rateRequest -> {
+                    Rate rate = findRateById(rateRequest.getId());
+                    rate.updateRate(rateRequest.toRate());
+                });
+    }
+
+    private Rate findRateById(Long rateId) {
+        return rateRepository
+                .findById(rateId)
+                .orElseThrow(() -> new WooriZipException(RATE_NOT_FOUND));
     }
 
     private List<Rate> findRatesByLoanGoodsId(Long loanGoodsId) {
