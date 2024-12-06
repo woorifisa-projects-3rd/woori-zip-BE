@@ -9,6 +9,7 @@ import lombok.*;
 import java.beans.ConstructorProperties;
 
 @Getter
+@ToString
 public class LoanChecklistRequest {
 
     private Long annualIncome;

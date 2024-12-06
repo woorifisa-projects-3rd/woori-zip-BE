@@ -4,9 +4,11 @@ import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 @Builder
+@ToString
 public class LoanGoodsResponse {
     private final Long id;
     private final String loanType;

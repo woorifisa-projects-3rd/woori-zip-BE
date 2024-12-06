@@ -1,6 +1,12 @@
 package fisa.woorizip.backend.loangoods.domain;
 
+import static fisa.woorizip.backend.loangoods.LoanGoodsErrorCode.LOAN_TYPE_NOT_FOUND;
+
+import fisa.woorizip.backend.common.exception.WooriZipException;
+
 import lombok.Getter;
+
+import java.util.Arrays;
 
 @Getter
 public enum LoanType {
@@ -11,5 +17,12 @@ public enum LoanType {
 
     LoanType(String name) {
         this.name = name;
+    }
+
+    public static LoanType from(String name) {
+        return Arrays.stream(LoanType.values())
+                .filter(loanType -> loanType.getName().equals(name))
+                .findAny()
+                .orElseThrow(() -> new WooriZipException(LOAN_TYPE_NOT_FOUND));
     }
 }
