@@ -35,8 +35,8 @@ public class LoanChecklist {
     @Column(name = "total_assets")
     private Long totalAssets;
 
-    @Column(name = "contract", nullable = false)
-    private boolean contract;
+    @Column(name = "contract")
+    private Boolean contract;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "marriage_status", nullable = false)
