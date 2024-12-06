@@ -7,6 +7,7 @@ import fisa.woorizip.backend.loanchecklist.domain.WorkTerm;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NONE_MARRIAGE;
 import static fisa.woorizip.backend.loanchecklist.domain.WorkStatus.NONE_WORK_STATUS;
@@ -15,6 +16,7 @@ import static java.util.Objects.isNull;
 
 @Getter
 @AllArgsConstructor
+@ToString
 public class LoanChecklistRequest {
     private WorkStatus workStatus;
     private WorkTerm workTerm;
