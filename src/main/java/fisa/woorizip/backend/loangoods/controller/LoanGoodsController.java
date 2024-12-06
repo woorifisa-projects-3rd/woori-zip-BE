@@ -50,15 +50,13 @@ public class LoanGoodsController {
 
     @Login(role = ADMIN)
     @GetMapping
-    public ShowLoanGoodsResponse showLoanGoods(
-            @PageableDefault(size = 5) Pageable pageable) {
+    public ShowLoanGoodsResponse showLoanGoods(@PageableDefault(size = 5) Pageable pageable) {
         return loanGoodsService.getLoanGoods(pageable);
     }
 
     @Login(role = ADMIN)
     @DeleteMapping("/{loanGoodsId}")
-    public ResponseEntity<Void> removeLoanGoods(
-            @PathVariable("loanGoodsId") Long loanGoodsId) {
+    public ResponseEntity<Void> removeLoanGoods(@PathVariable("loanGoodsId") Long loanGoodsId) {
         loanGoodsService.removeLoanGoods(loanGoodsId);
         return ResponseEntity.ok().build();
     }

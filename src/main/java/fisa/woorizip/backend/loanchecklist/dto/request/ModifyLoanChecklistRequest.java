@@ -1,16 +1,18 @@
 package fisa.woorizip.backend.loanchecklist.dto.request;
 
+import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NONE_MARRIAGE;
+import static fisa.woorizip.backend.loanchecklist.domain.WorkStatus.NONE_WORK_STATUS;
+import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.NONE_TERM;
+
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.loanchecklist.domain.LoanChecklist;
 import fisa.woorizip.backend.loanchecklist.domain.MarriageStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkTerm;
+
 import lombok.Getter;
 import lombok.ToString;
-
-import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NONE_MARRIAGE;
-import static fisa.woorizip.backend.loanchecklist.domain.WorkStatus.NONE_WORK_STATUS;
-import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.NONE_TERM;
-import static java.util.Objects.isNull;
 
 @Getter
 @ToString
@@ -40,7 +42,8 @@ public class ModifyLoanChecklistRequest {
         this.annualIncome = annualIncome;
         this.totalAssets = totalAssets;
         this.contract = contract;
-        this.marriageStatus = isNull(marriageStatus) ? NONE_MARRIAGE : MarriageStatus.from(marriageStatus);
+        this.marriageStatus =
+                isNull(marriageStatus) ? NONE_MARRIAGE : MarriageStatus.from(marriageStatus);
         this.leaseDeposit = leaseDeposit;
         this.monthlyRent = monthlyRent;
         this.exclusiveArea = exclusiveArea;
