@@ -1,8 +1,8 @@
 package fisa.woorizip.backend.member.dto.response;
 
 import fisa.woorizip.backend.member.domain.Member;
-
 import fisa.woorizip.backend.member.domain.Role;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -23,7 +23,10 @@ public class SignInResponse {
     }
 
     public static SignInResponse of(String accessToken, Member member) {
-        return SignInResponse.builder().accessToken(accessToken).name(member.getName()).role(member.getRole()).build();
+        return SignInResponse.builder()
+                .accessToken(accessToken)
+                .name(member.getName())
+                .role(member.getRole())
+                .build();
     }
-
 }
