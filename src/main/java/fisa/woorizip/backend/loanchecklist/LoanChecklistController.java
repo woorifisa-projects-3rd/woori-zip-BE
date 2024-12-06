@@ -1,13 +1,12 @@
 package fisa.woorizip.backend.loanchecklist;
 
+import fisa.woorizip.backend.loanchecklist.dto.request.ModifyLoanChecklistRequest;
 import fisa.woorizip.backend.loanchecklist.dto.response.ShowLoanChecklistResponse;
 import fisa.woorizip.backend.loanchecklist.service.LoanCheckListService;
 import fisa.woorizip.backend.member.controller.auth.Login;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import static fisa.woorizip.backend.member.domain.Role.ADMIN;
 
@@ -20,7 +19,17 @@ public class LoanChecklistController {
 
     @Login(role = ADMIN)
     @GetMapping("/{loanGoodsId}")
-    public ShowLoanChecklistResponse showLoanChecklist(@PathVariable("loanGoodsId") Long loanGoodsId) {
+    public ShowLoanChecklistResponse showLoanChecklist(
+            @PathVariable("loanGoodsId") Long loanGoodsId) {
         return loanCheckListService.getLoanChecklist(loanGoodsId);
+    }
+
+    @Login(role = ADMIN)
+    @PutMapping("/{loanChecklistId}")
+    public ResponseEntity<Void> modifyLoanChecklist(
+            @PathVariable("loanChecklistId") Long loanChecklistId,
+            ModifyLoanChecklistRequest modifyLoanChecklistRequest) {
+        loanCheckListService.modifyLoanChecklist(loanChecklistId, modifyLoanChecklistRequest);
+        return ResponseEntity.ok().build();
     }
 }
