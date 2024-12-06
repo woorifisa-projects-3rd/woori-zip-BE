@@ -1,8 +1,11 @@
 package fisa.woorizip.backend.loanchecklist.domain;
 
+import fisa.woorizip.backend.common.exception.WooriZipException;
 import lombok.Getter;
 
 import java.util.Arrays;
+
+import static fisa.woorizip.backend.loanchecklist.LoanChecklistErrorCode.MARRIAGE_NOT_FOUND;
 
 @Getter
 public enum MarriageStatus {
@@ -21,6 +24,6 @@ public enum MarriageStatus {
         return Arrays.stream(MarriageStatus.values())
                 .filter(marriage -> marriage.name().equals(name))
                 .findAny()
-                .orElse(NONE_MARRIAGE);
+                .orElseThrow(() -> new WooriZipException(MARRIAGE_NOT_FOUND));
     }
 }

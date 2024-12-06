@@ -1,8 +1,11 @@
 package fisa.woorizip.backend.loanchecklist.domain;
 
+import fisa.woorizip.backend.common.exception.WooriZipException;
 import lombok.Getter;
 
 import java.util.Arrays;
+
+import static fisa.woorizip.backend.loanchecklist.LoanChecklistErrorCode.WORK_STATUS_NOT_FOUND;
 
 @Getter
 public enum WorkStatus {
@@ -20,6 +23,6 @@ public enum WorkStatus {
         return Arrays.stream(WorkStatus.values())
                 .filter(workStatus -> workStatus.name().equals(name))
                 .findAny()
-                .orElse(NONE_WORK_STATUS);
+                .orElseThrow(() -> new WooriZipException(WORK_STATUS_NOT_FOUND));
     }
 }
