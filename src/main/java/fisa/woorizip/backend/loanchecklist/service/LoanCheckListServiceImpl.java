@@ -1,12 +1,15 @@
 package fisa.woorizip.backend.loanchecklist.service;
 
 import static fisa.woorizip.backend.house.HouseErrorCode.HOUSE_NOT_FOUND;
+import static fisa.woorizip.backend.loanchecklist.LoanChecklistErrorCode.LOAN_CHECKLIST_NOT_FOUND;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.house.domain.House;
 import fisa.woorizip.backend.house.repository.HouseRepository;
+import fisa.woorizip.backend.loanchecklist.domain.LoanChecklist;
 import fisa.woorizip.backend.loanchecklist.dto.LoanChecklistFilter;
 import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistFilterRequest;
+import fisa.woorizip.backend.loanchecklist.dto.response.ShowLoanChecklistResponse;
 import fisa.woorizip.backend.loanchecklist.repository.LoanChecklistRepository;
 import fisa.woorizip.backend.loangoods.dto.response.LoanGoodsResponse;
 
@@ -33,6 +36,18 @@ public class LoanCheckListServiceImpl implements LoanCheckListService {
         return loanCheckListRepository.findRecommendLoanGoods(loanCheckListFilter).stream()
                 .map(LoanGoodsResponse::from)
                 .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ShowLoanChecklistResponse getLoanChecklist(Long loanGoodsId) {
+        return ShowLoanChecklistResponse.from(findLoanChecklistByLoanGoodsId(loanGoodsId));
+    }
+
+    private LoanChecklist findLoanChecklistByLoanGoodsId(Long loanGoodsId) {
+        return loanCheckListRepository
+                .findByLoanGoodsId(loanGoodsId)
+                .orElseThrow(() -> new WooriZipException(LOAN_CHECKLIST_NOT_FOUND));
     }
 
     private House findHouseById(Long houseId) {
