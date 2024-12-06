@@ -28,7 +28,7 @@ public class HouseFixture {
     private int totalParkingSpaces = 110;
     private int householdParkingSpaces = 1;
     private String totalArea = "80.58";
-    private String exclusiveArea = "73.54";
+    private double exclusiveArea = 73.54;
     private int rooms = 2;
     private int bathrooms = 1;
     private int floor = 3;
@@ -127,7 +127,7 @@ public class HouseFixture {
         return this;
     }
 
-    public HouseFixture exclusiveArea(String exclusiveArea) {
+    public HouseFixture exclusiveArea(double exclusiveArea) {
         this.exclusiveArea = exclusiveArea;
         return this;
     }
