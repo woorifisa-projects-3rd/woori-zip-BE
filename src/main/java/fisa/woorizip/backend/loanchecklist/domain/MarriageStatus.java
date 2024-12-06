@@ -19,7 +19,7 @@ public enum MarriageStatus {
 
     public static MarriageStatus from(String name) {
         return Arrays.stream(MarriageStatus.values())
-                .filter(marriage -> marriage.name.equals(name))
+                .filter(marriage -> marriage.name().equals(name))
                 .findAny()
                 .orElse(NONE_MARRIAGE);
     }

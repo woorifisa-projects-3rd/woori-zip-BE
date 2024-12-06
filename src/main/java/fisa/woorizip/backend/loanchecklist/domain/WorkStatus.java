@@ -18,7 +18,7 @@ public enum WorkStatus {
 
     public static WorkStatus from(String name) {
         return Arrays.stream(WorkStatus.values())
-                .filter(workStatus -> workStatus.name.equals(name))
+                .filter(workStatus -> workStatus.name().equals(name))
                 .findAny()
                 .orElse(NONE_WORK_STATUS);
     }
