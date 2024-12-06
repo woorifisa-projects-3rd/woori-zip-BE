@@ -1,12 +1,12 @@
 package fisa.woorizip.backend.rate.domain;
 
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 
 import jakarta.persistence.*;
 
 import lombok.*;
-
-import static java.util.Objects.isNull;
 
 @Entity
 @Getter
@@ -43,27 +43,27 @@ public class Rate {
     private String minRate;
 
     private void updateRateType(RateType rateType) {
-        if(!isNull(rateType)) this.rateType = rateType;
+        if (!isNull(rateType)) this.rateType = rateType;
     }
 
     private void updateBasicRate(String basicRate) {
-        if(!isNull(this.basicRate)) this.basicRate = basicRate;
+        if (!isNull(this.basicRate)) this.basicRate = basicRate;
     }
 
     private void updateAddRate(String addRate) {
-        if(!isNull(this.addRate)) this.addRate = addRate;
+        if (!isNull(this.addRate)) this.addRate = addRate;
     }
 
     private void updateNormalRate(String normalRate) {
-        if(!isNull(this.normalRate)) this.normalRate = normalRate;
+        if (!isNull(this.normalRate)) this.normalRate = normalRate;
     }
 
     private void updateSpecialRate(String specialRate) {
-        if(!isNull(this.specialRate)) this.specialRate = specialRate;
+        if (!isNull(this.specialRate)) this.specialRate = specialRate;
     }
 
     private void updateMinRate(String minRate) {
-        if(!isNull(this.minRate)) this.minRate = minRate;
+        if (!isNull(this.minRate)) this.minRate = minRate;
     }
 
     public void updateRate(Rate rate) {

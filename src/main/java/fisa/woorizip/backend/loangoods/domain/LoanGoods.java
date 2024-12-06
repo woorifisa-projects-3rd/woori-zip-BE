@@ -1,11 +1,10 @@
 package fisa.woorizip.backend.loangoods.domain;
 
-import fisa.woorizip.backend.loangoods.dto.request.ModifyLoanGoodsRequest;
+import static java.util.Objects.isNull;
+
 import jakarta.persistence.*;
 
 import lombok.*;
-
-import static java.util.Objects.isNull;
 
 @Entity
 @Getter
@@ -59,51 +58,51 @@ public class LoanGoods {
     private String interestMethod;
 
     private void updateName(String name) {
-        if(!isNull(name)) this.name = name;
+        if (!isNull(name)) this.name = name;
     }
 
     private void updateLoanType(LoanType loanType) {
-        if(!isNull(loanType)) this.loanType = loanType;
+        if (!isNull(loanType)) this.loanType = loanType;
     }
 
     private void updateTarget(String target) {
-        if(!isNull(target)) this.target = target;
+        if (!isNull(target)) this.target = target;
     }
 
     private void updateLimitAmount(String limitAmount) {
-        if(!isNull(limitAmount)) this.limitAmount = limitAmount;
+        if (!isNull(limitAmount)) this.limitAmount = limitAmount;
     }
 
     private void updateTerm(String term) {
-        if(!isNull(term)) this.term = term;
+        if (!isNull(term)) this.term = term;
     }
 
     private void updateNormalRate(String normalRate) {
-        if(!isNull(normalRate)) this.normalRate = normalRate;
+        if (!isNull(normalRate)) this.normalRate = normalRate;
     }
 
     private void updateSpecialRate(String specialRate) {
-        if(!isNull(specialRate)) this.specialRate = specialRate;
+        if (!isNull(specialRate)) this.specialRate = specialRate;
     }
 
     private void updateRepayType(String repayType) {
-        if(!isNull(repayType)) this.repayType = repayType;
+        if (!isNull(repayType)) this.repayType = repayType;
     }
 
     private void updateGuarantee(String guarantee) {
-        if(!isNull(guarantee)) this.guarantee = guarantee;
+        if (!isNull(guarantee)) this.guarantee = guarantee;
     }
 
     private void updateTargetHouse(String targetHouse) {
-        if(!isNull(targetHouse)) this.targetHouse = targetHouse;
+        if (!isNull(targetHouse)) this.targetHouse = targetHouse;
     }
 
     private void updateCustomerCost(String customerCost) {
-        if(!isNull(customerCost)) this.customerCost = customerCost;
+        if (!isNull(customerCost)) this.customerCost = customerCost;
     }
 
     private void updateInterestMethod(String interestMethod) {
-        if(!isNull(interestMethod)) this.interestMethod = interestMethod;
+        if (!isNull(interestMethod)) this.interestMethod = interestMethod;
     }
 
     public void updateLoanGoods(LoanGoods loanGoods) {
