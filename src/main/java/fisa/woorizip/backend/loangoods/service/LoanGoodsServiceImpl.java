@@ -144,9 +144,9 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     @Override
     @Transactional
     public void removeLoanGoods(Long loanGoodsId) {
+        LoanGoods loanGoods = findLoanGoodsById(loanGoodsId);
         rateRepository.deleteAllByLoanGoodsId(loanGoodsId);
         loanChecklistRepository.deleteAllByLoanGoodsId(loanGoodsId);
-        LoanGoods loanGoods = findLoanGoodsById(loanGoodsId);
         loanGoodsRepository.delete(loanGoods);
     }
 
