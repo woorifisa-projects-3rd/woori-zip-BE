@@ -28,7 +28,7 @@ public class LoanChecklistController {
     @PutMapping("/{loanChecklistId}")
     public ResponseEntity<Void> modifyLoanChecklist(
             @PathVariable("loanChecklistId") Long loanChecklistId,
-            ModifyLoanChecklistRequest modifyLoanChecklistRequest) {
+            @RequestBody ModifyLoanChecklistRequest modifyLoanChecklistRequest) {
         loanCheckListService.modifyLoanChecklist(loanChecklistId, modifyLoanChecklistRequest);
         return ResponseEntity.ok().build();
     }
