@@ -4,6 +4,7 @@ import static fisa.woorizip.backend.member.domain.Role.ADMIN;
 
 import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistRequest;
 import fisa.woorizip.backend.loanchecklist.service.LoanCheckListService;
+import fisa.woorizip.backend.loangoods.dto.request.ModifyLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.request.SaveLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.response.LoanGoodsResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
@@ -79,6 +80,15 @@ public class LoanGoodsController {
     public ResponseEntity<Void> saveLoanGoods(
             @RequestBody @Valid SaveLoanGoodsRequest saveLoanGoodsRequest) {
         loanGoodsService.saveLoanGoods(saveLoanGoodsRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @Login(role = ADMIN)
+    @PutMapping("/{loanGoodsId}")
+    public ResponseEntity<Void> modifyLoanGoods(
+            @PathVariable("loanGoodsId") Long loanGoodsId,
+            @RequestBody @Valid ModifyLoanGoodsRequest modifyLoanGoodsRequest) {
+        loanGoodsService.updateLoanGoods(loanGoodsId, modifyLoanGoodsRequest);
         return ResponseEntity.ok().build();
     }
 }

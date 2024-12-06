@@ -2,11 +2,13 @@ package fisa.woorizip.backend.loangoods.service;
 
 import static fisa.woorizip.backend.loangoods.LoanGoodsErrorCode.LOAN_GOODS_NOT_FOUND;
 import static fisa.woorizip.backend.member.MemberErrorCode.MEMBER_NOT_FOUND;
+import static fisa.woorizip.backend.rate.RateErrorCode.RATE_NOT_FOUND;
 
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
+import fisa.woorizip.backend.loangoods.dto.request.ModifyLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.request.SaveLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsDetailResponse;
 import fisa.woorizip.backend.loangoods.dto.response.ShowLoanGoodsResponse;
@@ -53,6 +55,33 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
 
     @Override
     @Transactional
+    public void updateLoanGoods(Long loanGoodsId, ModifyLoanGoodsRequest modifyLoanGoodsRequest) {
+        LoanGoods loanGoods = findLoanGoodsById(loanGoodsId);
+        loanGoods.updateLoanGoods(modifyLoanGoodsRequest.toLoanGoods());
+        if (!isNull(modifyLoanGoodsRequest.getRateRequests()))
+            updateRates(modifyLoanGoodsRequest.getRateRequests());
+    }
+
+    private void updateRates(List<RateRequest> rateRequests) {
+        rateRequests.forEach(
+                rateRequest -> {
+                    Rate rate = findRateById(rateRequest.getId());
+                    rate.updateRate(rateRequest.toRate());
+                });
+    }
+
+    private Rate findRateById(Long rateId) {
+        return rateRepository
+                .findById(rateId)
+                .orElseThrow(() -> new WooriZipException(RATE_NOT_FOUND));
+    }
+
+    private List<Rate> findRatesByLoanGoodsId(Long loanGoodsId) {
+        return rateRepository.findAllByLoanGoodsId(loanGoodsId);
+    }
+
+    @Override
+    @Transactional
     public void saveLoanGoods(SaveLoanGoodsRequest saveLoanGoodsRequest) {
         LoanGoods loanGoods = loanGoodsRepository.save(saveLoanGoodsRequest.toLoanGoods());
         saveRates(saveLoanGoodsRequest.getRateRequests(), loanGoods);
@@ -65,7 +94,7 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     }
 
     private List<RateResponse> getRateResponseList(Long loanGoodsId) {
-        List<Rate> rates = rateRepository.findByLoanGoodsId(loanGoodsId);
+        List<Rate> rates = rateRepository.findAllByLoanGoodsId(loanGoodsId);
         List<RateResponse> rateList = rates.stream().map(RateResponse::from).toList();
 
         return rateList;
