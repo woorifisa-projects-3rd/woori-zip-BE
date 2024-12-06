@@ -20,7 +20,7 @@ public enum LoanType {
 
     public static LoanType from(String name) {
         return Arrays.stream(LoanType.values())
-                .filter(loanType -> loanType.name.equals(name))
+                .filter(loanType -> loanType.getName().equals(name))
                 .findAny()
                 .orElseThrow(() -> new WooriZipException(LOAN_TYPE_NOT_FOUND));
     }

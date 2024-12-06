@@ -55,11 +55,11 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
 
     @Override
     @Transactional
-    public void updateLoanGoods(Long loanGoodsId, ModifyLoanGoodsRequest loanGoodsRequest) {
+    public void updateLoanGoods(Long loanGoodsId, ModifyLoanGoodsRequest modifyLoanGoodsRequest) {
         LoanGoods loanGoods = findLoanGoodsById(loanGoodsId);
-        loanGoods.updateLoanGoods(loanGoodsRequest.toLoanGoods());
-        if (!isNull(loanGoodsRequest.getRateRequests()))
-            updateRates(loanGoodsRequest.getRateRequests());
+        loanGoods.updateLoanGoods(modifyLoanGoodsRequest.toLoanGoods());
+        if (!isNull(modifyLoanGoodsRequest.getRateRequests()))
+            updateRates(modifyLoanGoodsRequest.getRateRequests());
     }
 
     private void updateRates(List<RateRequest> rateRequests) {

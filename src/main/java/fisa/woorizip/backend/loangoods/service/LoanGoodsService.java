@@ -16,7 +16,7 @@ public interface LoanGoodsService {
 
     ShowLoanGoodsDetailResponse getLoanGoodsDetailsById(Long loanGoodsId, MemberIdentity member);
 
-    void updateLoanGoods(Long loanGoodsId, ModifyLoanGoodsRequest loanGoodsRequest);
+    void updateLoanGoods(Long loanGoodsId, ModifyLoanGoodsRequest modifyLoanGoodsRequest);
 
     void saveLoanGoods(SaveLoanGoodsRequest saveLoanGoodsRequest);
 }
