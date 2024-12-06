@@ -44,7 +44,7 @@ public class HouseController {
     @GetMapping("/agent/houses")
     public ShowAgentHouseResponse ShowAgentHouse(
             @VerifiedMember MemberIdentity memberIdentity,
-            @PageableDefault(size = 6) Pageable pageable) {
+            @PageableDefault(size = 8) Pageable pageable) {
         return houseService.getAgentHouse(memberIdentity, pageable);
     }
 }
