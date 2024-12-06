@@ -9,4 +9,6 @@ import java.util.List;
 public interface RateRepository extends JpaRepository<Rate, Long> {
 
     List<Rate> findAllByLoanGoodsId(Long loanGoodsId);
+
+    void deleteAllByLoanGoodsId(Long loanGoodsId);
 }
