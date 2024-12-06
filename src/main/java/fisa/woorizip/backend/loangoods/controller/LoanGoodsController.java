@@ -51,7 +51,6 @@ public class LoanGoodsController {
     @Login(role = ADMIN)
     @GetMapping
     public ShowLoanGoodsResponse showLoanGoods(
-            @VerifiedMember MemberIdentity memberIdentity,
             @PageableDefault(size = 5) Pageable pageable) {
         return loanGoodsService.getLoanGoods(pageable);
     }
@@ -59,7 +58,6 @@ public class LoanGoodsController {
     @Login(role = ADMIN)
     @DeleteMapping("/{loanGoodsId}")
     public ResponseEntity<Void> removeLoanGoods(
-            @VerifiedMember MemberIdentity memberIdentity,
             @PathVariable("loanGoodsId") Long loanGoodsId) {
         loanGoodsService.removeLoanGoods(loanGoodsId);
         return ResponseEntity.ok().build();
@@ -68,7 +66,6 @@ public class LoanGoodsController {
     @Login
     @GetMapping("/recommend/{houseId}")
     public ResponseEntity<List<LoanGoodsResponse>> showRecommendedLoanGoods(
-            @VerifiedMember MemberIdentity memberIdentity,
             @PathVariable("houseId") Long houseId,
             @ModelAttribute LoanChecklistFilterRequest loanCheckListRequest) {
         return ResponseEntity.ok(
