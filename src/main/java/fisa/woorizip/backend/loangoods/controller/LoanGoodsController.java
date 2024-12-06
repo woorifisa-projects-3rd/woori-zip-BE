@@ -2,7 +2,7 @@ package fisa.woorizip.backend.loangoods.controller;
 
 import static fisa.woorizip.backend.member.domain.Role.ADMIN;
 
-import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistRequest;
+import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistFilterRequest;
 import fisa.woorizip.backend.loanchecklist.service.LoanCheckListService;
 import fisa.woorizip.backend.loangoods.dto.request.ModifyLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.request.SaveLoanGoodsRequest;
@@ -50,27 +50,22 @@ public class LoanGoodsController {
 
     @Login(role = ADMIN)
     @GetMapping
-    public ShowLoanGoodsResponse showLoanGoods(
-            @VerifiedMember MemberIdentity memberIdentity,
-            @PageableDefault(size = 5) Pageable pageable) {
+    public ShowLoanGoodsResponse showLoanGoods(@PageableDefault(size = 5) Pageable pageable) {
         return loanGoodsService.getLoanGoods(pageable);
     }
 
     @Login(role = ADMIN)
     @DeleteMapping("/{loanGoodsId}")
-    public ResponseEntity<Void> removeLoanGoods(
-            @VerifiedMember MemberIdentity memberIdentity,
-            @PathVariable("loanGoodsId") Long loanGoodsId) {
-        loanGoodsService.deleteLoanGoods(loanGoodsId);
+    public ResponseEntity<Void> removeLoanGoods(@PathVariable("loanGoodsId") Long loanGoodsId) {
+        loanGoodsService.removeLoanGoods(loanGoodsId);
         return ResponseEntity.ok().build();
     }
 
     @Login
     @GetMapping("/recommend/{houseId}")
     public ResponseEntity<List<LoanGoodsResponse>> showRecommendedLoanGoods(
-            @VerifiedMember MemberIdentity memberIdentity,
             @PathVariable("houseId") Long houseId,
-            @ModelAttribute LoanChecklistRequest loanCheckListRequest) {
+            @ModelAttribute LoanChecklistFilterRequest loanCheckListRequest) {
         return ResponseEntity.ok(
                 loanCheckListService.getRecommendLoanGoods(houseId, loanCheckListRequest));
     }

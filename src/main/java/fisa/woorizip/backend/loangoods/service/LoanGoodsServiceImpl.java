@@ -7,6 +7,9 @@ import static fisa.woorizip.backend.rate.RateErrorCode.RATE_NOT_FOUND;
 import static java.util.Objects.isNull;
 
 import fisa.woorizip.backend.common.exception.WooriZipException;
+import fisa.woorizip.backend.loanchecklist.domain.LoanChecklist;
+import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistRequest;
+import fisa.woorizip.backend.loanchecklist.repository.LoanChecklistRepository;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.dto.request.ModifyLoanGoodsRequest;
 import fisa.woorizip.backend.loangoods.dto.request.SaveLoanGoodsRequest;
@@ -40,6 +43,7 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     private final RateRepository rateRepository;
     private final RecentlyLoanGoodsRepository recentlyLoanGoodsRepository;
     private final MemberRepository memberRepository;
+    private final LoanChecklistRepository loanChecklistRepository;
 
     @Override
     @Transactional
@@ -85,12 +89,18 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
     public void saveLoanGoods(SaveLoanGoodsRequest saveLoanGoodsRequest) {
         LoanGoods loanGoods = loanGoodsRepository.save(saveLoanGoodsRequest.toLoanGoods());
         saveRates(saveLoanGoodsRequest.getRateRequests(), loanGoods);
+        saveLoanChecklist(saveLoanGoodsRequest.getLoanChecklistRequest(), loanGoods);
     }
 
     private void saveRates(List<RateRequest> rateRequests, LoanGoods loanGoods) {
         if (isNull(rateRequests)) return;
         List<Rate> rates = rateRequests.stream().map(rate -> rate.toRate(loanGoods)).toList();
         rateRepository.saveAll(rates);
+    }
+
+    private void saveLoanChecklist(LoanChecklistRequest loanChecklistRequest, LoanGoods loanGoods) {
+        LoanChecklist loanChecklist = loanChecklistRequest.toLoanChecklist(loanGoods);
+        loanChecklistRepository.save(loanChecklist);
     }
 
     private List<RateResponse> getRateResponseList(Long loanGoodsId) {
@@ -133,8 +143,10 @@ public class LoanGoodsServiceImpl implements LoanGoodsService {
 
     @Override
     @Transactional
-    public void deleteLoanGoods(Long id) {
-        LoanGoods loanGoods = findLoanGoodsById(id);
+    public void removeLoanGoods(Long loanGoodsId) {
+        LoanGoods loanGoods = findLoanGoodsById(loanGoodsId);
+        rateRepository.deleteAllByLoanGoodsId(loanGoodsId);
+        loanChecklistRepository.deleteAllByLoanGoodsId(loanGoodsId);
         loanGoodsRepository.delete(loanGoods);
     }
 
