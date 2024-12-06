@@ -1,18 +1,20 @@
 package fisa.woorizip.backend.loanchecklist.dto.request;
 
+import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NONE_MARRIAGE;
+import static fisa.woorizip.backend.loanchecklist.domain.WorkStatus.NONE_WORK_STATUS;
+import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.NONE_TERM;
+
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.loanchecklist.domain.LoanChecklist;
 import fisa.woorizip.backend.loanchecklist.domain.MarriageStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkStatus;
 import fisa.woorizip.backend.loanchecklist.domain.WorkTerm;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-
-import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NONE_MARRIAGE;
-import static fisa.woorizip.backend.loanchecklist.domain.WorkStatus.NONE_WORK_STATUS;
-import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.NONE_TERM;
-import static java.util.Objects.isNull;
 
 @Getter
 @AllArgsConstructor

@@ -14,5 +14,6 @@ public interface LoanCheckListService {
 
     ShowLoanChecklistResponse getLoanChecklist(Long loanGoodsId);
 
-    void modifyLoanChecklist(Long loanChecklistId, ModifyLoanChecklistRequest modifyLoanChecklistRequest);
+    void modifyLoanChecklist(
+            Long loanChecklistId, ModifyLoanChecklistRequest modifyLoanChecklistRequest);
 }

@@ -1,6 +1,7 @@
 package fisa.woorizip.backend.loanchecklist.dto.response;
 
 import fisa.woorizip.backend.loanchecklist.domain.LoanChecklist;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;

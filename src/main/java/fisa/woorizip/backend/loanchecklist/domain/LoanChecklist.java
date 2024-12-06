@@ -1,15 +1,16 @@
 package fisa.woorizip.backend.loanchecklist.domain;
 
+import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NONE_MARRIAGE;
+import static fisa.woorizip.backend.loanchecklist.domain.WorkStatus.NONE_WORK_STATUS;
+import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.NONE_TERM;
+
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 
 import jakarta.persistence.*;
 
 import lombok.*;
-
-import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NONE_MARRIAGE;
-import static fisa.woorizip.backend.loanchecklist.domain.WorkStatus.NONE_WORK_STATUS;
-import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.NONE_TERM;
-import static java.util.Objects.isNull;
 
 @Entity
 @Getter
