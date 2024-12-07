@@ -30,7 +30,7 @@ public class LogController {
     @Login(role = ADMIN)
     @GetMapping("/logs")
     public ShowLogsResponse showLogs(
-            @RequestParam(value = "username", required = false) String keyword,
+            @RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "startDate", required = false)
                     @DateTimeFormat(pattern = LOCAL_DATE_TIME_FORMAT)
                     LocalDateTime startDate,
