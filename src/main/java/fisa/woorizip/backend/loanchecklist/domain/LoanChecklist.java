@@ -1,5 +1,11 @@
 package fisa.woorizip.backend.loanchecklist.domain;
 
+import static fisa.woorizip.backend.loanchecklist.domain.MarriageStatus.NONE_MARRIAGE;
+import static fisa.woorizip.backend.loanchecklist.domain.WorkStatus.NONE_WORK_STATUS;
+import static fisa.woorizip.backend.loanchecklist.domain.WorkTerm.NONE_TERM;
+
+import static java.util.Objects.isNull;
+
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 
 import jakarta.persistence.*;
@@ -35,8 +41,8 @@ public class LoanChecklist {
     @Column(name = "total_assets")
     private Long totalAssets;
 
-    @Column(name = "contract", nullable = false)
-    private boolean contract;
+    @Column(name = "contract")
+    private Boolean contract;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "marriage_status", nullable = false)
@@ -50,4 +56,52 @@ public class LoanChecklist {
 
     @Column(name = "exclusive_area")
     private Double exclusiveArea;
+
+    private void updateWorkStatus(WorkStatus workStatus) {
+        this.workStatus = isNull(workStatus) ? NONE_WORK_STATUS : workStatus;
+    }
+
+    private void updateWorkTerm(WorkTerm workTerm) {
+        this.workTerm = isNull(workTerm) ? NONE_TERM : workTerm;
+    }
+
+    private void updateAnnualIncome(Long annualIncome) {
+        this.annualIncome = annualIncome;
+    }
+
+    private void updateTotalAssets(Long totalAssets) {
+        this.totalAssets = totalAssets;
+    }
+
+    private void updateContract(Boolean contract) {
+        this.contract = contract;
+    }
+
+    private void updateMarriageStatus(MarriageStatus marriageStatus) {
+        this.marriageStatus = isNull(marriageStatus) ? NONE_MARRIAGE : marriageStatus;
+    }
+
+    private void updateLeaseDeposit(Long leaseDeposit) {
+        this.leaseDeposit = leaseDeposit;
+    }
+
+    private void updateMonthlyRent(Long monthlyRent) {
+        this.monthlyRent = monthlyRent;
+    }
+
+    private void updateExclusiveArea(Double exclusiveArea) {
+        this.exclusiveArea = exclusiveArea;
+    }
+
+    public void updateLoanChecklist(LoanChecklist loanChecklist) {
+        updateWorkStatus(loanChecklist.getWorkStatus());
+        updateWorkTerm(loanChecklist.getWorkTerm());
+        updateAnnualIncome(loanChecklist.getAnnualIncome());
+        updateTotalAssets(loanChecklist.getTotalAssets());
+        updateContract(loanChecklist.getContract());
+        updateMarriageStatus(loanChecklist.getMarriageStatus());
+        updateLeaseDeposit(loanChecklist.getLeaseDeposit());
+        updateMonthlyRent(loanChecklist.getMonthlyRent());
+        updateExclusiveArea(loanChecklist.getExclusiveArea());
+    }
 }

@@ -2,6 +2,7 @@ package fisa.woorizip.backend.loangoods.dto.request;
 
 import static java.util.Objects.isNull;
 
+import fisa.woorizip.backend.loanchecklist.dto.request.LoanChecklistRequest;
 import fisa.woorizip.backend.loangoods.domain.LoanGoods;
 import fisa.woorizip.backend.loangoods.domain.LoanType;
 import fisa.woorizip.backend.rate.dto.request.RateRequest;
@@ -11,11 +12,13 @@ import jakarta.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Getter
 @AllArgsConstructor
+@ToString
 public class SaveLoanGoodsRequest {
     @NotBlank private String name;
     @NotBlank private String imageUrl;
@@ -31,6 +34,7 @@ public class SaveLoanGoodsRequest {
     @NotBlank private String customerCost;
     @NotBlank private String interestMethod;
     private List<RateRequest> rateRequests;
+    @NotNull private LoanChecklistRequest loanChecklistRequest;
 
     protected SaveLoanGoodsRequest() {}
 

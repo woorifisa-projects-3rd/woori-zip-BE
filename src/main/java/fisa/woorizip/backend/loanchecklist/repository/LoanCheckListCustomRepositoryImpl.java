@@ -85,7 +85,10 @@ public class LoanCheckListCustomRepositoryImpl implements LoanCheckListCustomRep
 
     private BooleanExpression contractEq(Boolean contract) {
         if (isNull(contract)) return null;
-        return loanChecklist.contract.eq(contract);
+        return loanChecklist
+                .contract
+                .isNull()
+                .or(loanChecklist.contract.isNotNull().and(loanChecklist.contract.eq(contract)));
     }
 
     private BooleanExpression marriageStatusEq(MarriageStatus marriageStatus) {

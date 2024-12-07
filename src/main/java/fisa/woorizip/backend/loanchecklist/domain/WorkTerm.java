@@ -1,5 +1,9 @@
 package fisa.woorizip.backend.loanchecklist.domain;
 
+import static fisa.woorizip.backend.loanchecklist.LoanChecklistErrorCode.WORK_TERM_NOT_FOUND;
+
+import fisa.woorizip.backend.common.exception.WooriZipException;
+
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -18,8 +22,8 @@ public enum WorkTerm {
 
     public static WorkTerm from(String name) {
         return Arrays.stream(WorkTerm.values())
-                .filter(workTerm -> workTerm.name.equals(name))
+                .filter(workTerm -> workTerm.name().equals(name))
                 .findAny()
-                .orElse(NONE_TERM);
+                .orElseThrow(() -> new WooriZipException(WORK_TERM_NOT_FOUND));
     }
 }
