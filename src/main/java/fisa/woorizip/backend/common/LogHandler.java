@@ -59,9 +59,13 @@ public class LogHandler {
                     + " @within(org.springframework.web.bind.annotation.RestController)")
     public void allController() {}
 
-    @Before(
-            "execution(*"
-                + " fisa.woorizip.backend.member.controller.auth.AuthInterceptor.preHandle(..))")
+    @Pointcut("execution(*" + " fisa.woorizip.backend.common.LogFilter.doFilter(..))")
+    public void logFilter() {}
+
+    @Pointcut("execution(* fisa.woorizip.backend.common.ApiResponseHandler.beforeBodyWrite(..))")
+    public void apiResponseHandler() {}
+
+    @Before("logFilter()")
     public void interceptorRequest(JoinPoint joinPoint) {
         HttpServletRequest request =
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
@@ -83,7 +87,7 @@ public class LogHandler {
                 .member(getMember(joinPoint));
     }
 
-    @Around("execution(* fisa.woorizip.backend.common.ApiResponseHandler.beforeBodyWrite(..))")
+    @Around("apiResponseHandler()")
     public Object logResponse(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletResponse response =
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
@@ -137,8 +141,15 @@ public class LogHandler {
 
     private void printLog(Log logging) {
         log.info(
-                "[Success: {} | Log ID: {}] Member: {} | IP: {} | URL: {} | ReqBody: {} |"
-                        + " RespStatus: {} | RespBody: {} | CreatedAt: {}\n",
+                "\n"
+                    + " [Success: {} | Log ID: {}] \n"
+                    + " Member: {} | \n"
+                    + " IP: {} | \n"
+                    + " URL: {} | \n"
+                    + " ReqBody: {} | \n"
+                    + " RespStatus: {} | \n"
+                    + " RespBody: {} | \n"
+                    + " CreatedAt: {}\n",
                 logging.isSuccess(),
                 logging.getId(),
                 logging.getMember() != null ? logging.getMember().getId() : "Anonymous",
