@@ -59,8 +59,7 @@ public class LogHandler {
                     + " @within(org.springframework.web.bind.annotation.RestController)")
     public void allController() {}
 
-    @Pointcut("execution(*"
-            + " fisa.woorizip.backend.common.LogFilter.doFilter(..))")
+    @Pointcut("execution(*" + " fisa.woorizip.backend.common.LogFilter.doFilter(..))")
     public void logFilter() {}
 
     @Pointcut("execution(* fisa.woorizip.backend.common.ApiResponseHandler.beforeBodyWrite(..))")
@@ -142,8 +141,15 @@ public class LogHandler {
 
     private void printLog(Log logging) {
         log.info(
-                "\n [Success: {} | Log ID: {}] \n Member: {} | \n IP: {} | \n URL: {} | \n ReqBody: {} |"
-                        + " \n RespStatus: {} | \n RespBody: {} | \n CreatedAt: {}\n",
+                "\n"
+                    + " [Success: {} | Log ID: {}] \n"
+                    + " Member: {} | \n"
+                    + " IP: {} | \n"
+                    + " URL: {} | \n"
+                    + " ReqBody: {} | \n"
+                    + " RespStatus: {} | \n"
+                    + " RespBody: {} | \n"
+                    + " CreatedAt: {}\n",
                 logging.isSuccess(),
                 logging.getId(),
                 logging.getMember() != null ? logging.getMember().getId() : "Anonymous",
